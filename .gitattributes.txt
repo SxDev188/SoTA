@@ -1,2 +1,2 @@
-#To prevent FMOD mac .bundle line endings from breaking
-*.bundle text eol=lf to
+#To prevent FMOD mac .bundle line endings from breaking 
+*.bundle text eol=lf
