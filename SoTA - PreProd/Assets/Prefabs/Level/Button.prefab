@@ -106,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8125105052124965602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,13 +120,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 440bfdcd6345fc842a1556bd5c28b19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToMoveDown: {fileID: 0}
-  objectToMoveUp: {fileID: 0}
-  objectToMoveLeft: {fileID: 0}
-  objectToMoveRight: {fileID: 0}
-  moveDistance: 1
-  moveSpeed: 2
-  interactionRange: 1
+  puzzleElements:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  interactionRange: 2
 --- !u!1 &3627961658417380180
 GameObject:
   m_ObjectHideFlags: 0
