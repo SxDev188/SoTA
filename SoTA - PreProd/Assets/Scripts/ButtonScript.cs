@@ -20,7 +20,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
     {
         if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose())
         {
-            Interact();
+            //Interact();
         }
     }
 
