@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarInteract : MonoBehaviour, IInteractable
+public class StarActions : MonoBehaviour, IInteractable
 {
     // Start is called before the first frame update
     [SerializeField] Transform playerTransform;
     Transform starTransform;
-    [SerializeField] bool isOnPlayer;
+    [SerializeField] Rigidbody starRigidbody;
+    [SerializeField] public bool IsOnPlayer { get; private set; }
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
+
+
+    Vector3 throwTargetPosition;
 
     void Start()
     {
@@ -18,7 +22,7 @@ public class StarInteract : MonoBehaviour, IInteractable
     // Update is called once per frame
     void Update()
     {
-        if (isOnPlayer)
+        if (IsOnPlayer)
         {
             starTransform.position = playerTransform.position + onPlayerOffset;
         }
@@ -26,12 +30,21 @@ public class StarInteract : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (isOnPlayer)
+        //is essentially a pick up/drop toggle
+
+        if (IsOnPlayer)
         {
-            isOnPlayer = false;
-        } else if (!isOnPlayer)
+            IsOnPlayer = false;
+        } else if (!IsOnPlayer)
         {
-            isOnPlayer = true;
+            IsOnPlayer = true;
         }
+    }
+
+    public void Throw(Vector3 targetDestination)
+    {
+        IsOnPlayer = false;
+        Debug.Log("star was thrown");
+        starRigidbody.AddForce(targetDestination);
     }
 }
