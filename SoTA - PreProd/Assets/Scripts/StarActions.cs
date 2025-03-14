@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StarActions : MonoBehaviour
@@ -8,18 +9,18 @@ public class StarActions : MonoBehaviour
     [SerializeField] Transform playerTransform;
     Transform starTransform;
     [SerializeField] Rigidbody starRigidbody;
+    [SerializeField] float throwSpeed = 10f;
+    [SerializeField] float targetDestinationAcceptanceRadius = 0.1f;
+    
     [SerializeField] public bool IsOnPlayer { get; private set; }
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
-
-
-    Vector3 throwTargetPosition;
+    [SerializeField] float frontOfPlayerOffset = 1f;
 
     void Start()
     {
         starTransform = gameObject.GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (IsOnPlayer)
@@ -30,8 +31,6 @@ public class StarActions : MonoBehaviour
 
     public void CarryToggle()
     {
-        //is essentially a pick up/drop toggle
-
         if (IsOnPlayer)
         {
             IsOnPlayer = false;
@@ -41,10 +40,29 @@ public class StarActions : MonoBehaviour
         }
     }
 
-    public void Throw(Vector3 targetDestination)
+    public void Throw(Vector3 targetDestination, Vector3 direction)
     {
-        IsOnPlayer = false;
         Debug.Log("star was thrown");
-        starRigidbody.AddForce(targetDestination);
+        IsOnPlayer = false;
+        transform.position = playerTransform.position + frontOfPlayerOffset * direction;
+
+        StartCoroutine(TravelToDestination(targetDestination));
+    }
+
+    IEnumerator TravelToDestination(Vector3 targetDestination)
+    {
+        Debug.Log("TRAVELING TO DESTINATION...");
+
+        while (Vector3.Distance(transform.position, targetDestination) > targetDestinationAcceptanceRadius)
+        {
+            Vector3 direction = targetDestination - transform.position;
+            direction = direction.normalized;
+
+            transform.position += direction * throwSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+
+        Debug.Log("DESTINATION REACHED!");
     }
 }

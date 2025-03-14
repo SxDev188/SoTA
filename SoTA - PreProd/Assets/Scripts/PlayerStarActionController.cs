@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +11,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] Transform starTransform;
     [SerializeField] float normalThrowRange = 4;
     [SerializeField] private float starPickupRange = 1.0f;
+    [SerializeField] private float sensitivity = 0.5f;
 
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
@@ -33,8 +36,14 @@ public class PlayerStarActionController : MonoBehaviour
             throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
             throwDirection.y = 0; // Keep movement on XZ plane
 
-            throwTargetDestination = throwDirection * normalThrowRange;
-            Debug.DrawRay(transform.position, throwTargetDestination / 100, Color.red);
+            throwDirection *= sensitivity / 100; //controlling the length of the throw was way too sensitive without this
+
+            if (throwDirection.sqrMagnitude > MathF.Pow(normalThrowRange, 2))
+            {
+                throwDirection = throwDirection.normalized * normalThrowRange;
+            }
+            
+            Debug.DrawRay(transform.position, throwDirection, Color.red);
         }
     }
 
@@ -60,15 +69,16 @@ public class PlayerStarActionController : MonoBehaviour
     }
     void OnLeftMouseRelease(InputValue input)
     {
-
         Debug.Log("left mouse release");
         isAiming = false;
 
         if (starActions.IsOnPlayer)
         {
-            mouseReleasePosition = Input.mousePosition;
+            //mouseReleasePosition = Input.mousePosition;
 
-            starActions.Throw(throwTargetDestination);
+            throwTargetDestination = transform.position + throwDirection;
+
+            starActions.Throw(throwTargetDestination, throwDirection.normalized);
         }
 
     }

@@ -564,7 +564,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starActions: {fileID: 1072190434}
+  starTransform: {fileID: 1072190433}
   normalThrowRange: 4
+  starPickupRange: 5
 --- !u!1 &2052179808
 GameObject:
   m_ObjectHideFlags: 0
