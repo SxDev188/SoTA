@@ -135,6 +135,11 @@ PrefabInstance:
       propertyPath: interactionRange
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 4227914367418033714, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4828962613519422564, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
       propertyPath: starActions
@@ -511,7 +516,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1793405898}
   starRigidbody: {fileID: 1072190435}
+  throwSpeed: 10
+  targetDestinationAcceptanceRadius: 0.1
   onPlayerOffset: {x: 0, y: 1, z: 0}
+  frontOfPlayerOffset: 0.5
 --- !u!54 &1072190435
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -566,7 +574,8 @@ MonoBehaviour:
   starActions: {fileID: 1072190434}
   starTransform: {fileID: 1072190433}
   normalThrowRange: 4
-  starPickupRange: 5
+  starPickupRange: 1
+  sensitivity: 1
 --- !u!1 &2052179808
 GameObject:
   m_ObjectHideFlags: 0

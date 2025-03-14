@@ -74,8 +74,6 @@ public class PlayerStarActionController : MonoBehaviour
 
         if (starActions.IsOnPlayer)
         {
-            //mouseReleasePosition = Input.mousePosition;
-
             throwTargetDestination = transform.position + throwDirection;
 
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
