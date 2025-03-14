@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarActions : MonoBehaviour, IInteractable
+public class StarActions : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] Transform playerTransform;
@@ -28,7 +28,7 @@ public class StarActions : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact()
+    public void CarryToggle()
     {
         //is essentially a pick up/drop toggle
 

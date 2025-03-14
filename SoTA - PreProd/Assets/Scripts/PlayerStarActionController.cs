@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerStarActionController : MonoBehaviour
 {
     [SerializeField] StarActions starActions;
+    [SerializeField] Transform starTransform;
     [SerializeField] float normalThrowRange = 4;
+    [SerializeField] private float starPickupRange = 1.0f;
 
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
@@ -33,6 +35,15 @@ public class PlayerStarActionController : MonoBehaviour
 
             throwTargetDestination = throwDirection * normalThrowRange;
             Debug.DrawRay(transform.position, throwTargetDestination / 100, Color.red);
+        }
+    }
+
+    void OnCarryStarToggle(InputValue input)
+    {
+        Debug.Log("on carry star toggle");
+        if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange)
+        {
+            starActions.CarryToggle();
         }
     }
 

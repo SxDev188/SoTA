@@ -30,8 +30,4 @@ public class PlayerController : MonoBehaviour
     {
         MovementInput = Vector3.zero;
     }
-
-    
-
-
 }
