@@ -13,10 +13,7 @@ public class PlayerInteract : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            OnInteract();
-        }
+        
     }
 
     private void OnInteract()
@@ -43,6 +40,7 @@ public class PlayerInteract : MonoBehaviour
         if (closestCollider != null)
         {
             closestCollider.GetComponent<IInteractable>().Interact();
+            //Debug.Log("Player has interacted with IInteractable object!!");
         }
     }
 

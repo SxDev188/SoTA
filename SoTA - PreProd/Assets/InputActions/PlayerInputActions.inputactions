@@ -31,6 +31,69 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LeftMouseDown",
+                    "type": "Button",
+                    "id": "279a865a-9c2e-4757-b7f5-375a40daac23",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftMouseRelease",
+                    "type": "Button",
+                    "id": "ab371ada-b65c-499c-8bb8-b2d27bbdb24e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CarryStarToggle",
+                    "type": "Button",
+                    "id": "98aa978e-5e02-425e-a0d8-08f70b797df0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RecallStar",
+                    "type": "Button",
+                    "id": "8064ba97-62b2-46fe-80a2-250a69d1eeab",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightMouseDown",
+                    "type": "Button",
+                    "id": "7cf4c57e-520c-4313-9993-71c6fbf90578",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightMouseRelease",
+                    "type": "Button",
+                    "id": "017a23aa-6890-4f06-91f1-6ba04504b885",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GravityPull",
+                    "type": "Button",
+                    "id": "19752a37-0b0d-480b-97cc-cf9ca8b91b1b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -152,6 +215,83 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb90ab26-cbe4-4804-a80d-6a5cb796b64d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftMouseDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39412d55-aa35-4a7c-b316-7652e3f7cacd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftMouseRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d937f48d-3c7a-4e63-88b4-7d76d9982b04",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarryStarToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abde8b7a-318a-47d4-a316-e3a7f5ade708",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RecallStar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "512fe474-429b-449e-84d6-a79d374344c8",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightMouseDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e431b15-6d9d-42ad-9820-cf07eaf8eaad",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightMouseRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be782582-1ed3-46f8-b332-2ec089810242",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GravityPull",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

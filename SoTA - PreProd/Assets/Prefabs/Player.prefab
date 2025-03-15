@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4828962613519422564}
   - component: {fileID: 3713993228428276264}
   - component: {fileID: 4227914367418033714}
+  - component: {fileID: 199537053634589386}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -195,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f6584eeaffc1d4c803c2d5a044031c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRange: 0.5
+  interactionRange: 0.75
 --- !u!54 &4227914367418033714
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -223,3 +224,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &199537053634589386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7064260204724891429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e22030020bc548815ed96d322c1a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starActions: {fileID: 0}
+  starTransform: {fileID: 0}
+  playerTransform: {fileID: 6107570803933744947}
+  playerController: {fileID: 4828962613519422564}
+  normalThrowRange: 4
+  strongThrowRange: 10
+  starPickupRange: 1
+  recallRange: 4
+  gravityPullRange: 3
+  gravityPullAcceptanceRadius: 0.5
+  gravityPullSpeed: 5
+  aimSensitivity: 0.5
