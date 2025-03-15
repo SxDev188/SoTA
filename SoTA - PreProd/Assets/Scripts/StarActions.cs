@@ -8,6 +8,8 @@ public class StarActions : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] Transform playerTransform;
     Transform starTransform;
+    SphereCollider starCollider;
+
     [SerializeField] Rigidbody starRigidbody;
     [SerializeField] float throwSpeed = 10f;
     [SerializeField] float targetDestinationAcceptanceRadius = 0.1f;
@@ -15,10 +17,14 @@ public class StarActions : MonoBehaviour
     [SerializeField] public bool IsOnPlayer { get; private set; }
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
     [SerializeField] float frontOfPlayerOffset = 1f;
+    [SerializeField] bool isTraveling = false;
+
+    IEnumerator TravelCoroutine;
 
     void Start()
     {
         starTransform = gameObject.GetComponent<Transform>();
+        starCollider = gameObject.GetComponent<SphereCollider>();
     }
 
     void Update()
@@ -47,19 +53,21 @@ public class StarActions : MonoBehaviour
         }
     }
 
-
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
         Debug.Log("star was thrown");
         IsOnPlayer = false;
         transform.position = playerTransform.position + frontOfPlayerOffset * direction;
-
-        StartCoroutine(TravelToDestination(targetDestination));
+        
+        TravelCoroutine = TravelToDestination(targetDestination);
+        StartCoroutine(TravelCoroutine);
     }
 
     IEnumerator TravelToDestination(Vector3 targetDestination)
     {
         Debug.Log("TRAVELING TO DESTINATION...");
+        isTraveling = true;
+        starRigidbody.useGravity = false;
 
         while (Vector3.Distance(transform.position, targetDestination) > targetDestinationAcceptanceRadius)
         {
@@ -71,6 +79,33 @@ public class StarActions : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("DESTINATION REACHED!");
+        StopTravelToDestination();
+    }
+
+    void StopTravelToDestination()
+    {
+        isTraveling = false;
+        starRigidbody.useGravity = true;
+        Debug.Log("TRAVEL TO DESTINATION WAS STOPPED!");
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" )
+        {
+            return;
+        }
+        
+        if (collision.gameObject.tag == "Signaler" )
+        {
+            //collision.gameObject.CollisionLogicMethod();
+            //here you can call method in whatever signaler object you collide with (such as a button)
+        }
+
+        if (isTraveling)
+        {
+            StopCoroutine(TravelCoroutine);
+            StopTravelToDestination();
+        }
     }
 }
