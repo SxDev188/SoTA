@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GravityPull",
+                    "type": "Button",
+                    "id": "19752a37-0b0d-480b-97cc-cf9ca8b91b1b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -272,6 +281,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RightMouseRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be782582-1ed3-46f8-b332-2ec089810242",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GravityPull",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

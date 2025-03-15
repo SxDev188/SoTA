@@ -158,7 +158,7 @@ PrefabInstance:
     - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 8.009
       objectReference: {fileID: 0}
     - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
@@ -391,7 +391,10 @@ PrefabInstance:
       value: Segment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6153700132028218684, guid: edbdaed33a97930448645e21881a8440, type: 3}
+    - {fileID: 3251954010744383178, guid: edbdaed33a97930448645e21881a8440, type: 3}
+    - {fileID: 1573632946152233364, guid: edbdaed33a97930448645e21881a8440, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edbdaed33a97930448645e21881a8440, type: 3}
@@ -439,10 +442,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starActions: {fileID: 1072190434}
   starTransform: {fileID: 1072190433}
+  playerTransform: {fileID: 1793405898}
+  playerController: {fileID: 1793405910}
   normalThrowRange: 4
+  strongThrowRange: 10
   starPickupRange: 1
   recallRange: 4
-  sensitivity: 1
+  gravityPullRange: 3
+  gravityPullAcceptanceRadius: 0.5
+  gravityPullSpeed: 5
+  aimSensitivity: 0.5
+--- !u!114 &1793405910 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4828962613519422564, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 9074352}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431492199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2052179808
 GameObject:
   m_ObjectHideFlags: 0

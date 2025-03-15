@@ -9,11 +9,17 @@ public class PlayerStarActionController : MonoBehaviour
 {
     [SerializeField] StarActions starActions;
     [SerializeField] Transform starTransform;
+    [SerializeField] Transform playerTransform;
+    [SerializeField] PlayerController playerController;
+
     [SerializeField] float normalThrowRange = 4;
     [SerializeField] float strongThrowRange = 10;
     [SerializeField] private float starPickupRange = 1.0f;
     [SerializeField] private float recallRange = 4.0f;
-    [SerializeField] private float sensitivity = 0.5f;
+    [SerializeField] private float gravityPullRange = 3.0f;
+    [SerializeField] private float gravityPullAcceptanceRadius = 0.5f;
+    [SerializeField] private float gravityPullSpeed = 5.0f;
+    [SerializeField] private float aimSensitivity = 0.5f;
 
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
@@ -23,13 +29,11 @@ public class PlayerStarActionController : MonoBehaviour
     Vector3 throwDirection;
     Vector3 throwTargetDestination;
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isAiming)
@@ -38,8 +42,8 @@ public class PlayerStarActionController : MonoBehaviour
             throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
             throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
             throwDirection.y = 0; // Keep movement on XZ plane
-
-            throwDirection *= sensitivity / 100; //controlling the length of the throw was way too sensitive without this
+            
+            throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
 
             if(strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
             {
@@ -120,5 +124,39 @@ public class PlayerStarActionController : MonoBehaviour
 
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
         }
+    }
+
+    void OnGravityPull(InputValue input)
+    {
+        Debug.Log("gravity pull");
+
+        if (starActions.IsOnPlayer)
+        {
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, starTransform.position) <= gravityPullRange)
+        {
+            StartCoroutine(GravityPullToDestination(starTransform.position));
+        }
+    }
+
+    IEnumerator GravityPullToDestination(Vector3 targetDestination)
+    {
+        Debug.Log("GRAVITY PULLING TO DESTINATION...");
+
+        while (Vector3.Distance(transform.position, targetDestination) > gravityPullAcceptanceRadius)
+        {
+            Vector3 direction = targetDestination - transform.position;
+            direction = direction.normalized;
+            
+            playerController.InteruptMovement();
+            transform.position += direction * gravityPullSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+
+        starActions.Recall();
+        Debug.Log("GRAVITY PULL DESTINATION REACHED!");
     }
 }
