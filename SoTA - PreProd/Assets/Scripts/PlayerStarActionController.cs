@@ -10,6 +10,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] StarActions starActions;
     [SerializeField] Transform starTransform;
     [SerializeField] float normalThrowRange = 4;
+    [SerializeField] float strongThrowRange = 10;
     [SerializeField] private float starPickupRange = 1.0f;
     [SerializeField] private float recallRange = 4.0f;
     [SerializeField] private float sensitivity = 0.5f;
@@ -18,6 +19,7 @@ public class PlayerStarActionController : MonoBehaviour
     Vector3 mouseReleasePosition;
 
     bool isAiming = false;
+    bool strongThrow = false;
     Vector3 throwDirection;
     Vector3 throwTargetDestination;
 
@@ -39,7 +41,11 @@ public class PlayerStarActionController : MonoBehaviour
 
             throwDirection *= sensitivity / 100; //controlling the length of the throw was way too sensitive without this
 
-            if (throwDirection.sqrMagnitude > MathF.Pow(normalThrowRange, 2))
+            if(strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
+            {
+                throwDirection = throwDirection.normalized * strongThrowRange;
+            }
+            else if (!strongThrow && throwDirection.sqrMagnitude > MathF.Pow(normalThrowRange, 2))
             {
                 throwDirection = throwDirection.normalized * normalThrowRange;
             }
@@ -88,6 +94,31 @@ public class PlayerStarActionController : MonoBehaviour
 
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
         }
+    }
+    
+    void OnRightMouseDown(InputValue input)
+    {
+        Debug.Log("right mouse down");
 
+        if (starActions.IsOnPlayer)
+        {
+            isAiming = true;
+            strongThrow = true;
+
+            mouseDownPosition = Input.mousePosition;
+        }
+    }
+    void OnRightMouseRelease(InputValue input)
+    {
+        Debug.Log("right mouse release");
+        isAiming = false;
+        strongThrow = false;
+
+        if (starActions.IsOnPlayer)
+        {
+            throwTargetDestination = transform.position + throwDirection;
+
+            starActions.Throw(throwTargetDestination, throwDirection.normalized);
+        }
     }
 }
