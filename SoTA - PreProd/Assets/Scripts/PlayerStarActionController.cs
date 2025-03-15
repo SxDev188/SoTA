@@ -11,6 +11,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] Transform starTransform;
     [SerializeField] float normalThrowRange = 4;
     [SerializeField] private float starPickupRange = 1.0f;
+    [SerializeField] private float recallRange = 4.0f;
     [SerializeField] private float sensitivity = 0.5f;
 
     Vector3 mouseDownPosition;
@@ -53,6 +54,15 @@ public class PlayerStarActionController : MonoBehaviour
         if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange)
         {
             starActions.CarryToggle();
+        }
+    }
+    
+    void OnRecallStar(InputValue input)
+    {
+        Debug.Log("recall");
+        if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
+        {
+            starActions.Recall();
         }
     }
 

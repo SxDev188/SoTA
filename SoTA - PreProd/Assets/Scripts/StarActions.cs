@@ -39,6 +39,14 @@ public class StarActions : MonoBehaviour
             IsOnPlayer = true;
         }
     }
+    public void Recall()
+    {
+        if (!IsOnPlayer)
+        {
+            IsOnPlayer = true;
+        }
+    }
+
 
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
