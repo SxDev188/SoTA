@@ -37,9 +37,9 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
 
             // Pass player position to shader
             material.SetVector("_PlayerPosition", playerPosition);
-            Resolution resolution = Screen.currentResolution;
-            Vector2 screenResolution = new Vector2(resolution.width, resolution.height);
+            Vector2 screenResolution = new Vector2(Screen.width, Screen.height);
             material.SetVector("_ScreenResolution", screenResolution);
+            Debug.Log(screenResolution);
 
             // Apply effect
             cmd.Blit(source, tempTexture.Identifier(), material);

@@ -110,4 +110,3 @@ MonoBehaviour:
   m_Name: RadialColorRenderFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  player: {fileID: 0}
