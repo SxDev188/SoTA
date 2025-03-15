@@ -58,7 +58,8 @@ Shader "Unlit/RadialColorMaskURP"
                 float dist = length(uvNormalized * _ScreenResolution);  
 
                 // Apply a sharp effect transition based on distance and effect radius
-                float mask = step(_EffectRadius, dist); // Step function for a sharp edge, _EffectRadius is the threshold, if dist < _EffectRadius then mask = 0 else mask equals 1
+                //float mask = step(_EffectRadius, dist); // Step function for a sharp edge, _EffectRadius is the threshold, if dist < _EffectRadius then mask = 0 else mask equals 1
+                float mask = smoothstep(_EffectRadius - 10, _EffectRadius + 10, dist); // Creates a smooth transition instead of a sharp edge
 
                 // Convert to greyscale
                 half grayscale = dot(col.rgb, half3(0.1, 0.3, 0.05)); // Intensity of the grey
