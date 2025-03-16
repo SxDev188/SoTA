@@ -16,14 +16,6 @@ public class ButtonScript : MonoBehaviour, IInteractable
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose())
-        {
-            //Interact();
-        }
-    }
-
     public void Interact()
     {
         foreach (GameObject puzzleElement in puzzleElements)
