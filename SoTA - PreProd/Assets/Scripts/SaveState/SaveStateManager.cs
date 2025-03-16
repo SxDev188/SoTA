@@ -6,8 +6,7 @@ using UnityEngine;
 public class SaveStateManager : MonoBehaviour
 {
     public static SaveStateManager Instance { get; private set; }
-    List<IActivatable> activatables = new List<IActivatable>();
-
+    [SerializeField] private List<GameObject> buttons = new List<GameObject>();
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
