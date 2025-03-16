@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons:
-  - {fileID: 2077053430}
+  - {fileID: 1060290276}
 --- !u!1001 &300855576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1109,12 +1109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85828e03c4714e94d8ede32e4a3a0a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2077053430 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2018173607138491165, guid: ad939cf480bca164a8a9d373259c8687,
-    type: 3}
-  m_PrefabInstance: {fileID: 348706565872891214}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &348706565872891214
 PrefabInstance:
   m_ObjectHideFlags: 0
