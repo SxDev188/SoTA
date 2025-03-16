@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Linus_ChangeCubeTest : MonoBehaviour, Linus_IActivateable
 {
-    public bool Active { get => Active; set => Active = value; }
+    public bool Active { get => Active; private set => Active = value; }
 
     public void Activate()
     {
