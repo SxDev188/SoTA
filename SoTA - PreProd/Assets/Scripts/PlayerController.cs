@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController characterController;
     [SerializeField] float speed = 50.0f;
+    [SerializeField] public int health = 10;
     Vector3 MovementInput = Vector3.zero;
     bool isMoving = false;
 
