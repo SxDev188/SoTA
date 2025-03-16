@@ -6,7 +6,6 @@ using UnityEngine.WSA;
 public class ButtonScript : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<GameObject> puzzleElements = new List<GameObject>();
-    [SerializeField] private float interactionRange = 2f;
 
     private bool isActive = false;
     private Transform player;
@@ -35,10 +34,5 @@ public class ButtonScript : MonoBehaviour, IInteractable
         }
 
         isActive = !isActive;
-    }
-
-    private bool PlayerIsClose()
-    {
-        return Vector3.Distance(transform.position, player.position) <= interactionRange;
     }
 }
