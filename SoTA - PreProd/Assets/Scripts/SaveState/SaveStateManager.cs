@@ -7,10 +7,10 @@ using UnityEngine;
 public class SaveStateManager : MonoBehaviour
 {
     public static SaveStateManager Instance { get; private set; }
-    [SerializeField] private List<Linus_ButtonScript> buttons = new List<Linus_ButtonScript>();
-    private List<Linus_ButtonScript> savedStateButtons;
+    [SerializeField] private List<GameObject> buttons = new List<GameObject>();
+    private List<bool> savedStateButtons = new List<bool>();
     private GameObject player;
-    private GameObject savedStatePlayer;
+    private Vector3 savedStatePlayer;
     //private bool saved = false;
     private void Awake()
     {
@@ -29,25 +29,47 @@ public class SaveStateManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-    public void Save()
+
+
+    private void OnSave()
+    {
+        Save();
+        Debug.Log("Saved");
+    }
+    private void OnLoad()
+    {
+        Load();
+        Debug.Log("Loaded");
+    }
+    private void Save()
     {
         //saved = true;
-        savedStatePlayer.CloneViaSerialization(player);
-        savedStateButtons = new List<Linus_ButtonScript>(buttons);
+        savedStateButtons.Clear();
+        foreach (GameObject button in buttons)
+        {
+            Linus_ButtonScript buttonScript = button.GetComponent<Linus_ButtonScript>();
+            savedStateButtons.Add(buttonScript.IsActive);
+        }
+        savedStatePlayer = player.transform.position;
+        Debug.Log(savedStatePlayer.ToString());
     }
-    public void Load()
+    private void Load()
     {
         if (savedStateButtons is not null)
         {
             for (int i = 0; i < buttons.Count; i++)
             {
-                if (buttons[i].IsActive != savedStateButtons[i].IsActive)
+                Linus_ButtonScript buttonScript = buttons[i].GetComponent<Linus_ButtonScript>();
+                if (buttonScript.IsActive != savedStateButtons[i])
                 {
-                    buttons[i].Interact();
+                    buttonScript.Interact();
                 }
 
             }
-            player = savedStatePlayer;
+            
+            player.transform.position = savedStatePlayer;
+            Debug.Log(savedStatePlayer.ToString());
+            Debug.Log(player.transform.position.ToString());
         }
     }
 }
