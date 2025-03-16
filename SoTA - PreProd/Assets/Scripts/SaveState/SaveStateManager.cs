@@ -51,7 +51,6 @@ public class SaveStateManager : MonoBehaviour
             savedStateButtons.Add(buttonScript.IsActive);
         }
         savedStatePlayer = player.transform.position;
-        Debug.Log(savedStatePlayer.ToString());
     }
     private void Load()
     {
@@ -68,8 +67,6 @@ public class SaveStateManager : MonoBehaviour
             }
             
             player.transform.position = savedStatePlayer;
-            Debug.Log(savedStatePlayer.ToString());
-            Debug.Log(player.transform.position.ToString());
         }
     }
 }
