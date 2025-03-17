@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 173269749}
   m_Layer: 0
   m_Name: WhiteCube
-  m_TagString: Level Object
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 1096594818}
   m_Layer: 0
   m_Name: GreenCube
-  m_TagString: Level Object
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 1171564873}
   m_Layer: 0
   m_Name: BlueCube
-  m_TagString: Level Object
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 1820118280}
   m_Layer: 0
   m_Name: RedCube
-  m_TagString: Level Object
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,6 +35,39 @@ public class PlayerController : MonoBehaviour
     {
         isMoving = false;
         MovementInput = Vector3.zero;
+    }
+
+    public void ModifyMovementAxis(bool LockX, bool LockZ)
+    {
+        if (LockX)
+        {
+            MovementInput.x = 0;
+        }
+        if (LockZ)
+        {
+            MovementInput.z = 0;
+        }
+    }
+
+    public Vector3 RayBoulderInteration()
+    {
+        RaycastHit hit;
+        Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.right, Vector3.left };
+
+        for (int i = 0; i < directions.Length; i++)
+        {
+            if (Physics.Raycast(transform.position, transform.TransformDirection(directions[i]), out hit, 2f))
+            {
+                //Debug.DrawRay(transform.position, transform.TransformDirection(directions[i]) * hit.distance, Color.red);
+
+                if(hit.transform.tag == "Boulder")
+                {
+                    return directions[i];
+                }
+            }
+        }
+
+        return Vector3.zero;
     }
 
     public void InteruptMovement()

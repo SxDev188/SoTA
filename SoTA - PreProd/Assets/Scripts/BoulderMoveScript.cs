@@ -11,15 +11,18 @@ public class BoulderMoveScript : MonoBehaviour
 
     private bool isMoving = false;
     private GameObject player;
+    private PlayerController playerController;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose())
+        // TODO: Implement with input system
+        if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose() && playerController.RayBoulderInteration() != Vector3.zero)
         {
             isMoving = !isMoving;
         }
@@ -28,22 +31,14 @@ public class BoulderMoveScript : MonoBehaviour
     private void FixedUpdate()
     {
 
-        // Snap to floor
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
-        {
-            if (!isMoving)
-            {
-                transform.position = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
-            }
-        }
-
         if (isMoving)
         {
+            LockPlayerMovement();
             this.transform.SetParent(player.transform);
         }
         else
         {
+            SnapToFloor();
             this.transform.parent = null;
         }
     }
@@ -53,6 +48,32 @@ public class BoulderMoveScript : MonoBehaviour
         if(collision.gameObject.tag == "Level Object")
         {
             isMoving = false;
+        }
+    }
+
+    private void SnapToFloor()
+    {
+        if (!isMoving)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
+            {
+                transform.position = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
+            }
+        }
+    }
+
+    private void LockPlayerMovement()
+    {
+        Vector3 playerFaceDirection = playerController.RayBoulderInteration();
+
+        if (playerFaceDirection == Vector3.forward || playerFaceDirection == Vector3.back)
+        {
+            playerController.ModifyMovementAxis(true, false);
+        }
+        else if (playerFaceDirection == Vector3.right || playerFaceDirection == Vector3.left)
+        {
+            playerController.ModifyMovementAxis(false, true);
         }
     }
 

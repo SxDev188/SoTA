@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Star
   - Level Floor
-  - Level Object
+  - Boulder
   layers:
   - Default
   - TransparentFX
