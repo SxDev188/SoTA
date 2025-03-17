@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EndPointScript : MonoBehaviour, IInteractable
+public class EndPointScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,12 +15,9 @@ public class EndPointScript : MonoBehaviour, IInteractable
     {
         if (other.CompareTag("Player"))
         {
-            Interact();
+            Debug.Log("game ended");
+            Application.Quit();
+            
         }
-    }
-    public void Interact()
-    {
-        Application.Quit();
-        Debug.Log("Game Ended");
     }
 }
