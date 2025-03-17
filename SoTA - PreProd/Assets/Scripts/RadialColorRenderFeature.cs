@@ -39,7 +39,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             material.SetVector("_PlayerPosition", playerPosition);
             Vector2 screenResolution = new Vector2(Screen.width, Screen.height);
             material.SetVector("_ScreenResolution", screenResolution);
-            Debug.Log(screenResolution);
+            //Debug.Log(screenResolution);
 
             // Apply effect
             cmd.Blit(source, tempTexture.Identifier(), material);

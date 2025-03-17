@@ -78,7 +78,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnLeftMouseDown(InputValue input)
     {
-        Debug.Log("left mouse down");
+        //Debug.Log("left mouse down");
 
         if (starActions.IsOnPlayer)
         {
@@ -89,7 +89,7 @@ public class PlayerStarActionController : MonoBehaviour
     }
     void OnLeftMouseRelease(InputValue input)
     {
-        Debug.Log("left mouse release");
+        //Debug.Log("left mouse release");
         isAiming = false;
 
         if (starActions.IsOnPlayer)
