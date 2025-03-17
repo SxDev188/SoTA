@@ -22,7 +22,9 @@ public class BoulderMoveScript : MonoBehaviour
     private void Update()
     {
         // TODO: Implement with input system
-        if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose() && playerController.RayBoulderInteration() != Vector3.zero)
+        if (Input.GetKeyDown(KeyCode.E) 
+            && PlayerIsClose() 
+            && playerController.RayBoulderInteration(interactionRange) != Vector3.zero)
         {
             isMoving = !isMoving;
         }
@@ -30,10 +32,8 @@ public class BoulderMoveScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if (isMoving)
         {
-            LockPlayerMovement();
             this.transform.SetParent(player.transform);
         }
         else
@@ -60,20 +60,6 @@ public class BoulderMoveScript : MonoBehaviour
             {
                 transform.position = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
             }
-        }
-    }
-
-    private void LockPlayerMovement()
-    {
-        Vector3 playerFaceDirection = playerController.RayBoulderInteration();
-
-        if (playerFaceDirection == Vector3.forward || playerFaceDirection == Vector3.back)
-        {
-            playerController.ModifyMovementAxis(true, false);
-        }
-        else if (playerFaceDirection == Vector3.right || playerFaceDirection == Vector3.left)
-        {
-            playerController.ModifyMovementAxis(false, true);
         }
     }
 
