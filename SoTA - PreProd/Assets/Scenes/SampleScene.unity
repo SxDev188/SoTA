@@ -122,6 +122,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &4927865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 153c417bf6c2db84a91573a0ade7274f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1435058225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &28125434
 GameObject:
   m_ObjectHideFlags: 0
@@ -10808,7 +10814,15 @@ PrefabInstance:
     - {fileID: 65702495048144492, guid: 153c417bf6c2db84a91573a0ade7274f, type: 3}
     - {fileID: -8700617353114198275, guid: 153c417bf6c2db84a91573a0ade7274f, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 153c417bf6c2db84a91573a0ade7274f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1435058230}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 153c417bf6c2db84a91573a0ade7274f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1435058229}
   m_SourcePrefab: {fileID: 100100000, guid: 153c417bf6c2db84a91573a0ade7274f, type: 3}
 --- !u!4 &1435058226 stripped
 Transform:
@@ -10816,6 +10830,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1435058225}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &1435058229
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4927865}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 153c417bf6c2db84a91573a0ade7274f, type: 3}
+--- !u!114 &1435058230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4927865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49af915cd76616c42a8331f6b79f3b80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 924760019}
 --- !u!4 &1590719032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6028772453903005524, guid: edbdaed33a97930448645e21881a8440,
@@ -16514,7 +16563,7 @@ PrefabInstance:
         type: 3}
       propertyPath: puzzleElements.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4927865}
     - target: {fileID: 4431267812656991895, guid: 7864f5e66ce00184781d1a5e4d83822a,
         type: 3}
       propertyPath: m_Name
