@@ -24,7 +24,6 @@ public class SpawnPointScript : MonoBehaviour
             Spawn();
             playerController.health = 10;
             playerController.enabled = true;
-            Debug.Log("respawned");
         }
 
     }

@@ -23,7 +23,6 @@ public class SpikeScript : MonoBehaviour, IActivatable
         if (other.CompareTag("Player"))
         {
            playerController.health = 0;
-            Debug.Log("Player has died");
         }
     }
 
