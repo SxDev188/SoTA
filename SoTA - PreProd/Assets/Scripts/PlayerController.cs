@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
         MovementInput = Vector3.zero;
     }
 
+    public void LockMovement(Vector3 Axis)
+    {
+        MovementInput = Vector3.Scale(MovementInput, Axis);
+    }
 
     public Vector3 RayBoulderInteration(float interactionRange)
     {

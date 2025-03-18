@@ -12,6 +12,7 @@ public class BoulderMoveScript : MonoBehaviour
     private bool isMoving = false;
     private GameObject player;
     private PlayerController playerController;
+    private Vector3 plrHitscan;
 
     private void Start()
     {
@@ -21,26 +22,36 @@ public class BoulderMoveScript : MonoBehaviour
 
     private void Update()
     {
+
+        plrHitscan = playerController.RayBoulderInteration(interactionRange);
+
         // TODO: Implement with input system
         if (Input.GetKeyDown(KeyCode.E) 
             && PlayerIsClose() 
-            && playerController.RayBoulderInteration(interactionRange) != Vector3.zero)
+            && plrHitscan != Vector3.zero)
         {
             isMoving = !isMoving;
         }
-    }
 
-    private void FixedUpdate()
-    {
         if (isMoving)
         {
             this.transform.SetParent(player.transform);
+
+            if(plrHitscan == Vector3.forward || plrHitscan == Vector3.back)
+            {
+                playerController.LockMovement(Vector3.forward);
+            }
+            if(plrHitscan == Vector3.right || plrHitscan == Vector3.left)
+            {
+                playerController.LockMovement(Vector3.right);
+            }
         }
         else
         {
             SnapToFloor();
             this.transform.parent = null;
         }
+
     }
 
     private void OnCollisionEnter(Collision collision)
