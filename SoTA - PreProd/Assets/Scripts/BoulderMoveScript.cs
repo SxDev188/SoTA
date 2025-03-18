@@ -60,6 +60,7 @@ public class BoulderMoveScript : MonoBehaviour
         {
             isMoving = false;
         }
+
     }
 
     private void SnapToFloor()
@@ -69,7 +70,8 @@ public class BoulderMoveScript : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
             {
-                transform.position = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
+                Vector3 targetPosition = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
+                transform.position = targetPosition;
             }
         }
     }
