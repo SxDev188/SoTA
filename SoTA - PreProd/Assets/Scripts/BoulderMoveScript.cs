@@ -45,7 +45,7 @@ public class BoulderMoveScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Level Object")
+        if(collision.gameObject.tag != "Level Floor" || collision.gameObject.tag != "Player")
         {
             isMoving = false;
         }
