@@ -10,7 +10,7 @@ public class PressurePlateScript : MonoBehaviour, IInteractable
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
             isActive = true;
             Interact();
@@ -19,7 +19,7 @@ public class PressurePlateScript : MonoBehaviour, IInteractable
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
             isActive = false;
             Interact();
