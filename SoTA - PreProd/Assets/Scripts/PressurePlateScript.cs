@@ -1,19 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PressurePlateScript : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<GameObject> puzzleElements = new List<GameObject>();
 
+    private List<GameObject> objectsOnPlate = new List<GameObject>();
+    private bool isPushedDown = false;
     private bool isActive = false;
+
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
-            isActive = true;
-            Interact();
+            objectsOnPlate.Add(other.gameObject);
+        }
+
+        if (objectsOnPlate.Count > 0)
+        {
+            if (!isPushedDown)
+            {
+                isPushedDown = true;
+                Interact();
+            }
         }
     }
 
@@ -21,7 +33,12 @@ public class PressurePlateScript : MonoBehaviour, IInteractable
     {
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
-            isActive = false;
+            objectsOnPlate.Remove(other.gameObject);
+        }
+
+        if (objectsOnPlate.Count <= 0)
+        {
+            isPushedDown = false;
             Interact();
         }
     }
@@ -33,7 +50,7 @@ public class PressurePlateScript : MonoBehaviour, IInteractable
             IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
             if (activatable != null)
             {
-                if (isActive)
+                if (isPushedDown)
                 {
                     activatable.Activate();
                 }
@@ -43,7 +60,5 @@ public class PressurePlateScript : MonoBehaviour, IInteractable
                 }
             }
         }
-
-        isActive = !isActive;
     }
 }

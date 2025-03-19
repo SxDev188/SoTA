@@ -7,7 +7,7 @@ using UnityEngine.WSA;
 public class WallScript : MonoBehaviour, IActivatable
 {
     Vector3 defaultPosition; //position when NOT activated
-    Transform activatedTransform; //contains position activated (is fetched from a child object)
+    Vector3 activatedPosition; //position activated (is fetched from a child object)
 
     bool isActive = false;
 
@@ -20,14 +20,14 @@ public class WallScript : MonoBehaviour, IActivatable
             Debug.Log("Error. Wall needs child to indicate its activated position!");
         } else
         {
-            activatedTransform = transform.GetChild(0).transform;
+            activatedPosition = transform.GetChild(0).transform.position;
         }
     }
 
     public void Activate()
     {
         //Currently a mess but works. Looks this way becase button does not call Deactivate method atm.
-        transform.position = activatedTransform.position;
+        transform.position = activatedPosition;
 
 
         //if (!isActive)
