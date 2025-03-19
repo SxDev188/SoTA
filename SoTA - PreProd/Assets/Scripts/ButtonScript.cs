@@ -13,6 +13,8 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private bool isTimerRunning = false;
     private Transform player;
 
+    public bool IsActive { get { return isPushed; } }
+
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
