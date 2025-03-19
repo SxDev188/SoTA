@@ -6,8 +6,8 @@ using UnityEngine.WSA;
 
 public class WallScript : MonoBehaviour, IActivatable
 {
-    Vector3 defaultPosition; //position when NOT activated
-    Vector3 activatedPosition; //position activated (is fetched from a child object)
+    Vector3 defaultPosition;    //position when NOT activated
+    Vector3 activatedPosition;  //position activated (is fetched from a child object)
 
     bool isActive = false;
 
@@ -26,26 +26,19 @@ public class WallScript : MonoBehaviour, IActivatable
 
     public void Activate()
     {
-        //Currently a mess but works. Looks this way becase button does not call Deactivate method atm.
-        transform.position = activatedPosition;
-
-
-        //if (!isActive)
-        //{
-        //    transform.position = activatedTransform.position;
-        //    isActive = true;
-        //}
-        //else
-        //{
-        //    Deactivate();
-        //}
-
+        if (!isActive)
+        {
+            transform.position = activatedPosition;
+            isActive = true;
+        }
     }
 
     public void Deactivate()
     {
-        //is not called by button atm, idk why
-        transform.position = defaultPosition;
-        isActive = false;
+        if(isActive)
+        {
+            transform.position = defaultPosition;
+            isActive = false;
+        }
     }
 }

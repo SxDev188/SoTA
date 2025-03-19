@@ -9,7 +9,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
     [SerializeField] private bool hasTimer = false;
     [SerializeField] private float totalTimerDuration = 3;
 
-    private bool isActive = false;
+    private bool isPushed = false;
     private bool isTimerRunning = false;
     private Transform player;
 
@@ -20,24 +20,25 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (isActive && isTimerRunning)
+        if (isPushed && isTimerRunning)
         {
             return; //we busy
         }
 
-        if (isActive)
-        {
-            DeactivateAllPuzzleElements();
-            isActive = false;
-        }
-        else if (!isActive && hasTimer)
-        {
-            StartTimerForAllPuzzleElements();
-        }
-        else if (!isActive)
+        if (!isPushed && !hasTimer)
         {
             ActivateAllPuzzleElements();
-            isActive = true;
+            isPushed = true;
+        }
+        else if (!isPushed && hasTimer)
+        {
+            StartTimerForAllPuzzleElements();
+            isPushed = true;
+        }
+        else if (isPushed && !isTimerRunning)
+        {
+            DeactivateAllPuzzleElements();
+            isPushed = false;
         }
     }
 
@@ -87,16 +88,15 @@ public class ButtonScript : MonoBehaviour, IInteractable
         }
     }
 
-    private void ToggleButtonState()
-    {
-        isActive = !isActive;
-    }
-
     private IEnumerator DeactivateDelayed(IActivatable activatable)
     {
         yield return new WaitForSeconds(totalTimerDuration);
         activatable.Deactivate();
-        isActive = false;
+        isPushed = false;
         isTimerRunning = false;
+    }
+    private void ToggleButtonState()
+    {
+        isPushed = !isPushed;
     }
 }
