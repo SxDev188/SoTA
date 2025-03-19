@@ -27,15 +27,18 @@ public class WallScript : MonoBehaviour, IActivatable
     public void Activate()
     {
         //Currently a mess but works. Looks this way becase button does not call Deactivate method atm.
-        if (!isActive)
-        {
-            transform.position = activatedTransform.position;
-            isActive = true;
-        }
-        else
-        {
-            Deactivate();
-        }
+        transform.position = activatedTransform.position;
+
+
+        //if (!isActive)
+        //{
+        //    transform.position = activatedTransform.position;
+        //    isActive = true;
+        //}
+        //else
+        //{
+        //    Deactivate();
+        //}
 
     }
 

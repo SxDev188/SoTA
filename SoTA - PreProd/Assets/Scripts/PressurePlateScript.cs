@@ -35,11 +35,11 @@ public class PressurePlateScript : MonoBehaviour, IInteractable
             {
                 if (isActive)
                 {
-                    activatable.Deactivate();
+                    activatable.Activate();
                 }
                 else
                 {
-                    activatable.Activate();
+                    activatable.Deactivate();
                 }
             }
         }
