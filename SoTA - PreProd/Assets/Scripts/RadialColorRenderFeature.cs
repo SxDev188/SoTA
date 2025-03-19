@@ -8,7 +8,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
     {
         private Material material;
         private RenderTargetHandle tempTexture;
-        private Vector4 playerPosition = new Vector4(0, 0, 0, 0); // Default
+        private Vector4 starPosition = new Vector4(0, 0, 0, 0); // Default
 
         public RadialColorRenderPass(Material mat)
         {
@@ -16,9 +16,9 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             tempTexture.Init("_TemporaryColorTexture");
         }
 
-        public void SetPlayerPosition(Vector3 screenPos)
+        public void SetStarPosition(Vector3 screenPos)
         {
-            playerPosition = new Vector4(screenPos.x, screenPos.y, 0, 0);
+            starPosition = new Vector4(screenPos.x, screenPos.y, 0, 0);
         }
 
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
@@ -36,7 +36,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             RenderTargetIdentifier source = renderingData.cameraData.renderer.cameraColorTargetHandle;
 
             // Pass player position to shader
-            material.SetVector("_PlayerPosition", playerPosition);
+            material.SetVector("_StarPosition", starPosition);
             Vector2 screenResolution = new Vector2(Screen.width, Screen.height);
             material.SetVector("_ScreenResolution", screenResolution);
             //Debug.Log(screenResolution);
@@ -83,11 +83,11 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         }
     }
 
-    public void SetPlayerPosition(Vector3 playerScreenPos)
+    public void SetStarPosition(Vector3 playerScreenPos)
     {
         if (pass != null)
         {
-            pass.SetPlayerPosition(playerScreenPos);
+            pass.SetStarPosition(playerScreenPos);
         }
     }
 }

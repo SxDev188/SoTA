@@ -821,8 +821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373ebf567f7214d48a6176dd5281b940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 924760015}
+  star: {fileID: 2052140631}
   rendererData: {fileID: 11400000, guid: c40be3174f62c4acf8c1216858c64956, type: 2}
+  smoothSpeed: 20
 --- !u!4 &1598380208
 Transform:
   m_ObjectHideFlags: 0

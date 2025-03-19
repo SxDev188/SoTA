@@ -17,7 +17,7 @@ Shader "Unlit/RadialColorMaskURP"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             float _EffectRadius;
-            float4 _PlayerPosition; // This should be the normalized screen position of the player
+            float4 _StarPosition; // This should be the normalized screen position of the star
             float2 _ScreenResolution;
 
             struct appdata_t
@@ -48,13 +48,13 @@ Shader "Unlit/RadialColorMaskURP"
                 float2 uv = i.uv;
                 half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv); // Samples from texture (the frame buffer in this case)
 
-                // Use the player position to center the effect
-                float2 center = _PlayerPosition.xy; // This is already normalized in screen space (0 to 1)
+                // Use the star position to center the effect
+                float2 center = _StarPosition.xy; // This is already normalized in screen space (0 to 1)
 
-                // Subtract to center the effect around the player
+                // Subtract to center the effect around the star
                 float2 uvNormalized = uv - center;
 
-                // Calculate distance from player position
+                // Calculate distance from star position
                 float dist = length(uvNormalized * _ScreenResolution);  
 
                 // Apply a sharp effect transition based on distance and effect radius
