@@ -6,26 +6,27 @@ using UnityEngine.WSA;
 
 public class WallScript : MonoBehaviour, IActivatable
 {
-    // Start is called before the first frame update
-    Vector3 defaultPosition;
-    [SerializeField] Transform activatedTransform;
+    Vector3 defaultPosition; //position when NOT activated
+    Transform activatedTransform; //contains position activated (is fetched from a child object)
 
     bool isActive = false;
 
     void Start()
     {
         defaultPosition = transform.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        
+        if (transform.childCount <= 0)
+        {
+            Debug.Log("Error. Wall needs child to indicate its activated position!");
+        } else
+        {
+            activatedTransform = transform.GetChild(0).transform;
+        }
     }
 
     public void Activate()
     {
-
+        //Currently a mess but works. Looks this way becase button does not call Deactivate method atm.
         if (!isActive)
         {
             transform.position = activatedTransform.position;
