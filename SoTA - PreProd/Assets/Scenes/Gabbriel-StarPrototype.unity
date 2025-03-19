@@ -724,7 +724,7 @@ PrefabInstance:
         type: 3}
       propertyPath: puzzleElements.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 383709405}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

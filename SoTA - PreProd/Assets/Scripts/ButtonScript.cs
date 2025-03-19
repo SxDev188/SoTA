@@ -25,30 +25,66 @@ public class ButtonScript : MonoBehaviour, IInteractable
             return; //we busy
         }
 
+        if (isActive)
+        {
+            DeactivateAllPuzzleElements();
+            isActive = false;
+        }
+        else if (!isActive && hasTimer)
+        {
+            StartTimerForAllPuzzleElements();
+        }
+        else if (!isActive)
+        {
+            ActivateAllPuzzleElements();
+            isActive = true;
+        }
+    }
+
+    private void ActivateAllPuzzleElements()
+    {
         foreach (GameObject puzzleElement in puzzleElements)
         {
             IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
-            if (activatable != null)
+
+            if (activatable == null)
             {
-                if (isActive)
-                {
-                    if (!isTimerRunning)
-                    {
-                        activatable.Deactivate();
-                    }
-                }
-                else
-                {
-                    if (hasTimer)
-                    {
-                        StartCoroutine(DeactivateDelayed(activatable));
-                        isTimerRunning = true;
-                    }
-                    activatable.Activate();
-                }
+                continue;
             }
+
+            activatable.Activate();
         }
-        ToggleButtonState();
+    }
+    private void DeactivateAllPuzzleElements()
+    {
+        foreach (GameObject puzzleElement in puzzleElements)
+        {
+            IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
+
+            if (activatable == null)
+            {
+                continue;
+            }
+
+            activatable.Deactivate();
+        }
+    }
+    
+    private void StartTimerForAllPuzzleElements()
+    {
+        foreach (GameObject puzzleElement in puzzleElements)
+        {
+            IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
+
+            if (activatable == null)
+            {
+                continue;
+            }
+
+            activatable.Activate();
+            StartCoroutine(DeactivateDelayed(activatable));
+            isTimerRunning = true;
+        }
     }
 
     private void ToggleButtonState()
