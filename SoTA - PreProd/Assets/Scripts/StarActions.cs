@@ -84,6 +84,8 @@ public class StarActions : MonoBehaviour
 
     void StopTravelToDestination()
     {
+        StopCoroutine(TravelCoroutine);
+
         isTraveling = false;
         starRigidbody.useGravity = true;
         Debug.Log("TRAVEL TO DESTINATION WAS STOPPED!");
@@ -96,15 +98,16 @@ public class StarActions : MonoBehaviour
             return;
         }
         
-        if (collision.gameObject.tag == "Signaler" )
+        if (collision.gameObject.tag == "Button" && isTraveling)
         {
             //collision.gameObject.CollisionLogicMethod();
             //here you can call method in whatever signaler object you collide with (such as a button)
+            collision.gameObject.GetComponent<ButtonScript>().Interact();
+            StopTravelToDestination();
         }
 
         if (isTraveling)
         {
-            StopCoroutine(TravelCoroutine);
             StopTravelToDestination();
         }
     }
