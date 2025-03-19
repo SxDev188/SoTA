@@ -17,7 +17,7 @@ public class StarActions : MonoBehaviour
     [SerializeField] public bool IsOnPlayer { get; private set; }
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
     [SerializeField] float frontOfPlayerOffset = 1f;
-    [SerializeField] bool isTraveling = false;
+    [SerializeField] public bool isTraveling = false;
 
     IEnumerator TravelCoroutine;
 
