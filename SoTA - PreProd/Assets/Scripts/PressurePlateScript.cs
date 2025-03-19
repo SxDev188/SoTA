@@ -9,8 +9,6 @@ public class PressurePlateScript : MonoBehaviour, IInteractable
 
     private List<GameObject> objectsOnPlate = new List<GameObject>();
     private bool isPushedDown = false;
-    private bool isActive = false;
-
 
     void OnTriggerEnter(Collider other)
     {
