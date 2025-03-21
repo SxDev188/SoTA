@@ -4,28 +4,6 @@ using UnityEngine;
 
 public class SpikeScript : MonoBehaviour, IActivatable
 {
-
-    [SerializeField] PlayerController playerController;
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-           playerController.health = 0;
-        }
-    }
-
     public void Activate()
     {
         transform.position += new Vector3(0, 10, 0);

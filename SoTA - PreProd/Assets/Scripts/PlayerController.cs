@@ -65,6 +65,14 @@ public class PlayerController : MonoBehaviour
         return Vector3.zero;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Spikes"))
+        {
+            health = 0;
+        }
+    }
+
     public void InteruptMovement()
     {
         //this method is needed to interupt SimpleMove since it made it
