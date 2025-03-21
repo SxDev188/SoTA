@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8125105052124965602}
   m_Layer: 0
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +125,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  interactionRange: 2
+  hasTimer: 0
+  totalTimerDuration: 3
 --- !u!1 &3627961658417380180
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +141,7 @@ GameObject:
   - component: {fileID: 7102875642571755952}
   m_Layer: 0
   m_Name: Pillar
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +246,7 @@ GameObject:
   - component: {fileID: 2720181691115027457}
   m_Layer: 0
   m_Name: TopButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
