@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PressurePlateScript : MonoBehaviour, IInteractable
+public class PressurePlateScript : MonoBehaviour
 {
     [SerializeField] private List<GameObject> puzzleElements = new List<GameObject>();
 

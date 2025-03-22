@@ -8,6 +8,7 @@ TagManager:
   - Level Floor
   - Boulder
   - Button
+  - Spikes
   layers:
   - Default
   - TransparentFX
