@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using System.Linq;
+using System.Collections.Generic;
 
 public class StarTracker : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class StarTracker : MonoBehaviour
 
     private RadialColorRenderFeature feature;
     private Vector4 smoothedStarPosition;
+
+    [SerializeField]
+    private List<Transform> lightSources;
 
     void Start()
     {
@@ -49,5 +53,12 @@ public class StarTracker : MonoBehaviour
 
         // Send the smoothed star position to the shader via the render feature
         feature.SetStarPosition(smoothedStarPosition);
+
+        List<Vector4> lightSourcePositions = new List<Vector4>();
+        foreach (Transform t in lightSources)
+        {
+            lightSourcePositions.Add(Camera.main.WorldToViewportPoint(t.position));
+        }
+        feature.SetLightPositions(lightSourcePositions);
     }
 }

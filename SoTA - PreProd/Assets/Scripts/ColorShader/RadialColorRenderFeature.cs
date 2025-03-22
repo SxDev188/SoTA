@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -9,6 +10,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         private Material material;
         private RenderTargetHandle tempTexture;
         private Vector4 starPosition = new Vector4(0, 0, 0, 0); // Default
+        private List<Vector4> lightPositions = new List<Vector4>(4);
 
         public RadialColorRenderPass(Material mat)
         {
@@ -19,6 +21,12 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         public void SetStarPosition(Vector3 screenPos)
         {
             starPosition = new Vector4(screenPos.x, screenPos.y, 0, 0);
+        }
+
+        public void SetLightPositions(List<Vector4> lightPositions)
+        {
+            this.lightPositions.Clear();
+            this.lightPositions.AddRange(lightPositions);
         }
 
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
@@ -40,6 +48,8 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             Vector2 screenResolution = new Vector2(Screen.width, Screen.height);
             material.SetVector("_ScreenResolution", screenResolution);
             //Debug.Log(screenResolution);
+
+            material.SetVectorArray("_LightPositions", lightPositions);
 
             // Apply effect
             cmd.Blit(source, tempTexture.Identifier(), material);
@@ -88,6 +98,14 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         if (pass != null)
         {
             pass.SetStarPosition(playerScreenPos);
+        }
+    }
+
+    public void SetLightPositions(List<Vector4> lights)
+    {
+        if(pass != null)
+        {
+            pass.SetLightPositions(lights);
         }
     }
 }
