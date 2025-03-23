@@ -9,6 +9,7 @@ TagManager:
   - Boulder
   - Button
   - Spikes
+  - Lamp
   layers:
   - Default
   - TransparentFX

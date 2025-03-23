@@ -9,8 +9,7 @@ public class LightTracker : MonoBehaviour
     
     [SerializeField]
     private Transform star;
-    [SerializeField]
-    private List<Transform> lightSources;
+    private List<Transform> lightSources = new List<Transform>();
     [SerializeField]
     private ScriptableRendererData rendererData;
     [SerializeField]
@@ -48,12 +47,23 @@ public class LightTracker : MonoBehaviour
         }
     }
 
+    public void TurnOffLightSource(Transform lightSource)
+    {
+        lightSources.Remove(lightSource);
+    }
+
+    public void TurnOnLightSource(Transform lightSource)
+    {
+        lightSources.Add(lightSource);
+    }
+
     void Update()
     {
         if (star == null || feature == null) return;
 
-        // Checks Star position and sets color around it
+        // Checks Star position and sends its position further
         Vector3 starViewportPos = Camera.main.WorldToViewportPoint(star.position + 0.25f * Vector3.down);
+        // 0.25f * Vector3.down is position adjustment for the radius center
         Vector4 targetStarPosition = new Vector4(starViewportPos.x, starViewportPos.y, 0, 0);
         // smoothedStarPosition is currently needed to prevent "shaking" when Star is held by player
         smoothedStarPosition = Vector4.Lerp(smoothedStarPosition, targetStarPosition, Time.deltaTime * smoothSpeed);
@@ -63,12 +73,14 @@ public class LightTracker : MonoBehaviour
         feature.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
         feature.SetEffectToggle(effectToggle);
 
-        // Checks additional lightsources and sets color around them
+        // Checks additional lightsources and sends their position further
         List<Vector4> lightSourcePositions = new List<Vector4>();
         foreach (Transform t in lightSources)
         {
-            lightSourcePositions.Add(Camera.main.WorldToViewportPoint(t.position));
+            lightSourcePositions.Add(Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down)); 
+            // 1.5f * Vector3.down is position adjustment for the radius center
         }
+
         feature.SetLightPositions(lightSourcePositions);
     }
 }
