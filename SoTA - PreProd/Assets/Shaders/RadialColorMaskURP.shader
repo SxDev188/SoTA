@@ -16,10 +16,11 @@ Shader "Unlit/RadialColorMaskURP"
             #pragma fragment frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            #define MAX_LIGHT_SOURCE_NUM 4
+            #define MAX_LIGHT_SOURCE_NUM 10 // Needs to be known at compile time
 
             float _EffectRadius;
             float4 _StarPosition; // This should be the normalized screen position of the star
+            int _ActiveLightCount;
             float4 _LightPositions[MAX_LIGHT_SOURCE_NUM]; 
             
             float2 _ScreenResolution;
@@ -82,7 +83,7 @@ Shader "Unlit/RadialColorMaskURP"
                 float mask = smoothstep(_EffectRadius - 10, _EffectRadius + 10, dist); // Creates a smooth transition instead of a sharp edge
 
                 float mask_final = mask;
-                for (int i = 0; i < MAX_LIGHT_SOURCE_NUM; ++i)
+                for (int i = 0; i < _ActiveLightCount; ++i)
                 {
                     mask_final *= GetMask(_LightPositions[i], uv);
                 }

@@ -3,18 +3,20 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+
 public class RadialColorRenderFeature : ScriptableRendererFeature
 {
     class RadialColorRenderPass : ScriptableRenderPass
     {
         private Material material;
         private RenderTargetHandle tempTexture;
-        private Vector4 starPosition = new Vector4(0, 0, 0, 0); // Default
-        private List<Vector4> lightPositions = new List<Vector4>(4);
+        private Vector4 starPosition = new Vector4(0, 0, 0, 0); // Default position, this is why the color starts in bottom left corner
+        private const int MAX_LIGHT_SOURCE_NUM = 10; // Needs to be known at compile time
+        private List<Vector4> lightPositions = new List<Vector4>(MAX_LIGHT_SOURCE_NUM);
 
-        public RadialColorRenderPass(Material mat)
+        public RadialColorRenderPass(Material material)
         {
-            this.material = mat;
+            this.material = material;
             tempTexture.Init("_TemporaryColorTexture");
         }
 
@@ -43,13 +45,12 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             // Get camera target
             RenderTargetIdentifier source = renderingData.cameraData.renderer.cameraColorTargetHandle;
 
-            // Pass player position to shader
+            // Pass star and additional lightsource positions to shader
             material.SetVector("_StarPosition", starPosition);
             Vector2 screenResolution = new Vector2(Screen.width, Screen.height);
             material.SetVector("_ScreenResolution", screenResolution);
-            //Debug.Log(screenResolution);
-
             material.SetVectorArray("_LightPositions", lightPositions);
+            material.SetInt("_ActiveLightCount", lightPositions.Count);
 
             // Apply effect
             cmd.Blit(source, tempTexture.Identifier(), material);
