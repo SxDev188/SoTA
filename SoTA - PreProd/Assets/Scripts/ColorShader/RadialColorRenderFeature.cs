@@ -15,6 +15,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         private List<Vector4> lightPositions = new List<Vector4>(MAX_LIGHT_SOURCE_NUM);
         private float effectRadius;
         private float effectRadiusSmoothing;
+        private float effectToggle;
 
         public RadialColorRenderPass(Material material)
         {
@@ -43,6 +44,11 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             this.effectRadiusSmoothing = effectAreaSmoothing;
         }
 
+        public void SetEffectToggle(float effectToggle)
+        {
+            this.effectToggle = effectToggle;
+        }
+
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
             cmd.GetTemporaryRT(tempTexture.id, cameraTextureDescriptor);
@@ -63,8 +69,11 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             material.SetVector("_ScreenResolution", screenResolution);
             material.SetVectorArray("_LightPositions", lightPositions);
             material.SetInt("_ActiveLightCount", lightPositions.Count);
+
+            // Pass effectRadius to shader
             material.SetFloat("_EffectRadius", effectRadius);
             material.SetFloat("_EffectRadiusSmoothing", effectRadiusSmoothing);
+            material.SetFloat("_EnableEffect", effectToggle);
 
             // Apply effect
             cmd.Blit(source, tempTexture.Identifier(), material);
@@ -137,6 +146,14 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         if (pass != null)
         {
             pass.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
+        }
+    }
+
+    public void SetEffectToggle(float effectToggle)
+    {
+        if (pass != null)
+        {
+            pass.SetEffectToggle(effectToggle);
         }
     }
 }

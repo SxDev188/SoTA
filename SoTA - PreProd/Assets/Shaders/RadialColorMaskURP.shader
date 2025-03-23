@@ -6,6 +6,7 @@ Shader "Unlit/RadialColorMaskURP"
         _MainTex ("Texture", 2D) = "white" {}
         _EffectRadius ("Effect Radius", Float) = 150
         _EffectRadiusSmoothing ("Effect Radius Smoothing", Float) = 10
+        _EnableEffect ("Enable Effect", Float) = 1 // This will allow toggling the shader on and off basically
     }
     SubShader
     {
@@ -25,6 +26,7 @@ Shader "Unlit/RadialColorMaskURP"
             int _ActiveLightCount;
             float4 _LightPositions[MAX_LIGHT_SOURCE_NUM]; 
             float2 _ScreenResolution;
+            float _EnableEffect;
 
             struct appdata_t
             {
@@ -59,7 +61,7 @@ Shader "Unlit/RadialColorMaskURP"
                 return smoothstep(_EffectRadius - _EffectRadiusSmoothing, _EffectRadius + _EffectRadiusSmoothing, dist); // Creates a smooth transition instead of a sharp edge
             }
 
-            half4 frag (v2f i) : SV_Target // frag = fragment
+            half4 frag (v2f i) : SV_Target
             {
                 float2 uv = i.uv;
                 half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv); // Samples from texture (the frame buffer in this case)
@@ -77,9 +79,11 @@ Shader "Unlit/RadialColorMaskURP"
                     mask_final *= GetMask(_LightPositions[i], uv);
                 }
 
+                mask_final *= _EnableEffect; // If _EnableEffect is 1, shader gets applied, if 0 it does not
+
                 // Convert to greyscale
                 half grayscale = dot(col.rgb, half3(0.1, 0.3, 0.05)); // Intensity of the grey
-                half4 greyCol = half4(grayscale, grayscale, grayscale, 1); // half4 = half precision vector, instead of 32 bits per coordinate it's 16 bits per coordinate
+                half4 greyCol = half4(grayscale, grayscale, grayscale, 1);
 
                 return lerp(col, greyCol, mask_final); // Mask is either 0 (color) or 1 (greyscale)
             }

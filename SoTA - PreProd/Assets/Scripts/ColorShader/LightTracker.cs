@@ -19,7 +19,9 @@ public class LightTracker : MonoBehaviour
     private float effectRadius = 150f;
     [SerializeField]
     private float effectRadiusSmoothing = 10f;
-    
+    [SerializeField]
+    private float effectToggle = 1f;
+
     private Vector4 smoothedStarPosition;
 
 
@@ -59,6 +61,7 @@ public class LightTracker : MonoBehaviour
 
         feature.SetLightEffectRadius(effectRadius);
         feature.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
+        feature.SetEffectToggle(effectToggle);
 
         // Checks additional lightsources and sets color around them
         List<Vector4> lightSourcePositions = new List<Vector4>();
