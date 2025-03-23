@@ -13,6 +13,8 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         private Vector4 starPosition = new Vector4(0, 0, 0, 0); // Default position, this is why the color starts in bottom left corner
         private const int MAX_LIGHT_SOURCE_NUM = 10; // Needs to be known at compile time
         private List<Vector4> lightPositions = new List<Vector4>(MAX_LIGHT_SOURCE_NUM);
+        private float effectRadius;
+        private float effectRadiusSmoothing;
 
         public RadialColorRenderPass(Material material)
         {
@@ -29,6 +31,16 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         {
             this.lightPositions.Clear();
             this.lightPositions.AddRange(lightPositions);
+        }
+
+        public void SetLightEffectRadius(float effectArea)
+        {
+            this.effectRadius = effectArea;
+        }
+
+        public void SetLightEffectRadiusSmoothing(float effectAreaSmoothing)
+        {
+            this.effectRadiusSmoothing = effectAreaSmoothing;
         }
 
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
@@ -51,6 +63,8 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             material.SetVector("_ScreenResolution", screenResolution);
             material.SetVectorArray("_LightPositions", lightPositions);
             material.SetInt("_ActiveLightCount", lightPositions.Count);
+            material.SetFloat("_EffectRadius", effectRadius);
+            material.SetFloat("_EffectRadiusSmoothing", effectRadiusSmoothing);
 
             // Apply effect
             cmd.Blit(source, tempTexture.Identifier(), material);
@@ -94,11 +108,11 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         }
     }
 
-    public void SetStarPosition(Vector3 playerScreenPos)
+    public void SetStarPosition(Vector3 starScreenPos)
     {
         if (pass != null)
         {
-            pass.SetStarPosition(playerScreenPos);
+            pass.SetStarPosition(starScreenPos);
         }
     }
 
@@ -107,6 +121,22 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         if(pass != null)
         {
             pass.SetLightPositions(lights);
+        }
+    }
+
+    public void SetLightEffectRadius(float effectRadius)
+    {
+        if (pass != null)
+        {
+            pass.SetLightEffectRadius(effectRadius);
+        }
+    }
+
+    public void SetLightEffectRadiusSmoothing(float effectRadiusSmoothing)
+    {
+        if (pass != null)
+        {
+            pass.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class LightTracker : MonoBehaviour
 {
+    private RadialColorRenderFeature feature;
+    
     [SerializeField]
     private Transform star;
     [SerializeField]
@@ -13,9 +15,13 @@ public class LightTracker : MonoBehaviour
     private ScriptableRendererData rendererData;
     [SerializeField]
     private float smoothSpeed = 20f;
-
-    private RadialColorRenderFeature feature;
+    [SerializeField]
+    private float effectRadius = 150f;
+    [SerializeField]
+    private float effectRadiusSmoothing = 10f;
+    
     private Vector4 smoothedStarPosition;
+
 
 
     void Start()
@@ -50,6 +56,9 @@ public class LightTracker : MonoBehaviour
         // smoothedStarPosition is currently needed to prevent "shaking" when Star is held by player
         smoothedStarPosition = Vector4.Lerp(smoothedStarPosition, targetStarPosition, Time.deltaTime * smoothSpeed);
         feature.SetStarPosition(smoothedStarPosition);
+
+        feature.SetLightEffectRadius(effectRadius);
+        feature.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
 
         // Checks additional lightsources and sets color around them
         List<Vector4> lightSourcePositions = new List<Vector4>();
