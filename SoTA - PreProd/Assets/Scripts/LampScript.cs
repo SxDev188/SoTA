@@ -6,25 +6,19 @@ public class LampScript : MonoBehaviour, IActivatable
 
 {
     private LightTracker tracker;
-    bool isLit = false;
+    public bool isLit = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         tracker = GameObject.Find("RadialColorManager").GetComponent<LightTracker>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        tracker.RegisterLightSource(transform);
     }
 
     public void Activate()
     {
         if (!isLit)
         {
-            tracker.TurnOnLightSource(transform);
+            //tracker.TurnOnLightSource(transform);
             isLit = true;
         }
     }
@@ -33,7 +27,7 @@ public class LampScript : MonoBehaviour, IActivatable
     {
         if (isLit)
         {
-            tracker.TurnOffLightSource(transform);
+            //tracker.TurnOffLightSource(transform);
             isLit = false;
         }
     }

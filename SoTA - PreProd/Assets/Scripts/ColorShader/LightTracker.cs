@@ -9,6 +9,7 @@ public class LightTracker : MonoBehaviour
     
     [SerializeField]
     private Transform star;
+    [SerializeField]
     private List<Transform> lightSources = new List<Transform>();
     [SerializeField]
     private ScriptableRendererData rendererData;
@@ -47,15 +48,22 @@ public class LightTracker : MonoBehaviour
         }
     }
 
-    public void TurnOffLightSource(Transform lightSource)
-    {
-        lightSources.Remove(lightSource);
-    }
-
-    public void TurnOnLightSource(Transform lightSource)
+    public void RegisterLightSource(Transform lightSource)
     {
         lightSources.Add(lightSource);
+        Debug.Log($"Registered light source: {lightSource.name}");
+        Update();
     }
+
+    //public void TurnOffLightSource(Transform lightSource)
+    //{
+    //    lightSources.Remove(lightSource);
+    //}
+
+    //public void TurnOnLightSource(Transform lightSource)
+    //{
+    //    lightSources.Add(lightSource);
+    //}
 
     void Update()
     {
@@ -74,11 +82,36 @@ public class LightTracker : MonoBehaviour
         feature.SetEffectToggle(effectToggle);
 
         // Checks additional lightsources and sends their position further
+        //List<Vector4> lightSourcePositions = new List<Vector4>();
+        //foreach (Transform t in lightSources)
+        //{
+        //    LampScript lamp = t.GetComponent<LampScript>();
+        //    if (lamp != null && lamp.isLit)
+        //    {
+        //        lightSourcePositions.Add(Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down));
+        //    }
+        //    // 1.5f * Vector3.down is position adjustment for the radius center
+        //}
+
+        Debug.Log($"LightTracker Update Running. Total registered lights: {lightSources.Count}");
+
         List<Vector4> lightSourcePositions = new List<Vector4>();
         foreach (Transform t in lightSources)
         {
-            lightSourcePositions.Add(Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down)); 
-            // 1.5f * Vector3.down is position adjustment for the radius center
+            Debug.Log($"Checking light source: {t.name}");
+
+            LampScript lamp = t.GetComponent<LampScript>();
+            if (lamp != null)
+            {
+                Debug.Log($"Lamp {t.name} found. isLit = {lamp.isLit}");
+            }
+
+            if (lamp != null && lamp.isLit)
+            {
+                Vector4 pos = Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down);
+                lightSourcePositions.Add(pos);
+                Debug.Log($"Light source {t.name} is lit at {pos}");
+            }
         }
 
         feature.SetLightPositions(lightSourcePositions);
