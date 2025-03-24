@@ -9,7 +9,7 @@ public class LightTracker : MonoBehaviour
     
     [SerializeField]
     private Transform star;
-    [SerializeField]
+    //[SerializeField]
     private List<Transform> lightSources = new List<Transform>();
     [SerializeField]
     private ScriptableRendererData rendererData;
@@ -49,7 +49,7 @@ public class LightTracker : MonoBehaviour
     public void RegisterLightSource(Transform lightSource)
     {
         lightSources.Add(lightSource);
-        Debug.Log($"Registered light source: {lightSource.name}");
+        //Debug.Log($"Registered light source: {lightSource.name}");
         Update();
     }
 
@@ -92,24 +92,24 @@ public class LightTracker : MonoBehaviour
         feature.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
         feature.SetEffectToggle(effectToggle);
 
-        Debug.Log($"LightTracker Update Running. Total registered lights: {lightSources.Count}");
+        //Debug.Log($"LightTracker Update Running. Total registered lights: {lightSources.Count}");
 
         List<Vector4> lightSourcePositions = new List<Vector4>();
         foreach (Transform t in lightSources)
         {
-            Debug.Log($"Checking light source: {t.name}");
+            //Debug.Log($"Checking light source: {t.name}");
 
             LampScript lamp = t.GetComponent<LampScript>();
-            if (lamp != null)
-            {
-                Debug.Log($"Lamp {t.name} found. isLit = {lamp.isLit}");
-            }
+            //if (lamp != null)
+            //{
+            //    Debug.Log($"Lamp {t.name} found. isLit = {lamp.isLit}");
+            //}
 
             if (lamp != null && lamp.isLit)
             {
                 Vector4 pos = Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down);
                 lightSourcePositions.Add(pos);
-                Debug.Log($"Light source {t.name} is lit at {pos}");
+                //Debug.Log($"Light source {t.name} is lit at {pos}");
             }
         }
 
