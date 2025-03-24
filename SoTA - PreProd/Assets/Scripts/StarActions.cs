@@ -97,6 +97,10 @@ public class StarActions : MonoBehaviour
         {
             return;
         }
+        if (collision.gameObject.tag == "Spikes" )
+        {
+            return;
+        }
         
         if (collision.gameObject.tag == "Button" && isTraveling)
         {
