@@ -24,8 +24,6 @@ public class LightTracker : MonoBehaviour
 
     private Vector4 smoothedStarPosition;
 
-
-
     void Start()
     {
         if (rendererData == null || star == null)
@@ -55,15 +53,28 @@ public class LightTracker : MonoBehaviour
         Update();
     }
 
-    //public void TurnOffLightSource(Transform lightSource)
-    //{
-    //    lightSources.Remove(lightSource);
-    //}
+    public void RefreshLightSources()
+    {
+        List<Vector4> lightSourcePositions = new List<Vector4>();
 
-    //public void TurnOnLightSource(Transform lightSource)
-    //{
-    //    lightSources.Add(lightSource);
-    //}
+        foreach (Transform t in lightSources)
+        {
+            LampScript lamp = t.GetComponent<LampScript>();
+            if (lamp != null && lamp.isLit)
+            {
+                Vector4 pos = Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down);
+                lightSourcePositions.Add(pos);
+            }
+        }
+
+        // Ensure exactly MAX_LIGHT_SOURCE_NUM elements (10) so the shader doesn't read junk data
+        while (lightSourcePositions.Count < 10)
+        {
+            lightSourcePositions.Add(new Vector4(-1, -1, 0, 0)); // Placeholder for inactive lights
+        }
+
+        feature.SetLightPositions(lightSourcePositions);
+    }
 
     void Update()
     {
@@ -80,18 +91,6 @@ public class LightTracker : MonoBehaviour
         feature.SetLightEffectRadius(effectRadius);
         feature.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
         feature.SetEffectToggle(effectToggle);
-
-        // Checks additional lightsources and sends their position further
-        //List<Vector4> lightSourcePositions = new List<Vector4>();
-        //foreach (Transform t in lightSources)
-        //{
-        //    LampScript lamp = t.GetComponent<LampScript>();
-        //    if (lamp != null && lamp.isLit)
-        //    {
-        //        lightSourcePositions.Add(Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down));
-        //    }
-        //    // 1.5f * Vector3.down is position adjustment for the radius center
-        //}
 
         Debug.Log($"LightTracker Update Running. Total registered lights: {lightSources.Count}");
 

@@ -16,6 +16,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         private float effectRadius;
         private float effectRadiusSmoothing;
         private float effectToggle;
+        private int activeLightCount = 0;
 
         public RadialColorRenderPass(Material material)
         {
@@ -28,10 +29,23 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             starPosition = new Vector4(screenPos.x, screenPos.y, 0, 0);
         }
 
-        public void SetLightPositions(List<Vector4> lightPositions)
+        public void SetLightPositions(List<Vector4> lights)
         {
-            this.lightPositions.Clear();
-            this.lightPositions.AddRange(lightPositions);
+            lightPositions.Clear();
+
+            // Ensure we maintain a fixed-size array by padding with zeroed vectors because otherwise the shader messes up positions when lights are turned on or off
+            for (int i = 0; i < MAX_LIGHT_SOURCE_NUM; i++)
+            {
+                if (i < lights.Count)
+                    lightPositions.Add(lights[i]);
+                else
+                    lightPositions.Add(Vector4.zero); // Fill remaining slots with (0,0,0,0)
+            }
+        }
+
+        public void SetActiveLightCount(int count)
+        {
+            activeLightCount = count;
         }
 
         public void SetLightEffectRadius(float effectArea)
@@ -60,17 +74,15 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
 
             CommandBuffer cmd = CommandBufferPool.Get("Radial Color Effect");
 
-            // Get camera target
             RenderTargetIdentifier source = renderingData.cameraData.renderer.cameraColorTargetHandle;
 
-            // Pass star and additional lightsource positions to shader
+            // Pass star and additional light source positions to shader
             material.SetVector("_StarPosition", starPosition);
-            Vector2 screenResolution = new Vector2(Screen.width, Screen.height);
-            material.SetVector("_ScreenResolution", screenResolution);
+            material.SetVector("_ScreenResolution", new Vector2(Screen.width, Screen.height));
             material.SetVectorArray("_LightPositions", lightPositions);
-            material.SetInt("_ActiveLightCount", lightPositions.Count);
+            material.SetInt("_ActiveLightCount", activeLightCount);
 
-            // Pass effectRadius to shader
+            // Pass effect radius to shader
             material.SetFloat("_EffectRadius", effectRadius);
             material.SetFloat("_EffectRadiusSmoothing", effectRadiusSmoothing);
             material.SetFloat("_EnableEffect", effectToggle);
@@ -130,6 +142,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         if(pass != null)
         {
             pass.SetLightPositions(lights);
+            pass.SetActiveLightCount(lights.Count);
         }
     }
 
