@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +10,15 @@ public class PressurePlateScript : MonoBehaviour
 
     private List<GameObject> objectsOnPlate = new List<GameObject>();
     private bool isPushedDown = false;
+
+    private EventInstance pressurePlateSFX;
+
+
+    private void Start()
+    {
+        pressurePlateSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
+
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -22,6 +32,9 @@ public class PressurePlateScript : MonoBehaviour
             if (!isPushedDown)
             {
                 isPushedDown = true;
+                pressurePlateSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
+                pressurePlateSFX.start();
+
                 Interact();
             }
         }
@@ -37,6 +50,10 @@ public class PressurePlateScript : MonoBehaviour
         if (objectsOnPlate.Count <= 0)
         {
             isPushedDown = false;
+            pressurePlateSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+            pressurePlateSFX.start();
+
+
             Interact();
         }
     }

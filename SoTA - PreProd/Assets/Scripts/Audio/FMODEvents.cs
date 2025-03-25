@@ -6,9 +6,7 @@ using FMODUnity;
 public class FMODEvents : MonoBehaviour
 {
     [field: Header("Button SFX")]
-    [field: SerializeField] public EventReference ButtonPushedDownSound { get; private set; }
-    [field: SerializeField] public EventReference ButtonPushedUpSound { get; private set; }
-    [field: SerializeField] public EventReference ButtonPushedFailSound { get; private set; }
+    [field: SerializeField] public EventReference ButtonSFX { get; private set; }
 
     [field: Header("Slither SFX")]
     [field: SerializeField] public EventReference SlitherSound { get; private set; }

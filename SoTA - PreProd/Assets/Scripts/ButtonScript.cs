@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,39 +15,51 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private bool isTimerRunning = false;
     private Transform player;
 
+    private EventInstance buttonSFX;
+
+
     public bool IsActive { get { return isPushed; } }
 
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
+
     }
 
     public void Interact()
     {
         if (isPushed && isTimerRunning)
         {
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedFailSound, this.transform.position);
+            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushFail");
+            buttonSFX.start();
+
             return; //we busy
         }
 
         if (!isPushed && !hasTimer)
         {
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedDownSound, this.transform.position);
+            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
+
             ActivateAllPuzzleElements();
             isPushed = true;
         }
         else if (!isPushed && hasTimer)
         {
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedDownSound, this.transform.position);
+            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
+
             StartTimerForAllPuzzleElements();
             isPushed = true;
         }
         else if (isPushed && !isTimerRunning)
         {
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedUpSound, this.transform.position);
+            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+
             DeactivateAllPuzzleElements();
             isPushed = false;
         }
+
+        buttonSFX.start();
     }
 
     private void ActivateAllPuzzleElements()
@@ -101,6 +114,9 @@ public class ButtonScript : MonoBehaviour, IInteractable
         activatable.Deactivate();
         isPushed = false;
         isTimerRunning = false;
+
+        buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+        buttonSFX.start();
     }
     private void ToggleButtonState()
     {

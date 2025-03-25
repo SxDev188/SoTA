@@ -2002,6 +2002,13 @@ MonoBehaviour:
       Data3: -331390329
       Data4: -1642100871
     Path: event:/ButtonPushedFail
+  <ButtonSFX>k__BackingField:
+    Guid:
+      Data1: 1523794293
+      Data2: 1316951208
+      Data3: -486885958
+      Data4: 1012051852
+    Path: event:/ButtonSFX
   <SlitherSound>k__BackingField:
     Guid:
       Data1: 105197990
