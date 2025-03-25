@@ -110,6 +110,18 @@ public class StarActions : MonoBehaviour
             StopTravelToDestination();
         }
 
+        if(collision.gameObject.tag == "Lamp" && isTraveling)
+        {
+            LampScript lamp = collision.gameObject.GetComponent<LampScript>();
+            if (!lamp.IsLit)
+            {
+                lamp.Activate();
+            } else if(lamp.IsLit)
+            {
+                lamp.Deactivate();
+            }
+        }
+
         if (isTraveling)
         {
             StopTravelToDestination();

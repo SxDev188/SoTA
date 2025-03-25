@@ -6,7 +6,7 @@ public class LampScript : MonoBehaviour, IActivatable
 
 {
     private LightTracker tracker;
-    public bool isLit = false;
+    public bool IsLit { get; private set; } = false;
 
     void Start()
     {
@@ -16,18 +16,18 @@ public class LampScript : MonoBehaviour, IActivatable
 
     public void Activate()
     {
-        if (!isLit)
+        if (!IsLit)
         {
-            isLit = true;
+            IsLit = true;
             tracker.RefreshLightSources();
         }
     }
 
     public void Deactivate()
     {
-        if (isLit)
+        if (IsLit)
         {
-            isLit = false;
+            IsLit = false;
             tracker.RefreshLightSources();
         }
     }
