@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using FMOD.Studio;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,9 +15,16 @@ public class PlayerController : MonoBehaviour
     Vector3 MovementInput = Vector3.zero;
     bool isMoving = false;
 
+    private EventInstance playerSlither;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        playerSlither = AudioManager.Instance.CreateInstance(FMODEvents.Instance.SlitherSound);
     }
 
     void Update()
@@ -24,6 +32,9 @@ public class PlayerController : MonoBehaviour
         if (isMoving) {
             characterController.SimpleMove(MovementInput * speed * Time.deltaTime);
         }
+
+        UpdateSound();
+
     }
 
     void OnMoveInput(InputValue input)
@@ -78,5 +89,23 @@ public class PlayerController : MonoBehaviour
         //this method is needed to interupt SimpleMove since it made it
         //impossible to manipulate the players transform directly for the gravity pull
         isMoving = false;
+    }
+
+    private void FixedUpdate()
+    {
+    }
+
+    private void UpdateSound()
+    {
+        if (isMoving)
+        {
+            PLAYBACK_STATE playbackState;
+            playerSlither.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                playerSlither.start();
+            }
+        }
     }
 }

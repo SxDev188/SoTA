@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,21 +25,25 @@ public class ButtonScript : MonoBehaviour, IInteractable
     {
         if (isPushed && isTimerRunning)
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedFailSound, this.transform.position);
             return; //we busy
         }
 
         if (!isPushed && !hasTimer)
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedDownSound, this.transform.position);
             ActivateAllPuzzleElements();
             isPushed = true;
         }
         else if (!isPushed && hasTimer)
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedDownSound, this.transform.position);
             StartTimerForAllPuzzleElements();
             isPushed = true;
         }
         else if (isPushed && !isTimerRunning)
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ButtonPushedUpSound, this.transform.position);
             DeactivateAllPuzzleElements();
             isPushed = false;
         }
