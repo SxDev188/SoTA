@@ -60,7 +60,7 @@ public class LightTracker : MonoBehaviour
         foreach (Transform t in lightSources)
         {
             LampScript lamp = t.GetComponent<LampScript>();
-            if (lamp != null && lamp.isLit)
+            if (lamp != null && lamp.IsLit)
             {
                 Vector4 pos = Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down);
                 lightSourcePositions.Add(pos);
@@ -105,7 +105,7 @@ public class LightTracker : MonoBehaviour
             //    Debug.Log($"Lamp {t.name} found. isLit = {lamp.isLit}");
             //}
 
-            if (lamp != null && lamp.isLit)
+            if (lamp != null && lamp.IsLit)
             {
                 Vector4 pos = Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down);
                 lightSourcePositions.Add(pos);
