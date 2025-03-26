@@ -17,7 +17,7 @@ public class StarActions : MonoBehaviour
     [SerializeField] public bool IsOnPlayer { get; private set; }
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
     [SerializeField] float frontOfPlayerOffset = 1f;
-    [SerializeField] bool isTraveling = false;
+    public bool isTraveling = false;
 
     IEnumerator TravelCoroutine;
 
@@ -84,6 +84,8 @@ public class StarActions : MonoBehaviour
 
     void StopTravelToDestination()
     {
+        StopCoroutine(TravelCoroutine);
+
         isTraveling = false;
         starRigidbody.useGravity = true;
         Debug.Log("TRAVEL TO DESTINATION WAS STOPPED!");
@@ -95,16 +97,33 @@ public class StarActions : MonoBehaviour
         {
             return;
         }
+        if (collision.gameObject.tag == "Spikes" )
+        {
+            return;
+        }
         
-        if (collision.gameObject.tag == "Signaler" )
+        if (collision.gameObject.tag == "Button" && isTraveling)
         {
             //collision.gameObject.CollisionLogicMethod();
             //here you can call method in whatever signaler object you collide with (such as a button)
+            collision.gameObject.GetComponent<ButtonScript>().Interact();
+            StopTravelToDestination();
+        }
+
+        if(collision.gameObject.tag == "Lamp" && isTraveling)
+        {
+            LampScript lamp = collision.gameObject.GetComponent<LampScript>();
+            if (!lamp.IsLit)
+            {
+                lamp.Activate();
+            } else if(lamp.IsLit)
+            {
+                lamp.Deactivate();
+            }
         }
 
         if (isTraveling)
         {
-            StopCoroutine(TravelCoroutine);
             StopTravelToDestination();
         }
     }

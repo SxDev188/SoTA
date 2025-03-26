@@ -21,10 +21,10 @@ public class Linus_ButtonScript : MonoBehaviour, IInteractable
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose())
-        {
-            Interact();
-        }
+        //if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose())
+        //{
+        //    Interact();
+        //}
     }
 
     public void Interact()
