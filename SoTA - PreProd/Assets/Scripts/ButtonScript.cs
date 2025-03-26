@@ -16,8 +16,6 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private Transform player;
 
     private EventInstance buttonSFX;
-
-
     public bool IsActive { get { return isPushed; } }
 
     public void Start()

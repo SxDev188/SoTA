@@ -1,55 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
-public class Linus_ButtonScript : MonoBehaviour, IInteractable
+public class Linus_ButtonScript : Linus_Signaler, IInteractable
 {
-    [SerializeField] private List<GameObject> puzzleElements = new List<GameObject>();
-    [SerializeField] private float interactionRange = 2f;
+    [SerializeField] private bool hasTimer = false;
+    [SerializeField] private float totalTimerDuration = 3;
 
-    private bool isActive = false;
-    private Transform player;
-
-    //Only row that I added
-    public bool IsActive { get { return isActive; } }
-
-    public void Start()
+    private bool isTimerRunning = false;
+    void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.E) && PlayerIsClose())
-        //{
-        //    Interact();
-        //}
+        signalerSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
     }
 
     public void Interact()
     {
-        foreach (GameObject puzzleElement in puzzleElements)
-        {
-            IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
-            if (activatable != null)
-            {
-                if (isActive)
-                {
-                    activatable.Deactivate();
-                }
-                else
-                {
-                    activatable.Activate();
-                }
-            }
-        }
-
-        isActive = !isActive;
-    }
-
-    private bool PlayerIsClose()
-    {
-        return Vector3.Distance(transform.position, player.position) <= interactionRange;
+        throw new System.NotImplementedException();
     }
 }

@@ -11,6 +11,7 @@ public class SaveStateManager : MonoBehaviour
     private List<bool> savedStateButtons = new List<bool>();
     private GameObject player;
     private Vector3 savedStatePlayer;
+    private List<SaveData> saves = new List<SaveData>();
     //private bool saved = false;
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class SaveStateManager : MonoBehaviour
         savedStateButtons.Clear();
         foreach (GameObject button in buttons)
         {
-            Linus_ButtonScript buttonScript = button.GetComponent<Linus_ButtonScript>();
+            ButtonScript buttonScript = button.GetComponent<ButtonScript>();
             savedStateButtons.Add(buttonScript.IsActive);
         }
         savedStatePlayer = player.transform.position;
@@ -58,7 +59,7 @@ public class SaveStateManager : MonoBehaviour
         {
             for (int i = 0; i < buttons.Count; i++)
             {
-                Linus_ButtonScript buttonScript = buttons[i].GetComponent<Linus_ButtonScript>();
+                ButtonScript buttonScript = buttons[i].GetComponent<ButtonScript>();
                 if (buttonScript.IsActive != savedStateButtons[i])
                 {
                     buttonScript.Interact();

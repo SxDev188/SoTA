@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData : MonoBehaviour
+public class SaveData 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Vector3 playerPosition;
+    List<Vector3> boulderPositions = new List<Vector3>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
