@@ -6,21 +6,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 using FMOD.Studio;
+using Unity.VisualScripting;
+using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    //CharacterController characterController;
     Rigidbody playerRigidbody;
     [SerializeField] float speed = 50.0f;
     [SerializeField] public int health = 10;
     Vector3 MovementInput = Vector3.zero;
     bool isMoving = false;
 
-    private EventInstance playerSlither;
+    [SerializeField] float maxVelocity = 5;
+
+    private EventInstance playerSlither; //Audio
+
+    [SerializeField] float movementRotationByDegrees = 45;
+    Vector3 RotationAxis = Vector3.up;
 
     private void Awake()
     {
-        //characterController = GetComponent<CharacterController>();
         playerRigidbody = GetComponent<Rigidbody>();
     }
 
@@ -31,18 +36,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //if (isMoving) {
-        //    characterController.SimpleMove(MovementInput * speed * Time.deltaTime);
-        //}
 
-
-        //characterController.SimpleMove(MovementInput * speed * Time.deltaTime);
-        playerRigidbody.velocity = MovementInput * speed * Time.deltaTime;
-
-
+        //TruncateVelocity();
 
         UpdateSound();
+    }
 
+    private void FixedUpdate()
+    {
+        playerRigidbody.velocity = MovementInput * speed * Time.deltaTime;
+    }
+
+    void TruncateVelocity()
+    {
+        //does not seem to be working properly
+        if (playerRigidbody.velocity.magnitude > maxVelocity)
+        {
+            playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxVelocity;
+        }
     }
 
     void OnMoveInput(InputValue input)
@@ -50,6 +61,8 @@ public class PlayerController : MonoBehaviour
         isMoving = true;
         Vector2 input2d = input.Get<Vector2>();
         MovementInput = new Vector3(input2d.x, MovementInput.y, input2d.y);
+
+        MovementInput = RotateVector3(MovementInput, movementRotationByDegrees, rotationAxis);
     }
 
     void OnMoveRelease(InputValue input)
@@ -74,7 +87,7 @@ public class PlayerController : MonoBehaviour
             {
                 //Debug.DrawRay(transform.position, transform.TransformDirection(directions[i]) * hit.distance, Color.red);
 
-                if(hit.transform.tag == "Boulder")
+                if (hit.transform.tag == "Boulder")
                 {
                     return directions[i];
                 }
@@ -99,9 +112,7 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
     }
 
-    private void FixedUpdate()
-    {
-    }
+    
 
     private void UpdateSound()
     {
@@ -115,5 +126,16 @@ public class PlayerController : MonoBehaviour
                 playerSlither.start();
             }
         }
+    }
+
+
+
+    public float rotationAngle = 45f; // The rotation angle in degrees
+    public Vector3 rotationAxis = Vector3.up; // The axis around which to rotate
+
+    private Vector3 RotateVector3(Vector3 vectorToRotate, float degrees, Vector3 rotationAxis)
+    {
+        Vector3 rotatedVector = Quaternion.AngleAxis(degrees, rotationAxis) * vectorToRotate;
+        return rotatedVector;
     }
 }
