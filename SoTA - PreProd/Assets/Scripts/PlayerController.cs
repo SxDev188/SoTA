@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private EventInstance playerSlither; //Audio
 
     [SerializeField] float movementRotationByDegrees = 45;
-    Vector3 RotationAxis = Vector3.up;
+    Vector3 rotationAxis = Vector3.up;
 
     private void Awake()
     {
@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         //TruncateVelocity();
 
         UpdateSound();
@@ -112,8 +111,6 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
     }
 
-    
-
     private void UpdateSound()
     {
         if (isMoving)
@@ -127,11 +124,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
-
-    public float rotationAngle = 45f; // The rotation angle in degrees
-    public Vector3 rotationAxis = Vector3.up; // The axis around which to rotate
 
     private Vector3 RotateVector3(Vector3 vectorToRotate, float degrees, Vector3 rotationAxis)
     {
