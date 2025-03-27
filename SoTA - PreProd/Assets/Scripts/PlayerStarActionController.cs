@@ -21,6 +21,14 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private float gravityPullSpeed = 5.0f;
     [SerializeField] private float aimSensitivity = 0.5f;
 
+
+
+    [SerializeField] private bool recallAllowed = false;
+    [SerializeField] private bool gravityPullAllowed = false;
+    [SerializeField] private bool strongThrowAllowed = false;
+
+
+
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
 
@@ -74,6 +82,11 @@ public class PlayerStarActionController : MonoBehaviour
     
     void OnRecallStar(InputValue input)
     {
+        if (!recallAllowed)
+        {
+            return;
+        }
+
         Debug.Log("recall");
         if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
         {
@@ -107,6 +120,11 @@ public class PlayerStarActionController : MonoBehaviour
     
     void OnRightMouseDown(InputValue input)
     {
+        if (!strongThrowAllowed)
+        {
+            return;
+        }
+
         Debug.Log("right mouse down");
 
         if (starActions.IsOnPlayer)
@@ -119,6 +137,11 @@ public class PlayerStarActionController : MonoBehaviour
     }
     void OnRightMouseRelease(InputValue input)
     {
+        if (!strongThrowAllowed)
+        {
+            return;
+        }
+
         Debug.Log("right mouse release");
         isAiming = false;
         strongThrow = false;
@@ -133,6 +156,11 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnGravityPull(InputValue input)
     {
+        if (!gravityPullAllowed)
+        {
+            return;
+        }
+
         Debug.Log("gravity pull");
 
         if (starActions.IsOnPlayer)
