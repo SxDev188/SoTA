@@ -647,6 +647,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <TimerTickingSFX>k__BackingField.Path
+      value: event:/TimerTicking
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <TimerTickingSFX>k__BackingField.Guid.Data1
+      value: -2072432112
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <TimerTickingSFX>k__BackingField.Guid.Data2
+      value: 1197504309
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <TimerTickingSFX>k__BackingField.Guid.Data3
+      value: 2145628607
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <TimerTickingSFX>k__BackingField.Guid.Data4
+      value: -56747037
+      objectReference: {fileID: 0}
     - target: {fileID: 5578199862620801904, guid: ac217389566a5b740adafca9f4e04c99,
         type: 3}
       propertyPath: m_Name

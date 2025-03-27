@@ -16,6 +16,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private Transform player;
 
     private EventInstance buttonSFX;
+    private EventInstance timerTickingSFX;
 
 
     public bool IsActive { get { return isPushed; } }
@@ -24,6 +25,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
+        timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
 
     }
 
@@ -47,6 +49,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
         else if (!isPushed && hasTimer)
         {
             buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
+            timerTickingSFX.start();
 
             StartTimerForAllPuzzleElements();
             isPushed = true;
@@ -115,6 +118,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
         isPushed = false;
         isTimerRunning = false;
 
+        timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
         buttonSFX.start();
     }
