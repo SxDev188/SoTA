@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerStarActionController : MonoBehaviour
 {
-    [SerializeField] StarActions starActions;
-    [SerializeField] Transform starTransform;
-    [SerializeField] Transform playerTransform;
-    [SerializeField] PlayerController playerController;
+    /*[SerializeField]*/ StarActions starActions;
+    /*[SerializeField]*/ Transform starTransform;
+    /*[SerializeField]*/ Transform playerTransform;
+    /*[SerializeField]*/ PlayerController playerController;
 
     [SerializeField] float normalThrowRange = 4;
     [SerializeField] float strongThrowRange = 10;
@@ -31,7 +31,12 @@ public class PlayerStarActionController : MonoBehaviour
 
     void Start()
     {
-        
+        GameObject star = GameObject.FindGameObjectWithTag("Star");
+        starActions = star.GetComponent<StarActions>();
+        starTransform = star.GetComponent<Transform>();
+
+        playerTransform = this.GetComponent<Transform>();
+        playerController = this.GetComponent<PlayerController>();
     }
 
     void Update()

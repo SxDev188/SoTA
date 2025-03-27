@@ -6,11 +6,11 @@ using UnityEngine;
 public class StarActions : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] Transform playerTransform;
+    /*[SerializeField]*/ Transform playerTransform;
     Transform starTransform;
     SphereCollider starCollider;
 
-    [SerializeField] Rigidbody starRigidbody;
+    /*[SerializeField]*/ Rigidbody starRigidbody;
     [SerializeField] float throwSpeed = 10f;
     [SerializeField] float targetDestinationAcceptanceRadius = 0.1f;
     
@@ -25,6 +25,8 @@ public class StarActions : MonoBehaviour
     {
         starTransform = gameObject.GetComponent<Transform>();
         starCollider = gameObject.GetComponent<SphereCollider>();
+        starRigidbody = gameObject.GetComponent<Rigidbody>();
+        playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
 
     void Update()
