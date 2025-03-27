@@ -707,12 +707,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac217389566a5b740adafca9f4e04c99, type: 3}
---- !u!4 &924760015 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 2774991092721692151}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1096594813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,11 +1001,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2183563614182596134, guid: 9167c42aada8d084dbe03bc2224ed034,
-        type: 3}
-      propertyPath: playerTransform
-      value: 
-      objectReference: {fileID: 924760015}
     - target: {fileID: 3382943973571058569, guid: 9167c42aada8d084dbe03bc2224ed034,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1065,11 +1054,6 @@ PrefabInstance:
     - target: {fileID: 6472485610763123737, guid: 9167c42aada8d084dbe03bc2224ed034,
         type: 3}
       propertyPath: m_Name
-      value: Star
-      objectReference: {fileID: 0}
-    - target: {fileID: 6472485610763123737, guid: 9167c42aada8d084dbe03bc2224ed034,
-        type: 3}
-      propertyPath: m_TagString
       value: Star
       objectReference: {fileID: 0}
     m_RemovedComponents: []

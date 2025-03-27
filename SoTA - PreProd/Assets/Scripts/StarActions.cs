@@ -19,7 +19,8 @@ public class StarActions : MonoBehaviour
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
     [SerializeField] float frontOfPlayerOffset = 1f;
 
-    [SerializeField] float fixedYValueWhenThrown = 7;
+    [SerializeField] float yOffsetWhenThrown = 0.5f;
+    float fixedYValueWhenThrown;
     
     public bool isTraveling = false;
 
@@ -64,7 +65,10 @@ public class StarActions : MonoBehaviour
         Debug.Log("star was thrown");
         isOnPlayer = false;
         Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
+        
+        fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
         throwStartPosition.y = fixedYValueWhenThrown;
+
         transform.position = throwStartPosition;
 
         Vector3 newTargetDestination = targetDestination;

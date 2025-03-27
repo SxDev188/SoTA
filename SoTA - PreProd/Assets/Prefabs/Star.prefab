@@ -151,5 +151,5 @@ MonoBehaviour:
   isOnPlayer: 0
   onPlayerOffset: {x: 0, y: 1, z: 0}
   frontOfPlayerOffset: 0.5
-  fixedYValueWhenThrown: 7.3
+  yOffsetWhenThrown: 0.4
   isTraveling: 0
