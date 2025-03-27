@@ -107,7 +107,7 @@ public class LightTracker : MonoBehaviour
 
             if (lamp != null && lamp.IsLit)
             {
-                Vector4 pos = Camera.main.WorldToViewportPoint(t.position + 1.5f * Vector3.down);
+                Vector4 pos = Camera.main.WorldToViewportPoint(t.position);
                 lightSourcePositions.Add(pos);
                 //Debug.Log($"Light source {t.name} is lit at {pos}");
             }
