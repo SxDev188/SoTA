@@ -137,13 +137,43 @@ PrefabInstance:
       objectReference: {fileID: 877217408}
     - target: {fileID: 199537053634589386, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
+      propertyPath: recallAllowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199537053634589386, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+        type: 3}
       propertyPath: starTransform
       value: 
       objectReference: {fileID: 877217407}
+    - target: {fileID: 199537053634589386, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+        type: 3}
+      propertyPath: gravityPullAllowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199537053634589386, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+        type: 3}
+      propertyPath: strongThrowAllowed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4828962613519422564, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
       propertyPath: characterController
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
@@ -153,7 +183,7 @@ PrefabInstance:
     - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6107570803933744947, guid: 81860c53fd1a3834ab0f0256cdbc29c8,
         type: 3}
@@ -863,6 +893,11 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 74923877}
+    - target: {fileID: 2183563614182596134, guid: 9167c42aada8d084dbe03bc2224ed034,
+        type: 3}
+      propertyPath: fixedYValueWhenThrown
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3382943973571058569, guid: 9167c42aada8d084dbe03bc2224ed034,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1626,16 +1661,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9055579509043448500, guid: 7864f5e66ce00184781d1a5e4d83822a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 2.5727465
-      objectReference: {fileID: 0}
-    - target: {fileID: 9055579509043448500, guid: 7864f5e66ce00184781d1a5e4d83822a,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 1.0863732
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2004,6 +2029,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSnake
       objectReference: {fileID: 0}
+    - target: {fileID: 2858137284173876896, guid: 88a197f35d557c7498f2226c89966a74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3234134404713124890, guid: 88a197f35d557c7498f2226c89966a74,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2053,6 +2083,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871330619618341421, guid: 88a197f35d557c7498f2226c89966a74,
+        type: 3}
+      propertyPath: recallAllowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871330619618341421, guid: 88a197f35d557c7498f2226c89966a74,
+        type: 3}
+      propertyPath: gravityPullAllowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871330619618341421, guid: 88a197f35d557c7498f2226c89966a74,
+        type: 3}
+      propertyPath: strongThrowAllowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878965074487479231, guid: 88a197f35d557c7498f2226c89966a74,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

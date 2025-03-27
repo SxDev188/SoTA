@@ -17,6 +17,10 @@ public class StarActions : MonoBehaviour
     [SerializeField] public bool IsOnPlayer { get; private set; }
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
     [SerializeField] float frontOfPlayerOffset = 1f;
+
+
+    [SerializeField] float fixedYValueWhenThrown = 7;
+    
     public bool isTraveling = false;
 
     IEnumerator TravelCoroutine;
@@ -59,9 +63,14 @@ public class StarActions : MonoBehaviour
     {
         Debug.Log("star was thrown");
         IsOnPlayer = false;
-        transform.position = playerTransform.position + frontOfPlayerOffset * direction;
-        
-        TravelCoroutine = TravelToDestination(targetDestination);
+        Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
+        throwStartPosition.y = fixedYValueWhenThrown;
+        transform.position = throwStartPosition;
+
+        Vector3 newTargetDestination = targetDestination;
+        newTargetDestination.y = fixedYValueWhenThrown;
+
+        TravelCoroutine = TravelToDestination(newTargetDestination);
         StartCoroutine(TravelCoroutine);
     }
 
@@ -95,10 +104,12 @@ public class StarActions : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.tag == "Player" )
         {
             return;
         }
+
         if (collision.gameObject.tag == "Spikes" )
         {
             return;
@@ -112,7 +123,7 @@ public class StarActions : MonoBehaviour
             StopTravelToDestination();
         }
 
-        if(collision.gameObject.tag == "Lamp" && isTraveling)
+        if (collision.gameObject.tag == "Lamp" && isTraveling)
         {
             collision.gameObject.GetComponent<LampScript>().Interact();
             StopTravelToDestination();
@@ -120,6 +131,7 @@ public class StarActions : MonoBehaviour
 
         if (isTraveling)
         {
+            //Debug.Log(collision.gameObject);
             StopTravelToDestination();
         }
     }
