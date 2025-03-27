@@ -20,14 +20,9 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private float gravityPullAcceptanceRadius = 0.5f;
     [SerializeField] private float gravityPullSpeed = 5.0f;
     [SerializeField] private float aimSensitivity = 0.5f;
-
-
-
     [SerializeField] private bool recallAllowed = false;
     [SerializeField] private bool gravityPullAllowed = false;
     [SerializeField] private bool strongThrowAllowed = false;
-
-
 
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
@@ -55,10 +50,10 @@ public class PlayerStarActionController : MonoBehaviour
             throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
             throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
             throwDirection.y = 0; // Keep movement on XZ plane
-            
+
             throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
 
-            if(strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
+            if (strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
             {
                 throwDirection = throwDirection.normalized * strongThrowRange;
             }
@@ -66,7 +61,7 @@ public class PlayerStarActionController : MonoBehaviour
             {
                 throwDirection = throwDirection.normalized * normalThrowRange;
             }
-            
+
             Debug.DrawRay(transform.position, throwDirection, Color.red);
         }
     }
@@ -79,7 +74,7 @@ public class PlayerStarActionController : MonoBehaviour
             starActions.CarryToggle();
         }
     }
-    
+
     void OnRecallStar(InputValue input)
     {
         if (!recallAllowed)
@@ -108,16 +103,22 @@ public class PlayerStarActionController : MonoBehaviour
     void OnLeftMouseRelease(InputValue input)
     {
         //Debug.Log("left mouse release");
-        isAiming = false;
 
-        if (starActions.IsOnPlayer)
+        if (starActions.IsOnPlayer && isAiming)
         {
+            isAiming = false;
+
             throwTargetDestination = transform.position + throwDirection;
 
+
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
+
+            //this was just for debug
+            //Vector3 testingTargetPosition = new Vector3(5, 7, 5);
+            //starActions.Throw(testingTargetPosition, testingTargetPosition.normalized);
         }
     }
-    
+
     void OnRightMouseDown(InputValue input)
     {
         if (!strongThrowAllowed)
@@ -182,7 +183,7 @@ public class PlayerStarActionController : MonoBehaviour
         {
             Vector3 direction = targetDestination - transform.position;
             direction = direction.normalized;
-            
+
             playerController.InteruptMovement();
             transform.position += direction * gravityPullSpeed * Time.deltaTime;
 

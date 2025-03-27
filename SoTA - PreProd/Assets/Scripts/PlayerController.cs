@@ -9,7 +9,8 @@ using FMOD.Studio;
 
 public class PlayerController : MonoBehaviour
 {
-    CharacterController characterController;
+    //CharacterController characterController;
+    Rigidbody playerRigidbody;
     [SerializeField] float speed = 50.0f;
     [SerializeField] public int health = 10;
     Vector3 MovementInput = Vector3.zero;
@@ -19,7 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        //characterController = GetComponent<CharacterController>();
+        playerRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -29,9 +31,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isMoving) {
-            characterController.SimpleMove(MovementInput * speed * Time.deltaTime);
-        }
+        //if (isMoving) {
+        //    characterController.SimpleMove(MovementInput * speed * Time.deltaTime);
+        //}
+
+
+        //characterController.SimpleMove(MovementInput * speed * Time.deltaTime);
+        playerRigidbody.velocity = MovementInput * speed * Time.deltaTime;
+
+
 
         UpdateSound();
 
