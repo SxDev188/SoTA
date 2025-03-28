@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4299d28808af8b74cb25628c74d66312,
         type: 3}
       propertyPath: m_Name
-      value: player_snake_test
+      value: PlayerSnake
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4299d28808af8b74cb25628c74d66312,
         type: 3}
@@ -76,10 +76,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1723783913075604908}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4299d28808af8b74cb25628c74d66312,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8878965074487479231}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4299d28808af8b74cb25628c74d66312,
         type: 3}
       insertIndex: -1
@@ -126,35 +122,9 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.14
+  m_Radius: 0.15
   m_Height: 0.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &8878965074487479231
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2858137284173876896}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 0.5
-  m_Radius: 0.14
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3608687290263871499
 MonoBehaviour:
@@ -168,9 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 8878965074487479231}
-  speed: 700
   health: 10
+  speed: 5
+  maxVelocity: 5
+  movementRotationByDegrees: 45
 --- !u!114 &3600829583485952542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +181,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2858137284173876896}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -225,9 +196,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6871330619618341421
 MonoBehaviour:
@@ -241,18 +212,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85e22030020bc548815ed96d322c1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starActions: {fileID: 0}
-  starTransform: {fileID: 0}
-  playerTransform: {fileID: 3234134404713124890}
-  playerController: {fileID: 3608687290263871499}
   normalThrowRange: 4
   strongThrowRange: 10
-  starPickupRange: 1
+  starPickupRange: 2
   recallRange: 4
   gravityPullRange: 3
   gravityPullAcceptanceRadius: 0.5
   gravityPullSpeed: 5
   aimSensitivity: 0.5
+  recallAllowed: 1
+  gravityPullAllowed: 1
+  strongThrowAllowed: 1
 --- !u!114 &7302437136009230449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,9 +236,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRange: 0.75
---- !u!4 &3234134404713124890 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4299d28808af8b74cb25628c74d66312,
-    type: 3}
-  m_PrefabInstance: {fileID: 3128679468272907249}
-  m_PrefabAsset: {fileID: 0}

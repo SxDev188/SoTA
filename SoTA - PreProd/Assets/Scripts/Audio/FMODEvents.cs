@@ -7,6 +7,9 @@ public class FMODEvents : MonoBehaviour
 {
     [field: Header("Button SFX")]
     [field: SerializeField] public EventReference ButtonSFX { get; private set; }
+    
+    [field: Header("Timer Ticking SFX")]
+    [field: SerializeField] public EventReference TimerTickingSFX { get; private set; }
 
     [field: Header("Slither SFX")]
     [field: SerializeField] public EventReference SlitherSound { get; private set; }
