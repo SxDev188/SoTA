@@ -11,18 +11,20 @@ using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody playerRigidbody;
-    [SerializeField] float speed = 50.0f;
     [SerializeField] public int health = 10;
+
+    Rigidbody playerRigidbody;
+    [SerializeField] float speed = 7.0f;
+
+    [SerializeField] float maxVelocity = 5;
+    
     Vector3 MovementInput = Vector3.zero;
     bool isMoving = false;
 
-    [SerializeField] float maxVelocity = 5;
-
-    private EventInstance playerSlither; //Audio
-
     [SerializeField] float movementRotationByDegrees = 45;
     Vector3 rotationAxis = Vector3.up;
+
+    private EventInstance playerSlither; //Audio
 
     private void Awake()
     {
@@ -36,41 +38,52 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //TruncateVelocity();
-
         UpdateSound();
     }
 
     private void FixedUpdate()
     {
-        playerRigidbody.velocity = MovementInput * speed * Time.deltaTime;
-    }
-
-    void TruncateVelocity()
-    {
-        //does not seem to be working properly
-        if (playerRigidbody.velocity.magnitude > maxVelocity)
+        if (isMoving)
         {
-            playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxVelocity;
+            playerRigidbody.MovePosition(transform.position + transform.forward * MovementInput.magnitude * speed * Time.deltaTime);
         }
     }
 
     void OnMoveInput(InputValue input)
     {
         isMoving = true;
-        Vector2 input2d = input.Get<Vector2>();
-        MovementInput = new Vector3(input2d.x, MovementInput.y, input2d.y);
 
+        Vector2 input2d = input.Get<Vector2>();
+        MovementInput = new Vector3(input2d.x, 0, input2d.y);
         MovementInput = RotateVector3(MovementInput, movementRotationByDegrees, rotationAxis);
+
+        LookAtMovementDirection();
     }
 
     void OnMoveRelease(InputValue input)
+    {
+        InteruptMovement();
+    }
+    public void InteruptMovement()
     {
         isMoving = false;
         MovementInput = Vector3.zero;
     }
 
-    public void LockMovement(Vector3 Axis)
+    void LookAtMovementDirection()
+    {
+        if (MovementInput != Vector3.zero)
+        {
+            Vector3 movementDirection = (transform.position + MovementInput) - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(movementDirection, rotationAxis);
+
+            transform.rotation = rotation;
+        }
+
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation);         //this line might be needed for controller
+    }
+
+    public void LockMovement(Vector3 Axis) //For boulder movement
     {
         MovementInput = Vector3.Scale(MovementInput, Axis);
     }
@@ -104,13 +117,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InteruptMovement()
-    {
-        //this method is needed to interupt SimpleMove since it made it
-        //impossible to manipulate the players transform directly for the gravity pull
-        isMoving = false;
-    }
-
     private void UpdateSound()
     {
         if (isMoving)
@@ -130,4 +136,13 @@ public class PlayerController : MonoBehaviour
         Vector3 rotatedVector = Quaternion.AngleAxis(degrees, rotationAxis) * vectorToRotate;
         return rotatedVector;
     }
+
+    //void TruncateVelocity()
+    //{
+    //    //does not seem to be working properly
+    //    if (playerRigidbody.velocity.magnitude > maxVelocity)
+    //    {
+    //        playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxVelocity;
+    //    }
+    //}
 }
