@@ -138,8 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 350
   health: 10
+  speed: 5
   maxVelocity: 5
   movementRotationByDegrees: 45
 --- !u!114 &3600829583485952542
@@ -181,7 +181,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2858137284173876896}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

@@ -345,7 +345,10 @@ PrefabInstance:
       value: Segment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3452937865296103189, guid: edbdaed33a97930448645e21881a8440, type: 3}
+    - {fileID: 6007336115428631222, guid: edbdaed33a97930448645e21881a8440, type: 3}
+    - {fileID: 562645599951911256, guid: edbdaed33a97930448645e21881a8440, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edbdaed33a97930448645e21881a8440, type: 3}
@@ -2113,16 +2116,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608687290263871499, guid: 88a197f35d557c7498f2226c89966a74,
-        type: 3}
-      propertyPath: speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608687290263871499, guid: 88a197f35d557c7498f2226c89966a74,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8878965074487479231, guid: 88a197f35d557c7498f2226c89966a74,
         type: 3}
