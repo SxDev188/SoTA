@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.490605
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
@@ -131,11 +131,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4356692761198609214}
+      addedObject: {fileID: 386083614783046803}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 386083614783046803}
+      addedObject: {fileID: 2139289347796483708}
     - targetCorrespondingSourceObject: {fileID: 6821887585681450876, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
       insertIndex: -1
@@ -151,22 +151,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4528042309877364916}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4356692761198609214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3609564373495891429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3dfb68aa6242274ab794c797d9fbca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puzzleElements:
-  - {fileID: 0}
-  hasTimer: 1
-  totalTimerDuration: 3
 --- !u!65 &386083614783046803
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -188,6 +172,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2139289347796483708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3609564373495891429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 440bfdcd6345fc842a1556bd5c28b19e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzleElements:
+  - {fileID: 0}
+  - {fileID: 0}
+  hasTimer: 1
+  totalTimerDuration: 3
 --- !u!1 &4385553835976316731 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 147012984937754511, guid: 2f838946a2f8711499c3ac4d50268b37,
