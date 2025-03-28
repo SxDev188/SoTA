@@ -14,6 +14,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private bool isPushed = false;
     private bool isTimerRunning = false;
     private Transform player;
+    private Transform button;
 
     private EventInstance buttonSFX;
     private EventInstance timerTickingSFX;
@@ -23,6 +24,11 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
     public void Start()
     {
+        button = transform.Find("Button_connection");
+        if (button == null)
+        {
+            Debug.LogError("Button_connection child not found! Check the hierarchy.");
+        }
         player = GameObject.FindGameObjectWithTag("Player").transform;
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
         timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
@@ -45,6 +51,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
             ActivateAllPuzzleElements();
             isPushed = true;
+            FlipButtonDown();
         }
         else if (!isPushed && hasTimer)
         {
@@ -53,6 +60,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
             StartTimerForAllPuzzleElements();
             isPushed = true;
+            FlipButtonDown();
         }
         else if (isPushed && !isTimerRunning)
         {
@@ -60,6 +68,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
             DeactivateAllPuzzleElements();
             isPushed = false;
+            FlipButtonUp();
         }
 
         buttonSFX.start();
@@ -118,6 +127,8 @@ public class ButtonScript : MonoBehaviour, IInteractable
         isPushed = false;
         isTimerRunning = false;
 
+        FlipButtonUp();
+
         timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
         buttonSFX.start();
@@ -125,5 +136,15 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private void ToggleButtonState()
     {
         isPushed = !isPushed;
+    }
+
+    private void FlipButtonDown()
+    {
+        button.localRotation = Quaternion.Euler(180, 0, 0);
+    }
+
+    private void FlipButtonUp()
+    {
+        button.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }
