@@ -15,15 +15,19 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
 
     Rigidbody playerRigidbody;
-    [SerializeField] float speed = 7.0f;
+    [SerializeField] float moveSpeed = 7.0f;
+    [SerializeField] float boulderPushSpeed = 3.0f;
 
     //[SerializeField] float maxVelocity = 5;
     
-    Vector3 MovementInput = Vector3.zero;
+    Vector3 movementInput = Vector3.zero;
     bool isMoving = false;
+    bool isMovementLocked = false;
+    Vector3 movementLockAxis;
 
     [SerializeField] float movementRotationByDegrees = 45;
     Vector3 rotationAxis = Vector3.up;
+    Vector3 movementDirection;
 
     private EventInstance playerSlither; //Audio
 
@@ -45,9 +49,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isMoving)
+        if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
         {
-            playerRigidbody.MovePosition(transform.position + transform.forward * MovementInput.magnitude * speed * Time.deltaTime);
+            //this movement does not depend on where player is facing, only movementInput
+            playerRigidbody.MovePosition(transform.position + movementInput * boulderPushSpeed * Time.deltaTime);
+        }
+        else if (isMoving)
+        {
+            //this ONLY MOVES FORWARD, direction is determined by where character is looking
+            playerRigidbody.MovePosition(transform.position + transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime);
         }
     }
 
@@ -56,27 +66,31 @@ public class PlayerController : MonoBehaviour
         isMoving = true;
 
         Vector2 input2d = input.Get<Vector2>();
-        MovementInput = new Vector3(input2d.x, 0, input2d.y);
-        MovementInput = RotateVector3(MovementInput, movementRotationByDegrees, rotationAxis);
+        movementInput = new Vector3(input2d.x, 0, input2d.y);
 
-        LookAtMovementDirection();
+        if (!isMovementLocked)
+        {
+            movementInput = RotateVector3(movementInput, movementRotationByDegrees, rotationAxis);
+            LookAtMovementDirection();
+        }
     }
 
     void OnMoveRelease(InputValue input)
     {
         InteruptMovement();
     }
+
     public void InteruptMovement()
     {
         isMoving = false;
-        MovementInput = Vector3.zero;
+        movementInput = Vector3.zero;
     }
 
     void LookAtMovementDirection()
     {
-        if (MovementInput != Vector3.zero)
+        if (movementInput != Vector3.zero)
         {
-            Vector3 movementDirection = (transform.position + MovementInput) - transform.position;
+            movementDirection = (transform.position + movementInput) - transform.position;
             Quaternion rotation = Quaternion.LookRotation(movementDirection, rotationAxis);
 
             transform.rotation = rotation;
@@ -87,10 +101,22 @@ public class PlayerController : MonoBehaviour
 
     public void LockMovement(Vector3 Axis) //For boulder movement
     {
-        MovementInput = Vector3.Scale(MovementInput, Axis);
+        isMovementLocked = true;
+
+        movementInput = Vector3.Scale(movementInput, Axis);
     }
 
-    public Vector3 RayBoulderInteration(float interactionRange)
+    public void UnlockMovement()
+    {
+        isMovementLocked = false;
+    }
+
+    public bool GetIsMovementLocked()
+    {
+        return isMovementLocked;
+    }
+
+    public Vector3 RayBoulderInteraction(float interactionRange)
     {
         RaycastHit hit;
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.right, Vector3.left };
