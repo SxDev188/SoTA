@@ -7,17 +7,19 @@ using UnityEngine;
 public class PressurePlateScript : MonoBehaviour
 {
     [SerializeField] private List<GameObject> puzzleElements = new List<GameObject>();
+    [SerializeField] private float sinkAmount = 0.02f;
 
     private List<GameObject> objectsOnPlate = new List<GameObject>();
     private bool isPushedDown = false;
+    private Vector3 originalPosition;
 
     private EventInstance pressurePlateSFX;
 
 
     private void Start()
     {
+        originalPosition = transform.position;
         pressurePlateSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -32,6 +34,8 @@ public class PressurePlateScript : MonoBehaviour
             if (!isPushedDown)
             {
                 isPushedDown = true;
+                transform.position = originalPosition + Vector3.down * sinkAmount;
+
                 pressurePlateSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
                 pressurePlateSFX.start();
 
@@ -50,9 +54,10 @@ public class PressurePlateScript : MonoBehaviour
         if (objectsOnPlate.Count <= 0)
         {
             isPushedDown = false;
+            transform.position = originalPosition;
+
             pressurePlateSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
             pressurePlateSFX.start();
-
 
             Interact();
         }
