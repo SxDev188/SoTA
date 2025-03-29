@@ -31,7 +31,7 @@ public class SaveStateManager : MonoBehaviour
     private void Start()
     {
         SetSaveableObjectReferences();
-        Save();
+        
     }
     private void OnSave()
     {
@@ -89,7 +89,7 @@ public class SaveStateManager : MonoBehaviour
 
     private void Load()
     {
-        SaveData dataToLoad = saves[saves.Count];
+        SaveData dataToLoad = saves[saves.Count-1];
         SetSaveData(dataToLoad);
     }
 

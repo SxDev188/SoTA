@@ -15,6 +15,36 @@ public class Linus_ButtonScript : Linus_Signaler, IInteractable
 
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        if (isPushed && isTimerRunning)
+        {
+            signalerSFX.setParameterByNameWithLabel("ButtonPushState", "PushFail");
+            signalerSFX.start();
+
+            return; //we busy
+        }
+
+        if (!isPushed && !hasTimer)
+        {
+            signalerSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
+
+            ActivateAllPuzzleElements();
+            isPushed = true;
+        }
+        else if (!isPushed && hasTimer)
+        {
+            signalerSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
+
+            StartTimerForAllPuzzleElements();
+            isPushed = true;
+        }
+        else if (isPushed && !isTimerRunning)
+        {
+            signalerSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+
+            DeactivateAllPuzzleElements();
+            isPushed = false;
+        }
+
+        signalerSFX.start();
     }
 }

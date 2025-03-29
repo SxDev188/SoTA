@@ -9,7 +9,7 @@ public class Linus_Signaler : MonoBehaviour
     protected bool isPushed = false;
     public bool IsActive { get { return isPushed; } }
     protected EventInstance signalerSFX;
-    public void SetElements()
+    protected void SetElements()
     {
         foreach (GameObject puzzleElement in puzzleElements)
         {
