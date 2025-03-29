@@ -7,10 +7,13 @@ using UnityEngine;
 public class SaveStateManager : MonoBehaviour
 {
     public static SaveStateManager Instance { get; private set; }
-    [SerializeField] private List<GameObject> buttons = new List<GameObject>();
-    private List<bool> savedStateButtons = new List<bool>();
+    
+    private List<SaveData> saves = new List<SaveData>();
+
     private GameObject player;
-    private Vector3 savedStatePlayer;
+    private GameObject[] buttons;
+    private GameObject[] boulders;
+
     //private bool saved = false;
     private void Awake()
     {
@@ -27,10 +30,9 @@ public class SaveStateManager : MonoBehaviour
     }
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        SetSaveableObjectReferences();
+        
     }
-
-
     private void OnSave()
     {
         Save();
@@ -41,35 +43,77 @@ public class SaveStateManager : MonoBehaviour
         Load();
         Debug.Log("Loaded");
     }
+    private void SetSaveableObjectReferences()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        buttons = GameObject.FindGameObjectsWithTag("Button");
+        boulders = GameObject.FindGameObjectsWithTag("Boulder");
+    }
     private void Save()
     {
-        //saved = true;
-        savedStateButtons.Clear();
+        saves.Add(CreateSaveData());
+    }
+    private SaveData CreateSaveData()
+    {
+        Vector3 playerPositions = player.transform.position;
+        Vector3[] boulderPositions = GetBoulderPostions();
+        bool[] buttonsActive = GetButtonsState();
+
+        SaveData saveData = new SaveData(playerPositions, boulderPositions, buttonsActive);
+        return saveData;
+    }
+    private bool[] GetButtonsState()
+    {
+        bool[] buttonsActive = new bool[buttons.Length];
+        int index = 0;
         foreach (GameObject button in buttons)
         {
-            Linus_ButtonScript buttonScript = button.GetComponent<Linus_ButtonScript>();
-            savedStateButtons.Add(buttonScript.IsActive);
+            ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+            buttonsActive[index++] = buttonScript.IsActive;
         }
-        savedStatePlayer = player.transform.position;
-        Debug.Log(savedStatePlayer.ToString());
+
+        return buttonsActive;
     }
+    private Vector3[] GetBoulderPostions()
+    {
+        Vector3[] bouldersPosition = new Vector3[boulders.Length];
+        int index = 0;
+        foreach (GameObject boulder in boulders)
+        {
+            bouldersPosition[index++] = boulder.transform.position;
+        }
+        return bouldersPosition;
+    }
+
     private void Load()
     {
-        if (savedStateButtons is not null)
-        {
-            for (int i = 0; i < buttons.Count; i++)
-            {
-                Linus_ButtonScript buttonScript = buttons[i].GetComponent<Linus_ButtonScript>();
-                if (buttonScript.IsActive != savedStateButtons[i])
-                {
-                    buttonScript.Interact();
-                }
+        SaveData dataToLoad = saves[saves.Count-1];
+        SetFromSaveData(dataToLoad);
+    }
 
-            }
-            
-            player.transform.position = savedStatePlayer;
-            Debug.Log(savedStatePlayer.ToString());
-            Debug.Log(player.transform.position.ToString());
+    private void SetFromSaveData(SaveData saveData)
+    {
+        SetFromBoulderPositions(saveData);
+        SetFromButtonStates(saveData);
+        player.transform.position = saveData.PlayerPosition;
+    }
+    private void SetFromBoulderPositions(SaveData saveData)
+    {
+        Vector3[] boulderPositions = saveData.BoulderPositions;
+        int index = 0;
+        foreach(GameObject boulder in boulders)
+        {
+            boulder.transform.position = boulderPositions[index++];
+        }
+    }
+    private void SetFromButtonStates(SaveData saveData)
+    {
+        bool[] buttonsActive = saveData.ButtonsActive;
+        int index = 0;  
+        foreach(GameObject button in buttons)
+        {
+            ButtonScript buttonScript = button.GetComponent<ButtonScript>();
+            buttonScript.SetState(buttonsActive[index++]);
         }
     }
 }

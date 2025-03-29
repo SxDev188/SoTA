@@ -411,15 +411,10 @@ PrefabInstance:
       propertyPath: puzzleElements.Array.data[3]
       value: 
       objectReference: {fileID: 1171564868}
-    m_RemovedComponents:
-    - {fileID: 8125105052124965602, guid: ad939cf480bca164a8a9d373259c8687, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2018173607138491165, guid: ad939cf480bca164a8a9d373259c8687,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1060290277}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad939cf480bca164a8a9d373259c8687, type: 3}
 --- !u!1 &330585543
 GameObject:
@@ -737,24 +732,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 300855576}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1060290277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060290276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e40b999455f854c9c74486596ac40d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puzzleElements:
-  - {fileID: 173269744}
-  - {fileID: 1820118275}
-  - {fileID: 1096594813}
-  - {fileID: 1171564868}
-  interactionRange: 2
 --- !u!1 &1096594813
 GameObject:
   m_ObjectHideFlags: 0
