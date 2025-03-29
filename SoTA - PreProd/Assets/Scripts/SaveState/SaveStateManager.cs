@@ -68,7 +68,7 @@ public class SaveStateManager : MonoBehaviour
         int index = 0;
         foreach (GameObject button in buttons)
         {
-            Linus_ButtonScript buttonScript = button.GetComponent<Linus_ButtonScript>();
+            ButtonScript buttonScript = button.GetComponent<ButtonScript>();
             buttonsActive[index++] = buttonScript.IsActive;
         }
 
@@ -112,7 +112,7 @@ public class SaveStateManager : MonoBehaviour
         int index = 0;  
         foreach(GameObject button in buttons)
         {
-            Linus_ButtonScript buttonScript = button.GetComponent<Linus_ButtonScript>();
+            ButtonScript buttonScript = button.GetComponent<ButtonScript>();
             buttonScript.SetState(buttonsActive[index++]);
         }
     }

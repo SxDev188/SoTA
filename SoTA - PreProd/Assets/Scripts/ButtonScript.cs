@@ -159,14 +159,17 @@ public class ButtonScript : MonoBehaviour, IInteractable
             }
             return;
         }
-        isPushed = Active;
-        if (Active)
+        if (Active != isPushed)
         {
-            ActivateAllPuzzleElements();
-        }
-        else
-        {
-            DeactivateAllPuzzleElements();
+            isPushed = Active;
+            if (Active)
+            {
+                ActivateAllPuzzleElements();
+            }
+            else
+            {
+                DeactivateAllPuzzleElements();
+            }
         }
     }
 }
