@@ -6,17 +6,22 @@ using UnityEngine;
 public class StarActions : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] Transform playerTransform;
+    /*[SerializeField]*/ Transform playerTransform;
     Transform starTransform;
     SphereCollider starCollider;
 
-    [SerializeField] Rigidbody starRigidbody;
+    /*[SerializeField]*/ Rigidbody starRigidbody;
     [SerializeField] float throwSpeed = 10f;
     [SerializeField] float targetDestinationAcceptanceRadius = 0.1f;
     
-    [SerializeField] public bool IsOnPlayer { get; private set; }
+    public bool IsOnPlayer { get { return isOnPlayer; } set { isOnPlayer = value; } }
+    [SerializeField] private bool isOnPlayer = false;
     [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
     [SerializeField] float frontOfPlayerOffset = 1f;
+
+    [SerializeField] float yOffsetWhenThrown = 0.5f;
+    float fixedYValueWhenThrown;
+    
     public bool isTraveling = false;
 
     IEnumerator TravelCoroutine;
@@ -25,11 +30,13 @@ public class StarActions : MonoBehaviour
     {
         starTransform = gameObject.GetComponent<Transform>();
         starCollider = gameObject.GetComponent<SphereCollider>();
+        starRigidbody = gameObject.GetComponent<Rigidbody>();
+        playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
 
     void Update()
     {
-        if (IsOnPlayer)
+        if (isOnPlayer)
         {
             starTransform.position = playerTransform.position + onPlayerOffset;
         }
@@ -37,29 +44,37 @@ public class StarActions : MonoBehaviour
 
     public void CarryToggle()
     {
-        if (IsOnPlayer)
+        if (isOnPlayer)
         {
-            IsOnPlayer = false;
-        } else if (!IsOnPlayer)
+            isOnPlayer = false;
+        } else if (!isOnPlayer)
         {
-            IsOnPlayer = true;
+            isOnPlayer = true;
         }
     }
     public void Recall()
     {
-        if (!IsOnPlayer)
+        if (!isOnPlayer)
         {
-            IsOnPlayer = true;
+            isOnPlayer = true;
         }
     }
 
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
         Debug.Log("star was thrown");
-        IsOnPlayer = false;
-        transform.position = playerTransform.position + frontOfPlayerOffset * direction;
+        isOnPlayer = false;
+        Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
         
-        TravelCoroutine = TravelToDestination(targetDestination);
+        fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
+        throwStartPosition.y = fixedYValueWhenThrown;
+
+        transform.position = throwStartPosition;
+
+        Vector3 newTargetDestination = targetDestination;
+        newTargetDestination.y = fixedYValueWhenThrown;
+
+        TravelCoroutine = TravelToDestination(newTargetDestination);
         StartCoroutine(TravelCoroutine);
     }
 
@@ -69,8 +84,13 @@ public class StarActions : MonoBehaviour
         isTraveling = true;
         starRigidbody.useGravity = false;
 
+
         while (Vector3.Distance(transform.position, targetDestination) > targetDestinationAcceptanceRadius)
         {
+            //sets velocity to zero as the star SOMEHOW got some downward force (that was not gravity) related to the player rigidbody
+            //still unclear where it came from but setting velocity to 0 seems to fix it!
+            starRigidbody.velocity = new Vector3(0, 0, 0);
+
             Vector3 direction = targetDestination - transform.position;
             direction = direction.normalized;
 
@@ -93,10 +113,12 @@ public class StarActions : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" )
+
+        if (collision.gameObject.tag == "Player")
         {
             return;
         }
+
         if (collision.gameObject.tag == "Spikes" )
         {
             return;
@@ -110,7 +132,7 @@ public class StarActions : MonoBehaviour
             StopTravelToDestination();
         }
 
-        if(collision.gameObject.tag == "Lamp" && isTraveling)
+        if (collision.gameObject.tag == "Lamp" && isTraveling)
         {
             collision.gameObject.GetComponent<LampScript>().Interact();
             StopTravelToDestination();
@@ -118,6 +140,7 @@ public class StarActions : MonoBehaviour
 
         if (isTraveling)
         {
+            //Debug.Log(collision.gameObject);
             StopTravelToDestination();
         }
     }
