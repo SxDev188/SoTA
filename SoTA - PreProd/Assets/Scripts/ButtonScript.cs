@@ -167,12 +167,12 @@ public class ButtonScript : MonoBehaviour, IInteractable
             isPushed = Active;
             if (Active)
             {
-                FlipButtonUp();
+                FlipButtonDown();
                 ActivateAllPuzzleElements();
             }
             else
             {
-                FlipButtonDown();
+                FlipButtonUp();
                 DeactivateAllPuzzleElements();
             }
         }
