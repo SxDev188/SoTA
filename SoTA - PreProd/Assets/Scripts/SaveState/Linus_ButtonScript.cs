@@ -123,9 +123,12 @@ public class Linus_ButtonScript : MonoBehaviour, IInteractable
     {
         if (hasTimer)
         {
-            isTimerRunning = false;
-            isPushed = false;
-            DeactivateAllPuzzleElements();
+            if (isTimerRunning)
+            {
+                DeactivateAllPuzzleElements();
+                isTimerRunning = false;
+                isPushed = false;
+            }
             return;
         }
         isPushed = Active;
