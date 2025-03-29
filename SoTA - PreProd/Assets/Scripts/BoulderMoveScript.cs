@@ -5,10 +5,9 @@ using UnityEditor;
 using UnityEngine;
 
 
-public class BoulderMoveScript : MonoBehaviour
+public class BoulderMoveScript : MonoBehaviour, IInteractable
 {
-    [SerializeField] private float interactionRange = 2f;
-
+    private float interactionRange = 2f;
     private bool isMoving = false;
     private GameObject player;
     private PlayerController playerController;
@@ -25,13 +24,7 @@ public class BoulderMoveScript : MonoBehaviour
 
         plrHitscan = playerController.RayBoulderInteration(interactionRange);
 
-        // TODO: Implement with input system
-        if (Input.GetKeyDown(KeyCode.E) 
-            && PlayerIsClose() 
-            && plrHitscan != Vector3.zero)
-        {
-            isMoving = !isMoving;
-        }
+
 
         if (isMoving)
         {
@@ -81,4 +74,11 @@ public class BoulderMoveScript : MonoBehaviour
         return Vector3.Distance(transform.position, player.transform.position) <= interactionRange;
     }
 
+    public void Interact()
+    {
+        if (PlayerIsClose() && plrHitscan != Vector3.zero)
+        {
+            isMoving = !isMoving;
+        }
+    }
 }

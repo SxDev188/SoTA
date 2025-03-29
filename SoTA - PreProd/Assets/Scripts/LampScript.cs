@@ -18,17 +18,38 @@ public class LampScript : MonoBehaviour, IActivatable
     {
         if (!IsLit)
         {
-            IsLit = true;
-            tracker.RefreshLightSources();
+            TurnOnLamp();
         }
+    }
+
+    private void TurnOnLamp()
+    {
+        IsLit = true;
+        tracker.RefreshLightSources();
     }
 
     public void Deactivate()
     {
         if (IsLit)
         {
-            IsLit = false;
-            tracker.RefreshLightSources();
+            TurnOffLamp();
+        }
+    }
+
+    private void TurnOffLamp()
+    {
+        IsLit = false;
+        tracker.RefreshLightSources();
+    }
+
+    public void Interact()
+    {
+        if (!IsLit)
+        {
+            TurnOnLamp();
+        } else if (IsLit)
+        {
+            TurnOffLamp();
         }
     }
 }
