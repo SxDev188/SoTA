@@ -147,4 +147,26 @@ public class ButtonScript : MonoBehaviour, IInteractable
     {
         button.localRotation = Quaternion.Euler(0, 0, 0);
     }
+    public void SetState(bool Active)
+    {
+        if (hasTimer)
+        {
+            if (isTimerRunning)
+            {
+                DeactivateAllPuzzleElements();
+                isTimerRunning = false;
+                isPushed = false;
+            }
+            return;
+        }
+        isPushed = Active;
+        if (Active)
+        {
+            ActivateAllPuzzleElements();
+        }
+        else
+        {
+            DeactivateAllPuzzleElements();
+        }
+    }
 }
