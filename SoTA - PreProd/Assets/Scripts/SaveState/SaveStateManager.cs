@@ -31,7 +31,7 @@ public class SaveStateManager : MonoBehaviour
     private void Start()
     {
         SetSaveableObjectReferences();
-        
+        Save();
     }
     private void OnSave()
     {
@@ -49,7 +49,7 @@ public class SaveStateManager : MonoBehaviour
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
     }
-    private void Save()
+    public void Save()
     {
         saves.Add(CreateSaveData());
     }
@@ -85,7 +85,7 @@ public class SaveStateManager : MonoBehaviour
         return bouldersPosition;
     }
 
-    private void Load()
+    public void Load()
     {
         SaveData dataToLoad = saves[saves.Count-1];
         SetFromSaveData(dataToLoad);
