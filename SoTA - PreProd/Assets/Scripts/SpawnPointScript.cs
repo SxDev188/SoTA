@@ -17,12 +17,12 @@ public class SpawnPointScript : MonoBehaviour
 
     void Update()
     {
-        if(playerController.health <= 0)
+        if(playerController.currentHealth <= 0)
         {
             playerController.InteruptMovement();
             playerController.enabled = false;
             Spawn();
-            playerController.health = 10;
+            playerController.currentHealth = playerController.maxHealth;
             playerController.enabled = true;
         }
 

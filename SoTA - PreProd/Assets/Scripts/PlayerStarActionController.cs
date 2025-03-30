@@ -165,17 +165,17 @@ public class PlayerStarActionController : MonoBehaviour
     {
         float changeHealthAtTime = 1.0f;
 
-        if (playerController.health > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
+        if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
         {
-            playerController.health--;
+            playerController.currentHealth--;
             healthChangeTimer = 0.0f;
-            Debug.Log("health managed, health at " + playerController.health);
+            Debug.Log("health managed, health at " + playerController.currentHealth);
         }
-        if ( playerController.health < 10 && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
+        if ( playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
         {
-            playerController.health++;
+            playerController.currentHealth++;
             healthChangeTimer = 0.0f;
-            Debug.Log("health managed, health at " + playerController.health);
+            Debug.Log("health managed, health at " + playerController.currentHealth);
         }
         if (healthChangeTimer >= changeHealthAtTime)
         {

@@ -11,7 +11,8 @@ using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public int health = 10;
+    [SerializeField] public int maxHealth = 10;
+    public int currentHealth;
 
     Rigidbody playerRigidbody;
     [SerializeField] float speed = 7.0f;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerSlither = AudioManager.Instance.CreateInstance(FMODEvents.Instance.SlitherSound);
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -113,7 +115,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Spikes"))
         {
-            health = 0;
+            currentHealth = 0;
         }
     }
 
