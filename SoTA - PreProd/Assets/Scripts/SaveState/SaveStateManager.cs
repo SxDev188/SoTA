@@ -7,12 +7,17 @@ using UnityEngine;
 public class SaveStateManager : MonoBehaviour
 {
     public static SaveStateManager Instance { get; private set; }
-    
+
+    [SerializeField] private bool debugMode = false;
+
     private List<SaveData> saves = new List<SaveData>();
 
     private GameObject player;
     private GameObject[] buttons;
     private GameObject[] boulders;
+
+    //Temporary fix I hope or more data added here and removed from other places
+    private StarActions starActions;
 
     //private bool saved = false;
     private void Awake()
@@ -32,16 +37,27 @@ public class SaveStateManager : MonoBehaviour
     {
         SetSaveableObjectReferences();
         Save();
+        starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
     }
+
+    //For Debug Purposes
     private void OnSave()
     {
-        Save();
-        Debug.Log("Saved");
+        if (debugMode)
+        {
+            Save();
+            Debug.Log("Saved");
+        }
+        
     }
     private void OnLoad()
     {
-        Load();
-        Debug.Log("Loaded");
+        if (debugMode)
+        {
+            Load();
+            Debug.Log("Loaded");
+        }
+       
     }
     private void SetSaveableObjectReferences()
     {
@@ -89,6 +105,7 @@ public class SaveStateManager : MonoBehaviour
     {
         SaveData dataToLoad = saves[saves.Count-1];
         SetFromSaveData(dataToLoad);
+        starActions.Recall();
     }
 
     private void SetFromSaveData(SaveData saveData)
