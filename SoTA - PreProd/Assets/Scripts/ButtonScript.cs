@@ -157,8 +157,10 @@ public class ButtonScript : MonoBehaviour, IInteractable
             if (isTimerRunning)
             {
                 DeactivateAllPuzzleElements();
+                FlipButtonUp();
                 isTimerRunning = false;
                 isPushed = false;
+                timerTickingSFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
             return;
         }

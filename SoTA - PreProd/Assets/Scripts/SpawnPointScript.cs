@@ -21,7 +21,10 @@ public class SpawnPointScript : MonoBehaviour
         {
             playerController.InteruptMovement();
             playerController.enabled = false;
-            Spawn();
+            SaveStateManager.Instance.Load();
+            //Added Load here and removed the call to spawn, by Linus
+            //Maybe change the check to be were the health gets changed so 
+            //it won't need to be checked every update
             playerController.currentHealth = playerController.maxHealth;
             playerController.enabled = true;
         }
