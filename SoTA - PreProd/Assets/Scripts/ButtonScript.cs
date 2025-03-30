@@ -123,15 +123,18 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private IEnumerator DeactivateDelayed(IActivatable activatable)
     {
         yield return new WaitForSeconds(totalTimerDuration);
-        activatable.Deactivate();
-        isPushed = false;
-        isTimerRunning = false;
+        if (isTimerRunning)
+        {
+            activatable.Deactivate();
+            isPushed = false;
+            isTimerRunning = false;
 
-        FlipButtonUp();
+            FlipButtonUp();
 
-        timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-        buttonSFX.start();
+            timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+            buttonSFX.start();
+        }
     }
     private void ToggleButtonState()
     {
@@ -146,5 +149,32 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private void FlipButtonUp()
     {
         button.localRotation = Quaternion.Euler(0, 0, 0);
+    }
+    public void SetState(bool Active)
+    {
+        if (hasTimer)
+        {
+            if (isTimerRunning)
+            {
+                DeactivateAllPuzzleElements();
+                isTimerRunning = false;
+                isPushed = false;
+            }
+            return;
+        }
+        if (Active != isPushed)
+        {
+            isPushed = Active;
+            if (Active)
+            {
+                FlipButtonDown();
+                ActivateAllPuzzleElements();
+            }
+            else
+            {
+                FlipButtonUp();
+                DeactivateAllPuzzleElements();
+            }
+        }
     }
 }

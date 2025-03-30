@@ -102,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 147012984937754511, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
       propertyPath: m_TagString
-      value: Button
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
@@ -117,7 +117,7 @@ PrefabInstance:
     - target: {fileID: 6821887585681450876, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
       propertyPath: m_TagString
-      value: Button
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7899099928202489408, guid: 2f838946a2f8711499c3ac4d50268b37,
         type: 3}
