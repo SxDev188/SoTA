@@ -23,6 +23,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private bool recallAllowed = false;
     [SerializeField] private bool gravityPullAllowed = false;
     [SerializeField] private bool strongThrowAllowed = false;
+    float healthChangeTimer = 0.0f;
 
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
@@ -63,7 +64,12 @@ public class PlayerStarActionController : MonoBehaviour
             }
 
             Debug.DrawRay(transform.position, throwDirection, Color.red);
+
+
         }
+
+        healthChangeTimer += Time.deltaTime;
+        ManagePlayerHealth();
     }
 
     void OnCarryStarToggle(InputValue input)
@@ -153,6 +159,29 @@ public class PlayerStarActionController : MonoBehaviour
 
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
         }
+    }
+
+    void ManagePlayerHealth()
+    {
+        float changeHealthAtTime = 1.0f;
+
+        if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
+        {
+            playerController.currentHealth--;
+            healthChangeTimer = 0.0f;
+            Debug.Log("health managed, health at " + playerController.currentHealth);
+        }
+        if ( playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
+        {
+            playerController.currentHealth++;
+            healthChangeTimer = 0.0f;
+            Debug.Log("health managed, health at " + playerController.currentHealth);
+        }
+        if (healthChangeTimer >= changeHealthAtTime)
+        {
+            healthChangeTimer = 0.0f;
+        }
+
     }
 
     void OnGravityPull(InputValue input)
