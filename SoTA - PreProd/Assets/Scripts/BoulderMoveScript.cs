@@ -38,7 +38,8 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         }
         else
         {
-            if (playerController.GetIsMovementLocked()) //this block was added because locking movement did not work as usual after the player movement was updated
+            //this block was added because locking movement did not work as usual after the player movement was updated
+            if (playerController.GetIsMovementLocked() && transform.parent == null) //null check so it doesn't run every frame
             {
                 playerController.UnlockMovement();
                 Debug.Log("Unlocking player movement");

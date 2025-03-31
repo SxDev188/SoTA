@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     Vector3 movementInput = Vector3.zero;
     bool isMoving = false;
     bool isMovementLocked = false;
-    Vector3 movementLockAxis;
 
     [SerializeField] float movementRotationByDegrees = 45;
     Vector3 rotationAxis = Vector3.up;
@@ -102,13 +101,13 @@ public class PlayerController : MonoBehaviour
     public void LockMovement(Vector3 Axis) //For boulder movement
     {
         isMovementLocked = true;
-
         movementInput = Vector3.Scale(movementInput, Axis);
     }
 
     public void UnlockMovement()
     {
         isMovementLocked = false;
+        InteruptMovement();
     }
 
     public bool GetIsMovementLocked()
@@ -123,9 +122,20 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < directions.Length; i++)
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(directions[i]), out hit, interactionRange))
+            //here I removed the transform.TransformDirection() so that the raycast ignores the player characters orientation/rotation - goobie
+            //if (Physics.Raycast(transform.position, transform.TransformDirection(directions[i]), out hit, interactionRange))
+            //{
+            //    Debug.DrawRay(transform.position, transform.TransformDirection(directions[i]) * hit.distance, Color.red);
+
+            //    if (hit.transform.tag == "Boulder")
+            //    {
+            //        return directions[i];
+            //    }
+            //}
+
+            if (Physics.Raycast(transform.position, directions[i], out hit, interactionRange))
             {
-                //Debug.DrawRay(transform.position, transform.TransformDirection(directions[i]) * hit.distance, Color.red);
+                Debug.DrawRay(transform.position, directions[i] * hit.distance, Color.red);
 
                 if (hit.transform.tag == "Boulder")
                 {
