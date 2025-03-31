@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerStarActionController : MonoBehaviour
 {
-    [SerializeField] StarActions starActions;
-    [SerializeField] Transform starTransform;
-    [SerializeField] Transform playerTransform;
-    [SerializeField] PlayerController playerController;
+    /*[SerializeField]*/ StarActions starActions;
+    /*[SerializeField]*/ Transform starTransform;
+    /*[SerializeField]*/ Transform playerTransform;
+    /*[SerializeField]*/ PlayerController playerController;
 
     [SerializeField] float normalThrowRange = 4;
     [SerializeField] float strongThrowRange = 10;
@@ -20,6 +20,13 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private float gravityPullAcceptanceRadius = 0.5f;
     [SerializeField] private float gravityPullSpeed = 5.0f;
     [SerializeField] private float aimSensitivity = 0.5f;
+    [SerializeField] private bool recallAllowed = false;
+    [SerializeField] private bool gravityPullAllowed = false;
+    [SerializeField] private bool strongThrowAllowed = false;
+    float healthChangeTimer = 0.0f;
+
+    [SerializeField] float aimRotationByDegrees = 45;
+    Vector3 rotationAxis = Vector3.up;
 
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
@@ -31,7 +38,12 @@ public class PlayerStarActionController : MonoBehaviour
 
     void Start()
     {
-        
+        GameObject star = GameObject.FindGameObjectWithTag("Star");
+        starActions = star.GetComponent<StarActions>();
+        starTransform = star.GetComponent<Transform>();
+
+        playerTransform = this.GetComponent<Transform>();
+        playerController = this.GetComponent<PlayerController>();
     }
 
     void Update()
@@ -42,10 +54,10 @@ public class PlayerStarActionController : MonoBehaviour
             throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
             throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
             throwDirection.y = 0; // Keep movement on XZ plane
-            
+
             throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
 
-            if(strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
+            if (strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
             {
                 throwDirection = throwDirection.normalized * strongThrowRange;
             }
@@ -53,9 +65,17 @@ public class PlayerStarActionController : MonoBehaviour
             {
                 throwDirection = throwDirection.normalized * normalThrowRange;
             }
-            
+
+            throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
+
+
             Debug.DrawRay(transform.position, throwDirection, Color.red);
+
+
         }
+
+        healthChangeTimer += Time.deltaTime;
+        ManagePlayerHealth();
     }
 
     void OnCarryStarToggle(InputValue input)
@@ -66,9 +86,14 @@ public class PlayerStarActionController : MonoBehaviour
             starActions.CarryToggle();
         }
     }
-    
+
     void OnRecallStar(InputValue input)
     {
+        if (!recallAllowed)
+        {
+            return;
+        }
+
         Debug.Log("recall");
         if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
         {
@@ -90,18 +115,29 @@ public class PlayerStarActionController : MonoBehaviour
     void OnLeftMouseRelease(InputValue input)
     {
         //Debug.Log("left mouse release");
-        isAiming = false;
 
-        if (starActions.IsOnPlayer)
+        if (starActions.IsOnPlayer && isAiming)
         {
+            isAiming = false;
+
             throwTargetDestination = transform.position + throwDirection;
 
+
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
+
+            //this was just for debug
+            //Vector3 testingTargetPosition = new Vector3(5, 7, 5);
+            //starActions.Throw(testingTargetPosition, testingTargetPosition.normalized);
         }
     }
-    
+
     void OnRightMouseDown(InputValue input)
     {
+        if (!strongThrowAllowed)
+        {
+            return;
+        }
+
         Debug.Log("right mouse down");
 
         if (starActions.IsOnPlayer)
@@ -114,6 +150,11 @@ public class PlayerStarActionController : MonoBehaviour
     }
     void OnRightMouseRelease(InputValue input)
     {
+        if (!strongThrowAllowed)
+        {
+            return;
+        }
+
         Debug.Log("right mouse release");
         isAiming = false;
         strongThrow = false;
@@ -126,8 +167,36 @@ public class PlayerStarActionController : MonoBehaviour
         }
     }
 
+    void ManagePlayerHealth()
+    {
+        float changeHealthAtTime = 1.0f;
+
+        if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
+        {
+            playerController.currentHealth--;
+            healthChangeTimer = 0.0f;
+            Debug.Log("health managed, health at " + playerController.currentHealth);
+        }
+        if ( playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
+        {
+            playerController.currentHealth++;
+            healthChangeTimer = 0.0f;
+            Debug.Log("health managed, health at " + playerController.currentHealth);
+        }
+        if (healthChangeTimer >= changeHealthAtTime)
+        {
+            healthChangeTimer = 0.0f;
+        }
+
+    }
+
     void OnGravityPull(InputValue input)
     {
+        if (!gravityPullAllowed)
+        {
+            return;
+        }
+
         Debug.Log("gravity pull");
 
         if (starActions.IsOnPlayer)
@@ -149,7 +218,7 @@ public class PlayerStarActionController : MonoBehaviour
         {
             Vector3 direction = targetDestination - transform.position;
             direction = direction.normalized;
-            
+
             playerController.InteruptMovement();
             transform.position += direction * gravityPullSpeed * Time.deltaTime;
 

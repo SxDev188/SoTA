@@ -96,6 +96,13 @@ MonoBehaviour:
       Data3: -486885958
       Data4: 1012051852
     Path: event:/ButtonSFX
+  <TimerTickingSFX>k__BackingField:
+    Guid:
+      Data1: -2072432112
+      Data2: 1197504309
+      Data3: 2145628607
+      Data4: -56747037
+    Path: event:/TimerTicking
   <SlitherSound>k__BackingField:
     Guid:
       Data1: 105197990

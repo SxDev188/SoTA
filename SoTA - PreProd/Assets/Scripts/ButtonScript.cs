@@ -14,16 +14,24 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private bool isPushed = false;
     private bool isTimerRunning = false;
     private Transform player;
+    private Transform button;
 
     private EventInstance buttonSFX;
+    private EventInstance timerTickingSFX;
 
 
     public bool IsActive { get { return isPushed; } }
 
     public void Start()
     {
+        button = transform.Find("Button_connection");
+        if (button == null)
+        {
+            Debug.LogError("Button_connection child not found! Check the hierarchy.");
+        }
         player = GameObject.FindGameObjectWithTag("Player").transform;
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
+        timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
 
     }
 
@@ -43,13 +51,16 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
             ActivateAllPuzzleElements();
             isPushed = true;
+            FlipButtonDown();
         }
         else if (!isPushed && hasTimer)
         {
             buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
+            timerTickingSFX.start();
 
             StartTimerForAllPuzzleElements();
             isPushed = true;
+            FlipButtonDown();
         }
         else if (isPushed && !isTimerRunning)
         {
@@ -57,6 +68,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
             DeactivateAllPuzzleElements();
             isPushed = false;
+            FlipButtonUp();
         }
 
         buttonSFX.start();
@@ -111,15 +123,60 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private IEnumerator DeactivateDelayed(IActivatable activatable)
     {
         yield return new WaitForSeconds(totalTimerDuration);
-        activatable.Deactivate();
-        isPushed = false;
-        isTimerRunning = false;
+        if (isTimerRunning)
+        {
+            activatable.Deactivate();
+            isPushed = false;
+            isTimerRunning = false;
 
-        buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-        buttonSFX.start();
+            FlipButtonUp();
+
+            timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+            buttonSFX.start();
+        }
     }
     private void ToggleButtonState()
     {
         isPushed = !isPushed;
+    }
+
+    private void FlipButtonDown()
+    {
+        button.localRotation = Quaternion.Euler(180, 0, 0);
+    }
+
+    private void FlipButtonUp()
+    {
+        button.localRotation = Quaternion.Euler(0, 0, 0);
+    }
+    public void SetState(bool Active)
+    {
+        if (hasTimer)
+        {
+            if (isTimerRunning)
+            {
+                DeactivateAllPuzzleElements();
+                FlipButtonUp();
+                isTimerRunning = false;
+                isPushed = false;
+                timerTickingSFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
+            return;
+        }
+        if (Active != isPushed)
+        {
+            isPushed = Active;
+            if (Active)
+            {
+                FlipButtonDown();
+                ActivateAllPuzzleElements();
+            }
+            else
+            {
+                FlipButtonUp();
+                DeactivateAllPuzzleElements();
+            }
+        }
     }
 }

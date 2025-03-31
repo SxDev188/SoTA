@@ -6,67 +6,138 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 using FMOD.Studio;
+using Unity.VisualScripting;
+using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] CharacterController characterController;
-    [SerializeField] float speed = 50.0f;
-    [SerializeField] public int health = 10;
-    Vector3 MovementInput = Vector3.zero;
-    bool isMoving = false;
+    [SerializeField] public int maxHealth = 10;
+    public int currentHealth;
 
-    private EventInstance playerSlither;
+    Rigidbody playerRigidbody;
+    [SerializeField] float moveSpeed = 7.0f;
+    [SerializeField] float boulderPushSpeed = 3.0f;
+
+    //[SerializeField] float maxVelocity = 5;
+    
+    Vector3 movementInput = Vector3.zero;
+    bool isMoving = false;
+    bool isMovementLocked = false;
+
+    [SerializeField] float movementRotationByDegrees = 45;
+    Vector3 rotationAxis = Vector3.up;
+    Vector3 movementDirection;
+
+    private EventInstance playerSlither; //Audio
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        playerRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
         playerSlither = AudioManager.Instance.CreateInstance(FMODEvents.Instance.SlitherSound);
+        currentHealth = maxHealth;
     }
 
     void Update()
     {
-        if (isMoving) {
-            characterController.SimpleMove(MovementInput * speed * Time.deltaTime);
-        }
-
         UpdateSound();
+    }
 
+    private void FixedUpdate()
+    {
+        if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
+        {
+            //this movement does not depend on where player is facing, only movementInput
+            playerRigidbody.MovePosition(transform.position + movementInput * boulderPushSpeed * Time.deltaTime);
+        }
+        else if (isMoving)
+        {
+            //this ONLY MOVES FORWARD, direction is determined by where character is looking
+            playerRigidbody.MovePosition(transform.position + transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime);
+        }
     }
 
     void OnMoveInput(InputValue input)
     {
         isMoving = true;
+
         Vector2 input2d = input.Get<Vector2>();
-        MovementInput = new Vector3(input2d.x, MovementInput.y, input2d.y);
+        movementInput = new Vector3(input2d.x, 0, input2d.y);
+
+        if (!isMovementLocked)
+        {
+            movementInput = RotateVector3(movementInput, movementRotationByDegrees, rotationAxis);
+            LookAtMovementDirection();
+        }
     }
 
     void OnMoveRelease(InputValue input)
     {
-        isMoving = false;
-        MovementInput = Vector3.zero;
+        InteruptMovement();
     }
 
-    public void LockMovement(Vector3 Axis)
+    public void InteruptMovement()
     {
-        MovementInput = Vector3.Scale(MovementInput, Axis);
+        isMoving = false;
+        movementInput = Vector3.zero;
     }
 
-    public Vector3 RayBoulderInteration(float interactionRange)
+    void LookAtMovementDirection()
+    {
+        if (movementInput != Vector3.zero)
+        {
+            movementDirection = (transform.position + movementInput) - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(movementDirection, rotationAxis);
+
+            transform.rotation = rotation;
+        }
+
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation);         //this line might be needed for controller
+    }
+
+    public void LockMovement(Vector3 Axis) //For boulder movement
+    {
+        isMovementLocked = true;
+        movementInput = Vector3.Scale(movementInput, Axis);
+    }
+
+    public void UnlockMovement()
+    {
+        isMovementLocked = false;
+        InteruptMovement();
+    }
+
+    public bool GetIsMovementLocked()
+    {
+        return isMovementLocked;
+    }
+
+    public Vector3 RayBoulderInteraction(float interactionRange)
     {
         RaycastHit hit;
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.right, Vector3.left };
 
         for (int i = 0; i < directions.Length; i++)
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(directions[i]), out hit, interactionRange))
-            {
-                //Debug.DrawRay(transform.position, transform.TransformDirection(directions[i]) * hit.distance, Color.red);
+            //here I removed the transform.TransformDirection() so that the raycast ignores the player characters orientation/rotation - goobie
+            //if (Physics.Raycast(transform.position, transform.TransformDirection(directions[i]), out hit, interactionRange))
+            //{
+            //    Debug.DrawRay(transform.position, transform.TransformDirection(directions[i]) * hit.distance, Color.red);
 
-                if(hit.transform.tag == "Boulder")
+            //    if (hit.transform.tag == "Boulder")
+            //    {
+            //        return directions[i];
+            //    }
+            //}
+
+            if (Physics.Raycast(transform.position, directions[i], out hit, interactionRange))
+            {
+                Debug.DrawRay(transform.position, directions[i] * hit.distance, Color.red);
+
+                if (hit.transform.tag == "Boulder")
                 {
                     return directions[i];
                 }
@@ -80,19 +151,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Spikes"))
         {
-            health = 0;
+            currentHealth = 0;
         }
-    }
-
-    public void InteruptMovement()
-    {
-        //this method is needed to interupt SimpleMove since it made it
-        //impossible to manipulate the players transform directly for the gravity pull
-        isMoving = false;
-    }
-
-    private void FixedUpdate()
-    {
     }
 
     private void UpdateSound()
@@ -108,4 +168,19 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private Vector3 RotateVector3(Vector3 vectorToRotate, float degrees, Vector3 rotationAxis)
+    {
+        Vector3 rotatedVector = Quaternion.AngleAxis(degrees, rotationAxis) * vectorToRotate;
+        return rotatedVector;
+    }
+
+    //void TruncateVelocity()
+    //{
+    //    //does not seem to be working properly
+    //    if (playerRigidbody.velocity.magnitude > maxVelocity)
+    //    {
+    //        playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxVelocity;
+    //    }
+    //}
 }

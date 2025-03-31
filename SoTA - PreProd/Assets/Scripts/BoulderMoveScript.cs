@@ -21,10 +21,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     private void Update()
     {
-
-        plrHitscan = playerController.RayBoulderInteration(interactionRange);
-
-
+        plrHitscan = playerController.RayBoulderInteraction(interactionRange);
 
         if (isMoving)
         {
@@ -41,19 +38,24 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         }
         else
         {
+            //this block was added because locking movement did not work as usual after the player movement was updated
+            if (playerController.GetIsMovementLocked() && transform.parent == null) //null check so it doesn't run every frame
+            {
+                playerController.UnlockMovement();
+                Debug.Log("Unlocking player movement");
+            }
+
             SnapToFloor();
             this.transform.parent = null;
         }
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "Level Floor" || collision.gameObject.tag != "Player")
+        if(collision.gameObject.tag != "Level Floor" || collision.gameObject.tag != "Player" || collision.gameObject.tag != "PressurePlate")
         {
             isMoving = false;
         }
-
     }
 
     private void SnapToFloor()
