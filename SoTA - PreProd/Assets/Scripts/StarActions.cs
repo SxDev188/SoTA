@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class StarActions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    /*[SerializeField]*/ Transform playerTransform;
+    Transform playerTransform;
     Transform starTransform;
     SphereCollider starCollider;
 
-    /*[SerializeField]*/ Rigidbody starRigidbody;
+    Rigidbody starRigidbody;
     [SerializeField] float throwSpeed = 10f;
     [SerializeField] float targetDestinationAcceptanceRadius = 0.1f;
     
@@ -64,7 +63,8 @@ public class StarActions : MonoBehaviour
     {
         Debug.Log("star was thrown");
 
-        if(SaveStateManager.Instance != null) //to make star throwable even if savestatemanager is not in scene -goobie
+        //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
+        if (SaveStateManager.Instance != null)
         {
             //Added save here by Linus
             SaveStateManager.Instance.Save();
