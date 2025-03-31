@@ -63,8 +63,12 @@ public class StarActions : MonoBehaviour
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
         Debug.Log("star was thrown");
-        //Added save here by Linus
-        SaveStateManager.Instance.Save();
+
+        if(SaveStateManager.Instance != null) //to make star throwable even if savestatemanager is not in scene -goobie
+        {
+            //Added save here by Linus
+            SaveStateManager.Instance.Save();
+        }
 
         isOnPlayer = false;
         Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;

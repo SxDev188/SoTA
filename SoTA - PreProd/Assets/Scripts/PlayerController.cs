@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody playerRigidbody;
     [SerializeField] float speed = 7.0f;
 
-    [SerializeField] float maxVelocity = 5;
+    //[SerializeField] float maxVelocity = 5;
     
     Vector3 MovementInput = Vector3.zero;
     bool isMoving = false;
