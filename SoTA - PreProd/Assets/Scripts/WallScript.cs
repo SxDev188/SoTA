@@ -14,13 +14,15 @@ public class WallScript : MonoBehaviour, IActivatable
     void Start()
     {
         defaultPosition = transform.position;
-        
+
+        Transform activatedTransform = transform.Find("ActivatedPosition");
+
         if (transform.childCount <= 0)
         {
             Debug.Log("Error. Wall needs child to indicate its activated position!");
         } else
         {
-            activatedPosition = transform.GetChild(0).transform.position;
+            activatedPosition = activatedTransform.position;
         }
     }
 

@@ -7,7 +7,7 @@ public class LightTracker : MonoBehaviour
 {
     private RadialColorRenderFeature feature;
     
-    [SerializeField]
+    //[SerializeField]
     private Transform star;
     //[SerializeField]
     private List<Transform> lightSources = new List<Transform>();
@@ -26,6 +26,13 @@ public class LightTracker : MonoBehaviour
 
     void Start()
     {
+        if (star == null)
+        {
+            GameObject starObject = GameObject.FindWithTag("Star");
+            if (starObject != null)
+                star = starObject.transform;
+        }
+
         if (rendererData == null || star == null)
         {
             Debug.LogError("LightTracker: Missing star or renderer data!");
