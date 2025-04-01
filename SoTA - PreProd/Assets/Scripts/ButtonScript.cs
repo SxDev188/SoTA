@@ -121,6 +121,13 @@ public class ButtonScript : MonoBehaviour, IInteractable
     
     private void StartTimerForAllPuzzleElements()
     {
+        if (isTimerRunning)
+        {
+            return;
+        }
+
+        isTimerRunning = true;
+        
         foreach (GameObject puzzleElement in puzzleElements)
         {
             IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
@@ -131,26 +138,47 @@ public class ButtonScript : MonoBehaviour, IInteractable
             }
 
             activatable.Activate();
-            StartCoroutine(DeactivateDelayed(activatable));
-            isTimerRunning = true;
         }
+        
+        StartCoroutine(DeactivateAllDelayed());
     }
 
-    private IEnumerator DeactivateDelayed(IActivatable activatable)
+    private IEnumerator DeactivateAllDelayed()
     {
         yield return new WaitForSeconds(totalTimerDuration);
-        if (isTimerRunning)
+
+        foreach (GameObject puzzleElement in puzzleElements)
         {
+            IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
+
+            if (activatable == null)
+            {
+                continue;
+            }
+
             activatable.Deactivate();
-            isPushed = false;
-            isTimerRunning = false;
-
-            FlipButtonUp();
-
-            timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-            buttonSFX.start();
         }
+
+        isPushed = false;
+        isTimerRunning = false;
+
+        FlipButtonUp();
+
+        timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+        buttonSFX.start();
+        //if (isTimerRunning)
+        //{
+        //    activatable.Deactivate();
+        //    isPushed = false;
+        //    isTimerRunning = false;
+
+        //    FlipButtonUp();
+
+        //    timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //    buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+        //    buttonSFX.start();
+        //}
     }
     private void ToggleButtonState()
     {

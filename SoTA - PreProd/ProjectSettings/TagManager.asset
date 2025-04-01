@@ -10,6 +10,7 @@ TagManager:
   - Button
   - Spikes
   - Lamp
+  - Wall
   layers:
   - Default
   - TransparentFX
