@@ -120,6 +120,7 @@ public class SaveStateManager : MonoBehaviour
         int index = 0;
         foreach(GameObject boulder in boulders)
         {
+            boulder.GetComponent<BoulderMoveScript>().Detach();
             boulder.transform.position = boulderPositions[index++];
         }
     }
