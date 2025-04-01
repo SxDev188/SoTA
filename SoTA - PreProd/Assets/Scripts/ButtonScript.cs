@@ -193,6 +193,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
                 isTimerRunning = false;
                 isPushed = false;
                 timerTickingSFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                StopAllCoroutines();
             }
             return;
         }

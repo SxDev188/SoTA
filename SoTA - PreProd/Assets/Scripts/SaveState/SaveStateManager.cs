@@ -65,6 +65,7 @@ public class SaveStateManager : MonoBehaviour
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
     }
+    
     public void Save()
     {
         saves.Add(CreateSaveData());
@@ -100,14 +101,13 @@ public class SaveStateManager : MonoBehaviour
         }
         return bouldersPosition;
     }
-
+    
     public void Load()
     {
         SaveData dataToLoad = saves[saves.Count-1];
         SetFromSaveData(dataToLoad);
         starActions.Recall();
     }
-
     private void SetFromSaveData(SaveData saveData)
     {
         SetFromBoulderPositions(saveData);
@@ -120,6 +120,7 @@ public class SaveStateManager : MonoBehaviour
         int index = 0;
         foreach(GameObject boulder in boulders)
         {
+            boulder.GetComponent<BoulderMoveScript>().Detach();
             boulder.transform.position = boulderPositions[index++];
         }
     }

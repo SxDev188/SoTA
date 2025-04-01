@@ -83,4 +83,10 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             isMoving = !isMoving;
         }
     }
+
+    //Added so when Load can detach the boulder from the player by Linus
+    public void Detach()
+    {
+        isMoving = false;
+    }
 }
