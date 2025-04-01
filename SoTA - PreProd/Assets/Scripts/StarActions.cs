@@ -118,6 +118,14 @@ public class StarActions : MonoBehaviour
         Debug.Log("TRAVEL TO DESTINATION WAS STOPPED!");
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Abyss"))
+        {
+            isOnPlayer = true;
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
 
@@ -130,7 +138,7 @@ public class StarActions : MonoBehaviour
         {
             return;
         }
-        
+
         if (collision.gameObject.tag == "Button" && isTraveling)
         {
             //collision.gameObject.CollisionLogicMethod();

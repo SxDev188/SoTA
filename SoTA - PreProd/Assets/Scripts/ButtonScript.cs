@@ -22,13 +22,29 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
     public bool IsActive { get { return isPushed; } }
 
+    private Transform FindChildByName(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name)
+                return child;
+
+            Transform found = FindChildByName(child, name);
+            if (found != null)
+                return found;
+        }
+        return null;
+    }
+
     public void Start()
     {
-        button = transform.Find("Button_connection");
+        button = FindChildByName(transform, "Button_connection");
+
         if (button == null)
         {
             Debug.LogError("Button_connection child not found! Check the hierarchy.");
         }
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
         timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
@@ -105,6 +121,13 @@ public class ButtonScript : MonoBehaviour, IInteractable
     
     private void StartTimerForAllPuzzleElements()
     {
+        if (isTimerRunning)
+        {
+            return;
+        }
+
+        isTimerRunning = true;
+        
         foreach (GameObject puzzleElement in puzzleElements)
         {
             IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
@@ -115,23 +138,35 @@ public class ButtonScript : MonoBehaviour, IInteractable
             }
 
             activatable.Activate();
-            StartCoroutine(DeactivateDelayed(activatable));
-            isTimerRunning = true;
         }
+        
+        StartCoroutine(DeactivateAllDelayed());
     }
 
-    private IEnumerator DeactivateDelayed(IActivatable activatable)
+    private IEnumerator DeactivateAllDelayed()
     {
         yield return new WaitForSeconds(totalTimerDuration);
+
+        foreach (GameObject puzzleElement in puzzleElements)
+        {
+            IActivatable activatable = puzzleElement.GetComponent<IActivatable>();
+
+            if (activatable == null)
+            {
+                continue;
+            }
+
             activatable.Deactivate();
-            isPushed = false;
-            isTimerRunning = false;
+        }
 
-            FlipButtonUp();
+        isPushed = false;
+        isTimerRunning = false;
 
-            timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-            buttonSFX.start();
+        FlipButtonUp();
+
+        timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
+        buttonSFX.start();      
     }
     private void ToggleButtonState()
     {
@@ -158,7 +193,6 @@ public class ButtonScript : MonoBehaviour, IInteractable
                 isTimerRunning = false;
                 isPushed = false;
                 timerTickingSFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                StopAllCoroutines();
             }
             return;
         }

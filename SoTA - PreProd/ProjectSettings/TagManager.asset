@@ -10,6 +10,9 @@ TagManager:
   - Button
   - Spikes
   - Lamp
+  - Wall
+  - Abyss
+  - PressurePlate
   layers:
   - Default
   - TransparentFX
