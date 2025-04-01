@@ -22,13 +22,29 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
     public bool IsActive { get { return isPushed; } }
 
+    private Transform FindChildByName(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name)
+                return child;
+
+            Transform found = FindChildByName(child, name);
+            if (found != null)
+                return found;
+        }
+        return null;
+    }
+
     public void Start()
     {
-        button = transform.Find("Button_connection");
+        button = FindChildByName(transform, "Button_connection");
+
         if (button == null)
         {
             Debug.LogError("Button_connection child not found! Check the hierarchy.");
         }
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
         timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
