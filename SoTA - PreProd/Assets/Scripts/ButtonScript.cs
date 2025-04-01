@@ -123,8 +123,6 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private IEnumerator DeactivateDelayed(IActivatable activatable)
     {
         yield return new WaitForSeconds(totalTimerDuration);
-        if (isTimerRunning)
-        {
             activatable.Deactivate();
             isPushed = false;
             isTimerRunning = false;
@@ -134,7 +132,6 @@ public class ButtonScript : MonoBehaviour, IInteractable
             timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
             buttonSFX.start();
-        }
     }
     private void ToggleButtonState()
     {
@@ -161,6 +158,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
                 isTimerRunning = false;
                 isPushed = false;
                 timerTickingSFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                StopAllCoroutines();
             }
             return;
         }
