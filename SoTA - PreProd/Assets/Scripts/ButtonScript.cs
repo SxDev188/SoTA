@@ -166,19 +166,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
         timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-        buttonSFX.start();
-        //if (isTimerRunning)
-        //{
-        //    activatable.Deactivate();
-        //    isPushed = false;
-        //    isTimerRunning = false;
-
-        //    FlipButtonUp();
-
-        //    timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        //    buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-        //    buttonSFX.start();
-        //}
+        buttonSFX.start();      
     }
     private void ToggleButtonState()
     {
