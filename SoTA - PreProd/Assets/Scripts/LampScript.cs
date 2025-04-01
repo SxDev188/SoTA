@@ -6,7 +6,7 @@ public class LampScript : MonoBehaviour, IActivatable
 
 {
     private LightTracker tracker;
-    public bool IsLit { get; private set; } = false;
+    [field: SerializeField] public bool IsLit { get; private set; }
 
     void Start()
     {

@@ -25,6 +25,9 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private bool strongThrowAllowed = false;
     float healthChangeTimer = 0.0f;
 
+    [SerializeField] float aimRotationByDegrees = 45;
+    Vector3 rotationAxis = Vector3.up;
+
     Vector3 mouseDownPosition;
     Vector3 mouseReleasePosition;
 
@@ -62,6 +65,9 @@ public class PlayerStarActionController : MonoBehaviour
             {
                 throwDirection = throwDirection.normalized * normalThrowRange;
             }
+
+            throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
+
 
             Debug.DrawRay(transform.position, throwDirection, Color.red);
 
