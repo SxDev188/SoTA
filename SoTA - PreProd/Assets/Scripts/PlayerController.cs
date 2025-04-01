@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Spikes"))
+        if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
         {
             currentHealth = 0;
         }
