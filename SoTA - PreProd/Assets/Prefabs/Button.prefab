@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5378249798811354890}
   m_Layer: 0
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,8 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 440bfdcd6345fc842a1556bd5c28b19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleElements: []
-  hasTimer: 0
+  puzzleElements:
+  - {fileID: 0}
+  hasTimer: 1
   totalTimerDuration: 3
 --- !u!1001 &5778071656090078300
 PrefabInstance:
