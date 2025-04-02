@@ -1222,6 +1222,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Boulder
       objectReference: {fileID: 0}
+    - target: {fileID: 4418868953479186636, guid: 6153d678b853bd7489c5bb23a2787c3b,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418868953479186636, guid: 6153d678b853bd7489c5bb23a2787c3b,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418868953479186636, guid: 6153d678b853bd7489c5bb23a2787c3b,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.95
+      objectReference: {fileID: 0}
     - target: {fileID: 6290265528153239896, guid: 6153d678b853bd7489c5bb23a2787c3b,
         type: 3}
       propertyPath: m_IsKinematic
@@ -1758,7 +1773,7 @@ PrefabInstance:
     - target: {fileID: 1434026889855080849, guid: 6153d678b853bd7489c5bb23a2787c3b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.5
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1434026889855080849, guid: 6153d678b853bd7489c5bb23a2787c3b,
         type: 3}
@@ -1799,6 +1814,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boulder (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418868953479186636, guid: 6153d678b853bd7489c5bb23a2787c3b,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418868953479186636, guid: 6153d678b853bd7489c5bb23a2787c3b,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418868953479186636, guid: 6153d678b853bd7489c5bb23a2787c3b,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 6290265528153239896, guid: 6153d678b853bd7489c5bb23a2787c3b,
         type: 3}
@@ -2152,7 +2182,7 @@ PrefabInstance:
     - target: {fileID: 1434026889855080849, guid: 6153d678b853bd7489c5bb23a2787c3b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1434026889855080849, guid: 6153d678b853bd7489c5bb23a2787c3b,
         type: 3}
@@ -2203,11 +2233,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Boulder
-      objectReference: {fileID: 0}
-    - target: {fileID: 6290265528153239896, guid: 6153d678b853bd7489c5bb23a2787c3b,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13,6 +13,8 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     private Vector3 plrHitscan;
     private Rigidbody boulderRigidbody;
 
+    Vector3 offsetToPlayer;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -23,17 +25,25 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     private void Update()
     {
-
+        if (isAttached)
+        {
+            transform.position = player.transform.position + offsetToPlayer;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(!isAttached)
+        {
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Level Floor") || collision.gameObject.CompareTag("Abyss") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PressurePlate"))
         {
             return;
         }
-        
-        if (collision.gameObject.CompareTag("Star") && isAttached && collision.gameObject.GetComponent<StarActions>().IsOnPlayer) //so that carrying the star doesn't block the boulder push
+
+        if (collision.gameObject.CompareTag("Star") && collision.gameObject.GetComponent<StarActions>().IsOnPlayer) //so that carrying the star doesn't block the boulder push
         {
             return;
         }
@@ -93,16 +103,19 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     {
         isAttached = true;
         boulderRigidbody.isKinematic = false;
-        this.transform.SetParent(player.transform);
+        //this.transform.SetParent(player.transform);
         LockPlayerMovement();
-        
+
+        offsetToPlayer = transform.position - player.transform.position;
+
+
         Debug.Log("boulder was attached");
     }
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
         isAttached = false;
         boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
-        this.transform.parent = null;
+        //this.transform.parent = null;
         UnlockPlayerMovement();
 
         SnapToFloor();
