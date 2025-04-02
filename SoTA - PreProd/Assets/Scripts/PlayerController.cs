@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     Vector3 movementInput = Vector3.zero;
     bool isMoving = false;
     bool isMovementLocked = false;
+    Vector3 movementLockAxis;
 
     [SerializeField] float movementRotationByDegrees = 45;
     Vector3 rotationAxis = Vector3.up;
@@ -48,6 +49,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isMovementLocked && movementLockAxis != Vector3.zero)
+        {
+            movementInput = Vector3.Scale(movementInput, movementLockAxis);
+        }
+
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
         {
             //this movement does not depend on where player is facing, only movementInput
@@ -98,15 +104,18 @@ public class PlayerController : MonoBehaviour
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation);         //this line might be needed for controller
     }
 
-    public void LockMovement(Vector3 Axis) //For boulder movement
+    public void LockMovement(Vector3 axis) //For boulder movement
     {
         isMovementLocked = true;
-        movementInput = Vector3.Scale(movementInput, Axis);
+        movementLockAxis = axis;
+
+        //movementInput = Vector3.Scale(movementInput, axis);
     }
 
     public void UnlockMovement()
     {
         isMovementLocked = false;
+        movementLockAxis = Vector3.zero;
         InteruptMovement();
     }
 
@@ -115,7 +124,7 @@ public class PlayerController : MonoBehaviour
         return isMovementLocked;
     }
 
-    public Vector3 RayBoulderInteraction(float interactionRange)
+    public Vector3 RayBoulderInteraction(float interactionRange, GameObject interactedBoulder)
     {
         RaycastHit hit;
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.right, Vector3.left };
@@ -133,17 +142,28 @@ public class PlayerController : MonoBehaviour
             //    }
             //}
 
+            //if (Physics.Raycast(transform.position, directions[i], out hit, interactionRange))
+            //{
+            //    Debug.DrawRay(transform.position, directions[i] * hit.distance, Color.red);
+
+            //    if (hit.transform.tag == "Boulder")
+            //    {
+            //        return directions[i];
+            //    }
+            //}
+
             if (Physics.Raycast(transform.position, directions[i], out hit, interactionRange))
             {
                 Debug.DrawRay(transform.position, directions[i] * hit.distance, Color.red);
 
-                if (hit.transform.tag == "Boulder")
+                if (hit.transform.gameObject == interactedBoulder && hit.transform.tag == "Boulder")
                 {
                     return directions[i];
                 }
             }
         }
 
+        //means the boulder will not be attached to the player
         return Vector3.zero;
     }
 

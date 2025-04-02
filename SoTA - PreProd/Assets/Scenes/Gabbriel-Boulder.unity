@@ -1712,10 +1712,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boulder (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 2545799543686016793, guid: 6153d678b853bd7489c5bb23a2787c3b,
+    - target: {fileID: 6290265528153239896, guid: 6153d678b853bd7489c5bb23a2787c3b,
         type: 3}
-      propertyPath: m_TagString
-      value: Boulder
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1875,6 +1875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maxHealth
       value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202267313386246333, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
+        type: 3}
+      propertyPath: boulderPushSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
