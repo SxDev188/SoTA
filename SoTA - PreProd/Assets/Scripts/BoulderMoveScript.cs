@@ -4,63 +4,47 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-
 public class BoulderMoveScript : MonoBehaviour, IInteractable
 {
     private float interactionRange = 2f;
-    private bool isMoving = false;
+    private bool isAttached = false;
     private GameObject player;
     private PlayerController playerController;
     private Vector3 plrHitscan;
+    private Rigidbody boulderRigidbody;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
+
+        boulderRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        plrHitscan = playerController.RayBoulderInteraction(interactionRange);
 
-        if (isMoving)
-        {
-            this.transform.SetParent(player.transform);
-
-            if(plrHitscan == Vector3.forward || plrHitscan == Vector3.back)
-            {
-                playerController.LockMovement(Vector3.forward);
-            }
-            if(plrHitscan == Vector3.right || plrHitscan == Vector3.left)
-            {
-                playerController.LockMovement(Vector3.right);
-            }
-        }
-        else
-        {
-            //this block was added because locking movement did not work as usual after the player movement was updated
-            if (playerController.GetIsMovementLocked() && transform.parent == null) //null check so it doesn't run every frame
-            {
-                playerController.UnlockMovement();
-                Debug.Log("Unlocking player movement");
-            }
-
-            SnapToFloor();
-            this.transform.parent = null;
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "Level Floor" || collision.gameObject.tag != "Player" || collision.gameObject.tag != "PressurePlate")
+        if (collision.gameObject.CompareTag("Level Floor") || collision.gameObject.CompareTag("Abyss") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PressurePlate"))
         {
-            isMoving = false;
+            return;
         }
+        
+        if (collision.gameObject.CompareTag("Star") && isAttached && collision.gameObject.GetComponent<StarActions>().IsOnPlayer) //so that carrying the star doesn't block the boulder push
+        {
+            return;
+        }
+
+        Debug.Log("BOULDER IS COLLIDING WITH SOMETHING with tag: " + collision.gameObject.tag);
+        Detach();
     }
 
     private void SnapToFloor()
     {
-        if (!isMoving)
+        if (!isAttached)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
@@ -72,21 +56,75 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     }
 
     private bool PlayerIsClose()
-    {
+    {   
         return Vector3.Distance(transform.position, player.transform.position) <= interactionRange;
     }
 
     public void Interact()
     {
-        if (PlayerIsClose() && plrHitscan != Vector3.zero)
+        Debug.Log("THIS BOULDER IS ATTACHED?: " + isAttached);
+
+        if (isAttached)
         {
-            isMoving = !isMoving;
+            Detach();
+            return;
+        }
+
+        if (!PlayerIsClose())
+        {
+            return;
+        }
+
+        //ask player if they can find this boulder and if so, which direction the player is comming from
+        plrHitscan = playerController.RayBoulderInteraction(interactionRange, this.gameObject);
+
+        if (plrHitscan == Vector3.zero)
+        {
+            return;
+        }
+
+        if (!isAttached)
+        {
+            Attach();
         }
     }
 
-    //Added so when Load can detach the boulder from the player by Linus
-    public void Detach()
+    private void Attach()
     {
-        isMoving = false;
+        isAttached = true;
+        boulderRigidbody.isKinematic = false;
+        this.transform.SetParent(player.transform);
+        LockPlayerMovement();
+        
+        Debug.Log("boulder was attached");
+    }
+    public void Detach() //Added so when Load can detach the boulder from the player by Linus
+    {
+        isAttached = false;
+        boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
+        this.transform.parent = null;
+        UnlockPlayerMovement();
+
+        SnapToFloor();
+
+        Debug.Log("boulder was detached");
+    }
+
+    private void LockPlayerMovement()
+    {
+        if (plrHitscan == Vector3.forward || plrHitscan == Vector3.back)
+        {
+            playerController.LockMovement(Vector3.forward);
+        }
+        if (plrHitscan == Vector3.right || plrHitscan == Vector3.left)
+        {
+            playerController.LockMovement(Vector3.right);
+        }
+    }
+    
+    private void UnlockPlayerMovement()
+    {
+        playerController.UnlockMovement();
+        Debug.Log("Unlocking player movement");
     }
 }
