@@ -16,8 +16,7 @@ public class EndPointScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("game ended");
-            Application.Quit();
-            
+            Application.Quit();            
         }
     }
 }
