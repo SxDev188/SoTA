@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-
 public class BoulderMoveScript : MonoBehaviour, IInteractable
 {
     private float interactionRange = 2f;
@@ -21,10 +20,17 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        Debug.Log("PRE UPDATE: " + plrHitscan);
+
         plrHitscan = playerController.RayBoulderInteraction(interactionRange);
+
+        Debug.Log("POST UPDATE: " + plrHitscan);
+
 
         if (isMoving)
         {
+
+
             this.transform.SetParent(player.transform);
 
             if(plrHitscan == Vector3.forward || plrHitscan == Vector3.back)
@@ -72,14 +78,22 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     }
 
     private bool PlayerIsClose()
-    {
+    {   
+        //Debug.Log("Distance:");
+
+        //Debug.Log(Vector3.Distance(transform.position, player.transform.position));
+
         return Vector3.Distance(transform.position, player.transform.position) <= interactionRange;
     }
 
     public void Interact()
     {
+        Debug.Log("boulder was interacted with");
+        Debug.Log(plrHitscan);
+
         if (PlayerIsClose() && plrHitscan != Vector3.zero)
         {
+
             isMoving = !isMoving;
         }
     }
