@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     bool isMovementLocked = false;
     Vector3 movementLockAxis;
 
+    private Vector2 lastMoveDirection;
+    private Vector2 moveInput;
+
     [SerializeField] float movementRotationByDegrees = 45;
     Vector3 rotationAxis = Vector3.up;
     Vector3 movementDirection;
@@ -77,6 +80,11 @@ public class PlayerController : MonoBehaviour
         {
             movementInput = RotateVector3(movementInput, movementRotationByDegrees, rotationAxis);
             LookAtMovementDirection();
+        }
+
+        if (input2d != Vector2.zero) // Used for CameraPan
+        {
+            lastMoveDirection = input2d.normalized;
         }
     }
 
@@ -171,6 +179,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 rotatedVector = Quaternion.AngleAxis(degrees, rotationAxis) * vectorToRotate;
         return rotatedVector;
+    }
+
+    public Vector2 GetLastMoveDirection() //Used for CameraPan
+    {
+        return lastMoveDirection;
     }
 
     //void TruncateVelocity()
