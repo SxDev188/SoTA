@@ -23,31 +23,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (isAttached)
-        {
-            //this.transform.SetParent(player.transform);
 
-            //if(plrHitscan == Vector3.forward || plrHitscan == Vector3.back)
-            //{
-            //    playerController.LockMovement(Vector3.forward);
-            //}
-            //if(plrHitscan == Vector3.right || plrHitscan == Vector3.left)
-            //{
-            //    playerController.LockMovement(Vector3.right);
-            //}
-        }
-        else
-        {
-            //this block was added because locking movement did not work as usual after the player movement was updated
-            //if (playerController.GetIsMovementLocked() && transform.parent == null) //null check so it doesn't run every frame
-            //{
-            //    playerController.UnlockMovement();
-            //    Debug.Log("Unlocking player movement");
-            //}
-
-            //SnapToFloor();
-            //this.transform.parent = null;
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
