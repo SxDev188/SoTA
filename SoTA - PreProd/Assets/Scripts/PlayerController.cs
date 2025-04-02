@@ -108,8 +108,6 @@ public class PlayerController : MonoBehaviour
     {
         isMovementLocked = true;
         movementLockAxis = axis;
-
-        //movementInput = Vector3.Scale(movementInput, axis);
     }
 
     public void UnlockMovement()
@@ -132,31 +130,11 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < directions.Length; i++)
         {
             //here I removed the transform.TransformDirection() so that the raycast ignores the player characters orientation/rotation - goobie
-            //if (Physics.Raycast(transform.position, transform.TransformDirection(directions[i]), out hit, interactionRange))
-            //{
-            //    Debug.DrawRay(transform.position, transform.TransformDirection(directions[i]) * hit.distance, Color.red);
-
-            //    if (hit.transform.tag == "Boulder")
-            //    {
-            //        return directions[i];
-            //    }
-            //}
-
-            //if (Physics.Raycast(transform.position, directions[i], out hit, interactionRange))
-            //{
-            //    Debug.DrawRay(transform.position, directions[i] * hit.distance, Color.red);
-
-            //    if (hit.transform.tag == "Boulder")
-            //    {
-            //        return directions[i];
-            //    }
-            //}
-
             if (Physics.Raycast(transform.position, directions[i], out hit, interactionRange))
             {
                 Debug.DrawRay(transform.position, directions[i] * hit.distance, Color.red);
 
-                if (hit.transform.gameObject == interactedBoulder && hit.transform.tag == "Boulder")
+                if (hit.transform.gameObject == interactedBoulder && hit.transform.tag == "Boulder") //tag check here is probably not necessary but just a precaution
                 {
                     return directions[i];
                 }

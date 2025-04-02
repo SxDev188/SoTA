@@ -56,6 +56,11 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         {
             return;
         }
+        
+        if (collision.gameObject.CompareTag("Star") && isAttached && collision.gameObject.GetComponent<StarActions>().IsOnPlayer) //so that carrying the star doesn't block the boulder push
+        {
+            return;
+        }
 
         Debug.Log("BOULDER IS COLLIDING WITH SOMETHING with tag: " + collision.gameObject.tag);
         Detach();
