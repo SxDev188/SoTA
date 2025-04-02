@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraTriggerScript : MonoBehaviour
 {
     public Vector2 panDirection;
-    public Vector2 requiredEntryDirection;
+    public List<Vector2> requiredEntryDirections;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,9 +20,16 @@ public class CameraTriggerScript : MonoBehaviour
         }
     }
 
-    private bool IsMovingMostlyInRequiredDirection(Vector2 moveDirection) //Because we have diagonal movement
+    private bool IsMovingMostlyInRequiredDirection(Vector2 moveDirection)
     {
-        float dotProduct = Vector2.Dot(moveDirection.normalized, requiredEntryDirection.normalized);
-        return dotProduct > 0.7f; 
+        foreach (var requiredDirection in requiredEntryDirections)
+        {
+            float dotProduct = Vector2.Dot(moveDirection.normalized, requiredDirection.normalized);
+            if (dotProduct > 0.7f)  
+            {
+                return true; 
+            }
+        }
+        return false; 
     }
 }

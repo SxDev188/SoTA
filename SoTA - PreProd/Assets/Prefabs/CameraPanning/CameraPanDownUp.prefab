@@ -67,7 +67,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panDirection: {x: 0, y: 1}
-  requiredEntryDirection: {x: 0, y: 1}
+  requiredEntryDirections:
+  - {x: 0, y: 1}
+  - {x: -1, y: 0}
 --- !u!1 &6113623570012209590
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,4 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panDirection: {x: 0, y: -1}
-  requiredEntryDirection: {x: 0, y: -1}
+  requiredEntryDirections:
+  - {x: 0, y: -1}
+  - {x: 1, y: 0}
