@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,6 +15,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     private PlayerController playerController;
     private Vector3 plrHitscan;
     private Rigidbody boulderRigidbody;
+    bool isOverAbyss = false; //can be use to add gravity back to boulder if you want it to fall off the edge of the segment
 
     Vector3 offsetToPlayer;
 
@@ -54,7 +56,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         Detach();
     }
 
-    private void SnapToFloor()
+    public void SnapToFloor()
     {
         if (!isAttached)
         {
@@ -63,6 +65,9 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             {
                 Vector3 targetPosition = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
                 transform.position = targetPosition;
+            } else
+            {
+                isOverAbyss = true;
             }
         }
     }

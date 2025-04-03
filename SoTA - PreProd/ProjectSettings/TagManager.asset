@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Abyss
   - PressurePlate
+  - BoulderSide
   layers:
   - Default
   - TransparentFX
