@@ -36,6 +36,8 @@ public class PlayerStarActionController : MonoBehaviour
     Vector3 throwDirection;
     Vector3 throwTargetDestination;
 
+    private LineRenderer lineRenderer;
+
     void Start()
     {
         GameObject star = GameObject.FindGameObjectWithTag("Star");
@@ -44,6 +46,8 @@ public class PlayerStarActionController : MonoBehaviour
 
         playerTransform = this.GetComponent<Transform>();
         playerController = this.GetComponent<PlayerController>();
+
+        InitializeLineRenderer();
     }
 
     void Update()
@@ -68,14 +72,35 @@ public class PlayerStarActionController : MonoBehaviour
 
             throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
 
-
-            Debug.DrawRay(transform.position, throwDirection, Color.red);
-
-
+            DrawAimLine();
+            //Debug.DrawRay(transform.position, throwDirection, Color.red);
+        }
+        else
+        {
+            HideAimLine();
         }
 
         healthChangeTimer += Time.deltaTime;
         ManagePlayerHealth();
+    }
+
+    void DrawAimLine()
+    {
+        if (!lineRenderer.enabled)
+        {
+            lineRenderer.enabled = true;
+        }
+
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, transform.position + throwDirection);
+    }
+
+    void HideAimLine()
+    {
+        if (lineRenderer.enabled)
+        {
+            lineRenderer.enabled = false;
+        }
     }
 
     void OnCarryStarToggle(InputValue input)
@@ -227,5 +252,17 @@ public class PlayerStarActionController : MonoBehaviour
 
         starActions.Recall();
         Debug.Log("GRAVITY PULL DESTINATION REACHED!");
+    }
+
+    private void InitializeLineRenderer()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+
+        lineRenderer.startWidth = 0.03f;
+        lineRenderer.endWidth = 0.03f;
+        lineRenderer.positionCount = 2;
+        lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended"));
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
     }
 }
