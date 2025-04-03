@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class BoulderMoveScript : MonoBehaviour, IInteractable
 {
+    private static BoulderMoveScript currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
+
     private float interactionRange = 2f;
     private bool isAttached = false;
     private GameObject player;
@@ -48,7 +50,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             return;
         }
 
-        Debug.Log("BOULDER IS COLLIDING WITH SOMETHING with tag: " + collision.gameObject.tag);
+        //Debug.Log("BOULDER IS COLLIDING WITH SOMETHING with tag: " + collision.gameObject.tag);
         Detach();
     }
 
@@ -72,7 +74,13 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log("THIS BOULDER IS ATTACHED?: " + isAttached);
+        //Debug.Log("THIS BOULDER IS ATTACHED?: " + isAttached);
+
+        if(currentlyActiveBoulder != null && currentlyActiveBoulder != this) //fixes bug where player could sometimes attach to two boulders at once
+        {
+            currentlyActiveBoulder.Detach();
+            return;
+        }
 
         if (isAttached)
         {
@@ -103,24 +111,25 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     {
         isAttached = true;
         boulderRigidbody.isKinematic = false;
-        //this.transform.SetParent(player.transform);
         LockPlayerMovement();
 
         offsetToPlayer = transform.position - player.transform.position;
 
+        currentlyActiveBoulder = this;
 
-        Debug.Log("boulder was attached");
+        //Debug.Log("boulder was attached");
     }
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
         isAttached = false;
         boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
-        //this.transform.parent = null;
         UnlockPlayerMovement();
 
         SnapToFloor();
 
-        Debug.Log("boulder was detached");
+        currentlyActiveBoulder = null;
+
+        //Debug.Log("boulder was detached");
     }
 
     private void LockPlayerMovement()
@@ -138,6 +147,6 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     private void UnlockPlayerMovement()
     {
         playerController.UnlockMovement();
-        Debug.Log("Unlocking player movement");
+        //Debug.Log("Unlocking player movement");
     }
 }
