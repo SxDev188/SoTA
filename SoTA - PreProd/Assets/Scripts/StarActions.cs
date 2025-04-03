@@ -109,7 +109,7 @@ public class StarActions : MonoBehaviour
         StopTravelToDestination();
     }
 
-    void StopTravelToDestination()
+    public void StopTravelToDestination()
     {
         StopCoroutine(TravelCoroutine);
 
