@@ -5,7 +5,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Linus_PlayerStarActionController : MonoBehaviour
+public class PlayerStarActionController : MonoBehaviour
 {
     /*[SerializeField]*/ StarActions starActions;
     /*[SerializeField]*/ Transform starTransform;
