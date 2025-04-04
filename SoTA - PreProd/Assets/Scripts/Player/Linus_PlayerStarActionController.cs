@@ -38,7 +38,7 @@ public class Linus_PlayerStarActionController : MonoBehaviour
 
     private LineRenderer lineRenderer;
 
-    Vector2 aimInput;
+    Vector3 aimInput;
     void Start()
     {
         GameObject star = GameObject.FindGameObjectWithTag("Star");
@@ -55,13 +55,13 @@ public class Linus_PlayerStarActionController : MonoBehaviour
     {
         if (isAiming)
         {
-            mouseReleasePosition = Input.mousePosition;
-            throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
-            throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
-            throwDirection.y = 0; // Keep movement on XZ plane
+            //mouseReleasePosition = Input.mousePosition;
+            //throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
+            //throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
+            //throwDirection.y = 0; // Keep movement on XZ plane
 
             throwDirection = aimInput;
-            throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+            //throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
 
             
 
@@ -74,7 +74,7 @@ public class Linus_PlayerStarActionController : MonoBehaviour
                 throwDirection = throwDirection.normalized * normalThrowRange;
             }
 
-            throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
+            //throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
 
             DrawAimLine();
             //Debug.DrawRay(transform.position, throwDirection, Color.red);
@@ -251,6 +251,13 @@ public class Linus_PlayerStarActionController : MonoBehaviour
         //if (!isMovementLocked)
         //{
         //    movementInput = RotateVector3(movementInput, movementRotationByDegrees, rotationAxis);
+                //if (aimInput != Vector3.zero)
+                //{
+                //    movementDirection = (transform.position + movementInput) - transform.position;
+                //    Quaternion rotation = Quaternion.LookRotation(movementDirection, rotationAxis);
+
+                //    transform.rotation = rotation;
+                //}
         //    LookAtMovementDirection();
         //}
 
