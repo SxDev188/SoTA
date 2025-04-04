@@ -67,7 +67,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
                 transform.position = targetPosition;
             } else
             {
-                isOverAbyss = true;
+                isOverAbyss = true; //unused atm
             }
         }
     }
