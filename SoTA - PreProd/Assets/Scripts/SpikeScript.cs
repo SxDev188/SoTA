@@ -6,11 +6,11 @@ public class SpikeScript : MonoBehaviour, IActivatable
 {
     public void Activate()
     {
-        transform.position += new Vector3(0, 10, 0);
+        gameObject.SetActive(false);
     }
 
     public void Deactivate()
     {
-        transform.position += new Vector3(0, -10, 0);
+        gameObject.SetActive(true);
     }
 }
