@@ -74,7 +74,7 @@ public class Linus_PlayerStarActionController : MonoBehaviour
                 throwDirection = throwDirection.normalized * normalThrowRange;
             }
 
-            //throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
+            throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
 
             DrawAimLine();
             //Debug.DrawRay(transform.position, throwDirection, Color.red);
@@ -246,25 +246,8 @@ public class Linus_PlayerStarActionController : MonoBehaviour
         isAiming = true;
 
         Vector2 input2d = input.Get<Vector2>();
-        aimInput = new Vector3(input2d.x, 0, input2d.y);
+        aimInput = new Vector3(input2d.x, 0, input2d.y) * normalThrowRange;
 
-        //if (!isMovementLocked)
-        //{
-        //    movementInput = RotateVector3(movementInput, movementRotationByDegrees, rotationAxis);
-                //if (aimInput != Vector3.zero)
-                //{
-                //    movementDirection = (transform.position + movementInput) - transform.position;
-                //    Quaternion rotation = Quaternion.LookRotation(movementDirection, rotationAxis);
-
-                //    transform.rotation = rotation;
-                //}
-        //    LookAtMovementDirection();
-        //}
-
-        //if (input2d != Vector2.zero) // Used for CameraPan
-        //{
-        //    lastMoveDirection = input2d.normalized;
-        //}
     }
     void OnAimRelease(InputValue input)
     {
