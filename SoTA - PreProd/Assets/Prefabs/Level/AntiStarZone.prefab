@@ -70,7 +70,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starActions: {fileID: 0}
-  playerCollider: {fileID: 0}
 --- !u!198 &1263159415429311049
 ParticleSystem:
   m_ObjectHideFlags: 0
