@@ -8,6 +8,7 @@ public class BoulderStarPushScript : MonoBehaviour
 
     [SerializeField] float starPushSpeed = 20f;
     [SerializeField] float pushDistance = 1f;
+    [SerializeField] float distanceToCheckForGroundBelowBoulder = 1f;
     [SerializeField] float targetPushDestinationAcceptanceRadius = 0.1f;
     [SerializeField] BoulderSideHitbox[] boulderSideHitboxes = new BoulderSideHitbox[4];
 
@@ -50,7 +51,14 @@ public class BoulderStarPushScript : MonoBehaviour
         StarPushCoroutine = StarPushInDirection(direction, distance);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, direction, out hit, distance))
+
+
+        if (!Physics.Raycast(transform.position + direction * distance, Vector3.down, out hit, distanceToCheckForGroundBelowBoulder)) //to stop boulder from being star pushed into the abyss
+        {
+            return;
+        }
+
+        if (Physics.Raycast(transform.position, direction, out hit, distance)) //to stop boulder from being star pushed into another object
         {
             if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide"))
             {

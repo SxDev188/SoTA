@@ -1468,6 +1468,11 @@ PrefabInstance:
       propertyPath: isOnPlayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6075717819895871205, guid: 9f8e461480935d447a812739701adbe3,
+        type: 3}
+      propertyPath: targetDestinationAcceptanceRadius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6394578260182473771, guid: 9f8e461480935d447a812739701adbe3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
