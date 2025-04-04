@@ -19,19 +19,42 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     Vector3 offsetToPlayer;
 
+
+    private BoulderStarPushScript boulderStarPushScript;//temp
+
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
 
         boulderRigidbody = GetComponent<Rigidbody>();
+        boulderStarPushScript = GetComponent<BoulderStarPushScript>();//temp
     }
 
     private void Update()
     {
+        if (isAttached && !boulderStarPushScript.IsBeingStarPushed)
+        {
+            if (playerController.GetBoulderPushDirection() != Vector3.zero)
+            {
+                boulderStarPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection(), 1f); //temp
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SnapToFloor();
+        }
+
+        //if (isAttached)
+        //{
+        //    transform.position = player.transform.position + offsetToPlayer;
+        //}
+
         if (isAttached)
         {
-            transform.position = player.transform.position + offsetToPlayer;
+            player.transform.position = transform.position - offsetToPlayer;
         }
     }
 
@@ -58,8 +81,8 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     public void SnapToFloor()
     {
-        if (!isAttached)
-        {
+        //if (!isAttached)
+        //{
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
             {
@@ -69,7 +92,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             {
                 isOverAbyss = true; //unused atm
             }
-        }
+        //}
     }
 
     private bool PlayerIsClose()
@@ -123,6 +146,8 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         currentlyActiveBoulder = this;
 
         //Debug.Log("boulder was attached");
+
+        playerController.AttachToBoulder();
     }
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
@@ -135,6 +160,9 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         currentlyActiveBoulder = null;
 
         //Debug.Log("boulder was detached");
+
+        playerController.DetachFromBoulder();
+
     }
 
     private void LockPlayerMovement()
