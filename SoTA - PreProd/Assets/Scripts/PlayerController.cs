@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        UpdateSound();
+        //UpdateSound();
     }
 
     private void FixedUpdate()

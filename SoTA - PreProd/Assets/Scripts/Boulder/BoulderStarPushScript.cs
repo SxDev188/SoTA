@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using FMOD.Studio;
 
 public class BoulderStarPushScript : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class BoulderStarPushScript : MonoBehaviour
 
     private bool isBeingStarPushed = false;
     private bool isBeingPlayerPushed = false;
+
     public bool IsBeingPushed
     {
         get {
@@ -46,10 +48,14 @@ public class BoulderStarPushScript : MonoBehaviour
         }
     }
 
+    EventInstance boulderPushSFX;
+
     void Start()
     {
         boulderRigidbody = GetComponent<Rigidbody>();
         boulderMoveScript = GetComponent<BoulderMoveScript>();
+
+        boulderPushSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.BoulderSFX);
     }
 
     public void CheckSideHitboxes()
@@ -117,6 +123,8 @@ public class BoulderStarPushScript : MonoBehaviour
 
     IEnumerator StarPushInDirection_IEnumerator(Vector3 direction, float distance)
     {
+        boulderPushSFX.start();
+
         //repurposed from StarActions "TravelToDestination"
 
         boulderMoveScript.SnapToFloor(); //ensure that boulder is starting the push from a valid position
@@ -185,6 +193,8 @@ public class BoulderStarPushScript : MonoBehaviour
 
     IEnumerator PlayerPushInDirection_IEnumerator(Vector3 direction, float distance)
     {
+        boulderPushSFX.start();
+
         //repurposed from StarActions "TravelToDestination"
 
         boulderMoveScript.SnapToFloor(); //ensure that boulder is starting the push from a valid position
