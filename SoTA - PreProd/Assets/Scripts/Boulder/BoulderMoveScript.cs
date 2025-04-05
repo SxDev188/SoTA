@@ -64,7 +64,12 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             return;
         }
 
-        if (collision.gameObject.CompareTag("Level Floor") || collision.gameObject.CompareTag("Abyss") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("PressurePlate"))
+        if (collision.gameObject.CompareTag("Level Floor") || collision.gameObject.CompareTag("Abyss") || collision.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
+        
+        if (collision.gameObject.CompareTag("AntiStarZone") || collision.gameObject.CompareTag("PressurePlate"))
         {
             return;
         }

@@ -101,8 +101,8 @@ public class BoulderStarPushScript : MonoBehaviour
 
         if (Physics.Raycast(transform.position + raycastOffset, direction, out hit, distance)) //to stop boulder from being star pushed into another object
         {
-
-            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide") && !hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("Player"))
+            //this is way too long... should be fixed after VS1
+            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide") && !hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("Player") && !hit.collider.gameObject.CompareTag("AntiStarZone"))
             {
                 //add tags here that you want boulder to ignore, but remember to also add them in the OnCollisionEnter check
 
@@ -226,7 +226,12 @@ public class BoulderStarPushScript : MonoBehaviour
         {
             return;
         }
-        
+
+        if (collision.gameObject.CompareTag("AntiStarZone"))
+        {
+            return;
+        }
+
         if (isBeingStarPushed)
         {
             //here you can add checks specific to star push 
