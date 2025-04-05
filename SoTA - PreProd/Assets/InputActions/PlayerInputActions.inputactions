@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftMouseRelease",
+                    "name": "ThrowRelease",
                     "type": "Button",
                     "id": "ab371ada-b65c-499c-8bb8-b2d27bbdb24e",
                     "expectedControlType": "",
@@ -236,7 +236,7 @@
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftMouseRelease",
+                    "action": "ThrowRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
