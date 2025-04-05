@@ -166,16 +166,16 @@ public class BoulderStarPushScript : MonoBehaviour
         boulderMoveScript.SnapToFloor(); //probably not necessary, but better safe than sorry
     }
 
-    public void PlayerPushInDirection(Vector3 direction, float distance)
+    public void PlayerPushInDirection(Vector3 direction)
     {
         if (IsBeingPushed)
         {
             return;
         }
 
-        if (CheckForValidPushDestination(direction, distance))
+        if (CheckForValidPushDestination(direction, playerPushDistance))
         {
-            PlayerPushCoroutine = PlayerPushInDirection_IEnumerator(direction, distance);
+            PlayerPushCoroutine = PlayerPushInDirection_IEnumerator(direction, playerPushDistance);
             StartCoroutine(PlayerPushCoroutine);
         } else
         {

@@ -35,7 +35,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         {
             if (playerController.GetBoulderPushDirection() != Vector3.zero)
             {
-                boulderStarPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection(), 1f);
+                boulderStarPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection());
             }
         }
 
