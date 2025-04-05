@@ -420,6 +420,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "StrongThrow",
+                    "type": "Button",
+                    "id": "64614a21-eb8a-42c1-84d2-c6cb9bfdcbaf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StrongThrowRelease",
+                    "type": "Button",
+                    "id": "8975a679-abf4-4e68-b382-f89d31e796b0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrowRelease",
+                    "type": "Button",
+                    "id": "95bd1cb4-1053-4e6c-8ffc-468d9386ee09",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -508,6 +535,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "GravityPull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22a1f9b7-0d79-4754-bf79-bd6cb44ddc99",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StrongThrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88f9619f-eada-44e7-b2e9-2325ef61caf3",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StrongThrowRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "644f9d88-6a0f-4aa1-bd35-1445fd77dee2",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

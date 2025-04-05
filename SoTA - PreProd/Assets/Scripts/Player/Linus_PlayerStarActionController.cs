@@ -244,16 +244,35 @@ public class Linus_PlayerStarActionController : MonoBehaviour
     void OnAimInput(InputValue input)
     {
         isAiming = true;
-
         Vector2 input2d = input.Get<Vector2>();
-        aimInput = new Vector3(input2d.x, 0, input2d.y) * normalThrowRange;
-
+        aimInput = new Vector3(input2d.x, 0, input2d.y);
+        if (strongThrow)
+        {
+            aimInput *= strongThrowRange;
+        }
+        else
+        {
+            aimInput *= normalThrowRange;
+        }
     }
     void OnAimRelease(InputValue input)
     {
-        ThrowStar();
+        isAiming = false;
+        aimInput = Vector3.zero;
     }
 
+    void OnThrowRelease()
+    {
+        ThrowStar();
+    }
+    void OnStrongThrow()
+    {
+        strongThrow = true;
+    }
+    void OnStrongThrowRelease()
+    {
+        strongThrow = false;
+    }
     void ThrowStar()
     {
         if (starActions.IsOnPlayer && isAiming)
