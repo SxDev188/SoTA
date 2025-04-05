@@ -19,7 +19,6 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     Vector3 offsetToPlayer;
 
-
     private BoulderStarPushScript boulderStarPushScript;//temp
 
 
@@ -34,7 +33,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (isAttached && !boulderStarPushScript.IsBeingStarPushed)
+        if (isAttached && !boulderStarPushScript.IsBeingPushed)
         {
             if (playerController.GetBoulderPushDirection() != Vector3.zero)
             {

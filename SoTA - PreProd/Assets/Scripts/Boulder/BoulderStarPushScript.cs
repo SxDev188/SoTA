@@ -6,14 +6,16 @@ using UnityEngine;
 
 public class BoulderStarPushScript : MonoBehaviour
 {
-    bool isBeingStarPushed = false;
-    public bool IsBeingStarPushed { get { return isBeingStarPushed; } }
+    //this script is a bit too big. it takes care of both star push and player push.
+    //they should probably be separated in the future but for now they use so many of the same methods/variables that they are both in this script
+
+    [field: Header("Star Push Parameters")]
 
     [SerializeField] float starPushSpeed = 20f;
     [SerializeField] float starPushDistance = 1f;
     [SerializeField] float starPushCooldown = 0.2f;
 
-
+    [field: Header("Player Push Parameters")]
     [SerializeField] float playerPushSpeed = 10f;
     [SerializeField] float playerPushDistance = 1f;
     [SerializeField] float playerPushCooldown = 0.5f;
@@ -23,9 +25,22 @@ public class BoulderStarPushScript : MonoBehaviour
     [SerializeField] BoulderSideHitbox[] boulderSideHitboxes = new BoulderSideHitbox[4];
 
     Rigidbody boulderRigidbody;
+    BoulderMoveScript boulderMoveScript;
+
     IEnumerator StarPushCoroutine;
     IEnumerator PlayerPushCoroutine;
-    BoulderMoveScript boulderMoveScript;
+
+    private bool isBeingStarPushed = false;
+    private bool isBeingPlayerPushed = false;
+    public bool IsBeingPushed
+    {
+        get {
+            if (isBeingStarPushed || isBeingPlayerPushed)
+                return true;
+            else
+                return false;
+        }
+    }
 
     void Start()
     {
@@ -52,12 +67,10 @@ public class BoulderStarPushScript : MonoBehaviour
 
     public void StarPushInDirection(Vector3 direction, float distance)
     {
-        if (isBeingStarPushed)
+        if (IsBeingPushed)
         {
             return;
         }
-
-        //Debug.Log("MoveInDirection");
 
         StarPushCoroutine = StarPushInDirection_IEnumerator(direction, distance);
 
@@ -67,19 +80,38 @@ public class BoulderStarPushScript : MonoBehaviour
         }
     }
 
+    private bool CheckForValidPushDestination(Vector3 direction, float distance)
+    {
+        RaycastHit hit;
+
+        if (!Physics.Raycast(transform.position + direction * distance, Vector3.down, out hit, distanceToCheckForGroundBelowBoulder)) 
+        {
+            //checks if there is ground below the target destination to stop boulder from being star pushed into the abyss
+            return false;
+        }
+
+        if (Physics.Raycast(transform.position, direction, out hit, distance)) //to stop boulder from being star pushed into another object
+        {
+            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide"))
+            {
+                //add tags here that you want boulder to ignore, but remember to also add them in the OnCollisionEnter check
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     IEnumerator StarPushInDirection_IEnumerator(Vector3 direction, float distance)
     {
         //repurposed from StarActions "TravelToDestination"
 
-        boulderMoveScript.SnapToFloor();
+        boulderMoveScript.SnapToFloor(); //ensure that boulder is starting the push from a valid position
 
         Vector3 targetDestination = transform.position + direction * distance;
 
-        //Debug.Log("TRAVELING TO DESTINATION...");
         isBeingStarPushed = true;
-        boulderRigidbody.useGravity = false;
         boulderRigidbody.isKinematic = false;
-
 
         while (Vector3.Distance(transform.position, targetDestination) > targetPushDestinationAcceptanceRadius)
         {
@@ -94,32 +126,14 @@ public class BoulderStarPushScript : MonoBehaviour
 
             yield return null;
         }
-        yield return new WaitForSeconds(starPushCooldown);
 
+        boulderMoveScript.SnapToFloor(); //looks weird if this snap only happens AFTER the cooldown
+
+        yield return new WaitForSeconds(starPushCooldown);
 
         StopPushInDirection();
     }
 
-    private bool CheckForValidPushDestination(Vector3 direction, float distance)
-    {
-        RaycastHit hit;
-
-        if (!Physics.Raycast(transform.position + direction * distance, Vector3.down, out hit, distanceToCheckForGroundBelowBoulder)) //to stop boulder from being star pushed into the abyss
-        {
-            return false;
-        }
-
-        if (Physics.Raycast(transform.position, direction, out hit, distance)) //to stop boulder from being star pushed into another object
-        {
-            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide"))
-            {
-                //Debug.Log("StarPush Got Interupted by RayCast");
-                return false;
-            }
-        }
-
-        return true;
-    }
     void StopPushInDirection()
     {
         if (StarPushCoroutine != null)
@@ -133,20 +147,18 @@ public class BoulderStarPushScript : MonoBehaviour
         }
 
         isBeingStarPushed = false;
-        //boulderRigidbody.useGravity = true;
+        isBeingPlayerPushed = false;
         boulderRigidbody.isKinematic = true;
-        //Debug.Log("Star Push In Direction was STOPPED!");
-        boulderMoveScript.SnapToFloor();
+
+        boulderMoveScript.SnapToFloor(); //probably not necessary, but better safe than sorry
     }
 
     public void PlayerPushInDirection(Vector3 direction, float distance)
     {
-        if (isBeingStarPushed)
+        if (IsBeingPushed)
         {
             return;
         }
-
-        //Debug.Log("MoveInDirection");
 
         if (CheckForValidPushDestination(direction, distance))
         {
@@ -154,7 +166,7 @@ public class BoulderStarPushScript : MonoBehaviour
             StartCoroutine(PlayerPushCoroutine);
         } else
         {
-            boulderMoveScript.Detach();
+            boulderMoveScript.Detach(); //fixes bug where player would start moving boulder in opposite direction when their movement input was held down
         }
     }
 
@@ -162,19 +174,16 @@ public class BoulderStarPushScript : MonoBehaviour
     {
         //repurposed from StarActions "TravelToDestination"
 
-        boulderMoveScript.SnapToFloor();
+        boulderMoveScript.SnapToFloor(); //ensure that boulder is starting the push from a valid position
 
         Vector3 targetDestination = transform.position + direction * distance;
 
-        //Debug.Log("TRAVELING TO DESTINATION...");
-        isBeingStarPushed = true;
-        boulderRigidbody.useGravity = false;
+        isBeingPlayerPushed = true;
         boulderRigidbody.isKinematic = false;
-
 
         while (Vector3.Distance(transform.position, targetDestination) > targetPushDestinationAcceptanceRadius)
         {
-            //sets velocity to zero as the starthere could sometimes be a downward force (that was not gravity)
+            //sets velocity to zero as there could sometimes be a downward force (that was not gravity)
             //still unclear where it came from but setting velocity to 0 seems to fix it!
             boulderRigidbody.velocity = new Vector3(0, 0, 0);
 
@@ -185,7 +194,8 @@ public class BoulderStarPushScript : MonoBehaviour
 
             yield return null;
         }
-        boulderMoveScript.SnapToFloor();
+
+        boulderMoveScript.SnapToFloor(); //looks weird if this snap only happens AFTER the cooldown
 
         yield return new WaitForSeconds(playerPushCooldown);
 
@@ -204,14 +214,24 @@ public class BoulderStarPushScript : MonoBehaviour
             return;
         }
         
-        if (isBeingStarPushed && collision.gameObject.tag == "Star")
+        if (isBeingStarPushed)
         {
-            return;
+            //here you can add checks specific to star push 
+
+            if (collision.gameObject.tag == "Star")
+            {
+                return;
+            }
         }
-        
-        if (isBeingStarPushed && collision.gameObject.tag == "Player")
+
+        if (isBeingPlayerPushed)
         {
-            return;
+            //here you can add checks specific to player push 
+
+            if (collision.gameObject.tag == "Player")
+            {
+                return;
+            }
         }
 
         if (isBeingStarPushed)
