@@ -15,12 +15,10 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     private PlayerController playerController;
     private Vector3 plrHitscan;
     private Rigidbody boulderRigidbody;
-    bool isOverAbyss = false; //can be use to add gravity back to boulder if you want it to fall off the edge of the segment
 
     Vector3 offsetToPlayer;
 
-    private BoulderStarPushScript boulderStarPushScript;//temp
-
+    private BoulderStarPushScript boulderStarPushScript;
 
     private void Start()
     {
@@ -28,7 +26,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         playerController = player.GetComponent<PlayerController>();
 
         boulderRigidbody = GetComponent<Rigidbody>();
-        boulderStarPushScript = GetComponent<BoulderStarPushScript>();//temp
+        boulderStarPushScript = GetComponent<BoulderStarPushScript>();
     }
 
     private void Update()
@@ -37,7 +35,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         {
             if (playerController.GetBoulderPushDirection() != Vector3.zero)
             {
-                boulderStarPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection(), 1f); //temp
+                boulderStarPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection(), 1f);
             }
         }
 
@@ -46,15 +44,17 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             SnapToFloor();
         }
 
-        //if (isAttached)
-        //{
-        //    transform.position = player.transform.position + offsetToPlayer;
-        //}
-
         if (isAttached)
         {
-            player.transform.position = transform.position - offsetToPlayer;
+            //player adheres to the boulders position, respecting the offset that was there when they attached
+            player.transform.position = transform.position - offsetToPlayer; 
         }
+
+        ////old boulder movement code
+        //if (isAttached)
+        //{
+        //    transform.position = player.transform.position + offsetToPlayer; //boulder adheres to players position
+        //}
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -80,29 +80,16 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
 
     public void SnapToFloor()
     {
-        //if (!isAttached)
-        //{
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
-            {
-                Vector3 targetPosition = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
-                transform.position = targetPosition;
-            } else
-            {
-                isOverAbyss = true; //unused atm
-            }
-        //}
-    }
-
-    private bool PlayerIsClose()
-    {   
-        return Vector3.Distance(transform.position, player.transform.position) <= interactionRange;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
+        {
+            Vector3 targetPosition = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
+            transform.position = targetPosition;
+        }
     }
 
     public void Interact()
     {
-        //Debug.Log("THIS BOULDER IS ATTACHED?: " + isAttached);
-
         if(currentlyActiveBoulder != null && currentlyActiveBoulder != this) //fixes bug where player could sometimes attach to two boulders at once
         {
             currentlyActiveBoulder.Detach();
@@ -132,6 +119,11 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         {
             Attach();
         }
+    }
+
+    private bool PlayerIsClose()
+    {
+        return Vector3.Distance(transform.position, player.transform.position) <= interactionRange;
     }
 
     private void Attach()
@@ -179,6 +171,5 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     private void UnlockPlayerMovement()
     {
         playerController.UnlockMovement();
-        //Debug.Log("Unlocking player movement");
     }
 }
