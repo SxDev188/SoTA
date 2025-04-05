@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class BoulderStarPushScript : MonoBehaviour
 {
@@ -19,7 +20,10 @@ public class BoulderStarPushScript : MonoBehaviour
     [SerializeField] float playerPushSpeed = 10f;
     [SerializeField] float playerPushDistance = 1f;
     [SerializeField] float playerPushCooldown = 0.5f;
-    
+
+    [SerializeField] bool debugMode = false; //shows the raycast checking for valid push position
+    [SerializeField] Vector3 raycastOffset = new Vector3(0, -0.4f, 0); //offsets the raycast checking for valid push position, without this it misses the spikes capsule collider as it is too low to the ground
+
     [SerializeField] float distanceToCheckForGroundBelowBoulder = 1f;
     [SerializeField] float targetPushDestinationAcceptanceRadius = 0.01f;
     [SerializeField] BoulderSideHitbox[] boulderSideHitboxes = new BoulderSideHitbox[4];
@@ -84,17 +88,26 @@ public class BoulderStarPushScript : MonoBehaviour
     {
         RaycastHit hit;
 
+        if(debugMode)
+        {
+            Debug.DrawRay(transform.position + raycastOffset, direction, Color.red, 1.0f);
+        }
+
         if (!Physics.Raycast(transform.position + direction * distance, Vector3.down, out hit, distanceToCheckForGroundBelowBoulder)) 
         {
             //checks if there is ground below the target destination to stop boulder from being star pushed into the abyss
             return false;
         }
 
-        if (Physics.Raycast(transform.position, direction, out hit, distance)) //to stop boulder from being star pushed into another object
+        if (Physics.Raycast(transform.position + raycastOffset, direction, out hit, distance)) //to stop boulder from being star pushed into another object
         {
-            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide"))
+
+            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide") && !hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("Player"))
             {
                 //add tags here that you want boulder to ignore, but remember to also add them in the OnCollisionEnter check
+
+                Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
+
                 return false;
             }
         }
@@ -232,12 +245,31 @@ public class BoulderStarPushScript : MonoBehaviour
             {
                 return;
             }
+
+            if (collision.gameObject.CompareTag("Star") && collision.gameObject.GetComponent<StarActions>().IsOnPlayer) //so that carrying the star doesn't block the boulder push
+            {
+                return;
+            }
         }
 
-        if (isBeingStarPushed)
+        if (IsBeingPushed)
         {
             //Debug.Log(collision.gameObject);
             StopPushInDirection();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isBeingPlayerPushed)
+        {
+            //here you can add checks specific to player push 
+
+            if (other.gameObject.tag == "Spikes")
+            {
+                StopPushInDirection();
+                return;
+            }
         }
     }
 }
