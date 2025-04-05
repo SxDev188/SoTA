@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 public class PlayerStarActionController : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerStarActionController : MonoBehaviour
     /*[SerializeField]*/ Transform starTransform;
     /*[SerializeField]*/ Transform playerTransform;
     /*[SerializeField]*/ PlayerController playerController;
-
+                         PlayerInput playerInput;
     [SerializeField] float normalThrowRange = 4;
     [SerializeField] float strongThrowRange = 10;
     [SerializeField] private float starPickupRange = 1.0f;
@@ -23,6 +24,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private bool recallAllowed = false;
     [SerializeField] private bool gravityPullAllowed = false;
     [SerializeField] private bool strongThrowAllowed = false;
+    private bool Controller = false;
     float healthChangeTimer = 0.0f;
 
     [SerializeField] float aimRotationByDegrees = 45;
@@ -36,6 +38,8 @@ public class PlayerStarActionController : MonoBehaviour
     Vector3 throwDirection;
     Vector3 throwTargetDestination;
 
+    Vector3 aimInput;
+
     private LineRenderer lineRenderer;
 
     void Start()
@@ -46,20 +50,33 @@ public class PlayerStarActionController : MonoBehaviour
 
         playerTransform = this.GetComponent<Transform>();
         playerController = this.GetComponent<PlayerController>();
+        playerInput = this.GetComponent<PlayerInput>();
 
         InitializeLineRenderer();
+        
+        if (playerInput.currentActionMap.name == "PlayerControlController")
+        {
+            Controller = true;
+        }
     }
 
     void Update()
     {
         if (isAiming)
         {
-            mouseReleasePosition = Input.mousePosition;
-            throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
-            throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
-            throwDirection.y = 0; // Keep movement on XZ plane
+            if (Controller)
+            {
+                throwDirection = aimInput;
+            }
+            else
+            {
+                mouseReleasePosition = Input.mousePosition;
+                throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
+                throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
+                throwDirection.y = 0; // Keep movement on XZ plane
 
-            throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+                throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+            }
 
             if (strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
             {
@@ -137,24 +154,24 @@ public class PlayerStarActionController : MonoBehaviour
             mouseDownPosition = Input.mousePosition;
         }
     }
-    void OnLeftMouseRelease(InputValue input)
-    {
-        //Debug.Log("left mouse release");
+    //void OnLeftMouseRelease(InputValue input)
+    //{
+    //    //Debug.Log("left mouse release");
 
-        if (starActions.IsOnPlayer && isAiming)
-        {
-            isAiming = false;
+    //    if (starActions.IsOnPlayer && isAiming)
+    //    {
+    //        isAiming = false;
 
-            throwTargetDestination = transform.position + throwDirection;
+    //        throwTargetDestination = transform.position + throwDirection;
 
 
-            starActions.Throw(throwTargetDestination, throwDirection.normalized);
+    //        starActions.Throw(throwTargetDestination, throwDirection.normalized);
 
-            //this was just for debug
-            //Vector3 testingTargetPosition = new Vector3(5, 7, 5);
-            //starActions.Throw(testingTargetPosition, testingTargetPosition.normalized);
-        }
-    }
+    //        //this was just for debug
+    //        //Vector3 testingTargetPosition = new Vector3(5, 7, 5);
+    //        //starActions.Throw(testingTargetPosition, testingTargetPosition.normalized);
+    //    }
+    //}
 
     void OnRightMouseDown(InputValue input)
     {
@@ -265,4 +282,61 @@ public class PlayerStarActionController : MonoBehaviour
         lineRenderer.startColor = Color.red;
         lineRenderer.endColor = Color.red;
     }
+
+    //For Controller
+    void OnAimInput(InputValue input)
+    {
+        if (starActions.IsOnPlayer)
+        {
+            isAiming = true;
+            Vector2 input2d = input.Get<Vector2>();
+            aimInput = new Vector3(input2d.x, 0, input2d.y);
+            if (strongThrow)
+            {
+                aimInput *= strongThrowRange;
+            }
+            else
+            {
+                aimInput *= normalThrowRange;
+            }
+        }
+    }
+    void OnAimRelease(InputValue input)
+    {
+        isAiming = false;
+        aimInput = Vector3.zero;
+    }
+    void OnThrowRelease()
+    {
+        ThrowStar();
+    }
+    void OnStrongThrow()
+    {
+        if (!strongThrowAllowed)
+        {
+            return;
+        }
+        strongThrow = true;
+    }
+    void OnStrongThrowRelease()
+    {
+        strongThrow = false;
+    }
+    void ThrowStar()
+    {
+        if (starActions.IsOnPlayer && isAiming)
+        {
+            isAiming = false;
+
+            throwTargetDestination = transform.position + throwDirection;
+
+
+            starActions.Throw(throwTargetDestination, throwDirection.normalized);
+
+            //this was just for debug
+            //Vector3 testingTargetPosition = new Vector3(5, 7, 5);
+            //starActions.Throw(testingTargetPosition, testingTargetPosition.normalized);
+        }
+    }
+
 }
