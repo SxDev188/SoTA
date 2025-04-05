@@ -138,7 +138,11 @@ public class BoulderStarPushScript : MonoBehaviour
         {
             //sets velocity to zero as the starthere could sometimes be a downward force (that was not gravity)
             //still unclear where it came from but setting velocity to 0 seems to fix it!
-            boulderRigidbody.velocity = new Vector3(0, 0, 0);
+            
+            if (!boulderRigidbody.isKinematic) //to avoid warning that sometimes would appear in editor
+            {
+                boulderRigidbody.velocity = new Vector3(0, 0, 0);
+            }
 
             Vector3 tempDirection = targetDestination - transform.position;
             direction = direction.normalized;
@@ -208,7 +212,11 @@ public class BoulderStarPushScript : MonoBehaviour
         {
             //sets velocity to zero as there could sometimes be a downward force (that was not gravity)
             //still unclear where it came from but setting velocity to 0 seems to fix it!
-            boulderRigidbody.velocity = new Vector3(0, 0, 0);
+            
+            if (!boulderRigidbody.isKinematic) //to avoid warning that sometimes would appear in editor
+            {
+                boulderRigidbody.velocity = new Vector3(0, 0, 0);
+            }
 
             Vector3 tempDirection = targetDestination - transform.position;
             direction = direction.normalized;
