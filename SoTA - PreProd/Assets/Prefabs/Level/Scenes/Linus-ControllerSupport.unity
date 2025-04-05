@@ -510,7 +510,7 @@ PrefabInstance:
     - target: {fileID: 2517525866248969489, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_DefaultActionMap
-      value: d05cc5d9-25a7-4880-bebb-816f8f6c8940
+      value: PlayerControlController
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
@@ -565,23 +565,13 @@ PrefabInstance:
     - target: {fileID: 7468595067580057327, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 450923683111974977, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
-        type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 1565074470}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e9b40bcc8a6f9c45bc480d10d052b71, type: 3}
---- !u!1 &620563152 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 450923683111974977, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
-    type: 3}
-  m_PrefabInstance: {fileID: 620563151}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &655322666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1204,7 +1194,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 620563151}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620563152}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
@@ -1216,30 +1206,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 620563151}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1565074470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620563152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d46bcc5a8768de640a0271a62f34956a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalThrowRange: 4
-  strongThrowRange: 10
-  starPickupRange: 2
-  recallRange: 4
-  gravityPullRange: 3
-  gravityPullAcceptanceRadius: 0.5
-  gravityPullSpeed: 5
-  aimSensitivity: 0.5
-  recallAllowed: 1
-  gravityPullAllowed: 1
-  strongThrowAllowed: 1
-  aimRotationByDegrees: 45
 --- !u!1 &1726183383
 GameObject:
   m_ObjectHideFlags: 0
