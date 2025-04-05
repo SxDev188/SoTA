@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     Vector3 rotationAxis = Vector3.up;
     Vector3 movementDirection;
 
+    bool isAttachedToBoulder = false;
+
     private EventInstance playerSlither; //Audio
 
     private void Awake()
@@ -55,6 +57,11 @@ public class PlayerController : MonoBehaviour
         if (isMovementLocked && movementLockAxis != Vector3.zero)
         {
             movementInput = Vector3.Scale(movementInput, movementLockAxis);
+        }
+
+        if (isAttachedToBoulder) //don't move if attached to a boulder
+        {
+            return;
         }
 
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
@@ -184,6 +191,28 @@ public class PlayerController : MonoBehaviour
     public Vector2 GetLastMoveDirection() //Used for CameraPan
     {
         return lastMoveDirection;
+    }
+    
+    public Vector3 GetBoulderPushDirection() //Used for boulder push/pull
+    {
+        if (isAttachedToBoulder && isMovementLocked && movementLockAxis != Vector3.zero)
+        {
+            Vector3 boulderPushDirection = Vector3.Scale(movementInput, movementLockAxis);
+            boulderPushDirection = boulderPushDirection.normalized;
+            return boulderPushDirection;
+        }
+
+        return Vector3.zero;
+    }
+
+    public void AttachToBoulder()
+    {
+        isAttachedToBoulder = true;
+    }
+
+    public void DetachFromBoulder()
+    {
+        isAttachedToBoulder = false;
     }
 
     //void TruncateVelocity()
