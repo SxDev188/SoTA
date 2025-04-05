@@ -402,6 +402,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RecallStar",
+                    "type": "Button",
+                    "id": "4ef750f2-1455-41d8-80ae-0435c3cbd5ba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GravityPull",
+                    "type": "Button",
+                    "id": "0c2beae4-ea8b-4cbd-940b-e9aaf82d26a2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -468,6 +486,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "CarryStarToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60f46025-37fb-493c-b6f0-f07629da3e71",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RecallStar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd243063-3478-4f86-bbef-8c8dbe0c17a2",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GravityPull",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
