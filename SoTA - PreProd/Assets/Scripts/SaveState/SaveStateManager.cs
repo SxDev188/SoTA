@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 //A Singelton since it is a Manager
@@ -40,7 +38,7 @@ public class SaveStateManager : MonoBehaviour
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
     }
 
-    //For Debug Purposes
+    //For Debug Purposes  <<-- If it works, then we should remove?
     private void OnSave()
     {
         if (debugMode)

@@ -5,23 +5,21 @@ using System.Collections.Generic;
 
 public class LightTracker : MonoBehaviour
 {
-    private RadialColorRenderFeature feature;
-    
-    //[SerializeField]
+    // COMPONENTS
     private Transform star;
-    //[SerializeField]
+    private RadialColorRenderFeature feature;
     private List<Transform> lightSources = new List<Transform>();
-    [SerializeField]
-    private ScriptableRendererData rendererData;
-    [SerializeField]
-    private float smoothSpeed = 20f;
-    [SerializeField]
-    private float effectRadius = 150f;
-    [SerializeField]
-    private float effectRadiusSmoothing = 10f;
-    [SerializeField]
-    private float effectToggle = 1f;
 
+    // TWEAKABLE VARIABLES
+    [SerializeField] private ScriptableRendererData rendererData;
+
+    [SerializeField] private float smoothSpeed = 20f;
+
+    [SerializeField] private float effectToggle = 1f;
+    [SerializeField] private float effectRadius = 150f;
+    [SerializeField] private float effectRadiusSmoothing = 10f;
+
+    // STORING/VALUE VARIABLES
     private Vector4 smoothedStarPosition;
 
     void Start()
@@ -56,7 +54,6 @@ public class LightTracker : MonoBehaviour
     public void RegisterLightSource(Transform lightSource)
     {
         lightSources.Add(lightSource);
-        //Debug.Log($"Registered light source: {lightSource.name}");
         Update();
     }
 
@@ -99,24 +96,15 @@ public class LightTracker : MonoBehaviour
         feature.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
         feature.SetEffectToggle(effectToggle);
 
-        //Debug.Log($"LightTracker Update Running. Total registered lights: {lightSources.Count}");
-
         List<Vector4> lightSourcePositions = new List<Vector4>();
         foreach (Transform t in lightSources)
         {
-            //Debug.Log($"Checking light source: {t.name}");
-
             LampScript lamp = t.GetComponent<LampScript>();
-            //if (lamp != null)
-            //{
-            //    Debug.Log($"Lamp {t.name} found. isLit = {lamp.isLit}");
-            //}
 
             if (lamp != null && lamp.IsLit)
             {
                 Vector4 pos = Camera.main.WorldToViewportPoint(t.position);
                 lightSourcePositions.Add(pos);
-                //Debug.Log($"Light source {t.name} is lit at {pos}");
             }
         }
 

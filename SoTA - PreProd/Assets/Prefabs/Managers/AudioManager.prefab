@@ -105,11 +105,11 @@ MonoBehaviour:
     Path: event:/TimerTicking
   <PressurePlateSFX>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1983463218
+      Data2: 1334895756
+      Data3: -1399288440
+      Data4: 1154796700
+    Path: event:/PressurePlateSFX
   <SlitherSound>k__BackingField:
     Guid:
       Data1: 105197990
@@ -119,8 +119,8 @@ MonoBehaviour:
     Path: event:/Slither
   <BoulderSFX>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1899738821
+      Data2: 1265916534
+      Data3: -1359872622
+      Data4: 1231198397
+    Path: event:/BoulderSFX
