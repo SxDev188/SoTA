@@ -1,5 +1,7 @@
+using FMOD.Studio;
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -48,6 +50,8 @@ public class PlayerStarActionController : MonoBehaviour
 
     private LineRenderer lineRenderer;
 
+    private EventInstance lowHealthWarningSFX;
+
     // ENGINE METHODS ====================================== // 
 
     void Start()
@@ -65,6 +69,8 @@ public class PlayerStarActionController : MonoBehaviour
         {
             Controller = true;
         }
+
+        lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
     }
 
     void Update()
@@ -105,6 +111,8 @@ public class PlayerStarActionController : MonoBehaviour
 
         healthChangeTimer += Time.deltaTime;
         ManagePlayerHealth();
+
+        PlayLowHealthWarningSound();
     }
 
     // METHODS ====================================== //
@@ -175,7 +183,29 @@ public class PlayerStarActionController : MonoBehaviour
         {
             healthChangeTimer = 0.0f;
         }
+    }
 
+    void PlayLowHealthWarningSound()
+    {
+        if (playerController.currentHealth < 5 && playerController.currentHealth > 0 && !starActions.IsOnPlayer)
+        {
+            PLAYBACK_STATE playbackState;
+            lowHealthWarningSFX.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                lowHealthWarningSFX.start();
+            }
+        } else
+        {
+            PLAYBACK_STATE playbackState;
+            lowHealthWarningSFX.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+            {
+                lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            }
+        }
     }
 
     void ThrowStar()

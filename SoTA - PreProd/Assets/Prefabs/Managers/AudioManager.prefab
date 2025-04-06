@@ -124,3 +124,17 @@ MonoBehaviour:
       Data3: -1359872622
       Data4: 1231198397
     Path: event:/BoulderSFX
+  <LowHealthWarningSFX>k__BackingField:
+    Guid:
+      Data1: -1085689497
+      Data2: 1140326852
+      Data3: 1455694256
+      Data4: -1194908915
+    Path: event:/LifeforceDrain
+  <DeathSFX>k__BackingField:
+    Guid:
+      Data1: -423022087
+      Data2: 1190203400
+      Data3: -1318153336
+      Data4: 222503164
+    Path: event:/DeathSFX
