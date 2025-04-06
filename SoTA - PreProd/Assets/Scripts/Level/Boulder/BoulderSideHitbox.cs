@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoulderSideHitbox : MonoBehaviour
@@ -27,7 +25,6 @@ public class BoulderSideHitbox : MonoBehaviour
             }
         }
 
-        //Debug.Log("SIDE HITBOX: " + other.gameObject.tag);
     }
 
     public void Reset()

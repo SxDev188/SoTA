@@ -1,38 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 using FMOD.Studio;
-using Unity.VisualScripting;
-using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public int maxHealth = 10;
     public int currentHealth;
 
-    Rigidbody playerRigidbody;
-    [SerializeField] float moveSpeed = 7.0f;
-    [SerializeField] float boulderPushSpeed = 3.0f;
-
-    //[SerializeField] float maxVelocity = 5;
+    [SerializeField] public int maxHealth = 10;
     
-    Vector3 movementInput = Vector3.zero;
-    bool isMoving = false;
-    bool isMovementLocked = false;
-    Vector3 movementLockAxis;
+    [SerializeField] private float moveSpeed = 7.0f;
+    [SerializeField] private float boulderPushSpeed = 3.0f;
+    [SerializeField] private float movementRotationByDegrees = 45;
 
+    private Rigidbody playerRigidbody;
+    
+    private bool isMoving = false;
+    private bool isMovementLocked = false;
+    private bool isAttachedToBoulder = false;
+
+    private Vector3 movementLockAxis;
+    private Vector3 movementDirection;
     private Vector2 lastMoveDirection;
-    private Vector2 moveInput;
-
-    [SerializeField] float movementRotationByDegrees = 45;
-    Vector3 rotationAxis = Vector3.up;
-    Vector3 movementDirection;
-
-    bool isAttachedToBoulder = false;
+    private Vector3 rotationAxis = Vector3.up;
+    private Vector3 movementInput = Vector3.zero;
 
     private EventInstance playerSlither; //Audio
 
@@ -49,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //UpdateSound();
+        //UpdateSound(); no more sound :(
     }
 
     private void FixedUpdate()
@@ -215,12 +205,4 @@ public class PlayerController : MonoBehaviour
         isAttachedToBoulder = false;
     }
 
-    //void TruncateVelocity()
-    //{
-    //    //does not seem to be working properly
-    //    if (playerRigidbody.velocity.magnitude > maxVelocity)
-    //    {
-    //        playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxVelocity;
-    //    }
-    //}
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,6 +6,7 @@ public class EndPointScript : MonoBehaviour
     [SerializeField] Transform nextSpawnPoint;
     [SerializeField] Vector2 cameraPanDirection;
     [SerializeField] bool isExit;
+    
     PlayerController playerController;
 
     void Start()
@@ -26,7 +25,6 @@ public class EndPointScript : MonoBehaviour
         {
             if (isExit)
             {
-                Debug.LogWarning("Exiting game!");
                 #if UNITY_EDITOR
                 EditorApplication.isPlaying = false;
                 #endif

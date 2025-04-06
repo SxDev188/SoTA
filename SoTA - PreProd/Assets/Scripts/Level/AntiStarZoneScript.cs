@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AntiStarZoneScript : MonoBehaviour, IActivatable
 {
-    StarActions starActions;
+    private StarActions starActions;
 
     void Start()
     {

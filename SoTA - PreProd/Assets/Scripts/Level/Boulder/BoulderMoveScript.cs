@@ -1,24 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class BoulderMoveScript : MonoBehaviour, IInteractable
 {
-    private static BoulderMoveScript currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
 
-    private float interactionRange = 2f;
     private bool isAttached = false;
-    private GameObject player;
-    private PlayerController playerController;
-    private Vector3 plrHitscan;
-    private Rigidbody boulderRigidbody;
+    private float interactionRange = 2f;
+    
+    private Vector3 playerHitscan;
+    private Vector3 offsetToPlayer;
 
-    Vector3 offsetToPlayer;
+    private GameObject player;
+    private Rigidbody boulderRigidbody;
+    private PlayerController playerController;
 
     private BoulderStarPushScript boulderStarPushScript;
+    private static BoulderMoveScript currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
 
     private void Start()
     {
@@ -39,22 +35,11 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SnapToFloor();
-        }
-
         if (isAttached)
         {
             //player adheres to the boulders position, respecting the offset that was there when they attached
             player.transform.position = transform.position - offsetToPlayer; 
         }
-
-        ////old boulder movement code
-        //if (isAttached)
-        //{
-        //    transform.position = player.transform.position + offsetToPlayer; //boulder adheres to players position
-        //}
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -79,7 +64,6 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             return;
         }
 
-        //Debug.Log("BOULDER IS COLLIDING WITH SOMETHING with tag: " + collision.gameObject.tag);
         Detach();
     }
 
@@ -112,10 +96,10 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
             return;
         }
 
-        //ask player if they can find this boulder and if so, which direction the player is comming from
-        plrHitscan = playerController.RayBoulderInteraction(interactionRange, this.gameObject);
+        //ask player if they can find this boulder and if so, which direction the player is coming from
+        playerHitscan = playerController.RayBoulderInteraction(interactionRange, this.gameObject);
 
-        if (plrHitscan == Vector3.zero)
+        if (playerHitscan == Vector3.zero)
         {
             return;
         }
@@ -138,10 +122,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         LockPlayerMovement();
 
         offsetToPlayer = transform.position - player.transform.position;
-
         currentlyActiveBoulder = this;
-
-        //Debug.Log("boulder was attached");
 
         playerController.AttachToBoulder();
     }
@@ -149,32 +130,25 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     {
         isAttached = false;
         boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
-        UnlockPlayerMovement();
+        playerController.UnlockMovement();
 
         SnapToFloor();
 
         currentlyActiveBoulder = null;
-
-        //Debug.Log("boulder was detached");
-
         playerController.DetachFromBoulder();
 
     }
 
     private void LockPlayerMovement()
     {
-        if (plrHitscan == Vector3.forward || plrHitscan == Vector3.back)
+        if (playerHitscan == Vector3.forward || playerHitscan == Vector3.back)
         {
             playerController.LockMovement(Vector3.forward);
         }
-        if (plrHitscan == Vector3.right || plrHitscan == Vector3.left)
+        if (playerHitscan == Vector3.right || playerHitscan == Vector3.left)
         {
             playerController.LockMovement(Vector3.right);
         }
     }
     
-    private void UnlockPlayerMovement()
-    {
-        playerController.UnlockMovement();
-    }
 }
