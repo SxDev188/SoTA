@@ -122,7 +122,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnCarryStarToggle(InputValue input)
     {
-        Debug.Log("on carry star toggle");
+        //Debug.Log("on carry star toggle");
         if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange)
         {
             starActions.CarryToggle();
@@ -136,7 +136,7 @@ public class PlayerStarActionController : MonoBehaviour
             return;
         }
 
-        Debug.Log("recall");
+        //Debug.Log("recall");
         if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
         {
             starActions.Recall();
@@ -180,7 +180,7 @@ public class PlayerStarActionController : MonoBehaviour
             return;
         }
 
-        Debug.Log("right mouse down");
+        //Debug.Log("right mouse down");
 
         if (starActions.IsOnPlayer)
         {
@@ -197,7 +197,7 @@ public class PlayerStarActionController : MonoBehaviour
             return;
         }
 
-        Debug.Log("right mouse release");
+       // Debug.Log("right mouse release");
         isAiming = false;
         strongThrow = false;
 
@@ -217,13 +217,13 @@ public class PlayerStarActionController : MonoBehaviour
         {
             playerController.currentHealth--;
             healthChangeTimer = 0.0f;
-            Debug.Log("health managed, health at " + playerController.currentHealth);
+            //Debug.Log("health managed, health at " + playerController.currentHealth);
         }
         if ( playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
         {
             playerController.currentHealth++;
             healthChangeTimer = 0.0f;
-            Debug.Log("health managed, health at " + playerController.currentHealth);
+            //Debug.Log("health managed, health at " + playerController.currentHealth);
         }
         if (healthChangeTimer >= changeHealthAtTime)
         {
@@ -239,7 +239,7 @@ public class PlayerStarActionController : MonoBehaviour
             return;
         }
 
-        Debug.Log("gravity pull");
+        //Debug.Log("gravity pull");
 
         if (starActions.IsOnPlayer)
         {
@@ -254,7 +254,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     IEnumerator GravityPullToDestination(Vector3 targetDestination)
     {
-        Debug.Log("GRAVITY PULLING TO DESTINATION...");
+        //Debug.Log("GRAVITY PULLING TO DESTINATION...");
 
         while (Vector3.Distance(transform.position, targetDestination) > gravityPullAcceptanceRadius)
         {
@@ -268,7 +268,7 @@ public class PlayerStarActionController : MonoBehaviour
         }
 
         starActions.Recall();
-        Debug.Log("GRAVITY PULL DESTINATION REACHED!");
+        //Debug.Log("GRAVITY PULL DESTINATION REACHED!");
     }
 
     private void InitializeLineRenderer()
