@@ -7,9 +7,9 @@ public class LightTracker : MonoBehaviour
 {
     private RadialColorRenderFeature feature;
     
-    //[SerializeField]
+
     private Transform star;
-    //[SerializeField]
+
     private List<Transform> lightSources = new List<Transform>();
     [SerializeField]
     private ScriptableRendererData rendererData;

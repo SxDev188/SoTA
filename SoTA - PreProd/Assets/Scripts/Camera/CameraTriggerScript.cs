@@ -19,7 +19,7 @@ public class CameraTriggerScript : MonoBehaviour
                 {
                     lastActivatedTrigger.ReactivateTrigger();
                 }
-                //Debug.Log("Trigger Activated!");
+
                 CameraPanScript.Instance.PanCamera(panDirection);
                 lastActivatedTrigger = this;
 

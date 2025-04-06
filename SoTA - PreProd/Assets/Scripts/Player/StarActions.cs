@@ -61,7 +61,7 @@ public class StarActions : MonoBehaviour
 
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
-        Debug.Log("star was thrown");
+        // Debug.Log("star was thrown");
 
         //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
         if (SaveStateManager.Instance != null)
@@ -87,7 +87,7 @@ public class StarActions : MonoBehaviour
 
     IEnumerator TravelToDestination(Vector3 targetDestination)
     {
-        Debug.Log("TRAVELING TO DESTINATION...");
+        // Debug.Log("TRAVELING TO DESTINATION...");
         isTraveling = true;
         starRigidbody.useGravity = false;
 
@@ -115,7 +115,7 @@ public class StarActions : MonoBehaviour
 
         isTraveling = false;
         starRigidbody.useGravity = true;
-        Debug.Log("TRAVEL TO DESTINATION WAS STOPPED!");
+       //  Debug.Log("TRAVEL TO DESTINATION WAS STOPPED!");
     }
 
     void OnTriggerEnter(Collider other)

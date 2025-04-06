@@ -2,11 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractable
-{
-    void Interact();
-}
-
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private float interactionRange = 0.5f;
