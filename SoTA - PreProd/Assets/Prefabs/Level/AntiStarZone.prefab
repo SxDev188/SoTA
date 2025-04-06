@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 104181214329926818}
   m_Layer: 6
   m_Name: AntiStarZone
-  m_TagString: Untagged
+  m_TagString: AntiStarZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
