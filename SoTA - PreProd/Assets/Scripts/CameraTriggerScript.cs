@@ -6,6 +6,7 @@ public class CameraTriggerScript : MonoBehaviour
 {
     public Vector2 panDirection;
     public List<Vector2> requiredEntryDirections;
+    private static CameraTriggerScript lastActivatedTrigger;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,8 +15,15 @@ public class CameraTriggerScript : MonoBehaviour
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null && IsMovingMostlyInRequiredDirection(player.GetLastMoveDirection()))
             {
+                if (lastActivatedTrigger != null && lastActivatedTrigger != this)
+                {
+                    lastActivatedTrigger.ReactivateTrigger();
+                }
                 //Debug.Log("Trigger Activated!");
                 CameraPanScript.Instance.PanCamera(panDirection);
+                lastActivatedTrigger = this;
+
+                DeactivateTrigger();
             }
         }
     }
@@ -31,5 +39,15 @@ public class CameraTriggerScript : MonoBehaviour
             }
         }
         return false; 
+    }
+
+    private void DeactivateTrigger()
+    {
+        GetComponent<Collider>().enabled = false;
+    }
+
+    public void ReactivateTrigger()
+    {
+        GetComponent<Collider>().enabled = true;
     }
 }

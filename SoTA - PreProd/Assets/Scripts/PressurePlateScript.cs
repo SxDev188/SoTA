@@ -19,7 +19,7 @@ public class PressurePlateScript : MonoBehaviour
     private void Start()
     {
         originalPosition = transform.position;
-        pressurePlateSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
+        pressurePlateSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.PressurePlateSFX);
     }
 
     void OnTriggerEnter(Collider other)
@@ -36,8 +36,8 @@ public class PressurePlateScript : MonoBehaviour
                 isPushedDown = true;
                 transform.position = originalPosition + Vector3.down * sinkAmount;
 
-                pressurePlateSFX.setParameterByNameWithLabel("ButtonPushState", "PushDown");
-                pressurePlateSFX.start();
+                //pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushDown");
+                //pressurePlateSFX.start();
 
                 Interact();
             }
@@ -56,8 +56,8 @@ public class PressurePlateScript : MonoBehaviour
             isPushedDown = false;
             transform.position = originalPosition;
 
-            pressurePlateSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-            pressurePlateSFX.start();
+            //pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushUp");
+            //pressurePlateSFX.start();
 
             Interact();
         }

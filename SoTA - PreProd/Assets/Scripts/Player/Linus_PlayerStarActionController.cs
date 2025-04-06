@@ -5,12 +5,13 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerStarActionController : MonoBehaviour
+public class Linus_PlayerStarActionController : MonoBehaviour
 {
     /*[SerializeField]*/ StarActions starActions;
     /*[SerializeField]*/ Transform starTransform;
     /*[SerializeField]*/ Transform playerTransform;
     /*[SerializeField]*/ PlayerController playerController;
+                         PlayerInput playerInput;
 
     [SerializeField] float normalThrowRange = 4;
     [SerializeField] float strongThrowRange = 10;
@@ -23,6 +24,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private bool recallAllowed = false;
     [SerializeField] private bool gravityPullAllowed = false;
     [SerializeField] private bool strongThrowAllowed = false;
+    private bool Controller = false;
     float healthChangeTimer = 0.0f;
 
     [SerializeField] float aimRotationByDegrees = 45;
@@ -38,6 +40,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     private LineRenderer lineRenderer;
 
+    Vector3 aimInput;
     void Start()
     {
         GameObject star = GameObject.FindGameObjectWithTag("Star");
@@ -46,20 +49,33 @@ public class PlayerStarActionController : MonoBehaviour
 
         playerTransform = this.GetComponent<Transform>();
         playerController = this.GetComponent<PlayerController>();
-
+        playerInput = this.GetComponent<PlayerInput>();
         InitializeLineRenderer();
+        if(playerInput.currentActionMap.name == "PlayerControlController")
+        {
+            Controller = true;
+        }
     }
 
     void Update()
     {
         if (isAiming)
         {
-            mouseReleasePosition = Input.mousePosition;
-            throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
-            throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
-            throwDirection.y = 0; // Keep movement on XZ plane
+            
+           if(Controller)
+           {
+                throwDirection = aimInput;
+           }
+           else
+           {
+                mouseReleasePosition = Input.mousePosition;
+                throwDirection = mouseDownPosition - mouseReleasePosition; // Drag direction
+                throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
+                throwDirection.y = 0; // Keep movement on XZ plane
 
-            throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+                throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+           }
+
 
             if (strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
             {
@@ -94,7 +110,6 @@ public class PlayerStarActionController : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position + throwDirection);
     }
-
     void HideAimLine()
     {
         if (lineRenderer.enabled)
@@ -102,7 +117,6 @@ public class PlayerStarActionController : MonoBehaviour
             lineRenderer.enabled = false;
         }
     }
-
     void OnCarryStarToggle(InputValue input)
     {
         Debug.Log("on carry star toggle");
@@ -111,7 +125,6 @@ public class PlayerStarActionController : MonoBehaviour
             starActions.CarryToggle();
         }
     }
-
     void OnRecallStar(InputValue input)
     {
         if (!recallAllowed)
@@ -125,10 +138,9 @@ public class PlayerStarActionController : MonoBehaviour
             starActions.Recall();
         }
     }
-
     void OnLeftMouseDown(InputValue input)
     {
-        //Debug.Log("left mouse down");
+       //Debug.Log("left mouse down");
 
         if (starActions.IsOnPlayer)
         {
@@ -137,25 +149,6 @@ public class PlayerStarActionController : MonoBehaviour
             mouseDownPosition = Input.mousePosition;
         }
     }
-    void OnLeftMouseRelease(InputValue input)
-    {
-        //Debug.Log("left mouse release");
-
-        if (starActions.IsOnPlayer && isAiming)
-        {
-            isAiming = false;
-
-            throwTargetDestination = transform.position + throwDirection;
-
-
-            starActions.Throw(throwTargetDestination, throwDirection.normalized);
-
-            //this was just for debug
-            //Vector3 testingTargetPosition = new Vector3(5, 7, 5);
-            //starActions.Throw(testingTargetPosition, testingTargetPosition.normalized);
-        }
-    }
-
     void OnRightMouseDown(InputValue input)
     {
         if (!strongThrowAllowed)
@@ -191,30 +184,6 @@ public class PlayerStarActionController : MonoBehaviour
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
         }
     }
-
-    void ManagePlayerHealth()
-    {
-        float changeHealthAtTime = 1.0f;
-
-        if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
-        {
-            playerController.currentHealth--;
-            healthChangeTimer = 0.0f;
-            Debug.Log("health managed, health at " + playerController.currentHealth);
-        }
-        if ( playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
-        {
-            playerController.currentHealth++;
-            healthChangeTimer = 0.0f;
-            Debug.Log("health managed, health at " + playerController.currentHealth);
-        }
-        if (healthChangeTimer >= changeHealthAtTime)
-        {
-            healthChangeTimer = 0.0f;
-        }
-
-    }
-
     void OnGravityPull(InputValue input)
     {
         if (!gravityPullAllowed)
@@ -234,7 +203,6 @@ public class PlayerStarActionController : MonoBehaviour
             StartCoroutine(GravityPullToDestination(starTransform.position));
         }
     }
-
     IEnumerator GravityPullToDestination(Vector3 targetDestination)
     {
         Debug.Log("GRAVITY PULLING TO DESTINATION...");
@@ -253,7 +221,6 @@ public class PlayerStarActionController : MonoBehaviour
         starActions.Recall();
         Debug.Log("GRAVITY PULL DESTINATION REACHED!");
     }
-
     private void InitializeLineRenderer()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -264,5 +231,81 @@ public class PlayerStarActionController : MonoBehaviour
         lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended"));
         lineRenderer.startColor = Color.red;
         lineRenderer.endColor = Color.red;
+    }
+    void OnAimInput(InputValue input)
+    {
+        if (starActions.IsOnPlayer)
+        {
+            isAiming = true;
+            Vector2 input2d = input.Get<Vector2>();
+            aimInput = new Vector3(input2d.x, 0, input2d.y);
+            if (strongThrow)
+            {
+                aimInput *= strongThrowRange;
+            }
+            else
+            {
+                aimInput *= normalThrowRange;
+            }
+        }
+    }
+    void OnAimRelease(InputValue input)
+    {
+        isAiming = false;
+        aimInput = Vector3.zero;
+    }
+    void OnThrowRelease()
+    {
+        ThrowStar();
+    }
+    void OnStrongThrow()
+    {
+        if (!strongThrowAllowed)
+        {
+            return;
+        }
+        strongThrow = true;
+    }
+    void OnStrongThrowRelease()
+    {
+        strongThrow = false;
+    }
+    void ThrowStar()
+    {
+        if (starActions.IsOnPlayer && isAiming)
+        {
+            isAiming = false;
+
+            throwTargetDestination = transform.position + throwDirection;
+
+
+            starActions.Throw(throwTargetDestination, throwDirection.normalized);
+
+            //this was just for debug
+            //Vector3 testingTargetPosition = new Vector3(5, 7, 5);
+            //starActions.Throw(testingTargetPosition, testingTargetPosition.normalized);
+        }
+    }
+    void ManagePlayerHealth()
+    {
+        float changeHealthAtTime = 1.0f;
+
+        if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
+        {
+            playerController.currentHealth--;
+            healthChangeTimer = 0.0f;
+            Debug.Log("health managed, health at " + playerController.currentHealth);
+        }
+        if (playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
+        {
+            playerController.currentHealth++;
+            healthChangeTimer = 0.0f;
+            Debug.Log("health managed, health at " + playerController.currentHealth);
+        }
+        if (healthChangeTimer >= changeHealthAtTime)
+        {
+            healthChangeTimer = 0.0f;
+        }
+
     }
 }

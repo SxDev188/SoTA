@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftMouseRelease",
+                    "name": "ThrowRelease",
                     "type": "Button",
                     "id": "ab371ada-b65c-499c-8bb8-b2d27bbdb24e",
                     "expectedControlType": "",
@@ -236,7 +236,7 @@
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftMouseRelease",
+                    "action": "ThrowRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -402,6 +402,51 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RecallStar",
+                    "type": "Button",
+                    "id": "4ef750f2-1455-41d8-80ae-0435c3cbd5ba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GravityPull",
+                    "type": "Button",
+                    "id": "0c2beae4-ea8b-4cbd-940b-e9aaf82d26a2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StrongThrow",
+                    "type": "Button",
+                    "id": "64614a21-eb8a-42c1-84d2-c6cb9bfdcbaf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StrongThrowRelease",
+                    "type": "Button",
+                    "id": "8975a679-abf4-4e68-b382-f89d31e796b0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThrowRelease",
+                    "type": "Button",
+                    "id": "95bd1cb4-1053-4e6c-8ffc-468d9386ee09",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -468,6 +513,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "CarryStarToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60f46025-37fb-493c-b6f0-f07629da3e71",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RecallStar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd243063-3478-4f86-bbef-8c8dbe0c17a2",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GravityPull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22a1f9b7-0d79-4754-bf79-bd6cb44ddc99",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StrongThrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88f9619f-eada-44e7-b2e9-2325ef61caf3",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StrongThrowRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "644f9d88-6a0f-4aa1-bd35-1445fd77dee2",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
