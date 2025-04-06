@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AntiStarZoneScript : MonoBehaviour
+public class AntiStarZoneScript : MonoBehaviour, IActivatable
 {
     [SerializeField] StarActions starActions;
 
@@ -21,5 +21,15 @@ public class AntiStarZoneScript : MonoBehaviour
             }
             starActions.isTraveling = false;
         }
+    }
+
+    public void Activate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(true);
     }
 }
