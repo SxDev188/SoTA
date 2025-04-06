@@ -1,34 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StarActions : MonoBehaviour
 {
-    Transform playerTransform;
-    Transform starTransform;
-    SphereCollider starCollider;
-
-    Rigidbody starRigidbody;
-    [SerializeField] float throwSpeed = 10f;
-    [SerializeField] float targetDestinationAcceptanceRadius = 0.1f;
-    
-    public bool IsOnPlayer { get { return isOnPlayer; } set { isOnPlayer = value; } }
-    [SerializeField] private bool isOnPlayer = false;
-    [SerializeField] Vector3 onPlayerOffset = new Vector3(0, 3, 0);
-    [SerializeField] float frontOfPlayerOffset = 1f;
-
-    [SerializeField] float yOffsetWhenThrown = 0.5f;
-    float fixedYValueWhenThrown;
-    
+    // PUBLIC
     public bool isTraveling = false;
+    public bool IsOnPlayer { get { return isOnPlayer; } set { isOnPlayer = value; } }
 
+    // COMPONENTS
+    private Transform starTransform;
+    private Rigidbody starRigidbody;
+    private Transform playerTransform;
+
+    // TWEAKABLE VARIABLES
+    [SerializeField] private bool isOnPlayer = false; // Why is this SerializedField? 
+
+    [SerializeField] private float throwSpeed = 10f;
+    [SerializeField] private float yOffsetWhenThrown = 0.5f;
+    [SerializeField] private float targetDestinationAcceptanceRadius = 0.1f;
+
+    [SerializeField] private float frontOfPlayerOffset = 1f;
+    [SerializeField] private Vector3 onPlayerOffset = new Vector3(0, 3, 0);
+
+    // STORING/VALUE VARIABLES
     IEnumerator TravelCoroutine;
+    private float fixedYValueWhenThrown;
 
     void Start()
     {
         starTransform = gameObject.GetComponent<Transform>();
-        starCollider = gameObject.GetComponent<SphereCollider>();
         starRigidbody = gameObject.GetComponent<Rigidbody>();
         playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
@@ -61,7 +61,6 @@ public class StarActions : MonoBehaviour
 
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
-        // Debug.Log("star was thrown");
 
         //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
         if (SaveStateManager.Instance != null)
@@ -73,10 +72,11 @@ public class StarActions : MonoBehaviour
         isOnPlayer = false;
         Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
         
+        // Make sure our star is going the right direction?
         fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
         throwStartPosition.y = fixedYValueWhenThrown;
 
-        transform.position = throwStartPosition;
+        transform.position = throwStartPosition; // why we do this?
 
         Vector3 newTargetDestination = targetDestination;
         newTargetDestination.y = fixedYValueWhenThrown;
@@ -87,10 +87,8 @@ public class StarActions : MonoBehaviour
 
     IEnumerator TravelToDestination(Vector3 targetDestination)
     {
-        // Debug.Log("TRAVELING TO DESTINATION...");
         isTraveling = true;
         starRigidbody.useGravity = false;
-
 
         while (Vector3.Distance(transform.position, targetDestination) > targetDestinationAcceptanceRadius)
         {
@@ -115,7 +113,6 @@ public class StarActions : MonoBehaviour
 
         isTraveling = false;
         starRigidbody.useGravity = true;
-       //  Debug.Log("TRAVEL TO DESTINATION WAS STOPPED!");
     }
 
     void OnTriggerEnter(Collider other)
@@ -146,8 +143,6 @@ public class StarActions : MonoBehaviour
 
         if (collision.gameObject.tag == "Button" && isTraveling)
         {
-            //collision.gameObject.CollisionLogicMethod();
-            //here you can call method in whatever signaler object you collide with (such as a button)
             collision.gameObject.GetComponent<ButtonScript>().Interact();
             StopTravelToDestination();
         }
@@ -160,7 +155,6 @@ public class StarActions : MonoBehaviour
 
         if (isTraveling)
         {
-            //Debug.Log(collision.gameObject);
             StopTravelToDestination();
         }
     }
