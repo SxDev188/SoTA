@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class AntiStarZoneScript : MonoBehaviour, IActivatable
 {
-    [SerializeField] StarActions starActions;
+    StarActions starActions;
 
     void Start()
     {
-        
+        // Fetch the star in the scene
+        starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
     }
 
     void OnTriggerEnter(Collider other)
