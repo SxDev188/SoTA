@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public int maxHealth = 10;
     public int currentHealth;
+    CharacterController characterController;
 
-    Rigidbody playerRigidbody;
     [SerializeField] float moveSpeed = 7.0f;
     [SerializeField] float boulderPushSpeed = 3.0f;
 
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 lastMoveDirection;
     private Vector2 moveInput;
+    private float verticalVelocity = 0;
 
     [SerializeField] float movementRotationByDegrees = 45;
     Vector3 rotationAxis = Vector3.up;
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerRigidbody = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Start()
@@ -54,6 +55,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!characterController.isGrounded)
+        {
+            verticalVelocity += Physics.gravity.y * Time.deltaTime;
+        } else
+        {
+            verticalVelocity = 0;
+        }
+
         if (isMovementLocked && movementLockAxis != Vector3.zero)
         {
             movementInput = Vector3.Scale(movementInput, movementLockAxis);
@@ -67,12 +76,15 @@ public class PlayerController : MonoBehaviour
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
         {
             //this movement does not depend on where player is facing, only movementInput
-            playerRigidbody.MovePosition(transform.position + movementInput * boulderPushSpeed * Time.deltaTime);
+            characterController.Move(movementInput * boulderPushSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
         }
         else if (isMoving)
         {
             //this ONLY MOVES FORWARD, direction is determined by where character is looking
-            playerRigidbody.MovePosition(transform.position + transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime);
+            characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
+        } else
+        {
+            characterController.Move(Vector3.up * verticalVelocity);
         }
     }
 
@@ -164,7 +176,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
         {
+            //Debug.Log("Abyss fall");
             currentHealth = 0;
+            verticalVelocity = 0;
         }
     }
 
