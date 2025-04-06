@@ -1,6 +1,5 @@
-using System.Collections;
+using FMOD.Studio;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 //A Singelton since it is a Manager
@@ -15,6 +14,8 @@ public class SaveStateManager : MonoBehaviour
     private GameObject player;
     private GameObject[] buttons;
     private GameObject[] boulders;
+
+    private EventInstance deathSFX; //should not live here
 
     //Temporary fix I hope or more data added here and removed from other places
     private StarActions starActions;
@@ -38,9 +39,11 @@ public class SaveStateManager : MonoBehaviour
         SetSaveableObjectReferences();
         Save();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
+
+        deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
     }
 
-    //For Debug Purposes
+    //For Debug Purposes  <<-- If it works, then we should remove?
     private void OnSave()
     {
         if (debugMode)
@@ -53,7 +56,7 @@ public class SaveStateManager : MonoBehaviour
     private void OnLoad()
     {
         if (debugMode)
-        {
+        { 
             Load();
             Debug.Log("Loaded");
         }
@@ -107,6 +110,8 @@ public class SaveStateManager : MonoBehaviour
         SaveData dataToLoad = saves[saves.Count-1];
         SetFromSaveData(dataToLoad);
         starActions.Recall();
+
+        deathSFX.start(); //should be moved to other place
     }
     private void SetFromSaveData(SaveData saveData)
     {

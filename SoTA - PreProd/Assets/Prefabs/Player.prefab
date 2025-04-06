@@ -58,10 +58,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.19
   m_Height: 0.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.09, z: 0}
 --- !u!114 &4202267313386246333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,8 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
   currentHealth: 0
+  maxHealth: 10
   moveSpeed: 7
   boulderPushSpeed: 3
   movementRotationByDegrees: 45
@@ -149,6 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85e22030020bc548815ed96d322c1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recallAllowed: 1
+  gravityPullAllowed: 1
+  strongThrowAllowed: 1
   normalThrowRange: 4
   strongThrowRange: 10
   starPickupRange: 2
@@ -157,9 +160,6 @@ MonoBehaviour:
   gravityPullAcceptanceRadius: 0.5
   gravityPullSpeed: 5
   aimSensitivity: 0.5
-  recallAllowed: 1
-  gravityPullAllowed: 1
-  strongThrowAllowed: 1
   aimRotationByDegrees: 45
 --- !u!114 &1201185607336089017
 MonoBehaviour:
