@@ -764,56 +764,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1406501929}
     m_Modifications:
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <BoulderSFX>k__BackingField.Path
-      value: event:/BoulderSFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <BoulderSFX>k__BackingField.Guid.Data1
-      value: 1899738821
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <BoulderSFX>k__BackingField.Guid.Data2
-      value: 1265916534
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <BoulderSFX>k__BackingField.Guid.Data3
-      value: -1359872622
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <BoulderSFX>k__BackingField.Guid.Data4
-      value: 1231198397
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <PressurePlateSFX>k__BackingField.Path
-      value: event:/PressurePlateSFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <PressurePlateSFX>k__BackingField.Guid.Data1
-      value: 1983463218
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <PressurePlateSFX>k__BackingField.Guid.Data2
-      value: 1334895756
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <PressurePlateSFX>k__BackingField.Guid.Data3
-      value: -1399288440
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
-        type: 3}
-      propertyPath: <PressurePlateSFX>k__BackingField.Guid.Data4
-      value: 1154796700
-      objectReference: {fileID: 0}
     - target: {fileID: 5578199862620801904, guid: ac217389566a5b740adafca9f4e04c99,
         type: 3}
       propertyPath: m_Name
