@@ -4,13 +4,45 @@ using UnityEngine;
 
 public class SpikeScript : MonoBehaviour, IActivatable
 {
+    [SerializeField] bool isActive = true;
+
+    private void Start()
+    {
+        if (isActive == true)
+        {
+            gameObject.SetActive(true);
+        }
+        else if (isActive == false)
+        {
+            gameObject.SetActive(false);
+        }
+    }
     public void Activate()
     {
-        gameObject.SetActive(false);
+        if(isActive == true)
+        {
+            gameObject.SetActive(false);
+            isActive = false;
+        }
+        else if (isActive == false)
+        {
+            gameObject.SetActive(true);
+            isActive = true;
+        }
+
     }
 
     public void Deactivate()
     {
-        gameObject.SetActive(true);
+        if (isActive == true)
+        {
+            gameObject.SetActive(false);
+            isActive = false;
+        }
+        else if (isActive == false)
+        {
+            gameObject.SetActive(true);
+            isActive = true;
+        }
     }
 }
