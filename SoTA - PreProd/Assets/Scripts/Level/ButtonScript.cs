@@ -1,9 +1,7 @@
 using FMOD.Studio;
-using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class ButtonScript : MonoBehaviour, IInteractable
 {
@@ -11,14 +9,12 @@ public class ButtonScript : MonoBehaviour, IInteractable
     [SerializeField] private bool hasTimer = false;
     [SerializeField] private float totalTimerDuration = 3;
 
+    private Transform button;
     private bool isPushed = false;
     private bool isTimerRunning = false;
-    private Transform player;
-    private Transform button;
 
     private EventInstance buttonSFX;
     private EventInstance timerTickingSFX;
-
 
     public bool IsActive { get { return isPushed; } }
 
@@ -45,7 +41,6 @@ public class ButtonScript : MonoBehaviour, IInteractable
             Debug.LogError("Button_connection child not found! Check the hierarchy.");
         }
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
         timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
 

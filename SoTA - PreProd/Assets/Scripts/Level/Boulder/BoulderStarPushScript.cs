@@ -1,9 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using FMOD.Studio;
 
 public class BoulderStarPushScript : MonoBehaviour

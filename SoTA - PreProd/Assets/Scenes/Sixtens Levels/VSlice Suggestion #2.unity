@@ -4927,6 +4927,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378249798811354890, guid: 52681688ede504041b2de75772648b10,
         type: 3}
+      propertyPath: hasTimer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378249798811354890, guid: 52681688ede504041b2de75772648b10,
+        type: 3}
       propertyPath: puzzleElements.Array.size
       value: 2
       objectReference: {fileID: 0}
