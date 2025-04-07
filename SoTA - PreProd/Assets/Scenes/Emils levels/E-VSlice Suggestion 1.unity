@@ -190,6 +190,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b0ad9800d30a141a23e35de64af00d, type: 3}
+--- !u!1 &65128885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4018099831857466771, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1941519965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &90237639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1158,7 +1164,7 @@ PrefabInstance:
         type: 3}
       propertyPath: puzzleElements.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 65128885}
     - target: {fileID: 4406951881707567251, guid: 86869337f2713604ea365cfdc86a264b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1824,6 +1830,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075717819895871205, guid: 9f8e461480935d447a812739701adbe3,
+        type: 3}
+      propertyPath: isOnPlayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6394578260182473771, guid: 9f8e461480935d447a812739701adbe3,
         type: 3}
