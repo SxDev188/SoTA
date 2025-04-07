@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     private bool isMovementLocked = false;
     private bool isAttachedToBoulder = false;
 
+    private bool isInDeathZone = false;
+
+    public bool IsInDeathZone
+    {
+        get { return isInDeathZone; }
+    }
+
     private Vector3 movementLockAxis;
     private Vector3 movementDirection;
     private Vector2 lastMoveDirection;
@@ -154,7 +161,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
         {
+            isInDeathZone = true;
             currentHealth = 0;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
+        {
+            isInDeathZone = false;
         }
     }
 
@@ -194,6 +210,11 @@ public class PlayerController : MonoBehaviour
 
         return Vector3.zero;
     }
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, 0.1f);
+    }
+
 
     public void AttachToBoulder()
     {
