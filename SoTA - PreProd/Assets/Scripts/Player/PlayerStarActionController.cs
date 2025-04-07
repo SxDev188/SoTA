@@ -52,6 +52,8 @@ public class PlayerStarActionController : MonoBehaviour
 
     private EventInstance lowHealthWarningSFX;
 
+    private IEnumerator GravityPull_IEnumerator;
+
     // ENGINE METHODS ====================================== // 
 
     void Start()
@@ -150,6 +152,13 @@ public class PlayerStarActionController : MonoBehaviour
             yield return null;
         }
 
+        StopCoroutine(GravityPull_IEnumerator);
+        starActions.Recall();
+    }
+
+    private void InteruptGravityPullToDestination()
+    {
+        StopCoroutine(GravityPull_IEnumerator);
         starActions.Recall();
     }
 
@@ -297,7 +306,8 @@ public class PlayerStarActionController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, starTransform.position) <= gravityPullRange)
         {
-            StartCoroutine(GravityPullToDestination(starTransform.position));
+            GravityPull_IEnumerator = GravityPullToDestination(starTransform.position);
+            StartCoroutine(GravityPull_IEnumerator);
         }
     }
     
@@ -344,4 +354,11 @@ public class PlayerStarActionController : MonoBehaviour
         strongThrow = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Spikes"))
+        {
+            InteruptGravityPullToDestination();
+        }
+    }
 }
