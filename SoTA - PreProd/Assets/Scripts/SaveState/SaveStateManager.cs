@@ -39,7 +39,6 @@ public class SaveStateManager : MonoBehaviour
         SetSaveableObjectReferences();
         Save();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
-
         deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
     }
 
@@ -61,6 +60,16 @@ public class SaveStateManager : MonoBehaviour
             Debug.Log("Loaded");
         }
        
+    }
+
+    private void OnReset()
+    {
+        if (debugMode)
+        {
+            LoadStartSave();
+            Debug.Log("Reset");
+        }
+
     }
     private void SetSaveableObjectReferences()
     {
@@ -158,5 +167,14 @@ public class SaveStateManager : MonoBehaviour
     private bool CheckPlayerSafe()
     {
         return player.GetComponent<PlayerController>().IsInDeathZone;
+    }
+
+    public void LoadStartSave()
+    {
+        SaveData dataToLoad = saves[0];
+        player.transform.position = dataToLoad.PlayerPosition;
+        SetFromBoulderPositions(dataToLoad);
+        SetFromButtonStates(dataToLoad);
+        starActions.Recall();
     }
 }
