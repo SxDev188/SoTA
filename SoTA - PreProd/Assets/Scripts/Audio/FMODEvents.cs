@@ -23,6 +23,9 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Death SFX")]
     [field: SerializeField] public EventReference DeathSFX { get; private set; }
+    
+    [field: Header("Background Music")]
+    [field: SerializeField] public EventReference BackgroundMusic { get; private set; }
 
     public static FMODEvents Instance { get; private set; }
 

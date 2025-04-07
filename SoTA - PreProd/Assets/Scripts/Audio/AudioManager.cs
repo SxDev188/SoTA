@@ -23,7 +23,6 @@ public class AudioManager : MonoBehaviour
 
         eventInstances = new List<EventInstance>();
     }
-
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
@@ -46,9 +45,23 @@ public class AudioManager : MonoBehaviour
         }
 
     }
-
     private void OnDestroy()
     {
         CleanUp();
+    }
+
+
+
+
+    EventInstance backgroundMusic;
+    private void StartBgMusic()
+    {
+        backgroundMusic = Instance.CreateInstance(FMODEvents.Instance.BackgroundMusic);
+        backgroundMusic.start();
+    }
+
+    private void Start()
+    {
+        StartBgMusic();
     }
 }

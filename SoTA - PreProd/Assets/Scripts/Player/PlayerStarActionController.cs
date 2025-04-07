@@ -158,8 +158,11 @@ public class PlayerStarActionController : MonoBehaviour
 
     private void InteruptGravityPullToDestination()
     {
-        StopCoroutine(GravityPull_IEnumerator);
-        starActions.Recall();
+        if (GravityPull_IEnumerator != null)
+        {
+            StopCoroutine(GravityPull_IEnumerator);
+            starActions.Recall();
+        }
     }
 
     private void InitializeLineRenderer()
