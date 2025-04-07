@@ -12,8 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7.0f;
     [SerializeField] private float boulderPushSpeed = 3.0f;
     [SerializeField] private float movementRotationByDegrees = 45;
+    private float verticalVelocity = 0;
 
-    private Rigidbody playerRigidbody;
+    private CharacterController characterController;
     
     private bool isMoving = false;
     private bool isMovementLocked = false;
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerRigidbody = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Start()
@@ -58,6 +59,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if (!characterController.isGrounded)
+        {
+            verticalVelocity += Physics.gravity.y * Time.deltaTime;
+        }
+        else
+        {
+            verticalVelocity = 0;
+        }
+
         if (isMovementLocked && movementLockAxis != Vector3.zero)
         {
             movementInput = Vector3.Scale(movementInput, movementLockAxis);
@@ -71,12 +81,16 @@ public class PlayerController : MonoBehaviour
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
         {
             //this movement does not depend on where player is facing, only movementInput
-            playerRigidbody.MovePosition(transform.position + movementInput * boulderPushSpeed * Time.deltaTime);
+            characterController.Move(movementInput * boulderPushSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
         }
         else if (isMoving)
         {
             //this ONLY MOVES FORWARD, direction is determined by where character is looking
-            playerRigidbody.MovePosition(transform.position + transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime);
+            characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
+        }
+        else
+        {
+            characterController.Move(Vector3.up * verticalVelocity);
         }
     }
 
@@ -170,6 +184,7 @@ public class PlayerController : MonoBehaviour
         {
             isInDeathZone = true;
             currentHealth = 0;
+            verticalVelocity = 0;
             justRespawned = true;
         }
     }
