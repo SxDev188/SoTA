@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public int maxHealth = 10;
     public int currentHealth;
+    bool justRespawned; //Used to supress movement for a frame after spawning
     CharacterController characterController;
 
     [SerializeField] float moveSpeed = 7.0f;
@@ -55,6 +56,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (justRespawned)
+        {
+            justRespawned = false;
+            return;
+        }
+
         if (!characterController.isGrounded)
         {
             verticalVelocity += Physics.gravity.y * Time.deltaTime;
@@ -179,6 +186,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Abyss fall");
             currentHealth = 0;
             verticalVelocity = 0;
+            justRespawned = true;
         }
     }
 
