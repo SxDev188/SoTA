@@ -39,7 +39,6 @@ public class SaveStateManager : MonoBehaviour
         SetSaveableObjectReferences();
         Save();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
-
         deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
     }
 
@@ -62,6 +61,16 @@ public class SaveStateManager : MonoBehaviour
         }
        
     }
+
+    private void OnReset()
+    {
+        if (debugMode)
+        {
+            LoadStartSave();
+            Debug.Log("Reset");
+        }
+
+    }
     private void SetSaveableObjectReferences()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -71,7 +80,11 @@ public class SaveStateManager : MonoBehaviour
     
     public void Save()
     {
-        saves.Add(CreateSaveData());
+        if(player.GetComponent<PlayerController>().IsGrounded() || saves.Count < 1)
+        {
+            saves.Add(CreateSaveData());
+        }
+        
     }
     private SaveData CreateSaveData()
     {
@@ -115,9 +128,21 @@ public class SaveStateManager : MonoBehaviour
     }
     private void SetFromSaveData(SaveData saveData)
     {
-        SetFromBoulderPositions(saveData);
-        SetFromButtonStates(saveData);
         player.transform.position = saveData.PlayerPosition;
+        if (CheckPlayerSafe())
+        {
+            SetFromBoulderPositions(saveData);
+            SetFromButtonStates(saveData);
+        }
+        else
+        {
+            saves.Remove(saveData);
+            SaveData dataToLoad = saves[saves.Count - 1];
+            SetFromSaveData(dataToLoad);
+            return;
+        }
+        
+        
     }
     private void SetFromBoulderPositions(SaveData saveData)
     {
@@ -138,5 +163,18 @@ public class SaveStateManager : MonoBehaviour
             ButtonScript buttonScript = button.GetComponent<ButtonScript>();
             buttonScript.SetState(buttonsActive[index++]);
         }
+    }
+    private bool CheckPlayerSafe()
+    {
+        return player.GetComponent<PlayerController>().IsInDeathZone;
+    }
+
+    public void LoadStartSave()
+    {
+        SaveData dataToLoad = saves[0];
+        player.transform.position = dataToLoad.PlayerPosition;
+        SetFromBoulderPositions(dataToLoad);
+        SetFromButtonStates(dataToLoad);
+        starActions.Recall();
     }
 }
