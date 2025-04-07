@@ -210,6 +210,11 @@ public class PlayerController : MonoBehaviour
 
         return Vector3.zero;
     }
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, 0.1f);
+    }
+
 
     public void AttachToBoulder()
     {
