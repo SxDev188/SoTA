@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7.0f;
     [SerializeField] private float boulderPushSpeed = 3.0f;
     [SerializeField] private float movementRotationByDegrees = 45;
-    private float verticalVelocity = 0;
+    public float VerticalVelocity = 0; 
+
 
     private CharacterController characterController;
     
@@ -61,11 +62,11 @@ public class PlayerController : MonoBehaviour
 
         if (!characterController.isGrounded)
         {
-            verticalVelocity += Physics.gravity.y * Time.deltaTime;
+            VerticalVelocity += Physics.gravity.y * Time.deltaTime;
         }
         else
         {
-            verticalVelocity = 0;
+            VerticalVelocity = 0;
         }
 
         if (isMovementLocked && movementLockAxis != Vector3.zero)
@@ -81,16 +82,16 @@ public class PlayerController : MonoBehaviour
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
         {
             //this movement does not depend on where player is facing, only movementInput
-            characterController.Move(movementInput * boulderPushSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
+            characterController.Move(movementInput * boulderPushSpeed * Time.deltaTime + Vector3.up * VerticalVelocity);
         }
         else if (isMoving)
         {
             //this ONLY MOVES FORWARD, direction is determined by where character is looking
-            characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
+            characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * VerticalVelocity);
         }
         else
         {
-            characterController.Move(Vector3.up * verticalVelocity);
+            characterController.Move(Vector3.up * VerticalVelocity);
         }
     }
 
@@ -184,7 +185,7 @@ public class PlayerController : MonoBehaviour
         {
             isInDeathZone = true;
             currentHealth = 0;
-            verticalVelocity = 0;
+            VerticalVelocity = 0;
             justRespawned = true;
         }
     }
