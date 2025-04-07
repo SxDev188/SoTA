@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
 
     [SerializeField] public int maxHealth = 10;
-    
+    bool justRespawned;
+
     [SerializeField] private float moveSpeed = 7.0f;
     [SerializeField] private float boulderPushSpeed = 3.0f;
     [SerializeField] private float movementRotationByDegrees = 45;
@@ -51,6 +52,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (justRespawned)
+        {
+            justRespawned = false;
+            return;
+        }
+
         if (isMovementLocked && movementLockAxis != Vector3.zero)
         {
             movementInput = Vector3.Scale(movementInput, movementLockAxis);
@@ -163,6 +170,7 @@ public class PlayerController : MonoBehaviour
         {
             isInDeathZone = true;
             currentHealth = 0;
+            justRespawned = true;
         }
     }
 
