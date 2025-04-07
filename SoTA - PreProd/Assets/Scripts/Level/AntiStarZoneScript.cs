@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AntiStarZoneScript : MonoBehaviour, IActivatable
 {
-    private StarActions starActions;
+    public StarActions starActions;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             {
                 starActions.CarryToggle();
             }
-            starActions.isTraveling = false;
+            starActions.StopTravelToDestination();
         }
     }
 
