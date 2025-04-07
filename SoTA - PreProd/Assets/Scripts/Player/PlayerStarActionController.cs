@@ -26,7 +26,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private float recallRange = 4.0f;
 
     [SerializeField] private float gravityPullRange = 3.0f;
-    [SerializeField] private float gravityPullAcceptanceRadius = 0.5f;
+    [SerializeField] private float gravityPullAcceptanceRadius = 0.01f;
     [SerializeField] private float gravityPullSpeed = 5.0f;
 
     [SerializeField] private float aimSensitivity = 0.5f;
@@ -146,6 +146,8 @@ public class PlayerStarActionController : MonoBehaviour
             Vector3 direction = targetDestination - transform.position;
             direction = direction.normalized;
 
+            transform.GetComponent<Rigidbody>().useGravity = false;
+
             playerController.InteruptMovement();
             transform.position += direction * gravityPullSpeed * Time.deltaTime;
 
@@ -153,6 +155,8 @@ public class PlayerStarActionController : MonoBehaviour
         }
 
         StopCoroutine(GravityPull_IEnumerator);
+        transform.GetComponent<Rigidbody>().useGravity = true;
+
         starActions.Recall();
     }
 
@@ -162,7 +166,9 @@ public class PlayerStarActionController : MonoBehaviour
         {
             StopCoroutine(GravityPull_IEnumerator);
             starActions.Recall();
+            transform.GetComponent<Rigidbody>().useGravity = true;
         }
+
     }
 
     private void InitializeLineRenderer()
