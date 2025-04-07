@@ -1196,6 +1196,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SaveStateManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5707387992822839152, guid: 62fa4572e4a8b494f946ed63e1418bbd,
+        type: 3}
+      propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6292823766876770255, guid: 62fa4572e4a8b494f946ed63e1418bbd,
         type: 3}
       propertyPath: m_LocalPosition.x
