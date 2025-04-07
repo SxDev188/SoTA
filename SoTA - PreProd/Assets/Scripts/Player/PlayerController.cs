@@ -1,46 +1,41 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 using FMOD.Studio;
-using Unity.VisualScripting;
-using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public int maxHealth = 10;
     public int currentHealth;
-    bool justRespawned; //Used to supress movement for a frame after spawning
-    CharacterController characterController;
 
-    [SerializeField] float moveSpeed = 7.0f;
-    [SerializeField] float boulderPushSpeed = 3.0f;
-
-    //[SerializeField] float maxVelocity = 5;
+    [SerializeField] public int maxHealth = 10;
     
-    Vector3 movementInput = Vector3.zero;
-    bool isMoving = false;
-    bool isMovementLocked = false;
-    Vector3 movementLockAxis;
+    [SerializeField] private float moveSpeed = 7.0f;
+    [SerializeField] private float boulderPushSpeed = 3.0f;
+    [SerializeField] private float movementRotationByDegrees = 45;
 
+    private Rigidbody playerRigidbody;
+    
+    private bool isMoving = false;
+    private bool isMovementLocked = false;
+    private bool isAttachedToBoulder = false;
+
+    private bool isInDeathZone = false;
+
+    public bool IsInDeathZone
+    {
+        get { return isInDeathZone; }
+    }
+
+    private Vector3 movementLockAxis;
+    private Vector3 movementDirection;
     private Vector2 lastMoveDirection;
-    private Vector2 moveInput;
-    private float verticalVelocity = 0;
-
-    [SerializeField] float movementRotationByDegrees = 45;
-    Vector3 rotationAxis = Vector3.up;
-    Vector3 movementDirection;
-
-    bool isAttachedToBoulder = false;
+    private Vector3 rotationAxis = Vector3.up;
+    private Vector3 movementInput = Vector3.zero;
 
     private EventInstance playerSlither; //Audio
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        playerRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -51,25 +46,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //UpdateSound();
+        //UpdateSound(); no more sound :(
     }
 
     private void FixedUpdate()
     {
-        if (justRespawned)
-        {
-            justRespawned = false;
-            return;
-        }
-
-        if (!characterController.isGrounded)
-        {
-            verticalVelocity += Physics.gravity.y * Time.deltaTime;
-        } else
-        {
-            verticalVelocity = 0;
-        }
-
         if (isMovementLocked && movementLockAxis != Vector3.zero)
         {
             movementInput = Vector3.Scale(movementInput, movementLockAxis);
@@ -83,15 +64,12 @@ public class PlayerController : MonoBehaviour
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
         {
             //this movement does not depend on where player is facing, only movementInput
-            characterController.Move(movementInput * boulderPushSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
+            playerRigidbody.MovePosition(transform.position + movementInput * boulderPushSpeed * Time.deltaTime);
         }
         else if (isMoving)
         {
             //this ONLY MOVES FORWARD, direction is determined by where character is looking
-            characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * verticalVelocity);
-        } else
-        {
-            characterController.Move(Vector3.up * verticalVelocity);
+            playerRigidbody.MovePosition(transform.position + transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime);
         }
     }
 
@@ -183,10 +161,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
         {
-            //Debug.Log("Abyss fall");
+            isInDeathZone = true;
             currentHealth = 0;
-            verticalVelocity = 0;
-            justRespawned = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
+        {
+            isInDeathZone = false;
         }
     }
 
@@ -226,6 +210,11 @@ public class PlayerController : MonoBehaviour
 
         return Vector3.zero;
     }
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, 0.1f);
+    }
+
 
     public void AttachToBoulder()
     {
@@ -237,12 +226,4 @@ public class PlayerController : MonoBehaviour
         isAttachedToBoulder = false;
     }
 
-    //void TruncateVelocity()
-    //{
-    //    //does not seem to be working properly
-    //    if (playerRigidbody.velocity.magnitude > maxVelocity)
-    //    {
-    //        playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxVelocity;
-    //    }
-    //}
 }

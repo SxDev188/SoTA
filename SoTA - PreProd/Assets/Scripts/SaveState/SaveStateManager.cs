@@ -71,7 +71,11 @@ public class SaveStateManager : MonoBehaviour
     
     public void Save()
     {
-        saves.Add(CreateSaveData());
+        if(player.GetComponent<PlayerController>().IsGrounded() || saves.Count < 1)
+        {
+            saves.Add(CreateSaveData());
+        }
+        
     }
     private SaveData CreateSaveData()
     {
@@ -138,5 +142,9 @@ public class SaveStateManager : MonoBehaviour
             ButtonScript buttonScript = button.GetComponent<ButtonScript>();
             buttonScript.SetState(buttonsActive[index++]);
         }
+    }
+    private void CheckPlayerSafe()
+    {
+
     }
 }
