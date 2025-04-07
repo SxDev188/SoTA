@@ -95,14 +95,14 @@ MonoBehaviour:
       Data2: 1316951208
       Data3: -486885958
       Data4: 1012051852
-    Path: event:/ButtonSFX
+    Path: event:/SFX/ButtonSFX
   <TimerTickingSFX>k__BackingField:
     Guid:
       Data1: -2072432112
       Data2: 1197504309
       Data3: 2145628607
       Data4: -56747037
-    Path: event:/TimerTicking
+    Path: event:/SFX/TimerTicking
   <PressurePlateSFX>k__BackingField:
     Guid:
       Data1: 1983463218
@@ -116,11 +116,32 @@ MonoBehaviour:
       Data2: 1261814999
       Data3: 1136303515
       Data4: 1547159374
-    Path: event:/Slither
+    Path: event:/SFX/Slither
   <BoulderSFX>k__BackingField:
     Guid:
       Data1: 1899738821
       Data2: 1265916534
       Data3: -1359872622
       Data4: 1231198397
-    Path: event:/BoulderSFX
+    Path: event:/SFX/BoulderSFX
+  <LowHealthWarningSFX>k__BackingField:
+    Guid:
+      Data1: -1085689497
+      Data2: 1140326852
+      Data3: 1455694256
+      Data4: -1194908915
+    Path: event:/LifeforceDrain
+  <DeathSFX>k__BackingField:
+    Guid:
+      Data1: -423022087
+      Data2: 1190203400
+      Data3: -1318153336
+      Data4: 222503164
+    Path: event:/SFX/DeathSFX
+  <BackgroundMusic>k__BackingField:
+    Guid:
+      Data1: -1048933170
+      Data2: 1333747577
+      Data3: -1417496921
+      Data4: -1637747067
+    Path: event:/Music/BackgroundMusic
