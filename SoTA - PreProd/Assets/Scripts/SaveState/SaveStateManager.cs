@@ -120,27 +120,43 @@ public class SaveStateManager : MonoBehaviour
     
     public void Load()
     {
-        SaveData dataToLoad = saves[saves.Count-1];
-        SetFromSaveData(dataToLoad);
-        starActions.Recall();
+        SaveData dataToLoad;
+        if (saves.Count >= 2)
+        {
+            dataToLoad = saves[saves.Count - 1];
+            SetFromSaveData(dataToLoad);
+        } else if (saves.Count == 1)
+        {
+            dataToLoad = saves[0];
+            SetFromSaveData(dataToLoad);
+        }
+        //Above is emergency patch to VS1
+
+        //SaveData dataToLoad = saves[saves.Count - 1];
+        //SetFromSaveData(dataToLoad);
+        //starActions.Recall();
 
         deathSFX.start(); //should be moved to other place
     }
     private void SetFromSaveData(SaveData saveData)
     {
+        SetFromBoulderPositions(saveData);
+        SetFromButtonStates(saveData);
+
+
         player.transform.position = saveData.PlayerPosition;
-        if (CheckPlayerSafe())
-        {
-            SetFromBoulderPositions(saveData);
-            SetFromButtonStates(saveData);
-        }
-        else
-        {
-            saves.Remove(saveData);
-            SaveData dataToLoad = saves[saves.Count - 1];
-            SetFromSaveData(dataToLoad);
-            return;
-        }
+        //if (CheckPlayerSafe())
+        //{
+        //    SetFromBoulderPositions(saveData);
+        //    SetFromButtonStates(saveData);
+        //}
+        //else
+        //{
+        //    saves.Remove(saveData);
+        //    SaveData dataToLoad = saves[saves.Count - 1];
+        //    SetFromSaveData(dataToLoad);
+        //    return;
+        //}
         
         
     }
