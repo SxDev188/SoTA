@@ -121,20 +121,9 @@ public class SaveStateManager : MonoBehaviour
     public void Load()
     {
         SaveData dataToLoad;
-        if (saves.Count >= 2)
-        {
-            dataToLoad = saves[saves.Count - 1];
-            SetFromSaveData(dataToLoad);
-        } else if (saves.Count == 1)
-        {
-            dataToLoad = saves[0];
-            SetFromSaveData(dataToLoad);
-        }
-        //Above is emergency patch to VS1
-
-        //SaveData dataToLoad = saves[saves.Count - 1];
-        //SetFromSaveData(dataToLoad);
-        //starActions.Recall();
+        dataToLoad = saves[saves.Count - 1];
+        SetFromSaveData(dataToLoad);
+        starActions.Recall();
 
         deathSFX.start(); //should be moved to other place
     }
