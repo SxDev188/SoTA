@@ -7,16 +7,21 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
 
     [SerializeField] public int maxHealth = 10;
-    
+    bool justRespawned;
+
     [SerializeField] private float moveSpeed = 7.0f;
     [SerializeField] private float boulderPushSpeed = 3.0f;
     [SerializeField] private float movementRotationByDegrees = 45;
+    [SerializeField] private CharacterController characterController;
+    public float VerticalVelocity = 0; //Used to manage gravity
 
-    private Rigidbody playerRigidbody;
-    
+    public CharacterController CharacterController => characterController;
+
     private bool isMoving = false;
     private bool isMovementLocked = false;
     private bool isAttachedToBoulder = false;
+    public bool inputLocked = false; //Used to lock movement during gravity pull
+    public bool disableGravityDuringPull = false; //Used to disable downward gravity during gravity pull
 
     private bool isInDeathZone = false;
 
@@ -35,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerRigidbody = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Start()
@@ -51,6 +56,29 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (justRespawned)
+        {
+            justRespawned = false;
+            return;
+        }
+
+        if (disableGravityDuringPull)
+        {
+            VerticalVelocity = 0;
+        }
+        else
+        {
+            //Apply gravity if not grounded (falling in Abyss)
+            if (!characterController.isGrounded)
+            {
+                VerticalVelocity += Physics.gravity.y * Time.deltaTime;
+            }
+            else
+            {
+                VerticalVelocity = 0;  //Resets to no gravity when grounded
+            }
+        }
+
         if (isMovementLocked && movementLockAxis != Vector3.zero)
         {
             movementInput = Vector3.Scale(movementInput, movementLockAxis);
@@ -64,19 +92,27 @@ public class PlayerController : MonoBehaviour
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
         {
             //this movement does not depend on where player is facing, only movementInput
-            playerRigidbody.MovePosition(transform.position + movementInput * boulderPushSpeed * Time.deltaTime);
+            characterController.Move(movementInput * boulderPushSpeed * Time.deltaTime + Vector3.up * VerticalVelocity);
         }
         else if (isMoving)
         {
             //this ONLY MOVES FORWARD, direction is determined by where character is looking
-            playerRigidbody.MovePosition(transform.position + transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime);
+            //characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * VerticalVelocity);
+            Vector3 move = movementInput * moveSpeed * Time.deltaTime;
+            move.y = VerticalVelocity;  // Apply vertical velocity here
+            characterController.Move(move); // Move the character with gravity
+        }
+        else
+        {
+            characterController.Move(Vector3.up * VerticalVelocity);
         }
     }
 
     void OnMoveInput(InputValue input)
     {
-        isMoving = true;
+        if (inputLocked) return;
 
+        isMoving = true;
         Vector2 input2d = input.Get<Vector2>();
         movementInput = new Vector3(input2d.x, 0, input2d.y);
 
@@ -86,7 +122,7 @@ public class PlayerController : MonoBehaviour
             LookAtMovementDirection();
         }
 
-        if (input2d != Vector2.zero) // Used for CameraPan
+        if (input2d != Vector2.zero)
         {
             lastMoveDirection = input2d.normalized;
         }
@@ -163,6 +199,8 @@ public class PlayerController : MonoBehaviour
         {
             isInDeathZone = true;
             currentHealth = 0;
+            VerticalVelocity = 0;
+            justRespawned = true;
         }
     }
 

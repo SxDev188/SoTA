@@ -9,13 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7454719805474036125}
-  - component: {fileID: 542847161390388509}
   - component: {fileID: 4202267313386246333}
   - component: {fileID: 2517525866248969489}
-  - component: {fileID: 7772898728181976395}
   - component: {fileID: 7468595067580057327}
   - component: {fileID: 1201185607336089017}
-  - component: {fileID: 234697806030688706}
+  - component: {fileID: 8266093247422994638}
+  - component: {fileID: 6219084333740346544}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -39,29 +38,6 @@ Transform:
   - {fileID: 7521743433497110096}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &542847161390388509
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450923683111974977}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.19
-  m_Height: 0.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.09, z: 0}
 --- !u!114 &4202267313386246333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,8 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
   maxHealth: 10
+  currentHealth: 0
   moveSpeed: 7
   boulderPushSpeed: 3
   movementRotationByDegrees: 45
@@ -110,33 +86,6 @@ MonoBehaviour:
   m_DefaultActionMap: New action map
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!54 &7772898728181976395
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450923683111974977}
-  serializedVersion: 4
-  m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &7468595067580057327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,9 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85e22030020bc548815ed96d322c1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recallAllowed: 1
-  gravityPullAllowed: 1
-  strongThrowAllowed: 1
   normalThrowRange: 4
   strongThrowRange: 10
   starPickupRange: 2
@@ -160,6 +106,9 @@ MonoBehaviour:
   gravityPullAcceptanceRadius: 0.5
   gravityPullSpeed: 5
   aimSensitivity: 0.5
+  recallAllowed: 1
+  gravityPullAllowed: 1
+  strongThrowAllowed: 1
   aimRotationByDegrees: 45
 --- !u!114 &1201185607336089017
 MonoBehaviour:
@@ -174,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRange: 0.75
---- !u!120 &234697806030688706
+--- !u!120 &8266093247422994638
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -278,6 +227,32 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!143 &6219084333740346544
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450923683111974977}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0.5
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.14, z: 0}
 --- !u!1001 &8063731075165553083
 PrefabInstance:
   m_ObjectHideFlags: 0
