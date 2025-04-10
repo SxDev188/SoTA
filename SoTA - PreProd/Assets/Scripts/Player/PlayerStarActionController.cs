@@ -179,7 +179,6 @@ public class PlayerStarActionController : MonoBehaviour
         {
             StopCoroutine(GravityPull_IEnumerator);
             starActions.Recall();
-            transform.GetComponent<Rigidbody>().useGravity = true;
         }
 
     }
