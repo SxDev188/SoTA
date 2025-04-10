@@ -12,14 +12,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7.0f;
     [SerializeField] private float boulderPushSpeed = 3.0f;
     [SerializeField] private float movementRotationByDegrees = 45;
-    public float VerticalVelocity = 0; 
+    [SerializeField] private CharacterController characterController;
+    public float VerticalVelocity = 0; //Used to manage gravity
 
+    public CharacterController CharacterController => characterController;
 
-    private CharacterController characterController;
-    
     private bool isMoving = false;
     private bool isMovementLocked = false;
     private bool isAttachedToBoulder = false;
+    public bool inputLocked = false; //Used to lock movement during gravity pull
+    public bool disableGravityDuringPull = false; //Used to disable downward gravity during gravity pull
 
     private bool isInDeathZone = false;
 
@@ -60,13 +62,21 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!characterController.isGrounded)
+        if (disableGravityDuringPull)
         {
-            VerticalVelocity += Physics.gravity.y * Time.deltaTime;
+            VerticalVelocity = 0;
         }
         else
         {
-            VerticalVelocity = 0;
+            //Apply gravity if not grounded (falling in Abyss)
+            if (!characterController.isGrounded)
+            {
+                VerticalVelocity += Physics.gravity.y * Time.deltaTime;
+            }
+            else
+            {
+                VerticalVelocity = 0;  //Resets to no gravity when grounded
+            }
         }
 
         if (isMovementLocked && movementLockAxis != Vector3.zero)
@@ -87,7 +97,10 @@ public class PlayerController : MonoBehaviour
         else if (isMoving)
         {
             //this ONLY MOVES FORWARD, direction is determined by where character is looking
-            characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * VerticalVelocity);
+            //characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * VerticalVelocity);
+            Vector3 move = movementInput * moveSpeed * Time.deltaTime;
+            move.y = VerticalVelocity;  // Apply vertical velocity here
+            characterController.Move(move); // Move the character with gravity
         }
         else
         {
@@ -97,8 +110,9 @@ public class PlayerController : MonoBehaviour
 
     void OnMoveInput(InputValue input)
     {
-        isMoving = true;
+        if (inputLocked) return;
 
+        isMoving = true;
         Vector2 input2d = input.Get<Vector2>();
         movementInput = new Vector3(input2d.x, 0, input2d.y);
 
@@ -108,7 +122,7 @@ public class PlayerController : MonoBehaviour
             LookAtMovementDirection();
         }
 
-        if (input2d != Vector2.zero) // Used for CameraPan
+        if (input2d != Vector2.zero)
         {
             lastMoveDirection = input2d.normalized;
         }
