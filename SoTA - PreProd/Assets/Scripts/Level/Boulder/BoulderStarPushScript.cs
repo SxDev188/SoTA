@@ -141,7 +141,7 @@ public class BoulderStarPushScript : MonoBehaviour
             }
 
             Vector3 tempDirection = targetDestination - transform.position;
-            direction = direction.normalized;
+            tempDirection = tempDirection.normalized;
 
             transform.position += tempDirection * starPushSpeed * Time.deltaTime;
 

@@ -140,24 +140,37 @@ public class PlayerStarActionController : MonoBehaviour
 
     IEnumerator GravityPullToDestination(Vector3 targetDestination)
     {
+        playerController.inputLocked = true; //Locks input and movement during gravity pull
+        playerController.disableGravityDuringPull = true;         //Disables gravity
 
-        while (Vector3.Distance(transform.position, targetDestination) > gravityPullAcceptanceRadius)
+        float threshold = 0.1f; //Distance threshold to stop moving
+        Vector3 lastPosition = transform.position; //Position of player when starting gravity pull
+
+        while (true)
         {
-            Vector3 direction = targetDestination - transform.position;
-            direction = direction.normalized;
+            // Calculate direction and movement (no gravity applied, only horizontal movement)
+            Vector3 direction = (targetDestination - transform.position).normalized;
+            Vector3 move = direction * gravityPullSpeed;
 
-            transform.GetComponent<Rigidbody>().useGravity = false;
+            playerController.CharacterController.Move(move * Time.deltaTime);
 
-            playerController.InteruptMovement();
-            transform.position += direction * gravityPullSpeed * Time.deltaTime;
+            float distanceToTarget = Vector3.Distance(transform.position, targetDestination);
+
+            if (distanceToTarget <= threshold || Vector3.Distance(transform.position, lastPosition) < 0.01f)
+            {
+                transform.position = targetDestination; //Set position directly to the Star to avoid any small overshoot
+                break;
+            }
+
+            lastPosition = transform.position; //Update the last position of player
 
             yield return null;
         }
 
-        StopCoroutine(GravityPull_IEnumerator);
-        transform.GetComponent<Rigidbody>().useGravity = true;
-
+        playerController.inputLocked = false;  //Re-enable input after the pull
         starActions.Recall();
+
+        playerController.disableGravityDuringPull = false; //Enable gravity again
     }
 
     private void InteruptGravityPullToDestination()
@@ -166,7 +179,6 @@ public class PlayerStarActionController : MonoBehaviour
         {
             StopCoroutine(GravityPull_IEnumerator);
             starActions.Recall();
-            transform.GetComponent<Rigidbody>().useGravity = true;
         }
 
     }
