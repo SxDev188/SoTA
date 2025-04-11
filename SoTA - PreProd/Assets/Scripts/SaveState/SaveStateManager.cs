@@ -131,23 +131,7 @@ public class SaveStateManager : MonoBehaviour
     {
         SetFromBoulderPositions(saveData);
         SetFromButtonStates(saveData);
-
-
         player.transform.position = saveData.PlayerPosition;
-        //if (CheckPlayerSafe())
-        //{
-        //    SetFromBoulderPositions(saveData);
-        //    SetFromButtonStates(saveData);
-        //}
-        //else
-        //{
-        //    saves.Remove(saveData);
-        //    SaveData dataToLoad = saves[saves.Count - 1];
-        //    SetFromSaveData(dataToLoad);
-        //    return;
-        //}
-        
-        
     }
     private void SetFromBoulderPositions(SaveData saveData)
     {
@@ -169,12 +153,7 @@ public class SaveStateManager : MonoBehaviour
             buttonScript.SetState(buttonsActive[index++]);
         }
     }
-    private bool CheckPlayerSafe()
-    {
-        return player.GetComponent<PlayerController>().IsInDeathZone;
-    }
-
-    public void LoadStartSave()
+    private void LoadStartSave()
     {
         SaveData dataToLoad = saves[0];
         player.transform.position = dataToLoad.PlayerPosition;
