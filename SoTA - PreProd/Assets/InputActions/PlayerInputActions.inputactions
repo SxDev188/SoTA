@@ -598,9 +598,18 @@
             "id": "15679e80-0454-4ba3-a355-4588cb5929ac",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "PauseGame",
                     "type": "Button",
                     "id": "6b65ca19-592a-4e4e-9269-4ceab815f3a8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "ee1a13d5-30d0-40be-b00b-9e589f2cfb23",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -611,11 +620,22 @@
                 {
                     "name": "",
                     "id": "13b79c85-9b6f-40b5-aeb2-8579b83c71ed",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06b43660-c476-45ec-bd54-d697372e8207",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
