@@ -5,7 +5,21 @@ public class StarActions : MonoBehaviour
 {
     // PUBLIC
     public bool isTraveling = false;
-    public bool IsOnPlayer { get { return isOnPlayer; } set { isOnPlayer = value; } }
+    public bool IsOnPlayer 
+    { 
+        get 
+        { 
+            return isOnPlayer; 
+        } 
+        set 
+        { 
+            isOnPlayer = value; 
+            if(value)
+                starRigidbody.useGravity = false;
+            else
+                starRigidbody.useGravity = true;
+        } 
+    }
 
     // COMPONENTS
     private Transform starTransform;
