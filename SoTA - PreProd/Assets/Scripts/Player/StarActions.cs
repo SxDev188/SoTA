@@ -46,9 +46,11 @@ public class StarActions : MonoBehaviour
         if (isOnPlayer)
         {
             isOnPlayer = false;
+            starRigidbody.useGravity = true;
         } else if (!isOnPlayer)
         {
             isOnPlayer = true;
+            starRigidbody.useGravity = false;
         }
     }
     public void Recall()
@@ -56,6 +58,7 @@ public class StarActions : MonoBehaviour
         if (!isOnPlayer)
         {
             isOnPlayer = true;
+            starRigidbody.useGravity = false;
         }
     }
 
