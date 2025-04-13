@@ -12,6 +12,7 @@ public class SaveStateManager : MonoBehaviour
     private List<SaveData> saves = new List<SaveData>();
 
     private GameObject player;
+    private CameraPanScript cameraPan;
     private GameObject[] buttons;
     private GameObject[] boulders;
 
@@ -74,6 +75,8 @@ public class SaveStateManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
+        GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        cameraPan = cameraObject.GetComponent<CameraPanScript>();
     }
     
     public void Save()
@@ -87,10 +90,11 @@ public class SaveStateManager : MonoBehaviour
     private SaveData CreateSaveData()
     {
         Vector3 playerPositions = player.transform.position;
-        Vector3[] boulderPositions = GetBoulderPostions();
+        Vector3[] boulderPositions = GetBoulderPositions();
         bool[] buttonsActive = GetButtonsState();
+        Vector3 cameraPosition = GetCameraPosition();
 
-        SaveData saveData = new SaveData(playerPositions, boulderPositions, buttonsActive);
+        SaveData saveData = new SaveData(playerPositions, boulderPositions, buttonsActive, cameraPosition);
         return saveData;
     }
     private bool[] GetButtonsState()
@@ -105,7 +109,7 @@ public class SaveStateManager : MonoBehaviour
 
         return buttonsActive;
     }
-    private Vector3[] GetBoulderPostions()
+    private Vector3[] GetBoulderPositions()
     {
         Vector3[] bouldersPosition = new Vector3[boulders.Length];
         int index = 0;
@@ -114,6 +118,10 @@ public class SaveStateManager : MonoBehaviour
             bouldersPosition[index++] = boulder.transform.position;
         }
         return bouldersPosition;
+    }
+    private Vector3 GetCameraPosition()
+    {
+        return cameraPan.TargetPosition;
     }
     
     public void Load()
@@ -130,6 +138,7 @@ public class SaveStateManager : MonoBehaviour
         SetFromBoulderPositions(saveData);
         SetFromButtonStates(saveData);
         SetFromPlayerPosition(saveData);
+        SetFromCameraPosition(saveData);
     }
     private void SetFromPlayerPosition(SaveData saveData)
     {
@@ -154,6 +163,11 @@ public class SaveStateManager : MonoBehaviour
             ButtonScript buttonScript = button.GetComponent<ButtonScript>();
             buttonScript.SetState(buttonsActive[index++]);
         }
+    }
+
+    private void SetFromCameraPosition(SaveData saveData)
+    {
+        cameraPan.TargetPosition = saveData.CameraPosition;
     }
     private void LoadStartSave()
     {
