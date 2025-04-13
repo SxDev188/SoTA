@@ -287,7 +287,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnRecallStar(InputValue input)
     {
-        if (!recallAllowed || !pickUpAllowed)
+        if (!recallAllowed)
         {
             return;
         }
