@@ -15,7 +15,7 @@ public class SaveStateManager : MonoBehaviour
     private GameObject[] buttons;
     private GameObject[] boulders;
 
-    private EventInstance deathSFX; //should not live here
+    
 
     //Temporary fix I hope or more data added here and removed from other places
     private StarActions starActions;
@@ -39,7 +39,7 @@ public class SaveStateManager : MonoBehaviour
         SetSaveableObjectReferences();
         Save();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
-        deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
+        
     }
 
     //For Debug Purposes  <<-- If it works, then we should remove?
@@ -125,7 +125,7 @@ public class SaveStateManager : MonoBehaviour
         SetFromSaveData(dataToLoad);
         starActions.Recall();
 
-        deathSFX.start(); //should be moved to other place
+      
     }
     private void SetFromSaveData(SaveData saveData)
     {
