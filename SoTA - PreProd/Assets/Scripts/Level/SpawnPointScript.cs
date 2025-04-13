@@ -10,6 +10,7 @@ public class SpawnPointScript : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         Spawn();
+        SaveStateManager.Instance.Save();
     }
 
     //void Update()

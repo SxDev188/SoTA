@@ -37,7 +37,6 @@ public class SaveStateManager : MonoBehaviour
     private void Start()
     {
         SetSaveableObjectReferences();
-        Save();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
         
     }
