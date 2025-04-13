@@ -131,7 +131,11 @@ public class SaveStateManager : MonoBehaviour
     {
         SetFromBoulderPositions(saveData);
         SetFromButtonStates(saveData);
-        player.transform.position = saveData.PlayerPosition;
+        SetFromPlayerPosition(saveData);
+    }
+    private void SetFromPlayerPosition(SaveData saveData)
+    {
+        player.GetComponent<PlayerController>().SetPlayerPosition(saveData.PlayerPosition);
     }
     private void SetFromBoulderPositions(SaveData saveData)
     {

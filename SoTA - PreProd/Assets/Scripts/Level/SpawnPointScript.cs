@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class SpawnPointScript : MonoBehaviour
 {
-   [SerializeField] PlayerController playerController;
-   [SerializeField] Transform playerTransform;
+    Transform playerTransform;
     Transform spawnPointTransform;
-
-
     void Start()
     {
         spawnPointTransform = gameObject.GetComponent<Transform>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = player.GetComponent<Transform>();
         Spawn();
     }
 
