@@ -3,6 +3,7 @@ using UnityEngine;
 public class AntiStarZoneScript : MonoBehaviour, IActivatable
 {
     public StarActions starActions;
+    public PlayerStarActionController playerStarActionController;
 
     void Start()
     {
@@ -17,8 +18,21 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             if (starActions.IsOnPlayer == true)
             {
                 starActions.CarryToggle();
-            }
+            } 
             starActions.StopTravelToDestination();
+        }
+        if (other.CompareTag("Player"))
+        {
+            playerStarActionController.DisallowStarOnPlayer();
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        { 
+            playerStarActionController.AllowStarOnPlayer();
+        
         }
     }
 
