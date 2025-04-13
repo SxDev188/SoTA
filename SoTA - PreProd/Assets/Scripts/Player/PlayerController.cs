@@ -4,15 +4,16 @@ using FMOD.Studio;
 
 public class PlayerController : MonoBehaviour
 {
-    public int currentHealth;
+    //public int currentHealth;
 
-    [SerializeField] public int maxHealth = 10;
+    //[SerializeField] public int maxHealth = 10;
     bool justRespawned;
 
     [SerializeField] private float moveSpeed = 7.0f;
     [SerializeField] private float boulderPushSpeed = 3.0f;
     [SerializeField] private float movementRotationByDegrees = 45;
     [SerializeField] private CharacterController characterController;
+    private PlayerHealth playerHealth;
     public float VerticalVelocity = 0; //Used to manage gravity
 
     public CharacterController CharacterController => characterController;
@@ -23,13 +24,7 @@ public class PlayerController : MonoBehaviour
     public bool inputLocked = false; //Used to lock movement during gravity pull
     public bool disableGravityDuringPull = false; //Used to disable downward gravity during gravity pull
 
-    private bool isInDeathZone = false;
-
-    public bool IsInDeathZone
-    {
-        get { return isInDeathZone; }
-    }
-
+ 
     private Vector3 movementLockAxis;
     private Vector3 movementDirection;
     private Vector2 lastMoveDirection;
@@ -46,7 +41,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerSlither = AudioManager.Instance.CreateInstance(FMODEvents.Instance.SlitherSound);
-        currentHealth = maxHealth;
+        playerHealth = GetComponent<PlayerHealth>();
+        //currentHealth = maxHealth;
     }
 
     void Update()
@@ -197,20 +193,14 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
         {
-            isInDeathZone = true;
-            currentHealth = 0;
+            //currentHealth = 0;
             VerticalVelocity = 0;
             justRespawned = true;
+            playerHealth.Death();
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
-        {
-            isInDeathZone = false;
-        }
-    }
+   
 
     private void UpdateSound()
     {

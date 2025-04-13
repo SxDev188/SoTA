@@ -38,7 +38,7 @@ public class PlayerStarActionController : MonoBehaviour
     private bool strongThrow = false;
     private bool Controller = false;
 
-    private float healthChangeTimer = 0.0f;
+    //private float healthChangeTimer = 0.0f;
 
     private Vector3 mouseDownPosition;
     private Vector3 mouseReleasePosition;
@@ -111,10 +111,10 @@ public class PlayerStarActionController : MonoBehaviour
             HideAimLine();
         }
 
-        healthChangeTimer += Time.deltaTime;
-        ManagePlayerHealth();
+        //healthChangeTimer += Time.deltaTime;
+        //ManagePlayerHealth();
 
-        PlayLowHealthWarningSound();
+        //PlayLowHealthWarningSound();
     }
 
     // METHODS ====================================== //
@@ -195,48 +195,48 @@ public class PlayerStarActionController : MonoBehaviour
         lineRenderer.endColor = Color.red;
     }
 
-    void ManagePlayerHealth()
-    {
-        float changeHealthAtTime = 1.0f;
+    //void ManagePlayerHealth()
+    //{
+    //    float changeHealthAtTime = 1.0f;
 
-        if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
-        {
-            playerController.currentHealth--;
-            healthChangeTimer = 0.0f;
-        }
-        if (playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
-        {
-            playerController.currentHealth++;
-            healthChangeTimer = 0.0f;
-        }
-        if (healthChangeTimer >= changeHealthAtTime)
-        {
-            healthChangeTimer = 0.0f;
-        }
-    }
+    //    if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
+    //    {
+    //        playerController.currentHealth--;
+    //        healthChangeTimer = 0.0f;
+    //    }
+    //    if (playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
+    //    {
+    //        playerController.currentHealth++;
+    //        healthChangeTimer = 0.0f;
+    //    }
+    //    if (healthChangeTimer >= changeHealthAtTime)
+    //    {
+    //        healthChangeTimer = 0.0f;
+    //    }
+    //}
 
-    void PlayLowHealthWarningSound()
-    {
-        if (playerController.currentHealth < 5 && playerController.currentHealth > 0 && !starActions.IsOnPlayer)
-        {
-            PLAYBACK_STATE playbackState;
-            lowHealthWarningSFX.getPlaybackState(out playbackState);
+    //void PlayLowHealthWarningSound()
+    //{
+    //    if (playerController.currentHealth < 5 && playerController.currentHealth > 0 && !starActions.IsOnPlayer)
+    //    {
+    //        PLAYBACK_STATE playbackState;
+    //        lowHealthWarningSFX.getPlaybackState(out playbackState);
 
-            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            {
-                lowHealthWarningSFX.start();
-            }
-        } else
-        {
-            PLAYBACK_STATE playbackState;
-            lowHealthWarningSFX.getPlaybackState(out playbackState);
+    //        if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+    //        {
+    //            lowHealthWarningSFX.start();
+    //        }
+    //    } else
+    //    {
+    //        PLAYBACK_STATE playbackState;
+    //        lowHealthWarningSFX.getPlaybackState(out playbackState);
 
-            if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
-            {
-                lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
-            }
-        }
-    }
+    //        if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+    //        {
+    //            lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
+    //        }
+    //    }
+    //}
 
     void ThrowStar()
     {
