@@ -195,12 +195,17 @@ public class PlayerController : MonoBehaviour
         {
             //currentHealth = 0;
             VerticalVelocity = 0;
-            justRespawned = true;
+            //justRespawned = true;
             playerHealth.Death();
         }
     }
 
-   
+   public void SetPlayerPosition(Vector3 position)
+   {
+        CharacterController.enabled = false;
+        transform.position = position;
+        characterController.enabled = true;
+   }
 
     private void UpdateSound()
     {

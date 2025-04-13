@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class SpawnPointScript : MonoBehaviour
 {
-   [SerializeField] PlayerController playerController;
-   [SerializeField] Transform playerTransform;
-    Transform spawnPointTransform;
-
-
+    PlayerController playerController;
+    Vector3 spawmPointPosition;
     void Start()
     {
-        spawnPointTransform = gameObject.GetComponent<Transform>();
+        spawmPointPosition = transform.position + new Vector3(0, 0.5f, 0);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
         Spawn();
+        SaveStateManager.Instance.Save();
     }
 
     //void Update()
@@ -30,7 +30,6 @@ public class SpawnPointScript : MonoBehaviour
     //}
     public void Spawn()
     {
-        playerTransform.position = spawnPointTransform.position + new Vector3(0, 0.5f, 0);
+        playerController.SetPlayerPosition(spawmPointPosition);
     }
-
 }

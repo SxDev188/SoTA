@@ -37,9 +37,7 @@ public class SaveStateManager : MonoBehaviour
     private void Start()
     {
         SetSaveableObjectReferences();
-        Save();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
-        
     }
 
     //For Debug Purposes  <<-- If it works, then we should remove?
@@ -131,7 +129,11 @@ public class SaveStateManager : MonoBehaviour
     {
         SetFromBoulderPositions(saveData);
         SetFromButtonStates(saveData);
-        player.transform.position = saveData.PlayerPosition;
+        SetFromPlayerPosition(saveData);
+    }
+    private void SetFromPlayerPosition(SaveData saveData)
+    {
+        player.GetComponent<PlayerController>().SetPlayerPosition(saveData.PlayerPosition);
     }
     private void SetFromBoulderPositions(SaveData saveData)
     {
