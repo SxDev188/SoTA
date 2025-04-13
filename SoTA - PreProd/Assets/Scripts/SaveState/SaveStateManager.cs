@@ -38,7 +38,6 @@ public class SaveStateManager : MonoBehaviour
     {
         SetSaveableObjectReferences();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
-        
     }
 
     //For Debug Purposes  <<-- If it works, then we should remove?
