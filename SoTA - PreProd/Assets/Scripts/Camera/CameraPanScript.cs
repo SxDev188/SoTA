@@ -8,6 +8,19 @@ public class CameraPanScript : MonoBehaviour
     public float panSpeed = 5f;
     private Vector3 targetPosition;
 
+    public Vector3 TargetPosition 
+    { 
+        get 
+        { 
+            return targetPosition;
+        }
+        set
+        {
+            targetPosition = value;
+            transform.position = value;
+        }
+    }
+
     private void Awake()
     {
         Instance = this;
@@ -20,7 +33,7 @@ public class CameraPanScript : MonoBehaviour
 
     public void PanCamera(Vector2 direction)
     {
-        targetPosition += new Vector3(direction.x * 11f, 0, direction.y * 11f);
+        targetPosition = transform.position + new Vector3(direction.x * 11f, 0, direction.y * 11f);
 
         StopAllCoroutines(); 
         StartCoroutine(SmoothPan());
