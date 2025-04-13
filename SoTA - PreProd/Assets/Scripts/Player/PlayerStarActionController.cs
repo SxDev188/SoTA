@@ -15,8 +15,11 @@ public class PlayerStarActionController : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerController playerController;
 
+
     // TWEAKABLE VARIABLES
+    private bool pickUpAllowed = true;
     [SerializeField] private bool recallAllowed = false;
+    private bool recallAllowedAtStart = false;
     [SerializeField] private bool gravityPullAllowed = false;
     [SerializeField] private bool strongThrowAllowed = false;
 
@@ -77,6 +80,11 @@ public class PlayerStarActionController : MonoBehaviour
         }
 
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
+
+        if (recallAllowed)
+        {
+            recallAllowedAtStart = true;
+        }
     }
 
     void Update()
@@ -254,18 +262,34 @@ public class PlayerStarActionController : MonoBehaviour
     }
 
     // INPUT RELATED MEHTODS ====================================== //
+    public void AllowStarOnPlayer()
+    {
+        if (recallAllowedAtStart)
+        {
+            recallAllowed = true;
+        }
+        pickUpAllowed = true;
+        Debug.Log("StarOnPlayerAllowed");
+    }
 
+    public void DisallowStarOnPlayer()
+    {
+        recallAllowed = false;
+        pickUpAllowed = false;
+        Debug.Log("StarOnPlayerDisAllowed");
+    }
     void OnCarryStarToggle(InputValue input)
     {
-        if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange)
+        if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
         {
             starActions.CarryToggle();
         }
     }
 
+
     void OnRecallStar(InputValue input)
     {
-        if (!recallAllowed)
+        if (!recallAllowed || !pickUpAllowed)
         {
             return;
         }
