@@ -269,14 +269,12 @@ public class PlayerStarActionController : MonoBehaviour
             recallAllowed = true;
         }
         pickUpAllowed = true;
-        Debug.Log("StarOnPlayerAllowed");
     }
 
     public void DisallowStarOnPlayer()
     {
         recallAllowed = false;
         pickUpAllowed = false;
-        Debug.Log("StarOnPlayerDisAllowed");
     }
     void OnCarryStarToggle(InputValue input)
     {
