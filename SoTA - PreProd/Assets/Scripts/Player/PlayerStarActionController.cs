@@ -1,6 +1,7 @@
 using FMOD.Studio;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,6 +33,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private float aimSensitivity = 0.5f;
     [SerializeField] private float aimRotationByDegrees = 45;
 
+    [SerializeField] private float controllerAimSmoothness = 3f;
 
     // STORING/VALUE VARIABLES
     private bool isAiming = false;
@@ -45,6 +47,7 @@ public class PlayerStarActionController : MonoBehaviour
     private Vector3 rotationAxis = Vector3.up;
 
     private Vector3 aimInput;
+    private Vector3 aimSmooth = Vector3.zero;
     private Vector3 throwDirection;
     private Vector3 throwTargetDestination;
 
@@ -54,6 +57,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     private IEnumerator GravityPull_IEnumerator;
 
+    private bool smoothAim = false;
     // ENGINE METHODS ====================================== // 
 
     void Start()
@@ -81,7 +85,7 @@ public class PlayerStarActionController : MonoBehaviour
         {
             if (Controller)
             {
-                throwDirection = aimInput;
+                throwDirection = aimSmooth;
             }
             else
             {
@@ -347,13 +351,38 @@ public class PlayerStarActionController : MonoBehaviour
             {
                 aimInput *= normalThrowRange;
             }
+          
+            if (!smoothAim)
+            {
+                StartCoroutine(SmoothAim());
+            }
+
         }
+    }
+    private IEnumerator SmoothAim()
+    {
+        smoothAim = true;
+        while (Vector3.Distance(aimSmooth, aimInput) > 0.05f)
+        {
+            aimSmooth = Vector3.Lerp(aimSmooth, aimInput, controllerAimSmoothness * Time.deltaTime);
+            yield return null;
+        }
+        aimSmooth = aimInput;
+        smoothAim = false;
     }
 
     void OnAimRelease(InputValue input)
     {
-        isAiming = false;
-        aimInput = Vector3.zero;
+        if (Vector3.Distance(aimInput, Vector3.zero) < 0.2f)
+        {
+            isAiming = false;
+            aimInput = Vector3.zero;
+            if (smoothAim)
+            {
+                StopCoroutine(SmoothAim());
+            }
+           
+        }
     }
 
     void OnThrowRelease()
