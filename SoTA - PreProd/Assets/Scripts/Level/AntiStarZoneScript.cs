@@ -4,11 +4,14 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
 {
     public StarActions starActions;
     public PlayerStarActionController playerStarActionController;
+    //ParticleSystemRenderer particleSystemRenderer;
 
     void Start()
     {
         // Fetch the star in the scene
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
+        //particleSystemRenderer = GetComponent<ParticleSystemRenderer>();
+
     }
 
     void OnTriggerEnter(Collider other)
