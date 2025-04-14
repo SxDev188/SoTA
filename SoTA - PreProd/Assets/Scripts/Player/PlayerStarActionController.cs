@@ -1,6 +1,7 @@
 using FMOD.Studio;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,8 +15,11 @@ public class PlayerStarActionController : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerController playerController;
 
+
     // TWEAKABLE VARIABLES
+    private bool pickUpAllowed = true;
     [SerializeField] private bool recallAllowed = false;
+    private bool recallAllowedAtStart = false;
     [SerializeField] private bool gravityPullAllowed = false;
     [SerializeField] private bool strongThrowAllowed = false;
 
@@ -32,19 +36,21 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private float aimSensitivity = 0.5f;
     [SerializeField] private float aimRotationByDegrees = 45;
 
+    [SerializeField] private float controllerAimSmoothness = 3f;
 
     // STORING/VALUE VARIABLES
     private bool isAiming = false;
     private bool strongThrow = false;
     private bool Controller = false;
 
-    private float healthChangeTimer = 0.0f;
+    //private float healthChangeTimer = 0.0f;
 
     private Vector3 mouseDownPosition;
     private Vector3 mouseReleasePosition;
     private Vector3 rotationAxis = Vector3.up;
 
     private Vector3 aimInput;
+    private Vector3 aimSmooth = Vector3.zero;
     private Vector3 throwDirection;
     private Vector3 throwTargetDestination;
 
@@ -54,6 +60,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     private IEnumerator GravityPull_IEnumerator;
 
+    private bool smoothAim = false;
     // ENGINE METHODS ====================================== // 
 
     void Start()
@@ -73,6 +80,11 @@ public class PlayerStarActionController : MonoBehaviour
         }
 
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
+
+        if (recallAllowed)
+        {
+            recallAllowedAtStart = true;
+        }
     }
 
     void Update()
@@ -81,7 +93,7 @@ public class PlayerStarActionController : MonoBehaviour
         {
             if (Controller)
             {
-                throwDirection = aimInput;
+                throwDirection = aimSmooth;
             }
             else
             {
@@ -111,10 +123,10 @@ public class PlayerStarActionController : MonoBehaviour
             HideAimLine();
         }
 
-        healthChangeTimer += Time.deltaTime;
-        ManagePlayerHealth();
+        //healthChangeTimer += Time.deltaTime;
+        //ManagePlayerHealth();
 
-        PlayLowHealthWarningSound();
+        //PlayLowHealthWarningSound();
     }
 
     // METHODS ====================================== //
@@ -195,48 +207,48 @@ public class PlayerStarActionController : MonoBehaviour
         lineRenderer.endColor = Color.red;
     }
 
-    void ManagePlayerHealth()
-    {
-        float changeHealthAtTime = 1.0f;
+    //void ManagePlayerHealth()
+    //{
+    //    float changeHealthAtTime = 1.0f;
 
-        if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
-        {
-            playerController.currentHealth--;
-            healthChangeTimer = 0.0f;
-        }
-        if (playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
-        {
-            playerController.currentHealth++;
-            healthChangeTimer = 0.0f;
-        }
-        if (healthChangeTimer >= changeHealthAtTime)
-        {
-            healthChangeTimer = 0.0f;
-        }
-    }
+    //    if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
+    //    {
+    //        playerController.currentHealth--;
+    //        healthChangeTimer = 0.0f;
+    //    }
+    //    if (playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
+    //    {
+    //        playerController.currentHealth++;
+    //        healthChangeTimer = 0.0f;
+    //    }
+    //    if (healthChangeTimer >= changeHealthAtTime)
+    //    {
+    //        healthChangeTimer = 0.0f;
+    //    }
+    //}
 
-    void PlayLowHealthWarningSound()
-    {
-        if (playerController.currentHealth < 5 && playerController.currentHealth > 0 && !starActions.IsOnPlayer)
-        {
-            PLAYBACK_STATE playbackState;
-            lowHealthWarningSFX.getPlaybackState(out playbackState);
+    //void PlayLowHealthWarningSound()
+    //{
+    //    if (playerController.currentHealth < 5 && playerController.currentHealth > 0 && !starActions.IsOnPlayer)
+    //    {
+    //        PLAYBACK_STATE playbackState;
+    //        lowHealthWarningSFX.getPlaybackState(out playbackState);
 
-            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            {
-                lowHealthWarningSFX.start();
-            }
-        } else
-        {
-            PLAYBACK_STATE playbackState;
-            lowHealthWarningSFX.getPlaybackState(out playbackState);
+    //        if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+    //        {
+    //            lowHealthWarningSFX.start();
+    //        }
+    //    } else
+    //    {
+    //        PLAYBACK_STATE playbackState;
+    //        lowHealthWarningSFX.getPlaybackState(out playbackState);
 
-            if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
-            {
-                lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
-            }
-        }
-    }
+    //        if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+    //        {
+    //            lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
+    //        }
+    //    }
+    //}
 
     void ThrowStar()
     {
@@ -250,14 +262,28 @@ public class PlayerStarActionController : MonoBehaviour
     }
 
     // INPUT RELATED MEHTODS ====================================== //
+    public void AllowStarOnPlayer()
+    {
+        if (recallAllowedAtStart)
+        {
+            recallAllowed = true;
+        }
+        pickUpAllowed = true;
+    }
 
+    public void DisallowStarOnPlayer()
+    {
+        recallAllowed = false;
+        pickUpAllowed = false;
+    }
     void OnCarryStarToggle(InputValue input)
     {
-        if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange)
+        if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
         {
             starActions.CarryToggle();
         }
     }
+
 
     void OnRecallStar(InputValue input)
     {
@@ -347,13 +373,38 @@ public class PlayerStarActionController : MonoBehaviour
             {
                 aimInput *= normalThrowRange;
             }
+          
+            if (!smoothAim)
+            {
+                StartCoroutine(SmoothAim());
+            }
+
         }
+    }
+    private IEnumerator SmoothAim()
+    {
+        smoothAim = true;
+        while (Vector3.Distance(aimSmooth, aimInput) > 0.05f)
+        {
+            aimSmooth = Vector3.Lerp(aimSmooth, aimInput, controllerAimSmoothness * Time.deltaTime);
+            yield return null;
+        }
+        aimSmooth = aimInput;
+        smoothAim = false;
     }
 
     void OnAimRelease(InputValue input)
     {
-        isAiming = false;
-        aimInput = Vector3.zero;
+        if (Vector3.Distance(aimInput, Vector3.zero) < 0.2f)
+        {
+            isAiming = false;
+            aimInput = Vector3.zero;
+            if (smoothAim)
+            {
+                StopCoroutine(SmoothAim());
+            }
+           
+        }
     }
 
     void OnThrowRelease()
