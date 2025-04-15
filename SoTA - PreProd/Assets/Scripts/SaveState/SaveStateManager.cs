@@ -81,6 +81,8 @@ public class SaveStateManager : MonoBehaviour
     
     public void Save()
     {
+        Debug.Log(player.GetComponent<PlayerController>().IsGrounded());
+
         if(player.GetComponent<PlayerController>().IsGrounded() || saves.Count < 1)
         {
             saves.Add(CreateSaveData());
@@ -150,7 +152,7 @@ public class SaveStateManager : MonoBehaviour
         int index = 0;
         foreach(GameObject boulder in boulders)
         {
-            boulder.GetComponent<BoulderMoveScript>().Detach();
+            boulder.GetComponent<BoulderController>().Detach();
             boulder.transform.position = boulderPositions[index++];
         }
     }
