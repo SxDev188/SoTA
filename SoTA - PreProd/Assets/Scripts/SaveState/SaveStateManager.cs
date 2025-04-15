@@ -81,8 +81,6 @@ public class SaveStateManager : MonoBehaviour
     
     public void Save()
     {
-        Debug.Log(player.GetComponent<PlayerController>().IsGrounded());
-
         if(player.GetComponent<PlayerController>().IsGrounded() || saves.Count < 1)
         {
             saves.Add(CreateSaveData());
