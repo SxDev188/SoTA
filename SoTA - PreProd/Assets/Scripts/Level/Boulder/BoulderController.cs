@@ -8,6 +8,8 @@ public class BoulderController : MonoBehaviour, IInteractable
 
     private bool isAttached = false;
     private float interactionRange = 2f;
+
+    public bool IsAttached { get { return isAttached; } }
     
     private Vector3 playerHitscan;
     private Vector3 offsetToPlayer;
@@ -24,12 +26,6 @@ public class BoulderController : MonoBehaviour, IInteractable
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
-
-        if(playerController == null)
-        {
-            Debug.Log("NO PLAYER FOUND FROM BOULDER");
-        }
-
 
         pushController = GetComponent<BoulderPushController>();
         boulderStarPushScript = GetComponent<BoulderStarPushScript>();

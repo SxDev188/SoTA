@@ -14,6 +14,7 @@ public class BoulderPlayerPushScript : MonoBehaviour
     Rigidbody boulderRigidbody;
     BoulderController boulderController;
     BoulderPushController pushController;
+    PlayerController playerController;
 
     IEnumerator PlayerPushCoroutine;
 
@@ -25,6 +26,8 @@ public class BoulderPlayerPushScript : MonoBehaviour
         boulderRigidbody = GetComponent<Rigidbody>();
         boulderController = GetComponent<BoulderController>();
         pushController = GetComponent<BoulderPushController>();
+
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         //boulderPushSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.BoulderSFX);
     }
@@ -74,6 +77,11 @@ public class BoulderPlayerPushScript : MonoBehaviour
         }
 
         boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
+
+        if (!playerController.IsGrounded() && boulderController.IsAttached)
+        {
+            boulderController.Detach();
+        }
 
         yield return new WaitForSeconds(playerPushCooldown);
 
