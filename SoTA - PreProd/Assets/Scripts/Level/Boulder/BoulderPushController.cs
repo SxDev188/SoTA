@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class BoulderPushController : MonoBehaviour
 {
+    //this script contains things that are common between star push and player push
+
     [SerializeField] bool debugMode = false; //shows the raycast checking for valid push position
     [SerializeField] Vector3 raycastOffset = new Vector3(0, -0.4f, 0); //offsets the raycast checking for valid push position, without this it misses the spikes capsule collider as it is too low to the ground
 
     [SerializeField] float distanceToCheckForGroundBelowBoulder = 1f;
-    [SerializeField] float targetPushDestinationAcceptanceRadius = 0.01f;
+    [SerializeField] float pushDestinationAcceptanceRadius = 0.01f;
 
-    public float PushDestinationAcceptanceRadius { get { return targetPushDestinationAcceptanceRadius; } }
+    public float PushDestinationAcceptanceRadius { get { return pushDestinationAcceptanceRadius; } }
 
     BoulderStarPushScript boulderStarPushScript;
     BoulderPlayerPushScript boulderPlayerPushScript;
@@ -78,8 +80,6 @@ public class BoulderPushController : MonoBehaviour
         {
             boulderPlayerPushScript.StopPlayerPush();
         }
-
-        boulderController.SnapToFloor(); //probably not necessary, but better safe than sorry
     }
 
     void OnCollisionEnter(Collision collision)

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BoulderController : MonoBehaviour, IInteractable
 {
+    //this script handles the the boulder-player interaction
+
     private static BoulderController currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
 
     private bool isAttached = false;
@@ -146,7 +148,7 @@ public class BoulderController : MonoBehaviour, IInteractable
         boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
         playerController.UnlockMovement();
 
-        SnapToFloor();
+        //SnapToFloor();
 
         currentlyActiveBoulder = null;
         playerController.DetachFromBoulder();

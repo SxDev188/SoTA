@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BoulderPlayerPushScript : MonoBehaviour
 {
+    //this script handles moving the boulder when player pushes it or pulls on it
+
     [field: Header("Player Push Parameters")]
     [SerializeField] float playerPushSpeed = 10f;
     [SerializeField] float playerPushDistance = 1f;
@@ -49,10 +51,6 @@ public class BoulderPlayerPushScript : MonoBehaviour
     {
         //boulderPushSFX.start();
 
-        //repurposed from StarActions "TravelToDestination"
-
-        boulderController.SnapToFloor(); //ensure that boulder is starting the push from a valid position
-
         Vector3 targetDestination = transform.position + direction * distance;
 
         isBeingPlayerPushed = true;
@@ -69,14 +67,13 @@ public class BoulderPlayerPushScript : MonoBehaviour
             }
 
             Vector3 tempDirection = targetDestination - transform.position;
-            direction = direction.normalized;
 
             transform.position += tempDirection * playerPushSpeed * Time.deltaTime;
 
             yield return null;
         }
 
-        boulderController.SnapToFloor(); //looks weird if this snap only happens AFTER the cooldown
+        boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
 
         yield return new WaitForSeconds(playerPushCooldown);
 
