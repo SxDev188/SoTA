@@ -15,6 +15,7 @@ TagManager:
   - PressurePlate
   - BoulderSide
   - AntiStarZone
+  - CameraPan
   layers:
   - Default
   - TransparentFX

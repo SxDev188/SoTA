@@ -4,6 +4,8 @@ using FMOD.Studio;
 
 public class BoulderStarPushScript : MonoBehaviour
 {
+    //this script handles moving the boulder when the star is thrown at it
+
     [field: Header("Star Push Parameters")]
     [SerializeField] float starPushSpeed = 20f;
     [SerializeField] float starPushDistance = 1f;

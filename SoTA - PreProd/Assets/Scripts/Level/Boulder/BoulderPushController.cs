@@ -56,7 +56,7 @@ public class BoulderPushController : MonoBehaviour
         if (Physics.Raycast(transform.position + raycastOffset, direction, out hit, distance)) //to stop boulder from being star pushed into another object
         {
             //this is way too long... should be fixed after VS1
-            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide") && !hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("Player") && !hit.collider.gameObject.CompareTag("AntiStarZone"))
+            if (!hit.collider.gameObject.CompareTag("Abyss") && !hit.collider.gameObject.CompareTag("Level Floor") && !hit.collider.gameObject.CompareTag("BoulderSide") && !hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("Player") && !hit.collider.gameObject.CompareTag("AntiStarZone") && !hit.collider.gameObject.CompareTag("CameraPan"))
             {
                 //add tags here that you want boulder to ignore, but remember to also add them in the OnCollisionEnter check
 
