@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BoulderPlayerPushScript : MonoBehaviour
@@ -39,7 +40,7 @@ public class BoulderPlayerPushScript : MonoBehaviour
             return;
         }
 
-        if (pushController.CheckForValidPushDestination(direction, playerPushDistance))
+        if (pushController.CheckForValidPushDestination(direction, playerPushDistance) && CheckValidPlayerDestinationAfterPush(direction, playerPushDistance))
         {
             PlayerPushCoroutine = PlayerPushInDirection_IEnumerator(direction, playerPushDistance);
             StartCoroutine(PlayerPushCoroutine);
@@ -48,6 +49,37 @@ public class BoulderPlayerPushScript : MonoBehaviour
         {
             boulderController.Detach(); //fixes bug where player would start moving boulder in opposite direction when their movement input was held down
         }
+    }
+
+    public bool CheckValidPlayerDestinationAfterPush(Vector3 direction, float distance)
+    {
+        //I know this is super nested but atm this is what I can do - Goobie
+        RaycastHit hit;
+
+        Debug.DrawRay(playerController.transform.position, direction, Color.red, 1.0f);
+
+        if (Physics.Raycast(playerController.transform.position, direction, out hit, distance))
+        {
+            if (!hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("AntiStarZone") && !hit.collider.gameObject.CompareTag("CameraPan") && !hit.collider.gameObject.CompareTag("Spikes"))
+            {
+                if (hit.collider.gameObject.CompareTag("BoulderSide"))
+                {
+                    if (hit.collider.gameObject.GetComponentInParent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
+                    {
+                        return false;
+                    } else
+                    {
+                        return true;
+                    }
+                }
+
+                Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
+
+                return false;
+            }
+        }
+
+        return true;
     }
 
     IEnumerator PlayerPushInDirection_IEnumerator(Vector3 direction, float distance)
