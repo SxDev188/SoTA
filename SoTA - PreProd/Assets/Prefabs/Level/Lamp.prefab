@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2491528349437719383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.968644, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -79,17 +79,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 6842291f0622b4f47a94ef95d0b2a208,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00057303905
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6842291f0622b4f47a94ef95d0b2a208,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.07300043
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6842291f0622b4f47a94ef95d0b2a208,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0010420084
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6842291f0622b4f47a94ef95d0b2a208,
         type: 3}
@@ -141,6 +141,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lamp
       objectReference: {fileID: 0}
+    - target: {fileID: 5800008524853866109, guid: 6842291f0622b4f47a94ef95d0b2a208,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3468755486377148355, guid: 6842291f0622b4f47a94ef95d0b2a208,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

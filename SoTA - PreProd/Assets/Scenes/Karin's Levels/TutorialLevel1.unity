@@ -5838,11 +5838,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 493622376}
     m_Modifications:
-    - target: {fileID: 803539542120167365, guid: 165adcb7b86d67a4da2fab451fdd1dfc,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 2332283870339258536, guid: 165adcb7b86d67a4da2fab451fdd1dfc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5897,11 +5892,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CameraPanDownUp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585826287512622051, guid: 165adcb7b86d67a4da2fab451fdd1dfc,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
