@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 410995721094358537}
   m_Layer: 0
   m_Name: CameraPanZoneUp
-  m_TagString: Untagged
+  m_TagString: CameraPan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 2332283870339258536}
   m_Layer: 0
   m_Name: CameraPanDownUp
-  m_TagString: Untagged
+  m_TagString: CameraPan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 2794104918405167514}
   m_Layer: 0
   m_Name: CameraPanZoneDown
-  m_TagString: Untagged
+  m_TagString: CameraPan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
