@@ -3160,7 +3160,7 @@ PrefabInstance:
     - target: {fileID: 5378249798811354890, guid: 52681688ede504041b2de75772648b10,
         type: 3}
       propertyPath: puzzleElements.Array.size
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5378249798811354890, guid: 52681688ede504041b2de75772648b10,
         type: 3}
@@ -3181,7 +3181,7 @@ PrefabInstance:
         type: 3}
       propertyPath: puzzleElements.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 925144202}
     - target: {fileID: 5378249798811354890, guid: 52681688ede504041b2de75772648b10,
         type: 3}
       propertyPath: puzzleElements.Array.data[4]
@@ -4022,7 +4022,7 @@ PrefabInstance:
     - target: {fileID: 1648607482860712854, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 2137757822455572780, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
@@ -4247,6 +4247,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f8e461480935d447a812739701adbe3, type: 3}
+--- !u!1 &925144202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4018099831857466771, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1517035524}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &938661973
 GameObject:
   m_ObjectHideFlags: 0
@@ -8940,7 +8946,7 @@ PrefabInstance:
     - target: {fileID: 1648607482860712854, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2137757822455572780, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
@@ -9035,7 +9041,7 @@ PrefabInstance:
     - target: {fileID: 1648607482860712854, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1648607482860712854, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
@@ -9045,7 +9051,7 @@ PrefabInstance:
     - target: {fileID: 1648607482860712854, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2137757822455572780, guid: 84b0ad9800d30a141a23e35de64af00d,
         type: 3}
