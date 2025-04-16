@@ -5,6 +5,7 @@ public class BoulderController : MonoBehaviour, IInteractable
     //this script handles the the boulder-player interaction
 
     private static BoulderController currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
+    public static BoulderController GetCurrentlyActiveBoulder() { return currentlyActiveBoulder; }
 
     private bool isAttached = false;
     private float interactionRange = 2f;
