@@ -1,10 +1,15 @@
 using UnityEngine;
 
-public class BoulderMoveScript : MonoBehaviour, IInteractable
+public class BoulderController : MonoBehaviour, IInteractable
 {
+    //this script handles the the boulder-player interaction
+
+    private static BoulderController currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
 
     private bool isAttached = false;
     private float interactionRange = 2f;
+
+    public bool IsAttached { get { return isAttached; } }
     
     private Vector3 playerHitscan;
     private Vector3 offsetToPlayer;
@@ -13,25 +18,32 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
     private Rigidbody boulderRigidbody;
     private PlayerController playerController;
 
+    private BoulderPushController pushController;
     private BoulderStarPushScript boulderStarPushScript;
-    private static BoulderMoveScript currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
+    private BoulderPlayerPushScript boulderPlayerPushScript;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
 
-        boulderRigidbody = GetComponent<Rigidbody>();
+        pushController = GetComponent<BoulderPushController>();
         boulderStarPushScript = GetComponent<BoulderStarPushScript>();
+        boulderPlayerPushScript = GetComponent<BoulderPlayerPushScript>();
+
+        boulderRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if (isAttached && !boulderStarPushScript.IsBeingPushed)
+        if (isAttached && !pushController.IsBeingPushed)
         {
+            if (playerController.IsGrounded())
+                Debug.Log("PLAYER GROUNDED");
+
             if (playerController.GetBoulderPushDirection() != Vector3.zero)
             {
-                boulderStarPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection());
+                boulderPlayerPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection());
             }
         }
 
@@ -132,7 +144,7 @@ public class BoulderMoveScript : MonoBehaviour, IInteractable
         boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
         playerController.UnlockMovement();
 
-        SnapToFloor();
+        //SnapToFloor();
 
         currentlyActiveBoulder = null;
         playerController.DetachFromBoulder();

@@ -76,7 +76,7 @@ public class SaveStateManager : MonoBehaviour
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
         GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
-        cameraPan = cameraObject.GetComponent<CameraPanScript>();
+        cameraPan = cameraObject.GetComponent<CameraPanScript>(); 
     }
     
     public void Save()
@@ -129,6 +129,7 @@ public class SaveStateManager : MonoBehaviour
         SaveData dataToLoad;
         dataToLoad = saves[saves.Count - 1];
         SetFromSaveData(dataToLoad);
+        CameraTriggerScript.ReactivateLastTrigger();
         starActions.Recall();
 
       
@@ -150,7 +151,7 @@ public class SaveStateManager : MonoBehaviour
         int index = 0;
         foreach(GameObject boulder in boulders)
         {
-            boulder.GetComponent<BoulderMoveScript>().Detach();
+            boulder.GetComponent<BoulderController>().Detach();
             boulder.transform.position = boulderPositions[index++];
         }
     }

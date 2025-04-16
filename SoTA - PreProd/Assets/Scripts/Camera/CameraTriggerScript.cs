@@ -49,4 +49,13 @@ public class CameraTriggerScript : MonoBehaviour
     {
         GetComponent<Collider>().enabled = true;
     }
+
+    public static void ReactivateLastTrigger()
+    {
+        if (lastActivatedTrigger != null)
+        {
+            lastActivatedTrigger.ReactivateTrigger();
+            lastActivatedTrigger = null;
+        }
+    }
 }
