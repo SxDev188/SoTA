@@ -12,7 +12,6 @@ public class SaveStateManager : MonoBehaviour
     private List<SaveData> saves = new List<SaveData>();
 
     private GameObject player;
-    private CameraPanScript cameraPan;
     private GameObject[] buttons;
     private GameObject[] boulders;
 
@@ -77,7 +76,6 @@ public class SaveStateManager : MonoBehaviour
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
         GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
-        cameraPan = cameraObject.GetComponent<CameraPanScript>();
         referencesSet = true;
     }
     
@@ -125,7 +123,7 @@ public class SaveStateManager : MonoBehaviour
     }
     private Vector3 GetCameraPosition()
     {
-        return cameraPan.TargetPosition;
+        return CameraPanScript.Instance.TargetPosition;
     }
     
     public void Load()
@@ -193,7 +191,7 @@ public class SaveStateManager : MonoBehaviour
     }
     private void SetFromCameraPosition(SaveData saveData)
     {
-        cameraPan.TargetPosition = saveData.CameraPosition;
+        CameraPanScript.Instance.TargetPosition = saveData.CameraPosition;
     }
     private bool CheckSafety(SaveData saveData)
     {
