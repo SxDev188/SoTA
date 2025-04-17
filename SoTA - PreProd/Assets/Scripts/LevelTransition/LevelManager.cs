@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -16,5 +17,9 @@ public class LevelManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+    public void LoadNextSceen()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
