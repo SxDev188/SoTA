@@ -92,7 +92,9 @@ public class UIScript : MonoBehaviour
     public void QuitGame() // TODO: Check if we already have a function for this...
     {
         Application.Quit();
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     public void UnPauseGame()
