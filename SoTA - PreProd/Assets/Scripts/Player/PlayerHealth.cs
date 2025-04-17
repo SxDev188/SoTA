@@ -62,6 +62,6 @@ public class PlayerHealth : MonoBehaviour
     {
         SaveStateManager.Instance.Load();
         currentHealth = startingHealth;
-        deathSFX.start(); 
+        deathSFX.start();
     }
 }
