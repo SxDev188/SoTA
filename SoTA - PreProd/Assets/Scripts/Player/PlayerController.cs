@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     private PlayerHealth playerHealth;
     public float VerticalVelocity = 0; //Used to manage gravity
+    [SerializeField] float VerticalVelocityLowerCap = -2;
+    [SerializeField] float VerticalVelocityUpperCap = 2;
 
     public CharacterController CharacterController => characterController;
 
@@ -67,7 +69,10 @@ public class PlayerController : MonoBehaviour
             //Apply gravity if not grounded (falling in Abyss)
             if (!characterController.isGrounded)
             {
-                VerticalVelocity += Physics.gravity.y * Time.deltaTime;
+                if (VerticalVelocity < VerticalVelocityUpperCap && VerticalVelocity > VerticalVelocityLowerCap)
+                {
+                    VerticalVelocity += Physics.gravity.y * Time.deltaTime;
+                }
             }
             else
             {

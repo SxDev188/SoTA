@@ -65,12 +65,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
   moveSpeed: 7
   boulderPushSpeed: 3
   movementRotationByDegrees: 45
   characterController: {fileID: 0}
   VerticalVelocity: 0
+  VerticalVelocityLowerCap: -2
+  VerticalVelocityUpperCap: 2
   inputLocked: 0
   disableGravityDuringPull: 0
 --- !u!114 &2517525866248969489
@@ -128,6 +129,7 @@ MonoBehaviour:
   gravityPullSpeed: 5
   aimSensitivity: 0.5
   aimRotationByDegrees: 45
+  controllerAimSmoothness: 3
 --- !u!114 &1201185607336089017
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,12 +57,21 @@ public class StarActions : MonoBehaviour
 
     public void CarryToggle()
     {
+        if (isTraveling)
+        {
+            StopTravelToDestination();
+        }
+
         if (isOnPlayer)
         {
+            //drop star sfx here
+
             isOnPlayer = false;
             starRigidbody.useGravity = true;
         } else if (!isOnPlayer)
         {
+            //pick up star sfx here
+
             isOnPlayer = true;
             starRigidbody.useGravity = false;
         }
@@ -71,6 +80,13 @@ public class StarActions : MonoBehaviour
     {
         if (!isOnPlayer)
         {
+            //recall sound effect here
+
+            if(isTraveling)
+            {
+                StopTravelToDestination();
+            }
+
             isOnPlayer = true;
             starRigidbody.useGravity = false;
         }
