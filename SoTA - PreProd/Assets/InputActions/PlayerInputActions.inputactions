@@ -528,22 +528,11 @@
                 {
                     "name": "",
                     "id": "f5a2b4ab-4287-418a-a763-4ad66ab053af",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CarryStarToggle",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "60f46025-37fb-493c-b6f0-f07629da3e71",
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "RecallStar",
+                    "action": "CarryStarToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
