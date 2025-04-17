@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
-  m_Name: TutorialPuzzle1_PressurePlate
+  m_Name: TutorialLevel2_AntiStarZone
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: "This is a Pressure Plate. \nLike the Button, they activate puzzle
-      objects with the same color."
-  - dialouge: You can activate Pressure Plates by standing on them, dropping the
-      Star on top of them, or by pushing a Boulder on to them.
+  - dialouge: This mark on the floor emitting particles is an Anti-Star Zone.
+  - dialouge: The Star is repelled by these spots while they are emitting particles.
+      If you throw the Star at them, they will stop the Star. And if you are holding
+      the Star, you will drop it.

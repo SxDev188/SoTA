@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TutorialPuzzle1_Boulder
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: This is a Boulder. You can push them around to activate Pressure Plates.
-  - dialouge: You can grip onto push a Boulder by standing next to them and press
-      E on your keyboard, or by pressing the South button on your gamepad. You release
-      your grip the same way.
+  - dialouge: "This is a Boulder. \nYou can push them around to activate Pressure
+      Plates."
+  - dialouge: "You can grip onto push a Boulder by standing next to them and press
+      E on your keyboard, or by pressing the South button on your gamepad. \nYou
+      release your grip the same way."
   - dialouge: You can also throw your Star on a Boulder to move it.

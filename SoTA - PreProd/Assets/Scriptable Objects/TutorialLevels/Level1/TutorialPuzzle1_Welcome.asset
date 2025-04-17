@@ -24,14 +24,16 @@ MonoBehaviour:
       sure to not leave it laying around for too long, or you''ll die! '
   - dialouge: The glow from the Star also reveals color, so you can see color connections
       between objects.
-  - dialouge: You can drop the Star by pressing the space bar on your keyboard, or
-      the North button on your gamepad. You can also recall the Star to you in the
-      same way if you are close enough.
-  - dialouge: You can also throw the Star to interact with things. Press the Left
-      Mouse Button, aim by pulling the mouse back, and release to throw. With a gamepad,
-      push the Left Trigger, aim with the Right Stick, and push the Right Trigger
-      to throw.
+  - dialouge: "You can drop the Star by pressing the space bar on your keyboard,
+      or the North button on your gamepad. \nYou can also recall the Star to you
+      in the same way if you are close enough."
+  - dialouge: 'You can also throw the Star to interact with things.
+
+      Press
+      the Left Mouse Button, aim by pulling the mouse back, and release to throw.
+
+      With
+      a gamepad, push the Left Trigger, aim with the Right Stick, and push the Right
+      Trigger to throw.'
   - dialouge: Every time you throw the Star, your progress will be saved. So if you
-      do end up dying by being away from the Star for too long or walking into spikes
-      or falling off the platform, you will come back to the last time you threw
-      the Star.
+      do end up dying, you will revert back to the last time you threw the Star.
