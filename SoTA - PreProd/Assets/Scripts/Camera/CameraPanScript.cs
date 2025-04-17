@@ -24,10 +24,6 @@ public class CameraPanScript : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    void Start()
-    {
         targetPosition = transform.position;
     }
 
