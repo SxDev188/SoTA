@@ -278,15 +278,17 @@ public class PlayerStarActionController : MonoBehaviour
     }
     void OnCarryStarToggle(InputValue input)
     {
+        //if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
+        //{
+        //    starActions.CarryToggle();
+        //}
+
         if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
         {
             starActions.CarryToggle();
+            return;
         }
-    }
 
-
-    void OnRecallStar(InputValue input)
-    {
         if (!recallAllowed)
         {
             return;
@@ -296,6 +298,22 @@ public class PlayerStarActionController : MonoBehaviour
         {
             starActions.Recall();
         }
+    }
+
+
+    void OnRecallStar(InputValue input)
+    {
+        //was moved to OnCarrStarToggle input method above.
+
+        //if (!recallAllowed)
+        //{
+        //    return;
+        //}
+
+        //if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
+        //{
+        //    starActions.Recall();
+        //}
     }
 
     void OnLeftMouseDown(InputValue input)

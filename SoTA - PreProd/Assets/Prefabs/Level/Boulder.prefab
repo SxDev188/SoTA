@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5190049239847933239}
   - component: {fileID: 4418868953479186636}
   - component: {fileID: 6290265528153239896}
+  - component: {fileID: 6330249098049356985}
+  - component: {fileID: 1489208469139832714}
   - component: {fileID: 7474438510281143353}
   m_Layer: 0
   m_Name: Boulder
@@ -100,6 +102,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &6330249098049356985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545799543686016793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8034712696cb26844a212c85e1fac2ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugMode: 0
+  raycastOffset: {x: 0, y: -0.4, z: 0}
+  distanceToCheckForGroundBelowBoulder: 1
+  targetPushDestinationAcceptanceRadius: 0.01
+--- !u!114 &1489208469139832714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545799543686016793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ef62d0abb1a9246bb42c90234ed96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPushSpeed: 10
+  playerPushDistance: 1
+  playerPushCooldown: 0.5
 --- !u!114 &7474438510281143353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,9 +146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starPushSpeed: 10
-  pushDistance: 1
-  distanceToCheckForGroundBelowBoulder: 1
-  targetPushDestinationAcceptanceRadius: 0.1
+  starPushDistance: 1
+  starPushCooldown: 0.2
   boulderSideHitboxes:
   - {fileID: 7385854281867795360}
   - {fileID: 4981638270437264332}

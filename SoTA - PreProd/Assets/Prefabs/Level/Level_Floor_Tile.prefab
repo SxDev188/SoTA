@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.581083
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
         type: 3}
@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.852635
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
         type: 3}
@@ -60,6 +60,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7ceab57f9ba66214d84bb095709e7a93, type: 2}
@@ -83,6 +88,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[4]
       value: 
       objectReference: {fileID: 2100000, guid: b7367584545657843b15b1b908920bb6, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: b7367584545657843b15b1b908920bb6, type: 2}
+    - target: {fileID: -5754084199372789682, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7254345851223822434, guid: 35d98212d55185546b7295eca53b4596,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: a3ee5a9a78c9ed8429f619d5a4c79faf,
         type: 3}
       propertyPath: m_Name
@@ -128,4 +144,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0.000000059604645, y: 0.016998142, z: -0.0018329024}
+  m_Center: {x: 0.000000059604645, y: -0.01, z: -0.0018329024}
