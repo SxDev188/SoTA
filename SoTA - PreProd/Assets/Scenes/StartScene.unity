@@ -130,40 +130,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1833172961484474899, guid: af2bc979980ace946a89319e7857ace6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3232210613622899882, guid: af2bc979980ace946a89319e7857ace6,
         type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3396085352507201232, guid: af2bc979980ace946a89319e7857ace6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704857740275233160, guid: af2bc979980ace946a89319e7857ace6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115764701522000188, guid: af2bc979980ace946a89319e7857ace6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104341438047728042, guid: af2bc979980ace946a89319e7857ace6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8622061289329675222, guid: af2bc979980ace946a89319e7857ace6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9077914736779454108, guid: af2bc979980ace946a89319e7857ace6,
         type: 3}

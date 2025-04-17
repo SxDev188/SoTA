@@ -104,6 +104,11 @@ public class UIScript : MonoBehaviour
         ResetPauseUI();
     }
 
+    public void LoadLevel(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
+    }
+
     private void PauseGame()
     {
         isPaused = true;
