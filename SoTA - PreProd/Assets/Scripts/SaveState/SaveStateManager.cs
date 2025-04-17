@@ -21,6 +21,7 @@ public class SaveStateManager : MonoBehaviour
     //Temporary fix I hope or more data added here and removed from other places
     private StarActions starActions;
 
+    private bool referencesSet = false;
     //private bool saved = false;
     private void Awake()
     {
@@ -76,12 +77,15 @@ public class SaveStateManager : MonoBehaviour
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
         GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
-        cameraPan = cameraObject.GetComponent<CameraPanScript>(); 
+        cameraPan = cameraObject.GetComponent<CameraPanScript>();
+        referencesSet = true;
     }
     
     public void Save()
     {
-        if(player.GetComponent<PlayerController>().IsGrounded() || saves.Count < 1)
+        if (referencesSet == false)
+            SetSaveableObjectReferences();
+        if (player.GetComponent<CharacterController>().isGrounded || saves.Count < 1)
         {
             saves.Add(CreateSaveData());
         }
@@ -128,16 +132,37 @@ public class SaveStateManager : MonoBehaviour
     {
         SaveData dataToLoad;
         dataToLoad = saves[saves.Count - 1];
-        SetFromSaveData(dataToLoad);
+        CheckFromSaveData(dataToLoad);
         CameraTriggerScript.ReactivateLastTrigger();
         starActions.Recall();
 
       
     }
+    private void CheckFromSaveData(SaveData saveData)
+    {
+        SetFromButtonStates(saveData);
+        if (CheckSafety(saveData))
+        {
+            SetFromSaveData(saveData);
+        }
+        else
+        {
+            if (saves.Count > 1)
+            {
+                saves.RemoveAt(saves.Count - 1);
+                CheckFromSaveData(saves[saves.Count - 1]);
+            }
+            else
+            {
+                SetFromSaveData(saveData);
+            }
+        }
+    }
     private void SetFromSaveData(SaveData saveData)
     {
-        SetFromBoulderPositions(saveData);
+        
         SetFromButtonStates(saveData);
+        SetFromBoulderPositions(saveData);
         SetFromPlayerPosition(saveData);
         SetFromCameraPosition(saveData);
     }
@@ -152,6 +177,7 @@ public class SaveStateManager : MonoBehaviour
         foreach(GameObject boulder in boulders)
         {
             boulder.GetComponent<BoulderController>().Detach();
+            boulder.GetComponent<BoulderPushController>().StopBoulderPush();
             boulder.transform.position = boulderPositions[index++];
         }
     }
@@ -165,17 +191,31 @@ public class SaveStateManager : MonoBehaviour
             buttonScript.SetState(buttonsActive[index++]);
         }
     }
-
     private void SetFromCameraPosition(SaveData saveData)
     {
         cameraPan.TargetPosition = saveData.CameraPosition;
     }
+    private bool CheckSafety(SaveData saveData)
+    {
+        RaycastHit[] hits;
+        CharacterController playerController = player.GetComponent<CharacterController>();
+        Vector3 p1 = saveData.PlayerPosition+ playerController.center;
+        hits = Physics.SphereCastAll(p1, playerController.height / 2, Vector3.forward, 0f);
+        foreach(RaycastHit hit in hits)
+        {
+            if (hit.collider.tag == "Spikes" )
+            {
+                return false;
+            }
+        }
+        return true;
+        
+    }
     private void LoadStartSave()
     {
         SaveData dataToLoad = saves[0];
-        player.transform.position = dataToLoad.PlayerPosition;
-        SetFromBoulderPositions(dataToLoad);
-        SetFromButtonStates(dataToLoad);
+        SetFromSaveData(dataToLoad);
+        CameraTriggerScript.ReactivateLastTrigger();
         starActions.Recall();
     }
 }
