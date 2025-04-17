@@ -69,7 +69,7 @@ public class BoulderPushController : MonoBehaviour
         return true;
     }
 
-    void StopBoulderPush()
+    public void StopBoulderPush()
     {
         if (boulderStarPushScript.IsBeingStarPushed)
         {

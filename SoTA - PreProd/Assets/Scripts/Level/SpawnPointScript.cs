@@ -6,7 +6,7 @@ public class SpawnPointScript : MonoBehaviour
     Vector3 spawmPointPosition;
     void Start()
     {
-        spawmPointPosition = transform.position + new Vector3(0, 0.5f, 0);
+        spawmPointPosition = transform.position + new Vector3(0, 0f, 0);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         Spawn();
