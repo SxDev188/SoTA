@@ -23,11 +23,13 @@ public class EndPointScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            LevelManager.Instance.LoadNextSceen();
             if (isExit)
             {
-                #if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-                #endif
+                LevelManager.Instance.LoadNextSceen();
+                //#if UNITY_EDITOR
+                //EditorApplication.isPlaying = false;
+                //#endif
             }
 
             if (nextSpawnPoint != null)
@@ -35,9 +37,9 @@ public class EndPointScript : MonoBehaviour
                 playerController.transform.position = nextSpawnPoint.position;
                 CameraPanScript.Instance.PanCamera(cameraPanDirection);
             }
-            else // Load Next Level
+           else
             {
-                LevelManager.Instance.LoadNextSceen();
+                Debug.LogWarning("Next spawn point not assigned!");
             }
         }
     }
