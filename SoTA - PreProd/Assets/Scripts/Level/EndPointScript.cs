@@ -35,9 +35,9 @@ public class EndPointScript : MonoBehaviour
                 playerController.transform.position = nextSpawnPoint.position;
                 CameraPanScript.Instance.PanCamera(cameraPanDirection);
             }
-            else
+            else // Load Next Level
             {
-                Debug.LogWarning("Next spawn point not assigned!");
+                LevelManager.Instance.LoadNextSceen();
             }
         }
     }

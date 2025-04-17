@@ -1,9 +1,11 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
+    private Scene activeScene;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -17,9 +19,17 @@ public class LevelManager : MonoBehaviour
         {
             Instance = this;
         }
+        activeScene = SceneManager.GetActiveScene();
     }
     public void LoadNextSceen()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        int nextBuildIndex = activeScene.buildIndex + 1;
+        if (SceneManager.sceneCount > nextBuildIndex)
+        SceneManager.LoadScene(nextBuildIndex);     
+        else
+        {
+            Application.Quit();
+            EditorApplication.isPlaying = false;
+        }
     }
 }
