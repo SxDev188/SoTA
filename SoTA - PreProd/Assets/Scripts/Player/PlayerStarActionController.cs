@@ -303,21 +303,17 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnRecallStar(InputValue input)
     {
-        if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
-        {
-            starActions.CarryToggle();
-            return;
-        }
+        //was moved to OnCarrStarToggle input method above.
 
-        if (!recallAllowed)
-        {
-            return;
-        }
+        //if (!recallAllowed)
+        //{
+        //    return;
+        //}
 
-        if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
-        {
-            starActions.Recall();
-        }
+        //if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
+        //{
+        //    starActions.Recall();
+        //}
     }
 
     void OnLeftMouseDown(InputValue input)
