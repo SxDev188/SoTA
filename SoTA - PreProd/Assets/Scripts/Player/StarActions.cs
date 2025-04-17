@@ -152,7 +152,7 @@ public class StarActions : MonoBehaviour
     {
         if (other.CompareTag("Abyss"))
         {
-            isOnPlayer = true;
+            SaveStateManager.Instance.Load();
         }
     }
 
