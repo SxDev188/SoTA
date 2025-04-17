@@ -132,6 +132,7 @@ public class SaveStateManager : MonoBehaviour
         dataToLoad = saves[saves.Count - 1];
         CheckFromSaveData(dataToLoad);
         starActions.Recall();
+        starActions.StopAllCoroutines();
     }
     private void CheckFromSaveData(SaveData saveData)
     {
