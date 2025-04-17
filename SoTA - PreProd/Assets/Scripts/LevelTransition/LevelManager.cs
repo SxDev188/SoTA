@@ -29,7 +29,9 @@ public class LevelManager : MonoBehaviour
         else
         {
             Application.Quit();
+            #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
+            #endif
         }
     }
 }
