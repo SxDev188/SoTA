@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
   m_Name: LoreTile_Test
   m_EditorClassIdentifier: 
-  dialogueInfo: []
+  dialogueInfo:
+  - dialouge: Hej hej
+  - dialouge: "Hejd\xE5\n"
