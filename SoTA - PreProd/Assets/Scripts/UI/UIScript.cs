@@ -99,9 +99,7 @@ public class UIScript : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1;
-        playerObject.GetComponent<PlayerInput>().enabled = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        playerObject.GetComponent<PlayerInput>().enabled = true;
         pauseMenuObject.SetActive(false);
         ResetPauseUI();
     }
@@ -111,8 +109,6 @@ public class UIScript : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
         playerObject.GetComponent<PlayerInput>().enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         pauseMenuObject.SetActive(true);
     }
 
