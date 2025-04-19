@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4202267313386246333}
   - component: {fileID: 2517525866248969489}
   - component: {fileID: 7468595067580057327}
+  - component: {fileID: 1147887570940489232}
   - component: {fileID: 1201185607336089017}
   - component: {fileID: 8266093247422994638}
   - component: {fileID: 6219084333740346544}
@@ -131,6 +132,18 @@ MonoBehaviour:
   aimSensitivity: 0.5
   aimRotationByDegrees: 45
   controllerAimSmoothness: 3
+--- !u!114 &1147887570940489232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450923683111974977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93accccdd9c080d4a86f1f7d82e804e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1201185607336089017
 MonoBehaviour:
   m_ObjectHideFlags: 0

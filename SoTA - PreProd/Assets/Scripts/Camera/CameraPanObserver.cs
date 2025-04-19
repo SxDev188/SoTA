@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CameraPanObserver : MonoBehaviour
 {
-    [SerializeField] private PlayerSegment player;
+    private PlayerSegment player;
     [SerializeField] private float panSpeed = 5f;
     private Vector3 cameraStartPosition;
     private Vector3 cameraSavePosition;
