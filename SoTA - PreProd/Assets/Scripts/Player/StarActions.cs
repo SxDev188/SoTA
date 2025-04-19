@@ -154,13 +154,22 @@ public class StarActions : MonoBehaviour
         {
             SaveStateManager.Instance.Load();
         }
+
+        if (other.gameObject.tag == "StarPickupTrigger" && !isOnPlayer && !isTraveling)
+        {
+            isOnPlayer = true;
+            starRigidbody.useGravity = false;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.tag == "Player")
         {
+            //if (isTraveling)
+            //{
+            //    return;
+            //}
             return;
         }
 
