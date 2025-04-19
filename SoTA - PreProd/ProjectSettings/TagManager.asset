@@ -17,7 +17,6 @@ TagManager:
   - AntiStarZone
   - CameraPan
   - StarPickupTrigger
-  - Segment
   layers:
   - Default
   - TransparentFX
