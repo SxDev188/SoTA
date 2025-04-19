@@ -9,6 +9,7 @@ public class CameraPanObserver : MonoBehaviour
     [SerializeField] private PlayerSegment player;
     [SerializeField] private float panSpeed = 5f;
     private Vector3 cameraStartPosition;
+    private Vector3 cameraSavePosition;
     private void OnSegmentChanged()
     {
         Vector3 segmentPosition = player.GetCurrentSegmentPosition();
@@ -19,6 +20,7 @@ public class CameraPanObserver : MonoBehaviour
     private void Awake()
     {
         cameraStartPosition = transform.position;
+        cameraSavePosition = cameraStartPosition;
         if (player == null)
         {
             GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -37,8 +39,18 @@ public class CameraPanObserver : MonoBehaviour
             player.SegmentChanged -= OnSegmentChanged;
         }
     }
+    public Vector3 GetCameraSavePosition()
+    {
+        return cameraSavePosition;
+    }
+    public void SetCameraPosition(Vector3 position)
+    {
+        StopAllCoroutines();
+        StartCoroutine(SmoothPan(position));
+    }
     private IEnumerator SmoothPan(Vector3 targetPosition)
     {
+        cameraSavePosition = targetPosition;
         while (Vector3.Distance(transform.position, targetPosition) > 0.05f)
         {
             transform.position = Vector3.Lerp(transform.position, targetPosition, panSpeed * Time.deltaTime);

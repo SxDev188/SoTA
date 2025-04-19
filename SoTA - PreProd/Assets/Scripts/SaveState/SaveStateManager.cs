@@ -12,6 +12,7 @@ public class SaveStateManager : MonoBehaviour
     private List<SaveData> saves = new List<SaveData>();
 
     private GameObject player;
+    private CameraPanObserver cameraScript;
     private GameObject[] buttons;
     private GameObject[] boulders;
 
@@ -75,7 +76,7 @@ public class SaveStateManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
-        GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        cameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraPanObserver>();
         referencesSet = true;
     }
     
@@ -122,7 +123,7 @@ public class SaveStateManager : MonoBehaviour
     }
     private Vector3 GetCameraPosition()
     {
-        return CameraPanScript.Instance.TargetPosition;
+        return cameraScript.GetCameraSavePosition();
     }
     
     public void Load()
@@ -163,6 +164,7 @@ public class SaveStateManager : MonoBehaviour
     private void SetFromPlayerPosition(SaveData saveData)
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
+        player.GetComponent<PlayerSegment>().ClearSegments();
         playerController.SetPlayerPosition(saveData.PlayerPosition);
         playerController.inputLocked = false;
 
@@ -192,9 +194,10 @@ public class SaveStateManager : MonoBehaviour
     }
     private void SetFromCameraPosition(SaveData saveData)
     {
-        CameraPanScript.Instance.TargetPosition = saveData.CameraPosition;
-        CameraPanScript.Instance.StopAllCoroutines();
-        CameraTriggerScript.ReactivateLastTrigger();
+        //CameraPanScript.Instance.TargetPosition = saveData.CameraPosition;
+        //CameraPanScript.Instance.StopAllCoroutines();
+        cameraScript.SetCameraPosition(saveData.CameraPosition);
+        //CameraTriggerScript.ReactivateLastTrigger();
     }
     private bool CheckSafety(SaveData saveData)
     {

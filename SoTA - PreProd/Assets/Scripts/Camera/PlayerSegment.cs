@@ -9,7 +9,8 @@ public class PlayerSegment : MonoBehaviour
     public event Action SegmentChanged;
     public void AddSegment(LevelSegment segment)
     {
-        segments.Add(segment);
+        if (!segments.Contains(segment))
+            segments.Add(segment);
         if (segments.Count == 1)
             SegmentChanged?.Invoke();
     }
@@ -27,6 +28,10 @@ public class PlayerSegment : MonoBehaviour
     private LevelSegment GetCurrentSegment()
     {
         return segments[0];
+    }
+    public void ClearSegments()
+    {
+        segments.Clear();
     }
     public Vector3 GetCurrentSegmentPosition()
     {
