@@ -12,6 +12,7 @@ public class SaveStateManager : MonoBehaviour
     private List<SaveData> saves = new List<SaveData>();
 
     private GameObject player;
+    private CameraPanObserver cameraScript;
     private GameObject[] buttons;
     private GameObject[] boulders;
 
@@ -75,7 +76,7 @@ public class SaveStateManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         buttons = GameObject.FindGameObjectsWithTag("Button");
         boulders = GameObject.FindGameObjectsWithTag("Boulder");
-        GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        cameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraPanObserver>();
         referencesSet = true;
     }
     
@@ -83,11 +84,10 @@ public class SaveStateManager : MonoBehaviour
     {
         if (referencesSet == false)
             SetSaveableObjectReferences();
-        if (player.GetComponent<CharacterController>().isGrounded || saves.Count < 1)
+        if (player.GetComponent<PlayerController>().IsGrounded()|| player.GetComponent<CharacterController>().isGrounded || saves.Count < 1)
         {
             saves.Add(CreateSaveData());
         }
-        
     }
     private SaveData CreateSaveData()
     {
@@ -123,7 +123,7 @@ public class SaveStateManager : MonoBehaviour
     }
     private Vector3 GetCameraPosition()
     {
-        return CameraPanScript.Instance.TargetPosition;
+        return cameraScript.GetCameraSavePosition();
     }
     
     public void Load()
@@ -164,8 +164,12 @@ public class SaveStateManager : MonoBehaviour
     private void SetFromPlayerPosition(SaveData saveData)
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
+        player.GetComponent<PlayerSegment>().ClearSegments();
         playerController.SetPlayerPosition(saveData.PlayerPosition);
         playerController.inputLocked = false;
+
+        PlayerStarActionController playerStarActionController = player.GetComponent<PlayerStarActionController>();
+        playerStarActionController.AllowStarOnPlayer();
     }
     private void SetFromBoulderPositions(SaveData saveData)
     {
@@ -190,9 +194,10 @@ public class SaveStateManager : MonoBehaviour
     }
     private void SetFromCameraPosition(SaveData saveData)
     {
-        CameraPanScript.Instance.TargetPosition = saveData.CameraPosition;
-        CameraPanScript.Instance.StopAllCoroutines();
-        CameraTriggerScript.ReactivateLastTrigger();
+        //CameraPanScript.Instance.TargetPosition = saveData.CameraPosition;
+        //CameraPanScript.Instance.StopAllCoroutines();
+        cameraScript.SetCameraPosition(saveData.CameraPosition);
+        //CameraTriggerScript.ReactivateLastTrigger();
     }
     private bool CheckSafety(SaveData saveData)
     {
@@ -216,5 +221,6 @@ public class SaveStateManager : MonoBehaviour
         SetFromSaveData(dataToLoad);
         CameraTriggerScript.ReactivateLastTrigger();
         starActions.Recall();
+        starActions.StopAllCoroutines();
     }
 }
