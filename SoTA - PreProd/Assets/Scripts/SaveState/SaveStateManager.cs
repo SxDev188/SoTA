@@ -166,6 +166,9 @@ public class SaveStateManager : MonoBehaviour
         PlayerController playerController = player.GetComponent<PlayerController>();
         playerController.SetPlayerPosition(saveData.PlayerPosition);
         playerController.inputLocked = false;
+
+        PlayerStarActionController playerStarActionController = player.GetComponent<PlayerStarActionController>();
+        playerStarActionController.AllowStarOnPlayer();
     }
     private void SetFromBoulderPositions(SaveData saveData)
     {
@@ -216,5 +219,6 @@ public class SaveStateManager : MonoBehaviour
         SetFromSaveData(dataToLoad);
         CameraTriggerScript.ReactivateLastTrigger();
         starActions.Recall();
+        starActions.StopAllCoroutines();
     }
 }
