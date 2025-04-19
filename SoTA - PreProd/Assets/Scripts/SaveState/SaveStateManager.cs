@@ -83,11 +83,10 @@ public class SaveStateManager : MonoBehaviour
     {
         if (referencesSet == false)
             SetSaveableObjectReferences();
-        if (player.GetComponent<CharacterController>().isGrounded || saves.Count < 1)
+        if (player.GetComponent<PlayerController>().IsGrounded()|| player.GetComponent<CharacterController>().isGrounded || saves.Count < 1)
         {
             saves.Add(CreateSaveData());
         }
-        
     }
     private SaveData CreateSaveData()
     {
