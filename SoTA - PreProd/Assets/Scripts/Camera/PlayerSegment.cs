@@ -7,26 +7,29 @@ public class PlayerSegment : MonoBehaviour
 {
     List<LevelSegment> segments = new List<LevelSegment>();
     public event Action SegmentChanged;
-
     public void AddSegment(LevelSegment segment)
     {
         segments.Add(segment);
-    }
-    public void RemoveSegment(LevelSegment segment)
-    {
-        bool newSegment = false;
-        if(segment == GetCurrentSegment())
-            newSegment = true;
-        
-        segments.Remove(segment);
-        
-        if(newSegment)
+        if (segments.Count == 1)
             SegmentChanged?.Invoke();
     }
-   
-
-    public LevelSegment GetCurrentSegment()
+    public void RemoveSegment(LevelSegment segmentToRemove)
+    {
+        bool newCurrentSegment = false;
+        if(segments.Count != 1 && segmentToRemove == GetCurrentSegment())
+            newCurrentSegment = true;
+        
+        segments.Remove(segmentToRemove);
+        
+        if(newCurrentSegment)
+            SegmentChanged?.Invoke();
+    }
+    private LevelSegment GetCurrentSegment()
     {
         return segments[0];
+    }
+    public Vector3 GetCurrentSegmentPosition()
+    {
+        return GetCurrentSegment().GetSegmentPosition();
     }
 }

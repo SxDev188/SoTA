@@ -23,4 +23,8 @@ public class LevelSegment : MonoBehaviour
             playerSegment.RemoveSegment(this);
         }
     }
+    public Vector3 GetSegmentPosition()
+    {
+        return new Vector3(segmentPosition.x, 0, segmentPosition.y)*11;
+    }
 }
