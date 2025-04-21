@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
-  m_Name: TutorialLevel2_AntiStarZone
+  m_Name: TL3_Welcome
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: This mark on the floor emitting particles is an Anti-Star Zone.
-  - dialouge: The Star is repelled by these spots while they are emitting particles.
-      If you throw the Star at them, they will stop the Star. And if you are holding
-      the Star, you will drop it.
+  - dialouge: Welcome to the third tutorial level!
+  - dialouge: Your Star has evolved again, and you can now throw it further to interact
+      with puzzle objects!
+  - dialouge: 'If using mouse and keyboard, pressing the Right Mouse Button will
+      let you throw further.
+
+      If on gamepad, hold down the Left Trigger while
+      aiming.'
