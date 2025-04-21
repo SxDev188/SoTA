@@ -83,13 +83,21 @@ public class UIScript : MonoBehaviour
     {
         if((!inStartScene && !inEndScene))
         {
-            if (isPaused) UnPauseGame();
-            else PauseGame();
+            if (DialogueManager.InADialogue) // maybe do events here?
+            {
+                DialogueManager.QuitTalking = true;
+                UnPauseGame();
+            }
+            else
+            {
+                if (isPaused) UnPauseGame();
+                else PauseGame();
+            }
         }
     }
 
     // METHODS ====================================== //
-    public void QuitGame() // TODO: Check if we already have a function for this...
+    public void QuitGame()
     {
         Application.Quit();
 #if UNITY_EDITOR

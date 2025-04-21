@@ -6,20 +6,59 @@ using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
+    // EXPOSED VARIABLES
     public static DialogueManager Instance { get; private set; }
+    public static bool InADialogue { 
+        get{
+            return inADialogue;
+        }
+    }
 
-    bool inADialogue;
-    bool typingLetters;
-    float textDelay = 0.1f;
+    public static bool QuitTalking;
 
-    string completedDialogue;
+    // STORING/VALUE VARIABLES
+    private bool typingLetters;
+    private static bool inADialogue;
+    private string completedDialogue;
+    private Queue<SO_Dialogue.Info> dialogueQueue;
 
-    Queue<SO_Dialogue.Info> dialogueQueue;
+    // TWEAKABLE VARIABLES
+    [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private TMP_Text dialogueText;
+    [SerializeField] private float textDelay = 0.1f;
 
-    [SerializeField] GameObject dialogueBox;
-    [SerializeField] TMP_Text dialogueText;
+    // ENGINE METHODS ====================================== // 
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
 
-    // StartCoroutine(TypeText(info));
+        Instance = this;
+
+        dialogueQueue = new Queue<SO_Dialogue.Info>();
+    }
+
+    private void Update()
+    {
+        if (QuitTalking)
+        {
+            EndDialogue();
+            QuitTalking = false;
+        }
+    }
+
+    void OnInteract(InputValue value)
+    {
+        if (inADialogue)
+        {
+            DeQueue();
+        }
+    }
+
+    // METHODS ====================================== //
     public IEnumerator TypeText(SO_Dialogue.Info info)
     {
         completedDialogue = info.dialouge;
@@ -43,14 +82,6 @@ public class DialogueManager : MonoBehaviour
     public void CompleteText()
     {
         dialogueText.text = completedDialogue;
-    }
-
-    void OnInteract(InputValue value)
-    {
-        if (inADialogue)
-        {
-            DeQueue();
-        }
     }
 
     public void Queue(SO_Dialogue dialogue)
@@ -91,16 +122,5 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(TypeText(info));
     }
 
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-            return;
-        }
 
-        Instance = this;
-
-        dialogueQueue = new Queue<SO_Dialogue.Info>();
-    }
 }
