@@ -32,7 +32,7 @@ public class EndPointScript : MonoBehaviour
                 //#endif
             }
 
-            if (nextSpawnPoint != null)
+            else if (nextSpawnPoint != null)
             {
                 playerController.transform.position = nextSpawnPoint.position;
                 CameraPanScript.Instance.PanCamera(cameraPanDirection);
