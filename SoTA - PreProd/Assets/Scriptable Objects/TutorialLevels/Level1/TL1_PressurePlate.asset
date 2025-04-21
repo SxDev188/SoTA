@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
-  m_Name: TutorialLevel2_Lamp
+  m_Name: TL1_PressurePlate
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: The pillars with Stars on top of them act like sort of lamps.
-  - dialouge: You can turn them on by throwing your Star at them. When they are active,
-      they will emit the same kind of color revealing glow as your Star.
-  - dialouge: This can be helpful on some levels to easier keep track of what objects
-      are color connected.
+  - dialouge: "This is a Pressure Plate. \nLike the Button, they activate puzzle
+      objects with the same color."
+  - dialouge: You can activate Pressure Plates by standing on them, dropping the
+      Star on top of them, or by pushing a Boulder on to them.
