@@ -12,6 +12,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
     {
         // Fetch the star in the scene
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
+        playerStarActionController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStarActionController>();
         particleSystemRenderer = GetComponent<ParticleSystemRenderer>();
         parentMeshRenderer = GetComponentInParent<MeshRenderer>();
         color = parentMeshRenderer.materials[4].color;
