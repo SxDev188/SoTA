@@ -83,27 +83,40 @@ public class UIScript : MonoBehaviour
     {
         if((!inStartScene && !inEndScene))
         {
-            if (isPaused) UnPauseGame();
-            else PauseGame();
+            if (DialogueManager.InADialogue) // maybe do events here?
+            {
+                DialogueManager.QuitTalking = true;
+                UnPauseGame();
+            }
+            else
+            {
+                if (isPaused) UnPauseGame();
+                else PauseGame();
+            }
         }
     }
 
     // METHODS ====================================== //
-    public void QuitGame() // TODO: Check if we already have a function for this...
+    public void QuitGame()
     {
         Application.Quit();
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     public void UnPauseGame()
     {
         isPaused = false;
         Time.timeScale = 1;
-        playerObject.GetComponent<PlayerInput>().enabled = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        playerObject.GetComponent<PlayerInput>().enabled = true;
         pauseMenuObject.SetActive(false);
         ResetPauseUI();
+    }
+
+    public void LoadLevel(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
     }
 
     private void PauseGame()
@@ -111,8 +124,6 @@ public class UIScript : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
         playerObject.GetComponent<PlayerInput>().enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         pauseMenuObject.SetActive(true);
     }
 
