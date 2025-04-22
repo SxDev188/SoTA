@@ -288,6 +288,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PinkSpike1
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ced60d897dce18740ac453adb83a91fa, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1880,6 +1885,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkOrangeSpike
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 485576290a89d9e4385dea4d1d19358b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2252,6 +2262,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkOrangeSpike (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 485576290a89d9e4385dea4d1d19358b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2686,6 +2701,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkOrangeSpike (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 485576290a89d9e4385dea4d1d19358b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3700,6 +3720,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkOrangeSpike (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 485576290a89d9e4385dea4d1d19358b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4583,6 +4608,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PinkSpike3
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ced60d897dce18740ac453adb83a91fa, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5086,6 +5116,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PinkSpike2
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ced60d897dce18740ac453adb83a91fa, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5454,6 +5489,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkOrangeSpike (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 485576290a89d9e4385dea4d1d19358b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -196,6 +196,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -281,6 +286,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -779,6 +789,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSpike (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a62434a565c3da488d07744bb8b9d0a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1259,6 +1274,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSpike
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a62434a565c3da488d07744bb8b9d0a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1338,6 +1358,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSpike (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a62434a565c3da488d07744bb8b9d0a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1417,6 +1442,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1551,6 +1581,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightBlueSpike (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 19370a442f7294649bd236fd3c998c30, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1784,6 +1819,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2140,6 +2180,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightBlueSpike (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 19370a442f7294649bd236fd3c998c30, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3467,6 +3512,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSpike (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a62434a565c3da488d07744bb8b9d0a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3957,6 +4007,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSpike (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a62434a565c3da488d07744bb8b9d0a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4680,6 +4735,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5978,6 +6038,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6220,6 +6285,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6458,6 +6528,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6635,6 +6710,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WineRedSpike (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13795d1e84381304296031013d8d39eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7167,6 +7247,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightBlueSpike (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 19370a442f7294649bd236fd3c998c30, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7252,6 +7337,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSpike (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a62434a565c3da488d07744bb8b9d0a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8924,6 +9014,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSpike (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4633331319457136916, guid: 46e3eb632fa265c4eaa9691a205781b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a62434a565c3da488d07744bb8b9d0a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
