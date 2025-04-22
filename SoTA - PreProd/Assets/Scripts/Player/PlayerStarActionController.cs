@@ -88,6 +88,15 @@ public class PlayerStarActionController : MonoBehaviour
 
     void Update()
     {
+        if (playerInput.currentActionMap.name == "PlayerControlController")
+        {
+            Controller = true;
+        }
+        else
+        {
+            Controller = false;
+        }
+
         if (isAiming)
         {
             if (Controller)
