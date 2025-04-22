@@ -32,6 +32,7 @@ public class PlayerStarActionController : MonoBehaviour
     [SerializeField] private float gravityPullSpeed = 5.0f;
 
     [SerializeField] private float aimSensitivity = 0.5f;
+    [SerializeField] private float strongThrowSensitivity = 1f;
     [SerializeField] private float aimRotationByDegrees = 45;
 
     [SerializeField] private float controllerAimSmoothness = 3f;
@@ -100,7 +101,14 @@ public class PlayerStarActionController : MonoBehaviour
                 throwDirection.z = throwDirection.y; // Map vertical screen movement to Z-axis movement
                 throwDirection.y = 0; // Keep movement on XZ plane
 
-                throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+                if (strongThrow)
+                {
+                    throwDirection *= strongThrowSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+                }
+                else
+                {
+                    throwDirection *= aimSensitivity / 100; //controlling the length of the throw was way too sensitive without this
+                }
             }
 
             if (strongThrow && throwDirection.sqrMagnitude > MathF.Pow(strongThrowRange, 2))
@@ -166,7 +174,7 @@ public class PlayerStarActionController : MonoBehaviour
 
             float distanceToTarget = Vector3.Distance(transform.position, targetDestination);
 
-            if (distanceToTarget <= threshold || Vector3.Distance(transform.position, lastPosition) < 0.01f)
+            if (distanceToTarget <= threshold || Vector3.Distance(transform.position, lastPosition) < gravityPullAcceptanceRadius)
             {
                 transform.position = targetDestination; //Set position directly to the Star to avoid any small overshoot
                 break;
