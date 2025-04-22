@@ -39,8 +39,8 @@ public class BoulderController : MonoBehaviour, IInteractable
     {
         if (isAttached && !pushController.IsBeingPushed)
         {
-            if (playerController.IsGrounded())
-                Debug.Log("PLAYER GROUNDED");
+            //if (playerController.IsGrounded())
+            //    Debug.Log("PLAYER GROUNDED");
 
             if (playerController.GetBoulderPushDirection() != Vector3.zero)
             {
