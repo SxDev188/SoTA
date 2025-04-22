@@ -13,26 +13,21 @@ MonoBehaviour:
   m_Name: TL1_Welcome
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: "Welcome to the Abyss! \nThis tutorial level will introduce you to
-      a couple of basic puzzle objects and player abilities."
-  - dialouge: You move around using the W, A, S and D keys on your keyboard, or if
-      using a gamepad the Left Stick.
-  - dialouge: What you just interacted with is a lore tile, and they will give you
-      useful tips and hints, or as the name indicates some lore.
+  - dialouge: 'Welcome to the Abyss and the first tutorial level! '
+  - dialouge: Move with W, A, S and D, or if using a gamepad the Left Stick.
+  - dialouge: What you just interacted with is a lore tile, they give useful tips
+      and hints.
   - dialouge: The glowing object on top of you is a Star.
-  - dialouge: 'The Star is keeping you alive in this dark abyssmal place, so make
-      sure to not leave it laying around for too long, or you''ll die! '
-  - dialouge: The glow from the Star also reveals color, so you can see color connections
+  - dialouge: The Star is keeping you alive in this dark abyssmal place, so don't
+      leave it for too long or you'll die.
+  - dialouge: The glow from the Star reveals color, so you can see color connections
       between objects.
-  - dialouge: "You can drop the Star by pressing the space bar on your keyboard,
-      or the North button on your gamepad. \nYou can also recall the Star to you
-      in the same way if you are close enough."
-  - dialouge: 'You can also throw the Star to interact with things.
-
-      Press
-      the Left Mouse Button, aim by pulling the mouse back, and release to throw.
-
-      With
-      a gamepad, aim with the Right Stick and push the Right Trigger to throw.'
+  - dialouge: "You can drop the Star with the space bar, or the North button on your
+      gamepad. \nYou can also recall the Star to you in the same way if you are close
+      enough."
+  - dialouge: You can throw the Star to interact with things.
+  - dialouge: "Press the Left Mouse Button, aim by pulling the mouse back, and release
+      to throw. \nWith a gamepad, aim with the Right Stick and push the Right Trigger
+      to throw."
   - dialouge: Every time you throw the Star, your progress will be saved. So if you
       do end up dying, you will revert back to the last time you threw the Star.
