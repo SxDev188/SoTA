@@ -174,7 +174,8 @@ public class PlayerStarActionController : MonoBehaviour
 
             float distanceToTarget = Vector3.Distance(transform.position, targetDestination);
 
-            if (distanceToTarget <= threshold || Vector3.Distance(transform.position, lastPosition) < gravityPullAcceptanceRadius)
+            //switched back to 0.01f because for some reason using gravityPullAcceptanceRadius broke gravity pull and made it into a wonky recall? /Karin
+            if (distanceToTarget <= threshold || Vector3.Distance(transform.position, lastPosition) < 0.01f)                                                                                                             
             {
                 transform.position = targetDestination; //Set position directly to the Star to avoid any small overshoot
                 break;
