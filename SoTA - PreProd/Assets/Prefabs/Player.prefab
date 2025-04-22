@@ -130,6 +130,7 @@ MonoBehaviour:
   gravityPullAcceptanceRadius: 0.5
   gravityPullSpeed: 5
   aimSensitivity: 0.5
+  strongThrowSensitivity: 1
   aimRotationByDegrees: 45
   controllerAimSmoothness: 3
 --- !u!114 &1147887570940489232
