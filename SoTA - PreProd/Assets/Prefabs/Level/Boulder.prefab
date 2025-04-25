@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6330249098049356985}
   - component: {fileID: 1489208469139832714}
   - component: {fileID: 7474438510281143353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boulder
   m_TagString: Boulder
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   debugMode: 0
   raycastOffset: {x: 0, y: -0.4, z: 0}
   distanceToCheckForGroundBelowBoulder: 1
-  targetPushDestinationAcceptanceRadius: 0.01
+  pushDestinationAcceptanceRadius: 0.01
 --- !u!114 &1489208469139832714
 MonoBehaviour:
   m_ObjectHideFlags: 0

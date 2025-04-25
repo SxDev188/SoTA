@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4915710199921149932}
   - component: {fileID: 7080351977875154888}
   - component: {fileID: 5270444125422002221}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lamp
   m_TagString: Lamp
   m_Icon: {fileID: 0}

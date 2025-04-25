@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3220651865114234345}
   - component: {fileID: 3258597689397004930}
   - component: {fileID: 4569252515801262591}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lore Tile
   m_TagString: LoreTile
   m_Icon: {fileID: 0}
