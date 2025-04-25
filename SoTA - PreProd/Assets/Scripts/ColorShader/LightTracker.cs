@@ -80,6 +80,18 @@ public class LightTracker : MonoBehaviour
         feature.SetLightPositions(lightSourcePositions);
     }
 
+    private float WorldDistanceToViewportDistance(float worldDistance)
+    {
+        Camera cam = Camera.main;
+        Vector3 worldOrigin = star.position;
+        Vector3 worldOffset = worldOrigin + new Vector3(worldDistance, 0, 0); // 1 unit in X direction
+
+        Vector3 viewportOrigin = cam.WorldToViewportPoint(worldOrigin);
+        Vector3 viewportOffset = cam.WorldToViewportPoint(worldOffset);
+
+        return Mathf.Abs(viewportOffset.x - viewportOrigin.x);
+    }
+
     void Update()
     {
         if (star == null || feature == null) return;
@@ -92,8 +104,11 @@ public class LightTracker : MonoBehaviour
         smoothedStarPosition = Vector4.Lerp(smoothedStarPosition, targetStarPosition, Time.deltaTime * smoothSpeed);
         feature.SetStarPosition(smoothedStarPosition);
 
-        feature.SetLightEffectRadius(effectRadius);
-        feature.SetLightEffectRadiusSmoothing(effectRadiusSmoothing);
+        float viewportRadius = WorldDistanceToViewportDistance(effectRadius);
+        float viewportSmoothing = WorldDistanceToViewportDistance(effectRadiusSmoothing);
+
+        feature.SetLightEffectRadius(viewportRadius);
+        feature.SetLightEffectRadiusSmoothing(viewportSmoothing);
         feature.SetEffectToggle(effectToggle);
 
         List<Vector4> lightSourcePositions = new List<Vector4>();
