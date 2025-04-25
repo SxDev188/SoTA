@@ -11,6 +11,9 @@ public class PlayerHealth : MonoBehaviour
     private float startingHealth = 1.0f;
     private StarActions starActions;
     private EventInstance deathSFX;
+    private EventInstance lowHealthWarningSFX;
+
+
     public float CurrentHealth { get { return currentHealth; } }
 
     // Start is called before the first frame update
@@ -20,12 +23,16 @@ public class PlayerHealth : MonoBehaviour
         starActions = star.GetComponent<StarActions>();
         currentHealth = startingHealth;
         deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
+        lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
+
     }
 
     // Update is called once per frame
     private void Update()
     {
         ManagePlayerHealth();
+
+        PlayLowHealthWarningSound();
     }
     private void ManagePlayerHealth()
     {
@@ -63,5 +70,29 @@ public class PlayerHealth : MonoBehaviour
         SaveStateManager.Instance.Load();
         currentHealth = startingHealth;
         deathSFX.start();
+    }
+
+    void PlayLowHealthWarningSound()
+    {
+        if (currentHealth < 0.47f && currentHealth > 0 && !starActions.IsOnPlayer)
+        {
+            PLAYBACK_STATE playbackState;
+            lowHealthWarningSFX.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                lowHealthWarningSFX.start();
+            }
+        }
+        else
+        {
+            PLAYBACK_STATE playbackState;
+            lowHealthWarningSFX.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+            {
+                lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            }
+        }
     }
 }
