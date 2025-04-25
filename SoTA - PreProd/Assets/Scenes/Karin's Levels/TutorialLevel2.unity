@@ -2931,7 +2931,12 @@ PrefabInstance:
     - target: {fileID: 2517525866248969489, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_DefaultActionMap
-      value: d05cc5d9-25a7-4880-bebb-816f8f6c8940
+      value: b2ae7480-def4-4b51-bb03-c84c956357af
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219084333740346544, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
+        type: 3}
+      propertyPath: m_StepOffset
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
@@ -3933,6 +3938,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RadialColorManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4847982055576299270, guid: 08c3cf1511160b54d8db3bd115c65efd,
+        type: 3}
+      propertyPath: effectRadius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4847982055576299270, guid: 08c3cf1511160b54d8db3bd115c65efd,
+        type: 3}
+      propertyPath: effectRadiusSmoothing
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8982716727998253804, guid: 08c3cf1511160b54d8db3bd115c65efd,
         type: 3}
