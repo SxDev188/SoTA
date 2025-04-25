@@ -170,10 +170,15 @@ public class PlayerStarActionController : MonoBehaviour
     void StopAimAtColliders(Vector3 startFrom, float distance)
     {
         RaycastHit hitInfo;
-        if (Physics.Raycast(startFrom, throwDirection.normalized,out hitInfo, distance, LayerMask.GetMask("StopStar","StarLayer")))
+        Ray aimRay = new Ray(startFrom, throwDirection.normalized);
+        if (Physics.Raycast(aimRay, out hitInfo, distance, LayerMask.GetMask("StopStar", "StarLayer")))
         {
             throwDirection = throwDirection.normalized * Vector3.Distance(transform.position, hitInfo.point);
         }
+        //else if (Physics.SphereCast(aimRay, 0.3f, out hitInfo, distance, LayerMask.GetMask("StopStar", "StarLayer")))
+        //{
+        //    throwDirection = throwDirection.normalized * Vector3.Distance(transform.position, hitInfo.point);
+        //}
 
     }
 
