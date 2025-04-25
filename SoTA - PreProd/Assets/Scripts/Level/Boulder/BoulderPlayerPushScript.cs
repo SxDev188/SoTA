@@ -72,6 +72,17 @@ public class BoulderPlayerPushScript : MonoBehaviour
                         return true;
                     }
                 }
+                
+                if (hit.collider.gameObject.CompareTag("Boulder"))
+                {
+                    if (hit.collider.gameObject.GetComponent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
+                    {
+                        return false;
+                    } else
+                    {
+                        return true;
+                    }
+                }
 
                 Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
 
