@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class StarActions : MonoBehaviour
@@ -13,14 +14,18 @@ public class StarActions : MonoBehaviour
         } 
         set 
         { 
-            isOnPlayer = value; 
-            if(value)
+            isOnPlayer = value;
+            if (value)
+            {
                 starRigidbody.useGravity = false;
+            }
             else
+            {
                 starRigidbody.useGravity = true;
+            }
+                
         } 
     }
-
     // COMPONENTS
     private Transform starTransform;
     private Rigidbody starRigidbody;
@@ -39,6 +44,8 @@ public class StarActions : MonoBehaviour
     // STORING/VALUE VARIABLES
     IEnumerator TravelCoroutine;
     private float fixedYValueWhenThrown;
+
+    private bool inWall = false;
 
     void Start()
     {
@@ -96,26 +103,30 @@ public class StarActions : MonoBehaviour
     {
 
         //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
-        if (SaveStateManager.Instance != null)
+        if (!inWall)
         {
-            //Added save here by Linus
-            SaveStateManager.Instance.Save();
+            if (SaveStateManager.Instance != null)
+            {
+                //Added save here by Linus
+                SaveStateManager.Instance.Save();
+            }
+
+            isOnPlayer = false;
+            Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
+
+            // Make sure our star is going the right direction?
+            fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
+            throwStartPosition.y = fixedYValueWhenThrown;
+
+            transform.position = throwStartPosition; // why we do this?
+
+            Vector3 newTargetDestination = targetDestination;
+            newTargetDestination.y = fixedYValueWhenThrown;
+
+            TravelCoroutine = TravelToDestination(newTargetDestination);
+            StartCoroutine(TravelCoroutine);
         }
-
-        isOnPlayer = false;
-        Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
         
-        // Make sure our star is going the right direction?
-        fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
-        throwStartPosition.y = fixedYValueWhenThrown;
-
-        transform.position = throwStartPosition; // why we do this?
-
-        Vector3 newTargetDestination = targetDestination;
-        newTargetDestination.y = fixedYValueWhenThrown;
-
-        TravelCoroutine = TravelToDestination(newTargetDestination);
-        StartCoroutine(TravelCoroutine);
     }
 
     IEnumerator TravelToDestination(Vector3 targetDestination)
@@ -162,8 +173,25 @@ public class StarActions : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        if (isOnPlayer)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("StopStar"))
+            {
+                inWall = false;
+            }
+        }
+    }
     void OnCollisionEnter(Collision collision)
     {
+        if (isOnPlayer)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("StopStar"))
+            {
+                inWall = true;
+            }
+        }
         if (collision.gameObject.tag == "Player")
         {
             //if (isTraveling)

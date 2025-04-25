@@ -131,6 +131,8 @@ public class PlayerStarActionController : MonoBehaviour
 
             throwDirection = HelperScript.RotateVector3(throwDirection, aimRotationByDegrees, rotationAxis);
 
+            StopAimAtColliders(transform.position, throwDirection.magnitude);
+
             DrawAimLine();
         }
         else
@@ -163,6 +165,21 @@ public class PlayerStarActionController : MonoBehaviour
         {
             lineRenderer.enabled = false;
         }
+    }
+
+    void StopAimAtColliders(Vector3 startFrom, float distance)
+    {
+        RaycastHit hitInfo;
+        Ray aimRay = new Ray(startFrom, throwDirection.normalized);
+        if (Physics.Raycast(aimRay, out hitInfo, distance, LayerMask.GetMask("StopStar", "StarLayer")))
+        {
+            throwDirection = throwDirection.normalized * Vector3.Distance(transform.position, hitInfo.point);
+        }
+        //else if (Physics.SphereCast(aimRay, 0.3f, out hitInfo, distance, LayerMask.GetMask("StopStar", "StarLayer")))
+        //{
+        //    throwDirection = throwDirection.normalized * Vector3.Distance(transform.position, hitInfo.point);
+        //}
+
     }
 
     IEnumerator GravityPullToDestination(Vector3 targetDestination)
@@ -270,6 +287,7 @@ public class PlayerStarActionController : MonoBehaviour
     {
         if (starActions.IsOnPlayer && isAiming)
         {
+            
             isAiming = false;
             throwTargetDestination = transform.position + throwDirection;
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
