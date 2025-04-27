@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AntiStarZoneScript : MonoBehaviour, IActivatable
@@ -7,6 +8,9 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
     ParticleSystemRenderer particleSystemRenderer;
     MeshRenderer parentMeshRenderer;
     Color color;
+    [SerializeField] int EjectStarX;
+    [SerializeField] int EjectStarZ;
+    int starRepelLength = 10;
 
     void Start()
     {
@@ -15,6 +19,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         playerStarActionController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStarActionController>();
         particleSystemRenderer = GetComponent<ParticleSystemRenderer>();
         parentMeshRenderer = GetComponentInParent<MeshRenderer>();
+        //make the color match that of the top of the tile
         color = parentMeshRenderer.materials[4].color;
         particleSystemRenderer.material.color = color;
 
@@ -22,17 +27,45 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Player"))
+        {
+            playerStarActionController.DisallowStarOnPlayer();
+        }
         if (other.CompareTag("Star"))
         {
             if (starActions.IsOnPlayer == true)
             {
                 starActions.CarryToggle();
-            } 
-            starActions.StopTravelToDestination();
+            }
+            Vector3 dir = other.transform.position - transform.position;
+            if (!starActions.isTraveling)
+            {
+                starActions.TravelOutOfAntiStarZone(new Vector3(dir.x*starRepelLength, playerStarActionController.transform.position.y, dir.z*starRepelLength));
+
+            }
+
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
         if (other.CompareTag("Player"))
         {
             playerStarActionController.DisallowStarOnPlayer();
+        }
+        if (other.CompareTag("Star"))
+        {
+            if (starActions.IsOnPlayer == true)
+            {
+                starActions.CarryToggle();
+            }
+            Vector3 dir = other.transform.position - transform.position;
+            if (!starActions.isTraveling)
+            {
+                //starActions.TravelOutOfAntiStarZone(new Vector3(EjectStarX, playerStarActionController.transform.position.y, EjectStarZ));
+                starActions.TravelOutOfAntiStarZone(new Vector3(dir.x * starRepelLength*EjectStarX, playerStarActionController.transform.position.y, dir.z * starRepelLength*EjectStarZ));
+            }
+
         }
     }
 
@@ -42,6 +75,15 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         { 
             playerStarActionController.AllowStarOnPlayer();
         
+        }
+        if (other.CompareTag("Star"))
+        {
+            if (starActions.isTraveling)
+            {
+                starActions.StopTravelToDestination();
+                Debug.Log("Star stopped");
+            }
+
         }
     }
 
@@ -53,5 +95,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
     public void Deactivate()
     {
         gameObject.SetActive(true);
+
+
     }
 }

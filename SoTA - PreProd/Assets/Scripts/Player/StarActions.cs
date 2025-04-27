@@ -42,7 +42,7 @@ public class StarActions : MonoBehaviour
     [SerializeField] private Vector3 onPlayerOffset = new Vector3(0, 3, 0);
 
     // STORING/VALUE VARIABLES
-    IEnumerator TravelCoroutine;
+    public IEnumerator TravelCoroutine;
     private float fixedYValueWhenThrown;
 
     private bool inWall = false;
@@ -129,7 +129,7 @@ public class StarActions : MonoBehaviour
         
     }
 
-    IEnumerator TravelToDestination(Vector3 targetDestination)
+   public  IEnumerator TravelToDestination(Vector3 targetDestination)
     {
         isTraveling = true;
         starRigidbody.useGravity = false;
@@ -149,6 +149,12 @@ public class StarActions : MonoBehaviour
         }
 
         StopTravelToDestination();
+    }
+
+   public void TravelOutOfAntiStarZone(Vector3 position)
+    {
+        TravelCoroutine = TravelToDestination(position);
+        StartCoroutine(TravelCoroutine);
     }
 
     public void StopTravelToDestination()
