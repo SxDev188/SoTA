@@ -17,6 +17,7 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         private float effectRadiusSmoothing;
         private float effectToggle;
         private int activeLightCount = 0;
+        private float healthBlackout = 0.0f;
 
         public RadialColorRenderPass(Material material)
         {
@@ -27,6 +28,11 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         public void SetStarPosition(Vector3 screenPos)
         {
             starPosition = new Vector4(screenPos.x, screenPos.y, 0, 0);
+        }
+
+        public void SetHealthBlackout(float value)
+        {
+            healthBlackout = value;
         }
 
         public void SetLightPositions(List<Vector4> lights)
@@ -75,6 +81,9 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
             CommandBuffer cmd = CommandBufferPool.Get("Radial Color Effect");
 
             RenderTargetIdentifier source = renderingData.cameraData.renderer.cameraColorTargetHandle;
+
+            // Pass the health blackout value to the shader
+            material.SetFloat("_HealthBlackout", healthBlackout);
 
             // Pass star and additional light source positions to shader
             material.SetVector("_StarPosition", starPosition);
@@ -126,6 +135,14 @@ public class RadialColorRenderFeature : ScriptableRendererFeature
         if (pass != null)
         {
             renderer.EnqueuePass(pass);
+        }
+    }
+
+    public void SetHealthBlackout(float value)
+    {
+        if (pass != null)
+        {
+            pass.SetHealthBlackout(value); // Correctly calls SetHealthBlackout of RadialColorRenderPass
         }
     }
 
