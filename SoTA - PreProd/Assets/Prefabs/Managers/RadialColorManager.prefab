@@ -44,9 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373ebf567f7214d48a6176dd5281b940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 0}
   rendererData: {fileID: 11400000, guid: c40be3174f62c4acf8c1216858c64956, type: 2}
   smoothSpeed: 20
-  effectRadius: 150
-  effectRadiusSmoothing: 10
   effectToggle: 1
+  effectRadius: 4
+  effectRadiusSmoothing: 0.5
