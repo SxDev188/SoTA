@@ -109,7 +109,7 @@ MonoBehaviour:
       Data2: 1334895756
       Data3: -1399288440
       Data4: 1154796700
-    Path: event:/PressurePlateSFX
+    Path: event:/SFX/PressurePlateSFX
   <SlitherSound>k__BackingField:
     Guid:
       Data1: 105197990
@@ -123,14 +123,14 @@ MonoBehaviour:
       Data2: 1265916534
       Data3: -1359872622
       Data4: 1231198397
-    Path: event:/SFX/BoulderSFX
+    Path: event:/SFX/Boulder/BoulderPushSFX
   <LowHealthWarningSFX>k__BackingField:
     Guid:
       Data1: -1085689497
       Data2: 1140326852
       Data3: 1455694256
       Data4: -1194908915
-    Path: event:/LifeforceDrain
+    Path: event:/SFX/LifeforceDrain
   <DeathSFX>k__BackingField:
     Guid:
       Data1: -423022087
@@ -145,3 +145,10 @@ MonoBehaviour:
       Data3: -1417496921
       Data4: -1637747067
     Path: event:/Music/BackgroundMusic
+  <Ambience>k__BackingField:
+    Guid:
+      Data1: 811198417
+      Data2: 1157867452
+      Data3: -626013563
+      Data4: -1553630635
+    Path: event:/Ambience/abyssAmbience

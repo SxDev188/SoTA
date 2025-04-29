@@ -764,6 +764,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1406501929}
     m_Modifications:
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <BoulderSFX>k__BackingField.Path
+      value: event:/SFX/Boulder/BoulderPushSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <LowHealthWarningSFX>k__BackingField.Path
+      value: event:/SFX/LifeforceDrain
+      objectReference: {fileID: 0}
     - target: {fileID: 5578199862620801904, guid: ac217389566a5b740adafca9f4e04c99,
         type: 3}
       propertyPath: m_Name
