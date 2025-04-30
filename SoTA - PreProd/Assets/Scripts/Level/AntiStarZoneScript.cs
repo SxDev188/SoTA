@@ -37,9 +37,11 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             {
                 starActions.CarryToggle();
             }
+            starActions.StopTravelToDestination();
             Vector3 dir = other.transform.position - transform.position;
             if (!starActions.isTraveling)
             {
+                //ts is the problem
                 starActions.TravelOutOfAntiStarZone(new Vector3(dir.x*starRepelLength, playerStarActionController.transform.position.y, dir.z*starRepelLength));
 
             }
@@ -62,8 +64,8 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             Vector3 dir = other.transform.position - transform.position;
             if (!starActions.isTraveling)
             {
-                //starActions.TravelOutOfAntiStarZone(new Vector3(EjectStarX, playerStarActionController.transform.position.y, EjectStarZ));
-                starActions.TravelOutOfAntiStarZone(new Vector3(dir.x * starRepelLength*EjectStarX, playerStarActionController.transform.position.y, dir.z * starRepelLength*EjectStarZ));
+                starActions.TravelOutOfAntiStarZone(new Vector3(EjectStarX*100, playerStarActionController.transform.position.y, EjectStarZ*100));
+                //starActions.TravelOutOfAntiStarZone(new Vector3(dir.x * starRepelLength*EjectStarX, playerStarActionController.transform.position.y, dir.z * starRepelLength*EjectStarZ));
             }
 
         }

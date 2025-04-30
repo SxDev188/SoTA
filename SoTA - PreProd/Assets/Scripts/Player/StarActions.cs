@@ -154,7 +154,7 @@ public class StarActions : MonoBehaviour
    public void TravelOutOfAntiStarZone(Vector3 position)
     {
         TravelCoroutine = TravelToDestination(position);
-        StartCoroutine(TravelCoroutine);
+        StartCoroutine(TravelCoroutine);      
     }
 
     public void StopTravelToDestination()
