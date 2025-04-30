@@ -37,6 +37,18 @@ public class PlayerStarActionController : MonoBehaviour
 
     [SerializeField] private float controllerAimSmoothness = 3f;
 
+    public float GravityPullRange
+    {
+        get => gravityPullRange;
+        private set => gravityPullRange = value;
+    }
+
+    public float RecallRange
+    {
+        get => recallRange;
+        private set => recallRange = value;
+    }
+
     // STORING/VALUE VARIABLES
     private bool isAiming = false;
     private bool strongThrow = false;
