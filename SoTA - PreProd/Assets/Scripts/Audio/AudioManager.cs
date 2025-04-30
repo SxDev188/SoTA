@@ -14,6 +14,9 @@ public class AudioManager : MonoBehaviour
 
     public static EventInstance ambienceEventInstance;
 
+    [SerializeField] bool disableBgMusic = false;
+    [SerializeField] bool disableAmbience = false;
+
     void Awake()
     {
         if (Instance != null)
@@ -28,8 +31,16 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        InitializeAmbience(FMODEvents.Instance.Ambience);
-        StartBgMusic(); 
+        if (!disableAmbience)
+        {
+            InitializeAmbience(FMODEvents.Instance.Ambience);
+
+        }
+
+        if (!disableBgMusic)
+        {
+            StartBgMusic();
+        }
     }
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
