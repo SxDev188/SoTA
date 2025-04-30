@@ -30,7 +30,6 @@ public class PlayerInteract : MonoBehaviour
             HighlighterScript oldHighlighter = currentHighlighted.GetComponent<HighlighterScript>();
             if (oldHighlighter != null)
             {
-                Debug.Log("Should disable mat");
                 oldHighlighter.DisableHighlight();
             }
         }
@@ -40,7 +39,6 @@ public class PlayerInteract : MonoBehaviour
             HighlighterScript highlighter = nearest.GetComponent<HighlighterScript>();
             if (highlighter != null)
             {
-                Debug.Log("Should enable mat");
                 highlighter.EnableHighlight();
             }
         }
