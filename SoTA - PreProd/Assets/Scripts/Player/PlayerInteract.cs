@@ -1,10 +1,19 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private float interactionRange = 0.5f;
 
-    private void OnInteract()
+    public float InteractionRange 
+    { 
+        get
+        {
+            return interactionRange;
+        } 
+    }
+
+    private Collider InsideInteractRange()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
         Collider closestCollider = null;
@@ -25,6 +34,12 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
+        return closestCollider;
+    }
+
+    private void OnInteract()
+    {
+        Collider closestCollider = InsideInteractRange();
         if (closestCollider != null)
         {
             closestCollider.GetComponent<IInteractable>().Interact();
