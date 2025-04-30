@@ -18,6 +18,7 @@ TagManager:
   - CameraPan
   - StarPickupTrigger
   - LoreTile
+  - BrokenElement
   layers:
   - Default
   - TransparentFX
