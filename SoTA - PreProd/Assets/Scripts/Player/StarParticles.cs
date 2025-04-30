@@ -14,6 +14,10 @@ public class StarParticles : MonoBehaviour
 
     void Start()
     {
+        playerStarActionController = FindObjectOfType<PlayerStarActionController>();
+        playerTransform = GameObject.FindWithTag("Player").transform;
+        starActions = GetComponent<StarActions>();
+
         gravityPullRange = playerStarActionController.GravityPullRange;
         recallRange = playerStarActionController.RecallRange;
 
