@@ -12,8 +12,6 @@ public class StarParticles : MonoBehaviour
     private ParticleSystem gravityPullParticles;
     private ParticleSystem recallParticles;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         gravityPullRange = playerStarActionController.GravityPullRange;
@@ -29,12 +27,11 @@ public class StarParticles : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-        if (!starActions.IsOnPlayer)
+        if (!starActions.IsOnPlayer) // Applies the particle effects only if the Star isn't held by player
         {
             // Gravity pull logic
             if (distanceToPlayer <= gravityPullRange)
@@ -60,9 +57,9 @@ public class StarParticles : MonoBehaviour
                     recallParticles.Stop();
             }
         }
-        else
+        else // If player is holding Star, the gravityPull particles get stopped and cleared but recallParticles continue
         {
-            recallParticles.Stop();
+            //recallParticles.Stop();
             gravityPullParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
     }
