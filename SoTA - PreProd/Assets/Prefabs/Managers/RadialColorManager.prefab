@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8982716727998253804}
   - component: {fileID: 4847982055576299270}
+  - component: {fileID: 3718631363897972872}
   m_Layer: 0
   m_Name: RadialColorManager
   m_TagString: Untagged
@@ -44,9 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373ebf567f7214d48a6176dd5281b940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 0}
   rendererData: {fileID: 11400000, guid: c40be3174f62c4acf8c1216858c64956, type: 2}
   smoothSpeed: 20
-  effectRadius: 150
-  effectRadiusSmoothing: 10
   effectToggle: 1
+  effectRadius: 4
+  effectRadiusSmoothing: 0.5
+--- !u!114 &3718631363897972872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898940110486902253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977b7f3e307a1e045b55c5bccc640dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radialColorRenderFeature: {fileID: 328628964419329858, guid: c40be3174f62c4acf8c1216858c64956,
+    type: 2}
