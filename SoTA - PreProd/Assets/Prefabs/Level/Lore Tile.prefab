@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3258597689397004930}
   - component: {fileID: 4569252515801262591}
   - component: {fileID: 843390883484958493}
+  - component: {fileID: 8916283007857177017}
   m_Layer: 8
   m_Name: Lore Tile
   m_TagString: LoreTile
@@ -84,6 +85,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hideDelay: 0.5
   interactObjectText: {fileID: 6267623001999771469}
+--- !u!114 &8916283007857177017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2810546824101259013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e917bdc310f21954baf8fe69b93d147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: 91f067a47c2f8f046a818918650458db, type: 2}
 --- !u!1 &5662106956323246237
 GameObject:
   m_ObjectHideFlags: 0

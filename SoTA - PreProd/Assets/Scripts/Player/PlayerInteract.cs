@@ -1,9 +1,12 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private float interactionRange = 0.5f;
+
+    private Collider currentHighlighted;
 
     public float InteractionRange 
     { 
@@ -11,6 +14,38 @@ public class PlayerInteract : MonoBehaviour
         {
             return interactionRange;
         } 
+    }
+
+    private void Update()
+    {
+        HighlightNearestInteractable();
+    }
+
+    private void HighlightNearestInteractable()
+    {
+        Collider nearest = InsideInteractRange();
+
+        if (currentHighlighted != null && currentHighlighted != nearest)
+        {
+            HighlighterScript oldHighlighter = currentHighlighted.GetComponent<HighlighterScript>();
+            if (oldHighlighter != null)
+            {
+                Debug.Log("Should disable mat");
+                oldHighlighter.DisableHighlight();
+            }
+        }
+
+        if (nearest != null)
+        {
+            HighlighterScript highlighter = nearest.GetComponent<HighlighterScript>();
+            if (highlighter != null)
+            {
+                Debug.Log("Should enable mat");
+                highlighter.EnableHighlight();
+            }
+        }
+
+        currentHighlighted = nearest;
     }
 
     private Collider InsideInteractRange()
