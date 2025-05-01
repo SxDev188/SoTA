@@ -5,7 +5,7 @@ using UnityEngine;
 public class StarActions : MonoBehaviour
 {
     // PUBLIC
-    private bool isTraveling = false; //should be made private, where is it used? - goobie
+    private bool isTraveling = false; //should be made private, where is it used? - goobie // is checked in AntiStarZoneScript in the logic for pushing out the star, but separating isTraveling and IsTraveling into two different bools works aswell :) -Emil
     public bool IsTraveling { get { return isTraveling; } }
 
     public bool IsOnPlayer 
@@ -44,7 +44,7 @@ public class StarActions : MonoBehaviour
     [SerializeField] private Vector3 onPlayerOffset = new Vector3(0, 3, 0);
 
     // STORING/VALUE VARIABLES
-    IEnumerator TravelCoroutine;
+    public IEnumerator TravelCoroutine;
     private float fixedYValueWhenThrown;
 
     private bool inWall = false;
@@ -132,7 +132,13 @@ public class StarActions : MonoBehaviour
         
     }
 
-    IEnumerator TravelToDestination(Vector3 targetDestination)
+    public void TravelOutOfAntiStarZone(Vector3 targetDestination)
+    {
+        TravelCoroutine = TravelToDestination(targetDestination);
+        StartCoroutine(TravelCoroutine);
+    }
+
+    public  IEnumerator TravelToDestination(Vector3 targetDestination)
     {
         isTraveling = true;
         starRigidbody.useGravity = false;
@@ -153,6 +159,8 @@ public class StarActions : MonoBehaviour
 
         StopTravelToDestination();
     }
+
+
 
     public void StopTravelToDestination()
     {
