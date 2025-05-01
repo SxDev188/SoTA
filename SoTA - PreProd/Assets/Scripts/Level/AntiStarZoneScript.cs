@@ -33,13 +33,15 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         }
         if (other.CompareTag("Star"))
         {
+            //remove star from player
             if (starActions.IsOnPlayer == true)
             {
                 starActions.CarryToggle();
             }
             starActions.StopTravelToDestination();
+            //determine where star should be pushed
             Vector3 dir = other.transform.position + (other.transform.position - transform.position);
-            if (!starActions.isTraveling)
+            if (!starActions.IsTraveling)
             {
                 starActions.TravelOutOfAntiStarZone(new Vector3(dir.x, playerStarActionController.transform.position.y, dir.z));
 
@@ -56,12 +58,13 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         }
         if (other.CompareTag("Star"))
         {
+            //remove star from player
             if (starActions.IsOnPlayer == true)
             {
                 starActions.CarryToggle();
             }
-
-            if (!starActions.isTraveling)
+            //traveling out from inside an anti-star zone
+            if (!starActions.IsTraveling)
             {
                 starActions.TravelOutOfAntiStarZone(new Vector3(EjectStarX*100, playerStarActionController.transform.position.y, EjectStarZ*100));
             }
@@ -78,7 +81,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         }
         if (other.CompareTag("Star"))
         {
-            if (starActions.isTraveling)
+            if (starActions.IsTraveling)
             {
                 starActions.StopTravelToDestination();
             }
