@@ -17,7 +17,7 @@ public class BoulderSideHitbox : MonoBehaviour
             {
                 return;
             }
-            else if(starActions.isTraveling)
+            else if(starActions.IsTraveling)
             {
                 starActions.StopTravelToDestination();
                 WasHitByStar = true;
