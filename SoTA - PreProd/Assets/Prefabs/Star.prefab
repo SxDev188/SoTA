@@ -4987,7 +4987,7 @@ MonoBehaviour:
   throwSpeed: 10
   yOffsetWhenThrown: 0.4
   targetDestinationAcceptanceRadius: 0.1
-  frontOfPlayerOffset: 0.5
+  frontOfPlayerOffset: 0
   onPlayerOffset: {x: 0, y: 0.6, z: 0}
 --- !u!114 &8059952587586095367
 MonoBehaviour:
