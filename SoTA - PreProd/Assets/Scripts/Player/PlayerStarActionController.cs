@@ -246,7 +246,7 @@ public class PlayerStarActionController : MonoBehaviour
         }
     }
 
-    private void InteruptGravityPullToDestination() //this method is for interupting UNSUCCESSFUL gravity pulls
+    public void InteruptGravityPullToDestination() //this method is for interupting UNSUCCESSFUL gravity pulls
     {
         if (GravityPull_IEnumerator != null)
         {
@@ -514,9 +514,12 @@ public class PlayerStarActionController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Spikes"))
-        {
-            InteruptGravityPullToDestination();
-        }
+        //moved this to the Death() method in PlayerHealth
+
+        //if(other.gameObject.CompareTag("Spikes"))
+        //{
+        //    InteruptGravityPullToDestination();
+        //}
+
     }
 }
