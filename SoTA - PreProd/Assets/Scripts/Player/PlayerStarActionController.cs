@@ -439,6 +439,8 @@ public class PlayerStarActionController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, starTransform.position) <= gravityPullRange)
         {
+            if(GravityPull_IEnumerator != null)
+                StopCoroutine(GravityPull_IEnumerator);
             GravityPull_IEnumerator = GravityPullToDestination(starTransform.position);
             StartCoroutine(GravityPull_IEnumerator);
         }

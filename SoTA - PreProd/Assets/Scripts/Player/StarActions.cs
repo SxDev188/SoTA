@@ -5,7 +5,7 @@ using UnityEngine;
 public class StarActions : MonoBehaviour
 {
     // PUBLIC
-    public bool isTraveling = false; //should be made private, where is it used? - goobie
+    private bool isTraveling = false; //should be made private, where is it used? - goobie
     public bool IsTraveling { get { return isTraveling; } }
 
     public bool IsOnPlayer 
@@ -104,9 +104,10 @@ public class StarActions : MonoBehaviour
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
 
-        //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
+        
         if (!inWall)
         {
+            //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
             if (SaveStateManager.Instance != null)
             {
                 //Added save here by Linus

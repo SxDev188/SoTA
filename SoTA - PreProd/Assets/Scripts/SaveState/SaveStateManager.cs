@@ -198,10 +198,7 @@ public class SaveStateManager : MonoBehaviour
     }
     private void SetFromCameraPosition(SaveData saveData)
     {
-        //CameraPanScript.Instance.TargetPosition = saveData.CameraPosition;
-        //CameraPanScript.Instance.StopAllCoroutines();
         cameraScript.SetCameraPosition(saveData.CameraPosition);
-        //CameraTriggerScript.ReactivateLastTrigger();
     }
     private bool CheckSafety(SaveData saveData)
     {
