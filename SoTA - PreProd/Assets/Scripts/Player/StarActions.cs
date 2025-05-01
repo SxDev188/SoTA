@@ -5,7 +5,9 @@ using UnityEngine;
 public class StarActions : MonoBehaviour
 {
     // PUBLIC
-    public bool isTraveling = false;
+    public bool isTraveling = false; //should be made private, where is it used? - goobie
+    public bool IsTraveling { get { return isTraveling; } }
+
     public bool IsOnPlayer 
     { 
         get 
@@ -23,9 +25,9 @@ public class StarActions : MonoBehaviour
             {
                 starRigidbody.useGravity = true;
             }
-                
         } 
     }
+
     // COMPONENTS
     private Transform starTransform;
     private Rigidbody starRigidbody;

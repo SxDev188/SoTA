@@ -53,6 +53,7 @@ public class PlayerStarActionController : MonoBehaviour
     private bool isAiming = false;
     private bool strongThrow = false;
     private bool Controller = false;
+    private bool isBeingGravityPulled = false;
 
     //private float healthChangeTimer = 0.0f;
 
@@ -198,8 +199,8 @@ public class PlayerStarActionController : MonoBehaviour
     {
         playerController.inputLocked = true; //Locks input and movement during gravity pull
         playerController.disableGravityDuringPull = true;         //Disables gravity
+        isBeingGravityPulled = true;
 
-        float threshold = 0.1f; //Distance threshold to stop moving
         Vector3 lastPosition = transform.position; //Position of player when starting gravity pull
 
         while (true)
@@ -212,11 +213,17 @@ public class PlayerStarActionController : MonoBehaviour
 
             float distanceToTarget = Vector3.Distance(transform.position, targetDestination);
 
-            //switched back to 0.01f because for some reason using gravityPullAcceptanceRadius broke gravity pull and made it into a wonky recall? /Karin
-            if (distanceToTarget <= threshold || Vector3.Distance(transform.position, lastPosition) < 0.01f)                                                                                                             
+            if (distanceToTarget <= gravityPullAcceptanceRadius)                                                                                                             
             {
                 transform.position = targetDestination; //Set position directly to the Star to avoid any small overshoot
                 break;
+            }
+
+            //if the player is no longer flying towards star, it has gotten stuck and therefore we interupt the gravity pull
+            if (Vector3.Distance(transform.position, lastPosition) < 0.01f) //this check COULD cause problems at super high frame rates, might be an option to use WaitForFixedUpdate() if that becomes a problem
+            {
+                InteruptGravityPullToDestination();
+                yield break;
             }
 
             lastPosition = transform.position; //Update the last position of player
@@ -224,20 +231,30 @@ public class PlayerStarActionController : MonoBehaviour
             yield return null;
         }
 
-        playerController.inputLocked = false;  //Re-enable input after the pull
-        starActions.Recall();
-
-        playerController.disableGravityDuringPull = false; //Enable gravity again
+        StopSuccessfulGravityPullToDestination();
     }
 
-    private void InteruptGravityPullToDestination()
+    private void StopSuccessfulGravityPullToDestination() //this method is for ending SUCCFESSFUL gravity pulls
     {
         if (GravityPull_IEnumerator != null)
         {
             StopCoroutine(GravityPull_IEnumerator);
             starActions.Recall();
+            playerController.disableGravityDuringPull = false; //Enable gravity again
+            playerController.inputLocked = false;  //Re-enable input after the pull
+            isBeingGravityPulled = false;
         }
+    }
 
+    private void InteruptGravityPullToDestination() //this method is for interupting UNSUCCESSFUL gravity pulls
+    {
+        if (GravityPull_IEnumerator != null)
+        {
+            StopCoroutine(GravityPull_IEnumerator);
+            playerController.disableGravityDuringPull = false; //Enable gravity again
+            playerController.inputLocked = false;  //Re-enable input after the pull
+            isBeingGravityPulled = false;
+        }
     }
 
     private void InitializeLineRenderer()
@@ -329,6 +346,11 @@ public class PlayerStarActionController : MonoBehaviour
         //    starActions.CarryToggle();
         //}
 
+        if (isBeingGravityPulled)
+        {
+            return;
+        }
+
         if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
         {
             starActions.CarryToggle();
@@ -410,7 +432,7 @@ public class PlayerStarActionController : MonoBehaviour
     void OnGravityPull(InputValue input)
     {
 
-        if (!gravityPullAllowed ||starActions.IsOnPlayer)
+        if (!gravityPullAllowed ||starActions.IsOnPlayer || starActions.IsTraveling)
         {
             return;
         }
