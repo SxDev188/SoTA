@@ -454,7 +454,7 @@ PrefabInstance:
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
       propertyPath: EjectStarX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -546,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 4079323617331700478, guid: 52681688ede504041b2de75772648b10,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.4930925
+      value: -5.4930925
       objectReference: {fileID: 0}
     - target: {fileID: 4079323617331700478, guid: 52681688ede504041b2de75772648b10,
         type: 3}
@@ -1368,7 +1368,7 @@ PrefabInstance:
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
       propertyPath: EjectStarX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2571,12 +2571,12 @@ PrefabInstance:
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
       propertyPath: EjectStarX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
       propertyPath: EjectStarZ
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2901,12 +2901,12 @@ PrefabInstance:
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
       propertyPath: EjectStarX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
       propertyPath: EjectStarZ
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2985,7 +2985,7 @@ PrefabInstance:
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
       propertyPath: EjectStarX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7150852050371489286, guid: 767e88cccb1c58d4ab9f6db0954cc9cd,
         type: 3}
