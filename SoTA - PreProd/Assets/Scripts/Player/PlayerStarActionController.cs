@@ -37,6 +37,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     [SerializeField] private float controllerAimSmoothness = 3f;
 
+    
     public float GravityPullRange
     {
         get => gravityPullRange;
@@ -48,11 +49,32 @@ public class PlayerStarActionController : MonoBehaviour
         get => recallRange;
         private set => recallRange = value;
     }
+    public bool Controller
+    {
+        get
+        {
+           return controller;
+        }
+        set 
+        {
+            controller = value;
+            if (value) 
+            {
+                playerInput.actions.FindActionMap("PlayerControlController").Enable();
+            }
+            else
+            {
+                playerInput.actions.FindActionMap("New action map").Enable();
+            }
+            
+        }
+           
+    }
 
     // STORING/VALUE VARIABLES
     private bool isAiming = false;
     private bool strongThrow = false;
-    private bool Controller = false;
+    private bool controller = false;
     private bool isBeingGravityPulled = false;
 
     //private float healthChangeTimer = 0.0f;
@@ -88,7 +110,7 @@ public class PlayerStarActionController : MonoBehaviour
         
         if (playerInput.currentActionMap.name == "PlayerControlController")
         {
-            Controller = true;
+            controller = true;
         }
 
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
@@ -101,18 +123,9 @@ public class PlayerStarActionController : MonoBehaviour
 
     void Update()
     {
-        if (playerInput.currentActionMap.name == "PlayerControlController")
-        {
-            Controller = true;
-        }
-        else
-        {
-            Controller = false;
-        }
-
         if (isAiming)
         {
-            if (Controller)
+            if (playerInput.currentControlScheme == "Controller")
             {
                 throwDirection = aimSmooth;
             }
@@ -339,6 +352,7 @@ public class PlayerStarActionController : MonoBehaviour
         recallAllowed = false;
         pickUpAllowed = false;
     }
+
     void OnCarryStarToggle(InputValue input)
     {
         //if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
@@ -467,6 +481,10 @@ public class PlayerStarActionController : MonoBehaviour
                 StartCoroutine(SmoothAim());
             }
 
+        }
+        else
+        {
+            isAiming = false;
         }
     }
     private IEnumerator SmoothAim()
