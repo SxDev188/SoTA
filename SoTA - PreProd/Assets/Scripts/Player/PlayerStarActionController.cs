@@ -49,32 +49,11 @@ public class PlayerStarActionController : MonoBehaviour
         get => recallRange;
         private set => recallRange = value;
     }
-    public bool Controller
-    {
-        get
-        {
-           return controller;
-        }
-        set 
-        {
-            controller = value;
-            if (value) 
-            {
-                playerInput.actions.FindActionMap("PlayerControlController").Enable();
-            }
-            else
-            {
-                playerInput.actions.FindActionMap("New action map").Enable();
-            }
-            
-        }
-           
-    }
+
 
     // STORING/VALUE VARIABLES
     private bool isAiming = false;
     private bool strongThrow = false;
-    private bool controller = false;
     private bool isBeingGravityPulled = false;
 
     //private float healthChangeTimer = 0.0f;
@@ -108,10 +87,7 @@ public class PlayerStarActionController : MonoBehaviour
 
         InitializeLineRenderer();
         
-        if (playerInput.currentActionMap.name == "PlayerControlController")
-        {
-            controller = true;
-        }
+
 
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
 
@@ -123,6 +99,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(playerInput.currentControlScheme);
         if (isAiming)
         {
             if (playerInput.currentControlScheme == "Controller")
