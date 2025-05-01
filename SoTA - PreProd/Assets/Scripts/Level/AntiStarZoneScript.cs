@@ -1,3 +1,4 @@
+using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -10,7 +11,6 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
     Color color;
     [SerializeField] int EjectStarX;
     [SerializeField] int EjectStarZ;
-    int starRepelLength = 10;
 
     void Start()
     {
@@ -38,11 +38,10 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
                 starActions.CarryToggle();
             }
             starActions.StopTravelToDestination();
-            Vector3 dir = other.transform.position - transform.position;
+            Vector3 dir = other.transform.position + (other.transform.position - transform.position);
             if (!starActions.isTraveling)
             {
-                //ts is the problem
-                starActions.TravelOutOfAntiStarZone(new Vector3(dir.x*starRepelLength, playerStarActionController.transform.position.y, dir.z*starRepelLength));
+                starActions.TravelOutOfAntiStarZone(new Vector3(dir.x, playerStarActionController.transform.position.y, dir.z));
 
             }
 
@@ -61,11 +60,10 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             {
                 starActions.CarryToggle();
             }
-            Vector3 dir = other.transform.position - transform.position;
+
             if (!starActions.isTraveling)
             {
                 starActions.TravelOutOfAntiStarZone(new Vector3(EjectStarX*100, playerStarActionController.transform.position.y, EjectStarZ*100));
-                //starActions.TravelOutOfAntiStarZone(new Vector3(dir.x * starRepelLength*EjectStarX, playerStarActionController.transform.position.y, dir.z * starRepelLength*EjectStarZ));
             }
 
         }
@@ -83,7 +81,6 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             if (starActions.isTraveling)
             {
                 starActions.StopTravelToDestination();
-                Debug.Log("Star stopped");
             }
 
         }
