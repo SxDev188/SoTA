@@ -20,6 +20,7 @@ public class SaveStateManager : MonoBehaviour
 
     //Temporary fix I hope or more data added here and removed from other places
     private StarActions starActions;
+    private PlayerStarActionController playerStarActionController;
 
     private bool referencesSet = false;
     //private bool saved = false;
@@ -40,6 +41,8 @@ public class SaveStateManager : MonoBehaviour
     {
         SetSaveableObjectReferences();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
+        playerStarActionController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStarActionController>();
+
     }
 
     //For Debug Purposes  <<-- If it works, then we should remove?
@@ -133,6 +136,7 @@ public class SaveStateManager : MonoBehaviour
         CheckFromSaveData(dataToLoad);
         starActions.Recall();
         starActions.StopAllCoroutines();
+        playerStarActionController.InteruptGravityPullToDestination();
     }
     private void CheckFromSaveData(SaveData saveData)
     {
@@ -194,10 +198,7 @@ public class SaveStateManager : MonoBehaviour
     }
     private void SetFromCameraPosition(SaveData saveData)
     {
-        //CameraPanScript.Instance.TargetPosition = saveData.CameraPosition;
-        //CameraPanScript.Instance.StopAllCoroutines();
         cameraScript.SetCameraPosition(saveData.CameraPosition);
-        //CameraTriggerScript.ReactivateLastTrigger();
     }
     private bool CheckSafety(SaveData saveData)
     {

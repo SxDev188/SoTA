@@ -7,6 +7,7 @@ Shader "Unlit/RadialColorMaskURP"
         _EffectRadius ("Effect Radius", Float) = 0.2 // Radius in UV space (0 to 1)
         _EffectRadiusSmoothing ("Effect Radius Smoothing", Float) = 0.02 // Smooth edge area in UV space
         _EnableEffect ("Enable Effect", Float) = 1 // This will allow toggling the shader on and off basically
+        _HealthBlackout ("Health Blackout", Range(0,1)) = 0 // For turning the screen black when away from star
     }
     SubShader
     {
@@ -27,6 +28,7 @@ Shader "Unlit/RadialColorMaskURP"
             float4 _LightPositions[MAX_LIGHT_SOURCE_NUM]; 
             float2 _ScreenResolution;
             float _EnableEffect;
+            float _HealthBlackout;
 
             struct appdata_t
             {
@@ -85,6 +87,7 @@ Shader "Unlit/RadialColorMaskURP"
                 // Convert to greyscale
                 half grayscale = dot(col.rgb, half3(0.1, 0.3, 0.05)); // Intensity of the grey
                 half4 greyCol = half4(grayscale, grayscale, grayscale, 1);
+                greyCol = lerp(greyCol, half4(0,0,0,1), _HealthBlackout);
 
                 return lerp(col, greyCol, mask); // Mask is either 0 (color) or 1 (greyscale)
             }

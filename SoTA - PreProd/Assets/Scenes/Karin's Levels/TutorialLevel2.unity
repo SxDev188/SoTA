@@ -3939,16 +3939,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RadialColorManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4847982055576299270, guid: 08c3cf1511160b54d8db3bd115c65efd,
-        type: 3}
-      propertyPath: effectRadius
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4847982055576299270, guid: 08c3cf1511160b54d8db3bd115c65efd,
-        type: 3}
-      propertyPath: effectRadiusSmoothing
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8982716727998253804, guid: 08c3cf1511160b54d8db3bd115c65efd,
         type: 3}
       propertyPath: m_LocalPosition.x

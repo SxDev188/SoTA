@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using Unity.VisualScripting;
 
 public class AudioManager : MonoBehaviour
 {
 
     private List<EventInstance> eventInstances;
 
-
     public static AudioManager Instance { get; private set; }
+
+    public static EventInstance ambienceEventInstance;
+
+    [SerializeField] bool disableBgMusic = false;
+    [SerializeField] bool disableAmbience = false;
 
     void Awake()
     {
@@ -23,6 +28,21 @@ public class AudioManager : MonoBehaviour
 
         eventInstances = new List<EventInstance>();
     }
+
+    void Start()
+    {
+        if (!disableAmbience)
+        {
+            InitializeAmbience(FMODEvents.Instance.Ambience);
+
+        }
+
+        if (!disableBgMusic)
+        {
+            StartBgMusic();
+        }
+    }
+
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
@@ -34,6 +54,12 @@ public class AudioManager : MonoBehaviour
         eventInstances.Add(eventInstance);
 
         return eventInstance;
+    }
+
+    public void InitializeAmbience(EventReference ambienceEventReference)
+    {
+        ambienceEventInstance = CreateInstance(ambienceEventReference);
+        ambienceEventInstance.start();
     }
 
     private void CleanUp()
@@ -58,10 +84,5 @@ public class AudioManager : MonoBehaviour
     {
         backgroundMusic = Instance.CreateInstance(FMODEvents.Instance.BackgroundMusic);
         backgroundMusic.start();
-    }
-
-    private void Start()
-    {
-        StartBgMusic();
     }
 }
