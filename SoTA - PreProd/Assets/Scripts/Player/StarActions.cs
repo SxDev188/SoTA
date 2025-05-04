@@ -66,6 +66,11 @@ public class StarActions : MonoBehaviour
         {
             starTransform.position = playerTransform.position + onPlayerOffset;
         }
+
+        if (!isTraveling)
+        {
+            starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        }
     }
 
     public void CarryToggle()
