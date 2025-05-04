@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c4b3218e098c94685985b9430488e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 1
+  musicVolume: 1
+  SFXVolume: 1
+  disableBgMusic: 0
+  disableAmbience: 0
 --- !u!1 &5652984145735463639
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,3 +157,10 @@ MonoBehaviour:
       Data3: -626013563
       Data4: -1553630635
     Path: event:/Ambience/abyssAmbience
+  <StarThrowSFX>k__BackingField:
+    Guid:
+      Data1: 273182264
+      Data2: 1210510344
+      Data3: -1802214987
+      Data4: 474407436
+    Path: event:/SFX/Star/StarThrow
