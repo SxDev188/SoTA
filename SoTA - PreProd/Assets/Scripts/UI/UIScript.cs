@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -134,6 +136,25 @@ public class UIScript : MonoBehaviour
             menuList.transform.GetChild(i).gameObject.SetActive(false);
         }
         pauseMenuStartObject.SetActive(true);
+    }
+
+    public void Focus(GameObject objectToFocus) // Pass in button element to focus on!
+    {
+        if (objectToFocus == null)
+        {
+            Debug.LogWarning("UISelector: Object to focus is null!");
+            return;
+        }
+
+        StartCoroutine(FocusNextFrame(objectToFocus));
+    }
+
+    private IEnumerator FocusNextFrame(GameObject objectToFocus)
+    {
+        yield return null; 
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(objectToFocus);
     }
 
 }
