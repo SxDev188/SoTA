@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -5,7 +6,9 @@ using UnityEngine;
 public class StarActions : MonoBehaviour
 {
     // PUBLIC
-    public bool isTraveling = false;
+    private bool isTraveling = false; //should be made private, where is it used? - goobie // is checked in AntiStarZoneScript in the logic for pushing out the star, but separating isTraveling and IsTraveling into two different bools works aswell :) -Emil
+    public bool IsTraveling { get { return isTraveling; } }
+
     public bool IsOnPlayer 
     { 
         get 
@@ -23,9 +26,9 @@ public class StarActions : MonoBehaviour
             {
                 starRigidbody.useGravity = true;
             }
-                
         } 
     }
+
     // COMPONENTS
     private Transform starTransform;
     private Rigidbody starRigidbody;
@@ -42,8 +45,9 @@ public class StarActions : MonoBehaviour
     [SerializeField] private Vector3 onPlayerOffset = new Vector3(0, 3, 0);
 
     // STORING/VALUE VARIABLES
-    IEnumerator TravelCoroutine;
+    public IEnumerator TravelCoroutine;
     private float fixedYValueWhenThrown;
+    private EventInstance starThrowSFX;
 
     private bool inWall = false;
 
@@ -52,6 +56,8 @@ public class StarActions : MonoBehaviour
         starTransform = gameObject.GetComponent<Transform>();
         starRigidbody = gameObject.GetComponent<Rigidbody>();
         playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        starThrowSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarThrowSFX);
+
     }
 
     void Update()
@@ -60,13 +66,18 @@ public class StarActions : MonoBehaviour
         {
             starTransform.position = playerTransform.position + onPlayerOffset;
         }
+
+        if (!isTraveling)
+        {
+            starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        }
     }
 
     public void CarryToggle()
     {
         if (isTraveling)
         {
-            StopTravelToDestination();
+            StopTravelToDestination(false);
         }
 
         if (isOnPlayer)
@@ -91,7 +102,7 @@ public class StarActions : MonoBehaviour
 
             if(isTraveling)
             {
-                StopTravelToDestination();
+                StopTravelToDestination(false);
             }
 
             isOnPlayer = true;
@@ -101,10 +112,9 @@ public class StarActions : MonoBehaviour
 
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
-
-        //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
         if (!inWall)
         {
+            //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
             if (SaveStateManager.Instance != null)
             {
                 //Added save here by Linus
@@ -125,11 +135,22 @@ public class StarActions : MonoBehaviour
 
             TravelCoroutine = TravelToDestination(newTargetDestination);
             StartCoroutine(TravelCoroutine);
+
+            starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
+            starThrowSFX.start();
+
         }
         
     }
 
-    IEnumerator TravelToDestination(Vector3 targetDestination)
+    public void TravelOutOfAntiStarZone(Vector3 targetDestination)
+    {
+        TravelCoroutine = TravelToDestination(targetDestination);
+        StartCoroutine(TravelCoroutine);
+    }
+
+    public  IEnumerator TravelToDestination(Vector3 targetDestination)
     {
         isTraveling = true;
         starRigidbody.useGravity = false;
@@ -148,15 +169,19 @@ public class StarActions : MonoBehaviour
             yield return null;
         }
 
-        StopTravelToDestination();
+        StopTravelToDestination(false);
     }
 
-    public void StopTravelToDestination()
+
+
+    public void StopTravelToDestination(bool isColliding)
     {
         StopCoroutine(TravelCoroutine);
 
         isTraveling = false;
         starRigidbody.useGravity = true;
+
+        starThrowSFX.setParameterByNameWithLabel("StarThrowState", isColliding ? "Colliding" : "Landing");
     }
 
     void OnTriggerEnter(Collider other)
@@ -214,18 +239,19 @@ public class StarActions : MonoBehaviour
         if (collision.gameObject.tag == "Button" && isTraveling)
         {
             collision.gameObject.GetComponent<ButtonScript>().Interact();
-            StopTravelToDestination();
+            StopTravelToDestination(true);
         }
 
         if (collision.gameObject.tag == "Lamp" && isTraveling)
         {
             collision.gameObject.GetComponent<LampScript>().Interact();
-            StopTravelToDestination();
+            StopTravelToDestination(true);
         }
 
         if (isTraveling)
         {
-            StopTravelToDestination();
+            StopTravelToDestination(true);
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding");
         }
     }
 }

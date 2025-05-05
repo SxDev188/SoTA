@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using Unity.VisualScripting;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Volume")]
+    [Range(0, 1)]
+    public float masterVolume = 1;
+    [Range(0, 1)]
+    public float musicVolume = 1;
+    [Range(0, 1)]
+    public float SFXVolume = 1;
+
+    private Bus masterBus;
+    private Bus musicBus;
+    private Bus sfxBus;
+
 
     private List<EventInstance> eventInstances;
 
-
     public static AudioManager Instance { get; private set; }
+
+    public static EventInstance ambienceEventInstance;
+
+    [SerializeField] bool disableBgMusic = false;
+    [SerializeField] bool disableAmbience = false;
 
     void Awake()
     {
@@ -22,7 +39,33 @@ public class AudioManager : MonoBehaviour
         Instance = this;
 
         eventInstances = new List<EventInstance>();
+
+        masterBus = RuntimeManager.GetBus("bus:/");
+        musicBus = RuntimeManager.GetBus("bus:/Music");
+        sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
+
+    void Start()
+    {
+        if (!disableAmbience)
+        {
+            InitializeAmbience(FMODEvents.Instance.Ambience);
+
+        }
+
+        if (!disableBgMusic)
+        {
+            StartBgMusic();
+        }
+    }
+
+    private void Update()
+    {
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        sfxBus.setVolume(SFXVolume);
+    }
+
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
@@ -34,6 +77,12 @@ public class AudioManager : MonoBehaviour
         eventInstances.Add(eventInstance);
 
         return eventInstance;
+    }
+
+    public void InitializeAmbience(EventReference ambienceEventReference)
+    {
+        ambienceEventInstance = CreateInstance(ambienceEventReference);
+        ambienceEventInstance.start();
     }
 
     private void CleanUp()
@@ -58,10 +107,5 @@ public class AudioManager : MonoBehaviour
     {
         backgroundMusic = Instance.CreateInstance(FMODEvents.Instance.BackgroundMusic);
         backgroundMusic.start();
-    }
-
-    private void Start()
-    {
-        StartBgMusic();
     }
 }

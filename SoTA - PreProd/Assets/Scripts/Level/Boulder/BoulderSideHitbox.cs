@@ -17,9 +17,9 @@ public class BoulderSideHitbox : MonoBehaviour
             {
                 return;
             }
-            else if(starActions.isTraveling)
+            else if(starActions.IsTraveling)
             {
-                starActions.StopTravelToDestination();
+                starActions.StopTravelToDestination(true);
                 WasHitByStar = true;
                 this.GetComponentInParent<BoulderStarPushScript>().CheckSideHitboxes();
             }

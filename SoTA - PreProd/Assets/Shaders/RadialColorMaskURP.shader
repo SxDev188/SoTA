@@ -59,8 +59,8 @@ Shader "Unlit/RadialColorMaskURP"
                 float2 uvNormalized = uv - center;
 
                 // Adjust for aspect ratio to keep effect circular on all screen sizes
-                float aspect = _ScreenResolution.x / _ScreenResolution.y;
-                uvNormalized.x *= aspect;
+                float aspect = _ScreenResolution.y / _ScreenResolution.x;               
+                uvNormalized.y *= aspect;
 
                 float dist = length(uvNormalized); // Distance in normalized UV space (0 to 1)
 
