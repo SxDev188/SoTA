@@ -12189,6 +12189,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1322174207}
     m_Modifications:
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <StarThrowSFX>k__BackingField.Path
+      value: event:/SFX/Star/StarThrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <StarThrowSFX>k__BackingField.Guid.Data1
+      value: 273182264
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <StarThrowSFX>k__BackingField.Guid.Data2
+      value: 1210510344
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <StarThrowSFX>k__BackingField.Guid.Data3
+      value: -1802214987
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162084338279053781, guid: ac217389566a5b740adafca9f4e04c99,
+        type: 3}
+      propertyPath: <StarThrowSFX>k__BackingField.Guid.Data4
+      value: 474407436
+      objectReference: {fileID: 0}
     - target: {fileID: 5578199862620801904, guid: ac217389566a5b740adafca9f4e04c99,
         type: 3}
       propertyPath: m_Name

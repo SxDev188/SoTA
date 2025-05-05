@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class StarParticles : MonoBehaviour
     private float recallRange;
     private ParticleSystem gravityPullParticles;
     private ParticleSystem recallParticles;
+    private ParticleSystem trailParticles;
+
+    private EventInstance starShimmerSFX;
 
     void Start()
     {
@@ -28,7 +32,11 @@ public class StarParticles : MonoBehaviour
                 gravityPullParticles = ps;
             else if (ps.gameObject.name.Contains("Recall", System.StringComparison.OrdinalIgnoreCase))
                 recallParticles = ps;
+            else if (ps.gameObject.name.Contains("Trail", System.StringComparison.OrdinalIgnoreCase))
+                    trailParticles = ps;
         }
+
+        starShimmerSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarShimmerSFX);
     }
 
     void Update()
@@ -63,8 +71,40 @@ public class StarParticles : MonoBehaviour
         }
         else // If player is holding Star, the gravityPull particles get stopped and cleared but recallParticles continue
         {
-            //recallParticles.Stop();
             gravityPullParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        if (starActions.IsTraveling) // Checls of tje star has been thrown, and then starts trail system and stops recall for a neater look
+        {
+            trailParticles.Play();
+            recallParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+        else
+        {
+            trailParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        UpdateStarShimmerSFX(distanceToPlayer);
+    }
+
+    void UpdateStarShimmerSFX(float distanceToPlayer)
+    {
+        PLAYBACK_STATE state;
+        starShimmerSFX.getPlaybackState(out state);
+
+        if (distanceToPlayer <= recallRange)
+        {
+            if (state == PLAYBACK_STATE.STOPPED || state == PLAYBACK_STATE.STOPPING)
+            {
+                starShimmerSFX.start();
+            }
+        }
+        else
+        {
+            if (state == PLAYBACK_STATE.PLAYING)
+            {
+                starShimmerSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            }
         }
     }
 }

@@ -101,7 +101,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     void Update()
     {
-        if (playerInput.currentActionMap.name == "PlayerControlController")
+        if (playerInput.currentActionMap != null && playerInput.currentActionMap.name == "PlayerControlController")
         {
             Controller = true;
         }
