@@ -164,3 +164,10 @@ MonoBehaviour:
       Data3: -1802214987
       Data4: 474407436
     Path: event:/SFX/Star/StarThrow
+  <StarShimmerSFX>k__BackingField:
+    Guid:
+      Data1: 407308356
+      Data2: 1153975107
+      Data3: -1642638664
+      Data4: 261661244
+    Path: event:/SFX/Star/StarShimmer

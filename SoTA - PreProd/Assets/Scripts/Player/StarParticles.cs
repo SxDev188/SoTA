@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class StarParticles : MonoBehaviour
     private ParticleSystem gravityPullParticles;
     private ParticleSystem recallParticles;
     private ParticleSystem trailParticles;
+
+    private EventInstance starShimmerSFX;
 
     void Start()
     {
@@ -32,6 +35,8 @@ public class StarParticles : MonoBehaviour
             else if (ps.gameObject.name.Contains("Trail", System.StringComparison.OrdinalIgnoreCase))
                     trailParticles = ps;
         }
+
+        starShimmerSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarShimmerSFX);
     }
 
     void Update()
@@ -77,6 +82,29 @@ public class StarParticles : MonoBehaviour
         else
         {
             trailParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        UpdateStarShimmerSFX(distanceToPlayer);
+    }
+
+    void UpdateStarShimmerSFX(float distanceToPlayer)
+    {
+        PLAYBACK_STATE state;
+        starShimmerSFX.getPlaybackState(out state);
+
+        if (distanceToPlayer <= recallRange)
+        {
+            if (state == PLAYBACK_STATE.STOPPED || state == PLAYBACK_STATE.STOPPING)
+            {
+                starShimmerSFX.start();
+            }
+        }
+        else
+        {
+            if (state == PLAYBACK_STATE.PLAYING)
+            {
+                starShimmerSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            }
         }
     }
 }
