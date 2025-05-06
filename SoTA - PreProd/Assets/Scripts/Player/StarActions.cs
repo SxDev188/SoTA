@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -57,7 +58,6 @@ public class StarActions : MonoBehaviour
         starRigidbody = gameObject.GetComponent<Rigidbody>();
         playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
         starThrowSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarThrowSFX);
-
     }
 
     void Update()
@@ -139,7 +139,6 @@ public class StarActions : MonoBehaviour
             starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
             starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
             starThrowSFX.start();
-
         }
         
     }
@@ -239,19 +238,23 @@ public class StarActions : MonoBehaviour
         if (collision.gameObject.tag == "Button" && isTraveling)
         {
             collision.gameObject.GetComponent<ButtonScript>().Interact();
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding_Interactable");
             StopTravelToDestination(true);
+            return;
         }
 
         if (collision.gameObject.tag == "Lamp" && isTraveling)
         {
             collision.gameObject.GetComponent<LampScript>().Interact();
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding_Interactable");
             StopTravelToDestination(true);
+            return;
         }
 
         if (isTraveling)
         {
             StopTravelToDestination(true);
-            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding");
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding_Regular");
         }
     }
 }
