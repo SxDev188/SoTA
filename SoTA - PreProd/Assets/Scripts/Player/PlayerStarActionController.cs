@@ -55,6 +55,13 @@ public class PlayerStarActionController : MonoBehaviour
     private bool Controller = false;
     private bool isBeingGravityPulled = false;
 
+    public bool IsBeingGravityPulled
+    {
+        get => isBeingGravityPulled;
+        private set => isBeingGravityPulled = value;
+    }
+
+
     //private float healthChangeTimer = 0.0f;
 
     private Vector3 mouseDownPosition;
