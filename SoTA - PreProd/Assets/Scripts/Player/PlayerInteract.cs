@@ -1,10 +1,52 @@
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private float interactionRange = 0.5f;
 
-    private void OnInteract()
+    private Collider currentHighlighted;
+
+    public float InteractionRange 
+    { 
+        get
+        {
+            return interactionRange;
+        } 
+    }
+
+    private void Update()
+    {
+        HighlightNearestInteractable();
+    }
+
+    private void HighlightNearestInteractable()
+    {
+        Collider nearest = InsideInteractRange();
+
+        if (currentHighlighted != null && currentHighlighted != nearest)
+        {
+            HighlighterScript oldHighlighter = currentHighlighted.GetComponent<HighlighterScript>();
+            if (oldHighlighter != null)
+            {
+                oldHighlighter.DisableHighlight();
+            }
+        }
+
+        if (nearest != null)
+        {
+            HighlighterScript highlighter = nearest.GetComponent<HighlighterScript>();
+            if (highlighter != null)
+            {
+                highlighter.EnableHighlight();
+            }
+        }
+
+        currentHighlighted = nearest;
+    }
+
+    private Collider InsideInteractRange()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
         Collider closestCollider = null;
@@ -25,6 +67,12 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
+        return closestCollider;
+    }
+
+    private void OnInteract()
+    {
+        Collider closestCollider = InsideInteractRange();
         if (closestCollider != null)
         {
             closestCollider.GetComponent<IInteractable>().Interact();

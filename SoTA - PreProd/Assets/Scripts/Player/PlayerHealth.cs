@@ -33,6 +33,9 @@ public class PlayerHealth : MonoBehaviour
         ManagePlayerHealth();
 
         PlayLowHealthWarningSound();
+
+        //Sets global PlayerHealth parameter in FMOD --> controls effects on the master audio channel
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PlayerHealth", currentHealth);
     }
     private void ManagePlayerHealth()
     {
