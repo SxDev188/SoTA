@@ -10,6 +10,8 @@ public class StarParticles : MonoBehaviour
     [SerializeField] StarActions starActions;
     private float gravityPullRange;
     private float recallRange;
+    private bool isBeingGravityPulled;
+    private LineRenderer gravityPullLine;
     private ParticleSystem gravityPullParticles;
     private ParticleSystem recallParticles;
     private ParticleSystem trailParticles;
@@ -22,9 +24,29 @@ public class StarParticles : MonoBehaviour
         playerTransform = GameObject.FindWithTag("Player").transform;
         starActions = GetComponent<StarActions>();
 
+        isBeingGravityPulled = playerStarActionController.IsBeingGravityPulled;
         gravityPullRange = playerStarActionController.GravityPullRange;
         recallRange = playerStarActionController.RecallRange;
 
+        FindParticleSystems();
+
+        FindAndInitializeLineRenderer();
+
+        starShimmerSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarShimmerSFX);
+    }
+
+    private void FindAndInitializeLineRenderer()
+    {
+        gravityPullLine = transform.Find("GravityLine").GetComponent<LineRenderer>();
+        gravityPullLine.positionCount = 2; // Two points: player and star
+        gravityPullLine.enabled = false; // Start disabled
+        gravityPullLine.numCapVertices = 10; // Extra vertices for smoother look
+        gravityPullLine.startWidth = 1f; // Start width
+        gravityPullLine.endWidth = 0.0f; // Adjust the end width as needed
+    }
+
+    private void FindParticleSystems()
+    {
         var particleSystems = GetComponentsInChildren<ParticleSystem>();
         foreach (var ps in particleSystems)
         {
@@ -33,16 +55,25 @@ public class StarParticles : MonoBehaviour
             else if (ps.gameObject.name.Contains("Recall", System.StringComparison.OrdinalIgnoreCase))
                 recallParticles = ps;
             else if (ps.gameObject.name.Contains("Trail", System.StringComparison.OrdinalIgnoreCase))
-                    trailParticles = ps;
+                trailParticles = ps;
         }
-
-        starShimmerSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarShimmerSFX);
     }
 
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
+        GravityAndRecallParticles(distanceToPlayer);
+
+        ParticleTrailWhenThrown();
+
+        GravityPullBeam(distanceToPlayer);
+
+        UpdateStarShimmerSFX(distanceToPlayer);
+    }
+
+    private void GravityAndRecallParticles(float distanceToPlayer)
+    {
         if (!starActions.IsOnPlayer) // Applies the particle effects only if the Star isn't held by player
         {
             // Gravity pull logic
@@ -73,8 +104,11 @@ public class StarParticles : MonoBehaviour
         {
             gravityPullParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
+    }
 
-        if (starActions.IsTraveling) // Checls of tje star has been thrown, and then starts trail system and stops recall for a neater look
+    private void ParticleTrailWhenThrown()
+    {
+        if (starActions.IsTraveling) // Checks if the star has been thrown, and then starts trail system and stops recall system for a neater look
         {
             trailParticles.Play();
             recallParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -83,8 +117,35 @@ public class StarParticles : MonoBehaviour
         {
             trailParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
+    }
 
-        UpdateStarShimmerSFX(distanceToPlayer);
+    private void GravityPullBeam(float distanceToPlayer)
+    {
+        isBeingGravityPulled = playerStarActionController.IsBeingGravityPulled;
+
+        if (isBeingGravityPulled)
+        {
+            if (!gravityPullLine.enabled)
+            {
+                gravityPullLine.enabled = true;
+            }
+
+            // Set the positions for the line renderer that displays the "gravity beam"
+            gravityPullLine.SetPosition(0, transform.position); // Start position (Star)
+            gravityPullLine.SetPosition(1, playerTransform.position); // End position (Player)
+
+            // Adjust width based on distance to star
+            float lineWidth = Mathf.Lerp(0.1f, 0.0f, distanceToPlayer / 20f); // Controls shrinking speed of beam
+            gravityPullLine.startWidth = 0.5f; // Start width
+            gravityPullLine.endWidth = lineWidth; // End width
+        }
+        else
+        {
+            if (gravityPullLine.enabled)
+            {
+                gravityPullLine.enabled = false; // Disable the line renderer when not being pulled
+            }
+        }
     }
 
     void UpdateStarShimmerSFX(float distanceToPlayer)
