@@ -115,7 +115,7 @@ public class StarParticles : MonoBehaviour
         }
         else
         {
-            trailParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            trailParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 
