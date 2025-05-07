@@ -131,8 +131,8 @@ public class StarParticles : MonoBehaviour
             }
 
             // Set the positions for the line renderer that displays the "gravity beam"
-            gravityPullLine.SetPosition(0, transform.position); // Start position (Star)
-            gravityPullLine.SetPosition(1, playerTransform.position); // End position (Player)
+            gravityPullLine.SetPosition(0, playerTransform.position); // Start position (Player)
+            gravityPullLine.SetPosition(1, transform.position); // End position (Star)
 
             // Adjust width based on distance to star
             float lineWidth = Mathf.Lerp(0.1f, 0.0f, distanceToPlayer / 20f); // Controls shrinking speed of beam
