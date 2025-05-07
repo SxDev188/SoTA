@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eea927a568146a438043f8deb59e7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 5
   boulderPushSpeed: 3
   movementRotationByDegrees: 45
   characterController: {fileID: 0}
@@ -121,12 +121,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recallAllowed: 1
   gravityPullAllowed: 1
-  strongThrowAllowed: 0
+  strongThrowAllowed: 1
   normalThrowRange: 4
   strongThrowRange: 10
   starPickupRange: 2
-  recallRange: 4
-  gravityPullRange: 3
+  recallRange: 6
+  gravityPullRange: 4
   gravityPullAcceptanceRadius: 0.5
   gravityPullSpeed: 5
   aimSensitivity: 0.5
