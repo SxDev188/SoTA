@@ -396,6 +396,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7303762695327491497, guid: af2bc979980ace946a89319e7857ace6,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7534390532475772661, guid: af2bc979980ace946a89319e7857ace6,
         type: 3}
       propertyPath: m_IsActive

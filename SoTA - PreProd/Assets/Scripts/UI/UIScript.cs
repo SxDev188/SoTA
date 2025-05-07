@@ -32,6 +32,7 @@ public class UIScript : MonoBehaviour
 
     private bool inStartScene = false;
     private bool inEndScene = false;
+    private static bool isUsingController = true; // Behövs endast 1 + static tar inte bort skiten lol
 
     // ENGINE METHODS ====================================== // 
     private void Start()
@@ -45,8 +46,20 @@ public class UIScript : MonoBehaviour
         {
             playerObject = GameObject.FindGameObjectWithTag("Player");
         }
+        else
+        {
+            if (isUsingController)
+            {
+                playerObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerControlController");
+            }
+            else
+            {
+                playerObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("New action map");
+            }
+        }
 
-        if(SceneManager.GetActiveScene().name == "StartScene")
+
+        if (SceneManager.GetActiveScene().name == "StartScene")
         {
             inStartScene = true;
             inEndScene = false;
@@ -155,6 +168,11 @@ public class UIScript : MonoBehaviour
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(objectToFocus);
+    }
+
+    public void IsOnController()
+    {
+        isUsingController = !isUsingController;
     }
 
 }

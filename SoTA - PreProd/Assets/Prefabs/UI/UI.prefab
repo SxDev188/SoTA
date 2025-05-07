@@ -1915,10 +1915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32c3874bfd1fae43a4ac818b86f8903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
-  masterText: {fileID: 0}
-  sfxText: {fileID: 0}
-  ambienceText: {fileID: 0}
 --- !u!1 &735305153769639686
 GameObject:
   m_ObjectHideFlags: 0
@@ -7299,7 +7295,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2366623977709209945}
+        m_TargetAssemblyTypeName: UIScript, Assembly-CSharp
+        m_MethodName: IsOnController
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &4435667991580474126
 GameObject:
