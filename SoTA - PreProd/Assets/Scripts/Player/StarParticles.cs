@@ -5,18 +5,26 @@ using UnityEngine;
 
 public class StarParticles : MonoBehaviour
 {
+    //COMPONENTS ============================================ //
     [SerializeField] PlayerStarActionController playerStarActionController;
     [SerializeField] Transform playerTransform;
     [SerializeField] StarActions starActions;
-    private float gravityPullRange;
-    private float recallRange;
-    private bool isBeingGravityPulled;
     private LineRenderer gravityPullLine;
     private ParticleSystem gravityPullParticles;
     private ParticleSystem recallParticles;
+    private ParticleSystem recallParticlesBurst;
     private ParticleSystem trailParticles;
 
+    // STORING/VALUE VARIABLES ============================== //
+    private float gravityPullRange;
+    private float recallRange;
+    private bool isBeingGravityPulled;
+    private bool isOnPlayer;
+    private bool wasOnPlayer;
+
     private EventInstance starShimmerSFX;
+
+    // ENGINE METHODS ====================================== // 
 
     void Start()
     {
@@ -25,6 +33,7 @@ public class StarParticles : MonoBehaviour
         starActions = GetComponent<StarActions>();
 
         isBeingGravityPulled = playerStarActionController.IsBeingGravityPulled;
+        isOnPlayer = starActions.IsOnPlayer;
         gravityPullRange = playerStarActionController.GravityPullRange;
         recallRange = playerStarActionController.RecallRange;
 
@@ -42,7 +51,7 @@ public class StarParticles : MonoBehaviour
         gravityPullLine.enabled = false; // Start disabled
         gravityPullLine.numCapVertices = 10; // Extra vertices for smoother look
         gravityPullLine.startWidth = 1f; // Start width
-        gravityPullLine.endWidth = 0.0f; // Adjust the end width as needed
+        gravityPullLine.endWidth = 1f; // Adjust the end width as needed
     }
 
     private void FindParticleSystems()
@@ -50,33 +59,52 @@ public class StarParticles : MonoBehaviour
         var particleSystems = GetComponentsInChildren<ParticleSystem>();
         foreach (var ps in particleSystems)
         {
-            if (ps.gameObject.name.Contains("Gravity", System.StringComparison.OrdinalIgnoreCase))
+            if (ps.gameObject.name.Equals("GravityParticles", System.StringComparison.OrdinalIgnoreCase))
                 gravityPullParticles = ps;
-            else if (ps.gameObject.name.Contains("Recall", System.StringComparison.OrdinalIgnoreCase))
+            else if (ps.gameObject.name.Equals("RecallParticles", System.StringComparison.OrdinalIgnoreCase))
                 recallParticles = ps;
-            else if (ps.gameObject.name.Contains("Trail", System.StringComparison.OrdinalIgnoreCase))
+            else if (ps.gameObject.name.Equals("TrailParticles", System.StringComparison.OrdinalIgnoreCase))
                 trailParticles = ps;
+            else if (ps.gameObject.name.Equals("RecallBurst", System.StringComparison.OrdinalIgnoreCase))
+                recallParticlesBurst = ps;
         }
     }
 
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        isOnPlayer = starActions.IsOnPlayer;
 
-        GravityAndRecallParticles(distanceToPlayer);
-
+        ApplyGravityParticles(distanceToPlayer);
+        ApplyRecallParticles(distanceToPlayer);
         ParticleTrailWhenThrown();
-
         GravityPullBeam(distanceToPlayer);
+        RecallParticleBurst();
 
         UpdateStarShimmerSFX(distanceToPlayer);
     }
 
-    private void GravityAndRecallParticles(float distanceToPlayer)
+    private void RecallParticleBurst()
+    {
+        if (!wasOnPlayer && isOnPlayer)
+        {
+            StartCoroutine(PlayAndStopBurst());
+        }
+
+        wasOnPlayer = isOnPlayer;
+
+        IEnumerator PlayAndStopBurst()
+        {
+            recallParticlesBurst.Play();
+            yield return new WaitForSeconds(0.1f); // wait for particles to spawn
+            recallParticlesBurst.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+    }
+
+    private void ApplyGravityParticles(float distanceToPlayer)
     {
         if (!starActions.IsOnPlayer) // Applies the particle effects only if the Star isn't held by player
         {
-            // Gravity pull logic
             if (distanceToPlayer <= gravityPullRange)
             {
                 if (gravityPullParticles && !gravityPullParticles.isPlaying)
@@ -86,9 +114,18 @@ public class StarParticles : MonoBehaviour
             {
                 if (gravityPullParticles && gravityPullParticles.isPlaying)
                     gravityPullParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            }
+            }           
+        }
+        else // If player is holding Star, the gravityPull particles get stopped and cleared but recallParticles continue
+        {
+            gravityPullParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
 
-            // Recall logic
+    private void ApplyRecallParticles(float distanceToPlayer)
+    {
+        if (!starActions.IsOnPlayer) // Applies the particle effects only if the Star isn't held by player
+        {
             if (distanceToPlayer <= recallRange)
             {
                 if (recallParticles && !recallParticles.isPlaying)
@@ -99,11 +136,7 @@ public class StarParticles : MonoBehaviour
                 if (recallParticles && recallParticles.isPlaying)
                     recallParticles.Stop();
             }
-        }
-        else // If player is holding Star, the gravityPull particles get stopped and cleared but recallParticles continue
-        {
-            gravityPullParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        }
+        }      
     }
 
     private void ParticleTrailWhenThrown()
@@ -135,7 +168,7 @@ public class StarParticles : MonoBehaviour
             gravityPullLine.SetPosition(1, transform.position); // End position (Star)
 
             // Adjust width based on distance to star
-            float lineWidth = Mathf.Lerp(0.1f, 0.0f, distanceToPlayer / 20f); // Controls shrinking speed of beam
+            float lineWidth = Mathf.Lerp(0.3f, 0.2f, distanceToPlayer / 20f); // Controls shrinking speed of beam
             gravityPullLine.startWidth = 0.5f; // Start width
             gravityPullLine.endWidth = lineWidth; // End width
         }
