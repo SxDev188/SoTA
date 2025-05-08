@@ -8,22 +8,26 @@ public class SpikeScript : MonoBehaviour, IActivatable
     {
         if (startsAsActive == true)
         {
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
+            ResetRotation();
         }
         else if (startsAsActive == false)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Flip();
         }
     }
     public void Activate()
     {
         if (startsAsActive == true)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Flip();
         }
         else if (startsAsActive == false)
         {
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
+            ResetRotation();
         }
     }
 
@@ -31,11 +35,25 @@ public class SpikeScript : MonoBehaviour, IActivatable
     {
         if (startsAsActive == true)
         {
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
+            ResetRotation();
         }
         else if (startsAsActive == false)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Flip();
         }
+    }
+
+    private void Flip()
+    {
+        // Flip the object by rotating 180 degrees on the X-axis
+        transform.Rotate(180f, 0f, 0f);
+    }
+
+    private void ResetRotation()
+    {
+        // Reset the object's rotation to its original state (zero rotation)
+        transform.rotation = Quaternion.identity;
     }
 }
