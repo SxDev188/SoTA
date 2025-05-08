@@ -1,11 +1,14 @@
+using TMPro;
 using UnityEngine;
 
 public class WallScript : MonoBehaviour, IActivatable
 {
     Vector3 defaultPosition;    //position when NOT activated
     Vector3 activatedPosition;  //position activated (is fetched from a child object)
-
+    
     bool isActive = false;
+
+    float moveDuration = 1.0f;
 
     void Start()
     {
@@ -26,7 +29,8 @@ public class WallScript : MonoBehaviour, IActivatable
     {
         if (!isActive)
         {
-            transform.position = activatedPosition;
+            StopAllCoroutines();
+            StartCoroutine(MoveToPosition(activatedPosition));
             isActive = true;
         }
     }
@@ -35,8 +39,24 @@ public class WallScript : MonoBehaviour, IActivatable
     {
         if(isActive)
         {
-            transform.position = defaultPosition;
+            StopAllCoroutines();
+            StartCoroutine(MoveToPosition(defaultPosition));
             isActive = false;
         }
+    }
+
+    System.Collections.IEnumerator MoveToPosition(Vector3 target)
+    {
+        Vector3 start = transform.position;
+        float elapsed = 0f;
+
+        while (elapsed < moveDuration)
+        {
+            transform.position = Vector3.Lerp(start, target, elapsed / moveDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = target;
     }
 }
