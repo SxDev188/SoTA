@@ -366,12 +366,20 @@ public class PlayerStarActionController : MonoBehaviour
 
         if (!recallAllowed)
         {
+            //SFX for recall attempt when not allowed
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarRecallFailSFX);
             return;
         }
 
         if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
         {
             starActions.Recall();
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarRecallSuccessSFX);
+        }
+        else
+        {
+            //SFX for recall attempt but is too far away
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarRecallFailSFX);
         }
     }
 

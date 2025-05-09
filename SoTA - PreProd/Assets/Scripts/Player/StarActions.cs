@@ -146,7 +146,7 @@ public class StarActions : MonoBehaviour
             //starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
             //starThrowSFX.start();
 
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX, Vector3.zero);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX);
         }
         
     }

@@ -185,3 +185,17 @@ MonoBehaviour:
       Data3: -1642638664
       Data4: 261661244
     Path: event:/SFX/Star/StarShimmer
+  <StarRecallSuccessSFX>k__BackingField:
+    Guid:
+      Data1: -1766778480
+      Data2: 1253232023
+      Data3: 1441760941
+      Data4: 2024998391
+    Path: event:/SFX/Star/Star Recall/StarRecallSuccess
+  <StarRecallFailSFX>k__BackingField:
+    Guid:
+      Data1: -1766778480
+      Data2: 1253232023
+      Data3: 1441760941
+      Data4: 2024998391
+    Path: event:/SFX/Star/Star Recall/StarRecallSuccess

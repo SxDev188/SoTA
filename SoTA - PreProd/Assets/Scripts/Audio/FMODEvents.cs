@@ -35,6 +35,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference StarThrowAttackSFX  { get; private set; }
     [field: SerializeField] public EventReference StarLandFloorSFX  { get; private set; }
     [field: SerializeField] public EventReference StarShimmerSFX { get; private set; }
+    [field: SerializeField] public EventReference StarRecallSuccessSFX { get; private set; }
+    [field: SerializeField] public EventReference StarRecallFailSFX { get; private set; }
 
     public static FMODEvents Instance { get; private set; }
 
