@@ -175,13 +175,13 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private void FlipButtonDown()
     {
         button.localRotation = Quaternion.Euler(180, 0, 0);
-        StartCoroutine(PlayAndStopBurst());
+        StartCoroutine(PlayAndStopParticleBurst());
     }
 
     private void FlipButtonUp()
     {
         button.localRotation = Quaternion.Euler(0, 0, 0);
-        StartCoroutine(PlayAndStopBurst());
+        StartCoroutine(PlayAndStopParticleBurst());
     }
     public void SetState(bool Active)
     {
@@ -214,7 +214,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
         }
     }
 
-    IEnumerator PlayAndStopBurst()
+    IEnumerator PlayAndStopParticleBurst()
     {
         buttonParticles.Play();
         yield return new WaitForSeconds(0.1f); // wait for particles to spawn
