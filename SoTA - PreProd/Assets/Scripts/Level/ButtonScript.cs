@@ -16,6 +16,8 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private EventInstance buttonSFX;
     private EventInstance timerTickingSFX;
 
+    private ParticleSystem buttonParticles;
+
     public bool IsActive { get { return isPushed; } }
 
     private Transform FindChildByName(Transform parent, string name)
@@ -35,6 +37,8 @@ public class ButtonScript : MonoBehaviour, IInteractable
     public void Start()
     {
         button = FindChildByName(transform, "Button_connection");
+        buttonParticles = GetComponentInChildren<ParticleSystem>();
+        FindParticleColor();
 
         if (button == null)
         {
@@ -171,11 +175,13 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private void FlipButtonDown()
     {
         button.localRotation = Quaternion.Euler(180, 0, 0);
+        StartCoroutine(PlayAndStopParticleBurst());
     }
 
     private void FlipButtonUp()
     {
         button.localRotation = Quaternion.Euler(0, 0, 0);
+        StartCoroutine(PlayAndStopParticleBurst());
     }
     public void SetState(bool Active)
     {
@@ -205,6 +211,38 @@ public class ButtonScript : MonoBehaviour, IInteractable
                 FlipButtonUp();
                 DeactivateAllPuzzleElements();
             }
+        }
+    }
+
+    IEnumerator PlayAndStopParticleBurst()
+    {
+        buttonParticles.Play();
+        yield return new WaitForSeconds(0.1f); // wait for particles to spawn
+        buttonParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    private void FindParticleColor()
+    {
+        Transform buttonConnection = transform.Find("Button/Button_connection");
+        Transform buttonParticlesTransform = transform.Find("ButtonParticles");
+
+        if (buttonConnection != null && buttonParticlesTransform != null)
+        {
+            MeshRenderer sourceRenderer = buttonConnection.GetComponent<MeshRenderer>();
+            ParticleSystemRenderer psRenderer = buttonParticlesTransform.GetComponent<ParticleSystemRenderer>();
+
+            if (sourceRenderer != null && psRenderer != null)
+            {
+                psRenderer.material = sourceRenderer.sharedMaterial;
+            }
+            else
+            {
+                Debug.LogWarning("MeshRenderer or ParticleSystemRenderer not found.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Button_connection or ButtonParticles not found in the hierarchy.");
         }
     }
 }
