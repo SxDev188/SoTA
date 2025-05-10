@@ -8,10 +8,11 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float timeWithoutStar = 10.0f;
     [SerializeField] private float timeToResetLife = 0.5f;
-    [SerializeField] private float deathCooldownDuration = 0.5f;
+    [SerializeField] private float deathCooldownDuration = 1f;
     private float currentHealth;
     private float startingHealth = 1.0f;
     private StarActions starActions;
+    private PlayerController playerController;
     private EventInstance deathSFX;
     private EventInstance lowHealthWarningSFX;
     public bool IsDead { get; private set; } = false;
@@ -26,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     {
         GameObject star = GameObject.FindGameObjectWithTag("Star");
         starActions = star.GetComponent<StarActions>();
+        playerController = GetComponent<PlayerController>();
         currentHealth = startingHealth;
         deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
@@ -78,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
     {
         IsDead = true;
         deathSFX.start();
-        //run death animation here
+        playerController.SetDeathAnimation();
 
         deathCooldownTimer.Start(deathCooldownDuration, Respawn); //automatically runs the Respawn() method when timer is finished
     }
@@ -89,7 +91,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = startingHealth;
 
         //play respawn sfx here
-        //possible play respawn animation/particles here
+        playerController.ResetDeathAnimation();
 
         IsDead = false;
     }
