@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
     {
         playerSlither = AudioManager.Instance.CreateInstance(FMODEvents.Instance.SlitherSound);
         playerHealth = GetComponent<PlayerHealth>();
-        animator.SetBool("isDead", false);
         //currentHealth = maxHealth;
     }
 
@@ -121,7 +120,7 @@ public class PlayerController : MonoBehaviour
         if (inputLocked) return;
 
         isMoving = true;
-        animator.SetBool("isMoving", true);
+        SetMovingAnimationTrue();
 
         Vector2 input2d = input.Get<Vector2>();
         movementInput = new Vector3(input2d.x, 0, input2d.y);
@@ -138,6 +137,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void OnMoveRelease(InputValue input)
     {
         InteruptMovement();
@@ -146,10 +146,10 @@ public class PlayerController : MonoBehaviour
     public void InteruptMovement()
     {
         isMoving = false;
-        animator.SetBool("isMoving", false);
+        SetMovingAnimationFalse();
         movementInput = Vector3.zero;
     }
-
+   
     void LookAtMovementDirection()
     {
         if (movementInput != Vector3.zero)
@@ -215,16 +215,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetDeathAnimation()
-    {
-        animator.SetBool("isDead", true);
-    }
-
-    public void ResetDeathAnimation()
-    {
-        animator.SetBool("isDead", false);
-    }
-
    public void SetPlayerPosition(Vector3 position)
    {
         CharacterController.enabled = false;
@@ -282,6 +272,26 @@ public class PlayerController : MonoBehaviour
     public void DetachFromBoulder()
     {
         isAttachedToBoulder = false;
+    }
+
+    public void SetDeathAnimationTrue()
+    {
+        animator.SetBool("isDead", true);
+    }
+
+    public void SetDeathAnimationFalse()
+    {
+        animator.SetBool("isDead", false);
+    }
+
+    private void SetMovingAnimationTrue()
+    {
+        animator.SetBool("isMoving", true);
+    }
+
+    private void SetMovingAnimationFalse()
+    {
+        animator.SetBool("isMoving", false);
     }
 
 }
