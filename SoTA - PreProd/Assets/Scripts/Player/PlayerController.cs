@@ -218,13 +218,11 @@ public class PlayerController : MonoBehaviour
     public void SetDeathAnimation()
     {
         animator.SetBool("isDead", true);
-        inputLocked = true;
     }
 
     public void ResetDeathAnimation()
     {
         animator.SetBool("isDead", false);
-        inputLocked = false;
     }
 
    public void SetPlayerPosition(Vector3 position)
