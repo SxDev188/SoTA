@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float VerticalVelocityLowerCap = -2;
     [SerializeField] float VerticalVelocityUpperCap = 2;
     [SerializeField] Animator animator;
-    [SerializeField] float respawnTime = 1;
     public CharacterController CharacterController => characterController;
 
     private bool isMoving = false;
@@ -212,17 +211,19 @@ public class PlayerController : MonoBehaviour
             //currentHealth = 0;
             VerticalVelocity = 0;
             //justRespawned = true;
-            animator.SetBool("isDead", true);
-            inputLocked = true;
-            StartCoroutine(RespawnDelay());
+            playerHealth.Death();
         }
     }
 
-    IEnumerator RespawnDelay()
+    public void SetDeathAnimation()
     {
-        yield return new WaitForSeconds(respawnTime);
+        animator.SetBool("isDead", true);
+        inputLocked = true;
+    }
+
+    public void ResetDeathAnimation()
+    {
         animator.SetBool("isDead", false);
-        playerHealth.Death();
         inputLocked = false;
     }
 
