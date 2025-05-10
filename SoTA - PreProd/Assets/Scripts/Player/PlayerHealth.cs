@@ -15,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
     private PlayerController playerController;
     private EventInstance deathSFX;
     private EventInstance lowHealthWarningSFX;
+    private ParticleSystem respawnParticles;
     public bool IsDead { get; private set; } = false;
 
     public float CurrentHealth { get { return currentHealth; } }
@@ -31,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = startingHealth;
         deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
+        respawnParticles = GetComponentInChildren<ParticleSystem>();
 
         deathCooldownTimer = new CooldownTimer(this); //sends in the monobehaviour object that will run the timers coroutine
     }
@@ -93,6 +95,7 @@ public class PlayerHealth : MonoBehaviour
 
         //play respawn sfx here
         playerController.SetDeathAnimationFalse();
+        StartCoroutine(PlayAndStopParticleBurst());
 
         IsDead = false;
     }
@@ -119,5 +122,12 @@ public class PlayerHealth : MonoBehaviour
                 lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
             }
         }
+    }
+
+    IEnumerator PlayAndStopParticleBurst()
+    {
+        respawnParticles.Play();
+        yield return new WaitForSeconds(0.1f); // wait for particles to spawn
+        respawnParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 }
