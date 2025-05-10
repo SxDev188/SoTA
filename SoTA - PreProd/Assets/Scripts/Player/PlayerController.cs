@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FMOD.Studio;
+using UnityEditor.Animations;
+using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,7 +20,8 @@ public class PlayerController : MonoBehaviour
     public float VerticalVelocity = 0; //Used to manage gravity
     [SerializeField] float VerticalVelocityLowerCap = -2;
     [SerializeField] float VerticalVelocityUpperCap = 2;
-
+    [SerializeField] Animator animator;
+    [SerializeField] float respawnTime = 1;
     public CharacterController CharacterController => characterController;
 
     private bool isMoving = false;
@@ -44,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         playerSlither = AudioManager.Instance.CreateInstance(FMODEvents.Instance.SlitherSound);
         playerHealth = GetComponent<PlayerHealth>();
+        animator.SetBool("isDead", false);
         //currentHealth = maxHealth;
     }
 
@@ -114,6 +119,8 @@ public class PlayerController : MonoBehaviour
         if (inputLocked) return;
 
         isMoving = true;
+        animator.SetBool("isMoving", true);
+
         Vector2 input2d = input.Get<Vector2>();
         movementInput = new Vector3(input2d.x, 0, input2d.y);
 
@@ -137,6 +144,7 @@ public class PlayerController : MonoBehaviour
     public void InteruptMovement()
     {
         isMoving = false;
+        animator.SetBool("isMoving", false);
         movementInput = Vector3.zero;
     }
 
@@ -201,8 +209,18 @@ public class PlayerController : MonoBehaviour
             //currentHealth = 0;
             VerticalVelocity = 0;
             //justRespawned = true;
-            playerHealth.Death();
+            animator.SetBool("isDead", true);
+            inputLocked = true;
+            StartCoroutine(RespawnDelay());
         }
+    }
+
+    IEnumerator RespawnDelay()
+    {
+        yield return new WaitForSeconds(respawnTime);
+        animator.SetBool("isDead", false);
+        playerHealth.Death();
+        inputLocked = false;
     }
 
    public void SetPlayerPosition(Vector3 position)
