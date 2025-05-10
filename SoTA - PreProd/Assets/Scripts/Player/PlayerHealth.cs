@@ -80,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
     {
         IsDead = true;
         deathSFX.start();
-        playerController.SetDeathAnimation();
+        playerController.SetDeathAnimationTrue();
 
         deathCooldownTimer.Start(deathCooldownDuration, Respawn); //automatically runs the Respawn() method when timer is finished
     }
@@ -91,7 +91,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = startingHealth;
 
         //play respawn sfx here
-        playerController.ResetDeathAnimation();
+        playerController.SetDeathAnimationFalse();
 
         IsDead = false;
     }
