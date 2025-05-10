@@ -1,4 +1,5 @@
 using FMOD.Studio;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,15 +7,19 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float timeWithoutStar = 10.0f;
-    [SerializeField] private float timeToResetLife = 3.0f;
+    [SerializeField] private float timeToResetLife = 0.5f;
+    [SerializeField] private float deathCooldownDuration = 0.5f;
     private float currentHealth;
     private float startingHealth = 1.0f;
     private StarActions starActions;
     private EventInstance deathSFX;
     private EventInstance lowHealthWarningSFX;
-
+    public bool IsDead { get; private set; } = false;
 
     public float CurrentHealth { get { return currentHealth; } }
+
+    CooldownTimer deathCooldownTimer;
+    
 
     // Start is called before the first frame update
     private void Start()
@@ -25,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
         deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
 
+        deathCooldownTimer = new CooldownTimer(this); //sends in the monobehaviour object that will run the timers coroutine
     }
 
     // Update is called once per frame
@@ -70,9 +76,22 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
+        IsDead = true;
+        deathSFX.start();
+        //run death animation here
+
+        deathCooldownTimer.Start(deathCooldownDuration, Respawn); //automatically runs the Respawn() method when timer is finished
+    }
+
+    public void Respawn()
+    {
         SaveStateManager.Instance.Load();
         currentHealth = startingHealth;
-        deathSFX.start();
+
+        //play respawn sfx here
+        //possible play respawn animation/particles here
+
+        IsDead = false;
     }
 
     void PlayLowHealthWarningSound()

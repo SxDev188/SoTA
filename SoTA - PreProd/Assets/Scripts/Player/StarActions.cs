@@ -146,7 +146,7 @@ public class StarActions : MonoBehaviour
             //starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
             //starThrowSFX.start();
 
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX, Vector3.zero);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX);
         }
         
     }
@@ -179,8 +179,6 @@ public class StarActions : MonoBehaviour
         StopTravelToDestination(false);
     }
 
-
-
     public void StopTravelToDestination(bool isColliding)
     {
         StopCoroutine(TravelCoroutine);
@@ -197,7 +195,11 @@ public class StarActions : MonoBehaviour
     {
         if (other.CompareTag("Abyss"))
         {
-            SaveStateManager.Instance.Load();
+            if (!isOnPlayer) //if isOnPlayer is true, then player will also collide with abyss, which leads to death --> load save state
+            {
+                Recall(); //I put recall here instead of load so - Goobie
+                //SaveStateManager.Instance.Load();
+            }
         }
 
         if (other.gameObject.tag == "StarPickupTrigger" && !isOnPlayer && !isTraveling)

@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public bool inputLocked = false; //Used to lock movement during gravity pull
     public bool disableGravityDuringPull = false; //Used to disable downward gravity during gravity pull
 
- 
+
     private Vector3 movementLockAxis;
     private Vector3 movementDirection;
     private Vector2 lastMoveDirection;
@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (playerHealth.IsDead) InteruptMovement(); //stops player movement upon death, otherwise player might keep moving as long as the input stays exactly the same
+
         if (justRespawned)
         {
             justRespawned = false;
@@ -116,6 +118,7 @@ public class PlayerController : MonoBehaviour
 
     void OnMoveInput(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do new movements when dead
         if (inputLocked) return;
 
         isMoving = true;

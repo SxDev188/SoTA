@@ -55,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeWithoutStar: 10
   timeToResetLife: 3
+  deathCooldownDuration: 0.5
 --- !u!114 &4202267313386246333
 MonoBehaviour:
   m_ObjectHideFlags: 0

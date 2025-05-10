@@ -1,11 +1,17 @@
 using UnityEngine;
+using System.Collections;
 
 public class SpikeScript : MonoBehaviour, IActivatable
 {
     [SerializeField] bool startsAsActive = true;
 
+    private ParticleSystem spikeParticles;
+
     private void Start()
     {
+        spikeParticles = GetComponentInChildren<ParticleSystem>();
+        FindParticleColor();
+
         if (startsAsActive == true)
         {
             ResetRotation();
@@ -19,10 +25,12 @@ public class SpikeScript : MonoBehaviour, IActivatable
     {
         if (startsAsActive == true)
         {
+            StartCoroutine(PlayAndStopParticleBurst());
             Flip();
         }
         else if (startsAsActive == false)
         {
+            StartCoroutine(PlayAndStopParticleBurst());
             ResetRotation();
         }
     }
@@ -31,10 +39,12 @@ public class SpikeScript : MonoBehaviour, IActivatable
     {
         if (startsAsActive == true)
         {
+            StartCoroutine(PlayAndStopParticleBurst());
             ResetRotation();
         }
         else if (startsAsActive == false)
         {
+            StartCoroutine(PlayAndStopParticleBurst());
             Flip();
         }
     }
@@ -47,5 +57,46 @@ public class SpikeScript : MonoBehaviour, IActivatable
     private void ResetRotation()
     {
         transform.rotation = Quaternion.identity;
+    }
+
+    IEnumerator PlayAndStopParticleBurst()
+    {
+        spikeParticles.Play();
+        yield return new WaitForSeconds(0.1f); // wait for particles to spawn
+        spikeParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    private void FindParticleColor()
+    {
+        Transform spikes = transform.Find("Spikes_new");
+        Transform spikeParticlesTransform = transform.Find("SpikesParticles");
+
+        if (spikes != null && spikeParticlesTransform != null)
+        {
+            MeshRenderer sourceRenderer = spikes.GetComponent<MeshRenderer>();
+            ParticleSystemRenderer psRenderer = spikeParticlesTransform.GetComponent<ParticleSystemRenderer>();
+
+            if (sourceRenderer != null && psRenderer != null)
+            {
+                Material[] materials = sourceRenderer.sharedMaterials;
+
+                if (materials.Length > 1)
+                {
+                    psRenderer.material = materials[1];
+                }
+                else
+                {
+                    Debug.LogWarning("Spikes_new does not have a second material.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("MeshRenderer or ParticleSystemRenderer not found.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Spikes_new or SpikesParticles not found in the hierarchy.");
+        }
     }
 }
