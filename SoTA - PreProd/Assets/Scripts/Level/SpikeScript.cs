@@ -4,6 +4,7 @@ using System.Collections;
 public class SpikeScript : MonoBehaviour, IActivatable
 {
     [SerializeField] bool startsAsActive = true;
+    public bool StartsAsActive { get { return startsAsActive; } } //is used to determine polarity of spikes for SFX
 
     private ParticleSystem spikeParticles;
 

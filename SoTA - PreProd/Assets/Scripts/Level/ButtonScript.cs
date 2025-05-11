@@ -2,6 +2,7 @@ using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ButtonScript : MonoBehaviour, IInteractable
 {
@@ -17,6 +18,10 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private EventInstance timerTickingSFX;
 
     private ParticleSystem buttonParticles;
+
+    //flags used for SFX so we only play spike sound effect (for example) once for all spikes being activated by this button
+    private bool isConnectedToSpikes = false; //is set automatically in CheckConnectedPuzzleElements
+    private bool spikesStartAsActive = false; //is set automatically in CheckConnectedPuzzleElements
 
     public bool IsActive { get { return isPushed; } }
 
@@ -48,6 +53,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
         timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
 
+        CheckConnectedPuzzleElements(); //is used only for SFX
     }
 
     public void Interact()
@@ -67,6 +73,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
             ActivateAllPuzzleElements();
             isPushed = true;
             FlipButtonDown();
+            PlayActivationSFX();
         }
         else if (!isPushed && hasTimer)
         {
@@ -76,6 +83,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
             StartTimerForAllPuzzleElements();
             isPushed = true;
             FlipButtonDown();
+            PlayActivationSFX();
         }
         else if (isPushed && !isTimerRunning)
         {
@@ -84,6 +92,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
             DeactivateAllPuzzleElements();
             isPushed = false;
             FlipButtonUp();
+            PlayDeactivationSFX();
         }
 
         buttonSFX.start();
@@ -165,7 +174,8 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
         timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-        buttonSFX.start();      
+        buttonSFX.start();
+        PlayDeactivationSFX();
     }
     private void ToggleButtonState()
     {
@@ -243,6 +253,57 @@ public class ButtonScript : MonoBehaviour, IInteractable
         else
         {
             Debug.LogError("Button_connection or ButtonParticles not found in the hierarchy.");
+        }
+    }
+
+
+    private void CheckConnectedPuzzleElements() //Only to be used for SFX
+    {
+        isConnectedToSpikes = false;
+
+        foreach(GameObject element in puzzleElements)
+        {
+            if (element.gameObject.CompareTag("Spikes"))
+            {
+                isConnectedToSpikes = true;
+
+                if(element.gameObject.GetComponent<SpikeScript>().StartsAsActive)
+                {
+                    spikesStartAsActive = true;
+                }
+
+                break; //for the purposes of SFX we only care about the first spike, so we break the loop here
+            }
+        }
+    }
+
+    private void PlayActivationSFX()
+    {
+        if (isConnectedToSpikes)
+        {
+            if(spikesStartAsActive)
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesDisappearSFX);
+            }
+            else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesAppearSFX);
+            }
+        }
+    }
+    
+    private void PlayDeactivationSFX()
+    {
+        if (isConnectedToSpikes)
+        {
+            if (spikesStartAsActive)
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesAppearSFX);
+            }
+            else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesDisappearSFX);
+            }
         }
     }
 }

@@ -86,19 +86,29 @@ public class StarActions : MonoBehaviour
 
         if (isOnPlayer)
         {
-            //drop star sfx here
-
-            isOnPlayer = false;
-            starRigidbody.useGravity = true;
-
-            isFallingAndHasNotLanded = true;
+            Drop();
         } else if (!isOnPlayer)
         {
-            //pick up star sfx here
-
-            isOnPlayer = true;
-            starRigidbody.useGravity = false;
+            Pickup();
         }
+    }
+
+    private void Pickup()
+    {
+        //pick up star sfx here
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarPickupSFX);
+        isOnPlayer = true;
+        starRigidbody.useGravity = false;
+    }
+
+    private void Drop()
+    {
+        //drop star sfx here
+
+        isOnPlayer = false;
+        starRigidbody.useGravity = true;
+
+        isFallingAndHasNotLanded = true;
     }
     public void Recall()
     {
@@ -204,8 +214,9 @@ public class StarActions : MonoBehaviour
 
         if (other.gameObject.tag == "StarPickupTrigger" && !isOnPlayer && !isTraveling)
         {
-            isOnPlayer = true;
-            starRigidbody.useGravity = false;
+            //isOnPlayer = true;
+            //starRigidbody.useGravity = false;
+            Pickup();
         }
     }
 
