@@ -3665,7 +3665,7 @@ PrefabInstance:
     - target: {fileID: 2517525866248969489, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_DefaultActionMap
-      value: PlayerControlController
+      value: b2ae7480-def4-4b51-bb03-c84c956357af
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
@@ -3716,6 +3716,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7468595067580057327, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
+        type: 3}
+      propertyPath: strongThrowAllowed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7468595067580057327, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
