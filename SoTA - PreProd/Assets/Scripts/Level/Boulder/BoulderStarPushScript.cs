@@ -66,6 +66,7 @@ public class BoulderStarPushScript : MonoBehaviour
     IEnumerator StarPushInDirection_IEnumerator(Vector3 direction, float distance)
     {
         //boulderPushSFX.start();
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderSFX);
 
         Vector3 targetDestination = transform.position + direction * distance;
 

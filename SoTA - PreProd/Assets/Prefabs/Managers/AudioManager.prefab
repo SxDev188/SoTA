@@ -199,3 +199,10 @@ MonoBehaviour:
       Data3: 443417004
       Data4: -1913946174
     Path: event:/SFX/Star/Star Recall/StarRecallFail
+  <StarPickupSFX>k__BackingField:
+    Guid:
+      Data1: -1025954770
+      Data2: 1244782409
+      Data3: 1139689115
+      Data4: -1146006044
+    Path: event:/SFX/Star/StarPickup

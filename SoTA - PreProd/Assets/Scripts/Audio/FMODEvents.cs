@@ -37,6 +37,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference StarShimmerSFX { get; private set; }
     [field: SerializeField] public EventReference StarRecallSuccessSFX { get; private set; }
     [field: SerializeField] public EventReference StarRecallFailSFX { get; private set; }
+    [field: SerializeField] public EventReference StarPickupSFX { get; private set; }
 
     public static FMODEvents Instance { get; private set; }
 
