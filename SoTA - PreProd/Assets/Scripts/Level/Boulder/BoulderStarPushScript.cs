@@ -19,6 +19,8 @@ public class BoulderStarPushScript : MonoBehaviour
 
     private bool isBeingStarPushed = false;
     public bool IsBeingStarPushed { get { return isBeingStarPushed; } }
+    public bool IsCurrentlyMoving { get; private set; } = false;
+
 
     [SerializeField] BoulderSideHitbox[] boulderSideHitboxes = new BoulderSideHitbox[4];
 
@@ -72,6 +74,14 @@ public class BoulderStarPushScript : MonoBehaviour
 
         isBeingStarPushed = true;
         boulderRigidbody.isKinematic = false;
+        
+        //Waits for two fixed updates here. When isKinematic is changed in the line above, that will cause a TriggerExit and then TriggerEnter
+        //in the pressure plate. The IsCurrentlyMoving flag is used to make the pressure plate ignore this false exit/enter. 
+        //Waiting for two fixed updates makes sure that the isKinematic change is properly ignored BEFORE setting IsCurrentlyMoving to true.
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
+        IsCurrentlyMoving = true; //While this is true, pressure plate will accept the collision with the boulder
 
         while (Vector3.Distance(transform.position, targetDestination) > pushController.PushDestinationAcceptanceRadius)
         {
@@ -89,6 +99,9 @@ public class BoulderStarPushScript : MonoBehaviour
 
             yield return null;
         }
+
+        IsCurrentlyMoving = false; //From this point, the pressure plate will ignore collision with the boulder.
+        //Without this, SnapToFloor() below would trigger a false OnTriggerExit and immediate OnTriggerEnter messing up both SFX and particle effects
 
         boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
 

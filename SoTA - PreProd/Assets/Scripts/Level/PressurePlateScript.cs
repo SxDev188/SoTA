@@ -27,6 +27,11 @@ public class PressurePlateScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
+        {
+            return;
+        }
+
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
             objectsOnPlate.Add(other.gameObject);
@@ -34,14 +39,19 @@ public class PressurePlateScript : MonoBehaviour
 
         if (objectsOnPlate.Count > 0)
         {
+            //if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderController>().IsAboutToSnapToFloor)
+            //{
+            //    return;
+            //}
+
             if (!isPushedDown)
             {
                 isPushedDown = true;
                 transform.position = originalPosition + Vector3.down * sinkAmount;
 
-                //pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushDown");
-                //pressurePlateSFX.start();
-
+                pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushDown");
+                pressurePlateSFX.start();
+                Debug.Log("TRIGGER ENTER RUNNING INTERACT() ---> " + other.gameObject.tag);
                 Interact();
             }
         }
@@ -49,9 +59,17 @@ public class PressurePlateScript : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
+        {
+            return;
+        }
+
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
             objectsOnPlate.Remove(other.gameObject);
+        } else if (other.CompareTag("Untagged"))
+        {
+            return;
         }
 
         if (objectsOnPlate.Count <= 0)
@@ -59,8 +77,11 @@ public class PressurePlateScript : MonoBehaviour
             isPushedDown = false;
             transform.position = originalPosition;
 
-            //pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushUp");
-            //pressurePlateSFX.start();
+            pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushUp");
+            pressurePlateSFX.start();
+
+            Debug.Log("TRIGGER EXIT RUNNING INTERACT() ---> " + other.gameObject.tag);
+
 
             Interact();
         }
