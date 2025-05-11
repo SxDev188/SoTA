@@ -48,7 +48,7 @@ MonoBehaviour:
   rendererData: {fileID: 11400000, guid: c40be3174f62c4acf8c1216858c64956, type: 2}
   smoothSpeed: 20
   effectToggle: 1
-  effectRadius: 4
+  effectRadius: 3
   effectRadiusSmoothing: 0.5
 --- !u!114 &3718631363897972872
 MonoBehaviour:
