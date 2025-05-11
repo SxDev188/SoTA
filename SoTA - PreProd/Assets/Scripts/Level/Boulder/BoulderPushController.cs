@@ -12,6 +12,8 @@ public class BoulderPushController : MonoBehaviour
     [SerializeField] float distanceToCheckForGroundBelowBoulder = 1f;
     [SerializeField] float pushDestinationAcceptanceRadius = 0.01f;
 
+    private ParticleSystem pushParticles;
+    private bool wasBeingPushed = false; // Used for particle system
     public float PushDestinationAcceptanceRadius { get { return pushDestinationAcceptanceRadius; } }
 
     BoulderStarPushScript boulderStarPushScript;
@@ -23,6 +25,23 @@ public class BoulderPushController : MonoBehaviour
         boulderStarPushScript = GetComponent<BoulderStarPushScript>();
         boulderPlayerPushScript = GetComponent<BoulderPlayerPushScript>();
         boulderController = GetComponent<BoulderController>();
+        pushParticles = GetComponentInChildren<ParticleSystem>();
+    }
+
+    private void Update()
+    {
+        bool currentlyBeingPushed = IsBeingPushed;
+
+        if (!wasBeingPushed && currentlyBeingPushed)
+        {
+            if (pushParticles != null)
+            {
+                pushParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                pushParticles.Play();
+            }
+        }
+
+        wasBeingPushed = currentlyBeingPushed;
     }
 
     public bool IsBeingPushed
