@@ -38,7 +38,11 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             {
                 starActions.CarryToggle();
             }
-            starActions.StopTravelToDestination(false);
+            if(starActions.TravelCoroutine != null)
+            {
+                starActions.StopTravelToDestination(true);
+            }
+            
             //determine where star should be pushed
             Vector3 dir = other.transform.position + (other.transform.position - transform.position);
             if (!starActions.IsTraveling)
