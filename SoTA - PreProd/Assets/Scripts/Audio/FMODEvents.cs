@@ -17,6 +17,8 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Boulder SFX")]
     [field: SerializeField] public EventReference BoulderSFX { get; private set; }
+    [field: SerializeField] public EventReference BoulderAttachSFX { get; private set; }
+    [field: SerializeField] public EventReference BoulderDetachSFX { get; private set; }
     
     [field: Header("Low Health Warning SFX")]
     [field: SerializeField] public EventReference LowHealthWarningSFX { get; private set; }

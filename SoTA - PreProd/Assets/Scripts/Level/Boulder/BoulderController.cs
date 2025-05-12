@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 
 public class BoulderController : MonoBehaviour, IInteractable
@@ -143,6 +144,7 @@ public class BoulderController : MonoBehaviour, IInteractable
         currentlyActiveBoulder = this;
 
         playerController.AttachToBoulder();
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderAttachSFX);
     }
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
@@ -150,11 +152,9 @@ public class BoulderController : MonoBehaviour, IInteractable
         boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
         playerController.UnlockMovement();
 
-        //SnapToFloor();
-
         currentlyActiveBoulder = null;
         playerController.DetachFromBoulder();
-
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderDetachSFX);
     }
 
     private void LockPlayerMovement()

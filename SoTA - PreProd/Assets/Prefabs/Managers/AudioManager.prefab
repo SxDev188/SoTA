@@ -129,6 +129,20 @@ MonoBehaviour:
       Data3: -1359872622
       Data4: 1231198397
     Path: event:/SFX/Boulder/BoulderPushSFX
+  <BoulderAttachSFX>k__BackingField:
+    Guid:
+      Data1: 149276960
+      Data2: 1168256014
+      Data3: -2045586499
+      Data4: 1375929149
+    Path: event:/SFX/Boulder/BoulderAttachSFX
+  <BoulderDetachSFX>k__BackingField:
+    Guid:
+      Data1: -1649721144
+      Data2: 1139812046
+      Data3: 1271886475
+      Data4: -2085302461
+    Path: event:/SFX/Boulder/BoulderDetachSFX
   <LowHealthWarningSFX>k__BackingField:
     Guid:
       Data1: -1085689497
