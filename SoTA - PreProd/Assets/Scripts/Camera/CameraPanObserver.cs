@@ -15,6 +15,7 @@ public class CameraPanObserver : MonoBehaviour
         Vector3 segmentPosition = player.GetCurrentSegmentPosition();
         Vector3 targetPosition = cameraStartPosition + segmentPosition;
         StopAllCoroutines();
+        SaveStateManager.Instance.Save();
         StartCoroutine(SmoothPan(targetPosition));
     }
     private void Awake()
