@@ -109,6 +109,7 @@ public class StarActions : MonoBehaviour
         starRigidbody.useGravity = true;
 
         isFallingAndHasNotLanded = true;
+        SaveStateManager.Instance.Save();
     }
     public void Recall()
     {
