@@ -24,8 +24,14 @@ public class LevelManager : MonoBehaviour
     public void LoadNextSceen()
     {
         int nextBuildIndex = activeScene.buildIndex + 1;
-        if (SceneManager.sceneCountInBuildSettings > nextBuildIndex)
-        SceneManager.LoadScene(nextBuildIndex);     
+        LoadSceenByIndex(nextBuildIndex);
+    }
+    public void LoadSceenByIndex(int index)
+    {
+        if (SceneManager.sceneCountInBuildSettings > index && index >= 0)
+        {
+            SceneManager.LoadScene(index);
+        }
         else
         {
             Application.Quit();
