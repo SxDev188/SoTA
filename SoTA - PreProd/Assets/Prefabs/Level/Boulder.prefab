@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6330249098049356985}
   - component: {fileID: 1489208469139832714}
   - component: {fileID: 7474438510281143353}
+  - component: {fileID: 3463160564478124122}
   m_Layer: 8
   m_Name: Boulder
   m_TagString: Boulder
@@ -154,6 +155,20 @@ MonoBehaviour:
   - {fileID: 4981638270437264332}
   - {fileID: 1658662029496624802}
   - {fileID: 995995639597803601}
+--- !u!114 &3463160564478124122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545799543686016793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e917bdc310f21954baf8fe69b93d147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 0}
+  highlightMaterial: {fileID: 2100000, guid: 7644a71dd26beb44986c86e2f301bd90, type: 2}
 --- !u!1 &2710304831708057371
 GameObject:
   m_ObjectHideFlags: 0
