@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FMOD.Studio;
+using UnityEditor.Animations;
+using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public float VerticalVelocity = 0; //Used to manage gravity
     [SerializeField] float VerticalVelocityLowerCap = -2;
     [SerializeField] float VerticalVelocityUpperCap = 2;
-
+    [SerializeField] Animator animator;
     public CharacterController CharacterController => characterController;
 
     private bool isMoving = false;
@@ -26,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public bool inputLocked = false; //Used to lock movement during gravity pull
     public bool disableGravityDuringPull = false; //Used to disable downward gravity during gravity pull
 
- 
+
     private Vector3 movementLockAxis;
     private Vector3 movementDirection;
     private Vector2 lastMoveDirection;
@@ -54,6 +57,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (playerHealth.IsDead) InteruptMovement(); //stops player movement upon death, otherwise player might keep moving as long as the input stays exactly the same
+
         if (justRespawned)
         {
             justRespawned = false;
@@ -111,9 +116,12 @@ public class PlayerController : MonoBehaviour
 
     void OnMoveInput(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do new movements when dead
         if (inputLocked) return;
 
         isMoving = true;
+        SetMovingAnimationTrue();
+
         Vector2 input2d = input.Get<Vector2>();
         movementInput = new Vector3(input2d.x, 0, input2d.y);
 
@@ -129,6 +137,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void OnMoveRelease(InputValue input)
     {
         InteruptMovement();
@@ -137,9 +146,10 @@ public class PlayerController : MonoBehaviour
     public void InteruptMovement()
     {
         isMoving = false;
+        SetMovingAnimationFalse();
         movementInput = Vector3.zero;
     }
-
+   
     void LookAtMovementDirection()
     {
         if (movementInput != Vector3.zero)
@@ -262,6 +272,26 @@ public class PlayerController : MonoBehaviour
     public void DetachFromBoulder()
     {
         isAttachedToBoulder = false;
+    }
+
+    public void SetDeathAnimationTrue()
+    {
+        animator.SetBool("isDead", true);
+    }
+
+    public void SetDeathAnimationFalse()
+    {
+        animator.SetBool("isDead", false);
+    }
+
+    private void SetMovingAnimationTrue()
+    {
+        animator.SetBool("isMoving", true);
+    }
+
+    private void SetMovingAnimationFalse()
+    {
+        animator.SetBool("isMoving", false);
     }
 
 }

@@ -66,6 +66,10 @@ public class AudioManager : MonoBehaviour
         sfxBus.setVolume(SFXVolume);
     }
 
+    public void PlayOneShot(EventReference sound)
+    {
+        RuntimeManager.PlayOneShot(sound, Vector3.zero);
+    }
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);

@@ -2,6 +2,7 @@ using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ButtonScript : MonoBehaviour, IInteractable
 {
@@ -15,6 +16,12 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
     private EventInstance buttonSFX;
     private EventInstance timerTickingSFX;
+
+    private ParticleSystem buttonParticles;
+
+    //flags used for SFX so we only play spike sound effect (for example) once for all spikes being activated by this button
+    private bool isConnectedToSpikes = false; //is set automatically in CheckConnectedPuzzleElements
+    private bool spikesStartAsActive = false; //is set automatically in CheckConnectedPuzzleElements
 
     public bool IsActive { get { return isPushed; } }
 
@@ -35,6 +42,8 @@ public class ButtonScript : MonoBehaviour, IInteractable
     public void Start()
     {
         button = FindChildByName(transform, "Button_connection");
+        buttonParticles = GetComponentInChildren<ParticleSystem>();
+        FindParticleColor();
 
         if (button == null)
         {
@@ -44,6 +53,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
         buttonSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ButtonSFX);
         timerTickingSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.TimerTickingSFX);
 
+        CheckConnectedPuzzleElements(); //is used only for SFX
     }
 
     public void Interact()
@@ -63,6 +73,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
             ActivateAllPuzzleElements();
             isPushed = true;
             FlipButtonDown();
+            PlayActivationSFX();
         }
         else if (!isPushed && hasTimer)
         {
@@ -72,6 +83,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
             StartTimerForAllPuzzleElements();
             isPushed = true;
             FlipButtonDown();
+            PlayActivationSFX();
         }
         else if (isPushed && !isTimerRunning)
         {
@@ -80,6 +92,7 @@ public class ButtonScript : MonoBehaviour, IInteractable
             DeactivateAllPuzzleElements();
             isPushed = false;
             FlipButtonUp();
+            PlayDeactivationSFX();
         }
 
         buttonSFX.start();
@@ -161,7 +174,8 @@ public class ButtonScript : MonoBehaviour, IInteractable
 
         timerTickingSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         buttonSFX.setParameterByNameWithLabel("ButtonPushState", "PushUp");
-        buttonSFX.start();      
+        buttonSFX.start();
+        PlayDeactivationSFX();
     }
     private void ToggleButtonState()
     {
@@ -171,11 +185,13 @@ public class ButtonScript : MonoBehaviour, IInteractable
     private void FlipButtonDown()
     {
         button.localRotation = Quaternion.Euler(180, 0, 0);
+        StartCoroutine(PlayAndStopParticleBurst());
     }
 
     private void FlipButtonUp()
     {
         button.localRotation = Quaternion.Euler(0, 0, 0);
+        StartCoroutine(PlayAndStopParticleBurst());
     }
     public void SetState(bool Active)
     {
@@ -204,6 +220,89 @@ public class ButtonScript : MonoBehaviour, IInteractable
             {
                 FlipButtonUp();
                 DeactivateAllPuzzleElements();
+            }
+        }
+    }
+
+    IEnumerator PlayAndStopParticleBurst()
+    {
+        buttonParticles.Play();
+        yield return new WaitForSeconds(0.1f); // wait for particles to spawn
+        buttonParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    private void FindParticleColor()
+    {
+        Transform buttonConnection = transform.Find("Button/Button_connection");
+        Transform buttonParticlesTransform = transform.Find("ButtonParticles");
+
+        if (buttonConnection != null && buttonParticlesTransform != null)
+        {
+            MeshRenderer sourceRenderer = buttonConnection.GetComponent<MeshRenderer>();
+            ParticleSystemRenderer psRenderer = buttonParticlesTransform.GetComponent<ParticleSystemRenderer>();
+
+            if (sourceRenderer != null && psRenderer != null)
+            {
+                psRenderer.material = sourceRenderer.sharedMaterial;
+            }
+            else
+            {
+                Debug.LogWarning("MeshRenderer or ParticleSystemRenderer not found.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Button_connection or ButtonParticles not found in the hierarchy.");
+        }
+    }
+
+
+    private void CheckConnectedPuzzleElements() //Only to be used for SFX
+    {
+        isConnectedToSpikes = false;
+
+        foreach(GameObject element in puzzleElements)
+        {
+            if (element.gameObject.CompareTag("Spikes"))
+            {
+                isConnectedToSpikes = true;
+
+                if(element.gameObject.GetComponent<SpikeScript>().StartsAsActive)
+                {
+                    spikesStartAsActive = true;
+                }
+
+                break; //for the purposes of SFX we only care about the first spike, so we break the loop here
+            }
+        }
+    }
+
+    private void PlayActivationSFX()
+    {
+        if (isConnectedToSpikes)
+        {
+            if(spikesStartAsActive)
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesDisappearSFX);
+            }
+            else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesAppearSFX);
+            }
+        }
+    }
+    
+    private void PlayDeactivationSFX()
+    {
+        if (isConnectedToSpikes)
+        {
+            if (spikesStartAsActive)
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesAppearSFX);
+            }
+            else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesDisappearSFX);
             }
         }
     }

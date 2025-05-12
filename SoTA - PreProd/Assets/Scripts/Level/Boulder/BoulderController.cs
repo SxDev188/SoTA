@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 
 public class BoulderController : MonoBehaviour, IInteractable
@@ -6,6 +7,7 @@ public class BoulderController : MonoBehaviour, IInteractable
 
     private static BoulderController currentlyActiveBoulder = null; //used to fix bug where player could attach to two boulders at once
     public static BoulderController GetCurrentlyActiveBoulder() { return currentlyActiveBoulder; }
+    public bool IsAboutToSnapToFloor { get; private set; } = false; //used to make sure pressure plate is not retriggered when boulder snaps to floor
 
     private bool isAttached = false;
     private float interactionRange = 2f;
@@ -82,12 +84,16 @@ public class BoulderController : MonoBehaviour, IInteractable
 
     public void SnapToFloor()
     {
+        IsAboutToSnapToFloor = true;
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
         {
             Vector3 targetPosition = new Vector3(hit.transform.position.x, transform.position.y, hit.transform.position.z);
             transform.position = targetPosition;
         }
+
+        IsAboutToSnapToFloor = false;
     }
 
     public void Interact()
@@ -131,13 +137,14 @@ public class BoulderController : MonoBehaviour, IInteractable
     private void Attach()
     {
         isAttached = true;
-        boulderRigidbody.isKinematic = false;
+        boulderRigidbody.isKinematic = false; 
         LockPlayerMovement();
 
         offsetToPlayer = transform.position - player.transform.position;
         currentlyActiveBoulder = this;
 
         playerController.AttachToBoulder();
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderAttachSFX);
     }
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
@@ -145,11 +152,9 @@ public class BoulderController : MonoBehaviour, IInteractable
         boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
         playerController.UnlockMovement();
 
-        //SnapToFloor();
-
         currentlyActiveBoulder = null;
         playerController.DetachFromBoulder();
-
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderDetachSFX);
     }
 
     private void LockPlayerMovement()

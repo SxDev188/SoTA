@@ -17,6 +17,8 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Boulder SFX")]
     [field: SerializeField] public EventReference BoulderSFX { get; private set; }
+    [field: SerializeField] public EventReference BoulderAttachSFX { get; private set; }
+    [field: SerializeField] public EventReference BoulderDetachSFX { get; private set; }
     
     [field: Header("Low Health Warning SFX")]
     [field: SerializeField] public EventReference LowHealthWarningSFX { get; private set; }
@@ -32,7 +34,18 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Star")]
     [field: SerializeField] public EventReference StarThrowSFX  { get; private set; }
+    [field: SerializeField] public EventReference StarThrowAttackSFX  { get; private set; }
+    [field: SerializeField] public EventReference StarLandFloorSFX  { get; private set; }
     [field: SerializeField] public EventReference StarShimmerSFX { get; private set; }
+    [field: SerializeField] public EventReference StarRecallSuccessSFX { get; private set; }
+    [field: SerializeField] public EventReference StarRecallFailSFX { get; private set; }
+    [field: SerializeField] public EventReference StarPickupSFX { get; private set; }
+    [field: SerializeField] public EventReference StarGravityPullSFX { get; private set; }
+    
+    [field: Header("Activatable SFX")]
+    [field: SerializeField] public EventReference SpikesAppearSFX { get; private set; }
+    [field: SerializeField] public EventReference SpikesDisappearSFX { get; private set; }
+
 
     public static FMODEvents Instance { get; private set; }
 

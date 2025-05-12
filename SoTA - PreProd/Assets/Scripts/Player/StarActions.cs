@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -51,13 +52,16 @@ public class StarActions : MonoBehaviour
 
     private bool inWall = false;
 
+
+    // For SFX
+    bool isFallingAndHasNotLanded = true;
+
     void Start()
     {
         starTransform = gameObject.GetComponent<Transform>();
         starRigidbody = gameObject.GetComponent<Rigidbody>();
         playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
         starThrowSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarThrowSFX);
-
     }
 
     void Update()
@@ -82,17 +86,30 @@ public class StarActions : MonoBehaviour
 
         if (isOnPlayer)
         {
-            //drop star sfx here
-
-            isOnPlayer = false;
-            starRigidbody.useGravity = true;
+            Drop();
         } else if (!isOnPlayer)
         {
-            //pick up star sfx here
-
-            isOnPlayer = true;
-            starRigidbody.useGravity = false;
+            Pickup();
         }
+    }
+
+    private void Pickup()
+    {
+        //pick up star sfx here
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarPickupSFX);
+        isOnPlayer = true;
+        starRigidbody.useGravity = false;
+    }
+
+    private void Drop()
+    {
+        //drop star sfx here
+
+        isOnPlayer = false;
+        starRigidbody.useGravity = true;
+
+        isFallingAndHasNotLanded = true;
+        SaveStateManager.Instance.Save();
     }
     public void Recall()
     {
@@ -136,10 +153,11 @@ public class StarActions : MonoBehaviour
             TravelCoroutine = TravelToDestination(newTargetDestination);
             StartCoroutine(TravelCoroutine);
 
-            starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
-            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
-            starThrowSFX.start();
+            //starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
+            //starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
+            //starThrowSFX.start();
 
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX);
         }
         
     }
@@ -172,8 +190,6 @@ public class StarActions : MonoBehaviour
         StopTravelToDestination(false);
     }
 
-
-
     public void StopTravelToDestination(bool isColliding)
     {
         StopCoroutine(TravelCoroutine);
@@ -181,20 +197,27 @@ public class StarActions : MonoBehaviour
         isTraveling = false;
         starRigidbody.useGravity = true;
 
+        //SFX
         starThrowSFX.setParameterByNameWithLabel("StarThrowState", isColliding ? "Colliding" : "Landing");
+        isFallingAndHasNotLanded = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Abyss"))
         {
-            SaveStateManager.Instance.Load();
+            if (!isOnPlayer) //if isOnPlayer is true, then player will also collide with abyss, which leads to death --> load save state
+            {
+                Recall(); //I put recall here instead of load so - Goobie
+                //SaveStateManager.Instance.Load();
+            }
         }
 
         if (other.gameObject.tag == "StarPickupTrigger" && !isOnPlayer && !isTraveling)
         {
-            isOnPlayer = true;
-            starRigidbody.useGravity = false;
+            //isOnPlayer = true;
+            //starRigidbody.useGravity = false;
+            Pickup();
         }
     }
 
@@ -239,19 +262,29 @@ public class StarActions : MonoBehaviour
         if (collision.gameObject.tag == "Button" && isTraveling)
         {
             collision.gameObject.GetComponent<ButtonScript>().Interact();
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding_Interactable");
             StopTravelToDestination(true);
+            return;
         }
 
         if (collision.gameObject.tag == "Lamp" && isTraveling)
         {
             collision.gameObject.GetComponent<LampScript>().Interact();
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding_Interactable");
             StopTravelToDestination(true);
+            return;
+        }
+
+        if (!isOnPlayer && isFallingAndHasNotLanded && collision.gameObject.CompareTag("Level Floor"))
+        {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarLandFloorSFX, Vector3.zero);
+            isFallingAndHasNotLanded = false;
         }
 
         if (isTraveling)
         {
             StopTravelToDestination(true);
-            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding");
+            starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Colliding_Regular");
         }
     }
 }

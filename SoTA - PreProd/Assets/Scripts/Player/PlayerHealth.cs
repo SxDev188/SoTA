@@ -1,4 +1,5 @@
 using FMOD.Studio;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,25 +7,34 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float timeWithoutStar = 10.0f;
-    [SerializeField] private float timeToResetLife = 3.0f;
+    [SerializeField] private float timeToResetLife = 0.5f;
+    [SerializeField] private float deathCooldownDuration = 1f;
     private float currentHealth;
     private float startingHealth = 1.0f;
     private StarActions starActions;
+    private PlayerController playerController;
     private EventInstance deathSFX;
     private EventInstance lowHealthWarningSFX;
-
+    private ParticleSystem respawnParticles;
+    public bool IsDead { get; private set; } = false;
 
     public float CurrentHealth { get { return currentHealth; } }
+
+    CooldownTimer deathCooldownTimer;
+    
 
     // Start is called before the first frame update
     private void Start()
     {
         GameObject star = GameObject.FindGameObjectWithTag("Star");
         starActions = star.GetComponent<StarActions>();
+        playerController = GetComponent<PlayerController>();
         currentHealth = startingHealth;
         deathSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.DeathSFX);
         lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
+        respawnParticles = GetComponentInChildren<ParticleSystem>();
 
+        deathCooldownTimer = new CooldownTimer(this); //sends in the monobehaviour object that will run the timers coroutine
     }
 
     // Update is called once per frame
@@ -70,9 +80,24 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
+        IsDead = true;
+        deathSFX.start();
+        starActions.IsOnPlayer = false;
+        playerController.SetDeathAnimationTrue();
+
+        deathCooldownTimer.Start(deathCooldownDuration, Respawn); //automatically runs the Respawn() method when timer is finished
+    }
+
+    public void Respawn()
+    {
         SaveStateManager.Instance.Load();
         currentHealth = startingHealth;
-        deathSFX.start();
+
+        //play respawn sfx here
+        playerController.SetDeathAnimationFalse();
+        StartCoroutine(PlayAndStopParticleBurst());
+
+        IsDead = false;
     }
 
     void PlayLowHealthWarningSound()
@@ -97,5 +122,12 @@ public class PlayerHealth : MonoBehaviour
                 lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
             }
         }
+    }
+
+    IEnumerator PlayAndStopParticleBurst()
+    {
+        respawnParticles.Play();
+        yield return new WaitForSeconds(0.1f); // wait for particles to spawn
+        respawnParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 }

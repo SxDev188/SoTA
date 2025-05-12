@@ -21,6 +21,7 @@ public class BoulderPlayerPushScript : MonoBehaviour
 
     private bool isBeingPlayerPushed = false;
     public bool IsBeingPlayerPushed { get { return isBeingPlayerPushed; } }
+    public bool IsCurrentlyMoving { get; private set; } = false;
 
     void Start()
     {
@@ -96,11 +97,13 @@ public class BoulderPlayerPushScript : MonoBehaviour
     IEnumerator PlayerPushInDirection_IEnumerator(Vector3 direction, float distance)
     {
         //boulderPushSFX.start();
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderSFX);
 
         Vector3 targetDestination = transform.position + direction * distance;
 
+        IsCurrentlyMoving = true;
         isBeingPlayerPushed = true;
-        boulderRigidbody.isKinematic = false;
+        //boulderRigidbody.isKinematic = false;
 
         while (Vector3.Distance(transform.position, targetDestination) > pushController.PushDestinationAcceptanceRadius)
         {
@@ -119,7 +122,9 @@ public class BoulderPlayerPushScript : MonoBehaviour
             yield return null;
         }
 
+        IsCurrentlyMoving = false;
         boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
+        //Debug.Log("JUST SNAPPED TO FLOOR FROM PLAYERPUSHSCRIPT");
 
         if (!playerController.IsGrounded() && boulderController.IsAttached)
         {
@@ -138,7 +143,7 @@ public class BoulderPlayerPushScript : MonoBehaviour
         }
 
         isBeingPlayerPushed = false;
-        boulderRigidbody.isKinematic = true;
+        //boulderRigidbody.isKinematic = true;
     }
 }
 

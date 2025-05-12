@@ -129,6 +129,20 @@ MonoBehaviour:
       Data3: -1359872622
       Data4: 1231198397
     Path: event:/SFX/Boulder/BoulderPushSFX
+  <BoulderAttachSFX>k__BackingField:
+    Guid:
+      Data1: 149276960
+      Data2: 1168256014
+      Data3: -2045586499
+      Data4: 1375929149
+    Path: event:/SFX/Boulder/BoulderAttachSFX
+  <BoulderDetachSFX>k__BackingField:
+    Guid:
+      Data1: -1649721144
+      Data2: 1139812046
+      Data3: 1271886475
+      Data4: -2085302461
+    Path: event:/SFX/Boulder/BoulderDetachSFX
   <LowHealthWarningSFX>k__BackingField:
     Guid:
       Data1: -1085689497
@@ -163,7 +177,21 @@ MonoBehaviour:
       Data2: 1210510344
       Data3: -1802214987
       Data4: 474407436
-    Path: event:/SFX/Star/StarThrow
+    Path: event:/SFX/Star/Star Throw/StarThrow
+  <StarThrowAttackSFX>k__BackingField:
+    Guid:
+      Data1: 419052247
+      Data2: 1079560443
+      Data3: -428739946
+      Data4: 683216428
+    Path: event:/SFX/Star/Star Throw/StarThrowAttack
+  <StarLandFloorSFX>k__BackingField:
+    Guid:
+      Data1: -627151226
+      Data2: 1130779902
+      Data3: 1900929153
+      Data4: 1337258590
+    Path: event:/SFX/Star/Star Throw/StarLand
   <StarShimmerSFX>k__BackingField:
     Guid:
       Data1: 407308356
@@ -171,3 +199,45 @@ MonoBehaviour:
       Data3: -1642638664
       Data4: 261661244
     Path: event:/SFX/Star/StarShimmer
+  <StarRecallSuccessSFX>k__BackingField:
+    Guid:
+      Data1: -1766778480
+      Data2: 1253232023
+      Data3: 1441760941
+      Data4: 2024998391
+    Path: event:/SFX/Star/Star Recall/StarRecallSuccess
+  <StarRecallFailSFX>k__BackingField:
+    Guid:
+      Data1: 1156003719
+      Data2: 1080802008
+      Data3: 443417004
+      Data4: -1913946174
+    Path: event:/SFX/Star/Star Recall/StarRecallFail
+  <StarPickupSFX>k__BackingField:
+    Guid:
+      Data1: -1025954770
+      Data2: 1244782409
+      Data3: 1139689115
+      Data4: -1146006044
+    Path: event:/SFX/Star/StarPickup
+  <StarGravityPullSFX>k__BackingField:
+    Guid:
+      Data1: 1460858781
+      Data2: 1121662732
+      Data3: -1453459548
+      Data4: 916968847
+    Path: event:/SFX/StarGravityPull
+  <SpikesAppearSFX>k__BackingField:
+    Guid:
+      Data1: -1893756287
+      Data2: 1341463142
+      Data3: 1950096294
+      Data4: -795944154
+    Path: event:/SFX/Spikes/SpikesAppearSFX
+  <SpikesDisappearSFX>k__BackingField:
+    Guid:
+      Data1: -582264135
+      Data2: 1336075317
+      Data3: 61188006
+      Data4: 496474685
+    Path: event:/SFX/Spikes/SpikesDisappearSFX

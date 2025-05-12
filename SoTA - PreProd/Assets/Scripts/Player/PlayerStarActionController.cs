@@ -55,6 +55,13 @@ public class PlayerStarActionController : MonoBehaviour
     private bool Controller = false;
     private bool isBeingGravityPulled = false;
 
+    public bool IsBeingGravityPulled
+    {
+        get => isBeingGravityPulled;
+        private set => isBeingGravityPulled = value;
+    }
+
+
     //private float healthChangeTimer = 0.0f;
 
     private Vector3 mouseDownPosition;
@@ -72,6 +79,10 @@ public class PlayerStarActionController : MonoBehaviour
 
     private IEnumerator GravityPull_IEnumerator;
 
+    private PlayerHealth playerHealth;
+
+    private EventInstance gravityPullSFX;
+
     private bool smoothAim = false;
     // ENGINE METHODS ====================================== // 
 
@@ -82,7 +93,10 @@ public class PlayerStarActionController : MonoBehaviour
         starTransform = star.GetComponent<Transform>();
 
         playerController = this.GetComponent<PlayerController>();
+        playerHealth = this.GetComponent<PlayerHealth>();
         playerInput = this.GetComponent<PlayerInput>();
+
+        gravityPullSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarGravityPullSFX);
 
         InitializeLineRenderer();
         
@@ -201,6 +215,11 @@ public class PlayerStarActionController : MonoBehaviour
 
     IEnumerator GravityPullToDestination(Vector3 targetDestination)
     {
+        float gravityPullCompletion = 0f;                                                           //for sfx
+        float initialDistanceToTarget = Vector3.Distance(transform.position, targetDestination);    //for sfx
+        gravityPullSFX.setParameterByName("GravityPullCompletion", gravityPullCompletion);
+        gravityPullSFX.start();
+
         playerController.inputLocked = true; //Locks input and movement during gravity pull
         playerController.disableGravityDuringPull = true;         //Disables gravity
         isBeingGravityPulled = true;
@@ -216,6 +235,10 @@ public class PlayerStarActionController : MonoBehaviour
             playerController.CharacterController.Move(move * Time.deltaTime);
 
             float distanceToTarget = Vector3.Distance(transform.position, targetDestination);
+
+            gravityPullCompletion = 1 - (distanceToTarget / initialDistanceToTarget);                 //for sfx
+            gravityPullSFX.setParameterByName("GravityPullCompletion", gravityPullCompletion);  //for sfx
+
 
             if (distanceToTarget <= gravityPullAcceptanceRadius)                                                                                                             
             {
@@ -235,6 +258,7 @@ public class PlayerStarActionController : MonoBehaviour
             yield return null;
         }
 
+        gravityPullSFX.stop(STOP_MODE.ALLOWFADEOUT);
         StopSuccessfulGravityPullToDestination();
     }
 
@@ -318,9 +342,10 @@ public class PlayerStarActionController : MonoBehaviour
 
     void ThrowStar()
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         if (starActions.IsOnPlayer && isAiming)
         {
-            
             isAiming = false;
             throwTargetDestination = transform.position + throwDirection;
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
@@ -345,6 +370,8 @@ public class PlayerStarActionController : MonoBehaviour
     }
     void OnCarryStarToggle(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         //if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
         //{
         //    starActions.CarryToggle();
@@ -363,12 +390,20 @@ public class PlayerStarActionController : MonoBehaviour
 
         if (!recallAllowed)
         {
+            //SFX for recall attempt when not allowed
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarRecallFailSFX);
             return;
         }
 
         if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
         {
             starActions.Recall();
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarRecallSuccessSFX);
+        }
+        else
+        {
+            //SFX for recall attempt but is too far away
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarRecallFailSFX);
         }
     }
 
@@ -390,6 +425,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnLeftMouseDown(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
 
         if (starActions.IsOnPlayer)
         {
@@ -401,6 +437,8 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnRightMouseDown(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         if (!strongThrowAllowed)
         {
             return;
@@ -417,6 +455,8 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnRightMouseRelease(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         if (!strongThrowAllowed)
         {
             return;
@@ -435,6 +475,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnGravityPull(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
 
         if (!gravityPullAllowed ||starActions.IsOnPlayer || starActions.IsTraveling)
         {
@@ -452,6 +493,8 @@ public class PlayerStarActionController : MonoBehaviour
     
     void OnAimInput(InputValue input) //For Controller
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         if (starActions.IsOnPlayer)
         {
             isAiming = true;
@@ -487,6 +530,8 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnAimRelease(InputValue input)
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         if (Vector3.Distance(aimInput, Vector3.zero) < 0.2f)
         {
             isAiming = false;
@@ -501,11 +546,15 @@ public class PlayerStarActionController : MonoBehaviour
 
     void OnThrowRelease()
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         ThrowStar();
     }
 
     void OnStrongThrow()
     {
+        if (playerHealth.IsDead) return; //so player cannot do do this action when dead
+
         if (!strongThrowAllowed)
         {
             return;
