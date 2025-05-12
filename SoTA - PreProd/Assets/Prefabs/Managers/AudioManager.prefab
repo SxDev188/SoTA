@@ -220,6 +220,13 @@ MonoBehaviour:
       Data3: 1139689115
       Data4: -1146006044
     Path: event:/SFX/Star/StarPickup
+  <StarGravityPullSFX>k__BackingField:
+    Guid:
+      Data1: 1460858781
+      Data2: 1121662732
+      Data3: -1453459548
+      Data4: 916968847
+    Path: event:/SFX/StarGravityPull
   <SpikesAppearSFX>k__BackingField:
     Guid:
       Data1: -1893756287

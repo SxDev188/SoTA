@@ -81,6 +81,8 @@ public class PlayerStarActionController : MonoBehaviour
 
     private PlayerHealth playerHealth;
 
+    private EventInstance gravityPullSFX;
+
     private bool smoothAim = false;
     // ENGINE METHODS ====================================== // 
 
@@ -93,6 +95,8 @@ public class PlayerStarActionController : MonoBehaviour
         playerController = this.GetComponent<PlayerController>();
         playerHealth = this.GetComponent<PlayerHealth>();
         playerInput = this.GetComponent<PlayerInput>();
+
+        gravityPullSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarGravityPullSFX);
 
         InitializeLineRenderer();
         
@@ -207,6 +211,11 @@ public class PlayerStarActionController : MonoBehaviour
 
     IEnumerator GravityPullToDestination(Vector3 targetDestination)
     {
+        float gravityPullCompletion = 0f;                                                           //for sfx
+        float initialDistanceToTarget = Vector3.Distance(transform.position, targetDestination);    //for sfx
+        gravityPullSFX.setParameterByName("GravityPullCompletion", gravityPullCompletion);
+        gravityPullSFX.start();
+
         playerController.inputLocked = true; //Locks input and movement during gravity pull
         playerController.disableGravityDuringPull = true;         //Disables gravity
         isBeingGravityPulled = true;
@@ -222,6 +231,10 @@ public class PlayerStarActionController : MonoBehaviour
             playerController.CharacterController.Move(move * Time.deltaTime);
 
             float distanceToTarget = Vector3.Distance(transform.position, targetDestination);
+
+            gravityPullCompletion = 1 - (distanceToTarget / initialDistanceToTarget);                 //for sfx
+            gravityPullSFX.setParameterByName("GravityPullCompletion", gravityPullCompletion);  //for sfx
+
 
             if (distanceToTarget <= gravityPullAcceptanceRadius)                                                                                                             
             {
@@ -241,6 +254,7 @@ public class PlayerStarActionController : MonoBehaviour
             yield return null;
         }
 
+        gravityPullSFX.stop(STOP_MODE.ALLOWFADEOUT);
         StopSuccessfulGravityPullToDestination();
     }
 
