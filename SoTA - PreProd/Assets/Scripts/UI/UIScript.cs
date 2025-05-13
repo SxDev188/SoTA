@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -39,17 +38,6 @@ public class UIScript : MonoBehaviour
     private void Start()
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
-
-        var playerInput = playerObject.GetComponent<PlayerInput>();
-
-        if (playerInput.currentActionMap.name == "PlayerControlController")
-        {
-            isUsingController = true;
-        }
-        else
-        {
-            isUsingController = false;
-        }
     }
 
     private void Update() // Inefficient but works

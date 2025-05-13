@@ -44,15 +44,11 @@ public class StarActions : MonoBehaviour
 
     [SerializeField] private float frontOfPlayerOffset = 1f;
     [SerializeField] private Vector3 onPlayerOffset = new Vector3(0, 3, 0);
-    [SerializeField] private float dropStarCooldownDuration = 0.5f;
-
 
     // STORING/VALUE VARIABLES
     public IEnumerator TravelCoroutine;
     private float fixedYValueWhenThrown;
     private EventInstance starThrowSFX;
-    private bool canBePickedUp = false;
-    private CooldownTimer dropStarCooldown;
 
     private bool inWall = false;
 
@@ -66,7 +62,6 @@ public class StarActions : MonoBehaviour
         starRigidbody = gameObject.GetComponent<Rigidbody>();
         playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
         starThrowSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.StarThrowSFX);
-        dropStarCooldown = new CooldownTimer(this);
     }
 
     void Update()
@@ -100,11 +95,6 @@ public class StarActions : MonoBehaviour
 
     private void Pickup()
     {
-        if(!canBePickedUp)
-        {
-            return;
-        }
-
         //pick up star sfx here
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarPickupSFX);
         isOnPlayer = true;
@@ -120,9 +110,6 @@ public class StarActions : MonoBehaviour
 
         isFallingAndHasNotLanded = true;
         SaveStateManager.Instance.Save();
-
-        canBePickedUp = false;
-        dropStarCooldown.Start(dropStarCooldownDuration, () => { canBePickedUp = true; });
     }
     public void Recall()
     {
