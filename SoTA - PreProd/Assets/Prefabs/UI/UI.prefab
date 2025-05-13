@@ -5992,7 +5992,7 @@ GameObject:
   - component: {fileID: 2366623977709209945}
   m_Layer: 5
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6138,6 +6138,9 @@ MonoBehaviour:
   pauseMenuStartObject: {fileID: 9207130661813539064}
   menuList: {fileID: 2887356576611412118}
   HUD: {fileID: 8396399497197798342}
+  mainMenuSelection: {fileID: 1732586574451680376}
+  endMenuSelection: {fileID: 657700046200481170}
+  pauseMenuSelection: {fileID: 5913387587694510924}
 --- !u!1 &3249929884371012838
 GameObject:
   m_ObjectHideFlags: 0
@@ -8326,6 +8329,18 @@ MonoBehaviour:
           m_StringArgument: StartScene
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 2366623977709209945}
+        m_TargetAssemblyTypeName: UIScript, Assembly-CSharp
+        m_MethodName: Focus
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1732586574451680376}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4292241801198594926
 GameObject:
   m_ObjectHideFlags: 0
@@ -16280,7 +16295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 5913387587694510924}
+  m_FirstSelected: {fileID: 1732586574451680376}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!114 &8744645591804846032

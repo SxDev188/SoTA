@@ -1,14 +1,19 @@
 using System.Collections;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// Author: Sixten Olsson
+/// Ignore all the stupid comments or names :p
+/// </summary>
+
 public class UIScript : MonoBehaviour
 {
     // TWEAKABLE VARIABLES
-
     [Header("Start Menu Items")]
     [SerializeField] private GameObject mainMenuObject;
     [SerializeField] private GameObject mainMenuStartObject;
@@ -27,29 +32,40 @@ public class UIScript : MonoBehaviour
     [Header("Other Menus Items")]
     [SerializeField] private GameObject HUD;
 
+    [Header("First Selected Items")]
+    [SerializeField] private GameObject mainMenuSelection;
+    [SerializeField] private GameObject endMenuSelection;
+    [SerializeField] private GameObject pauseMenuSelection;
+
+
     // STORING/VALUE VARIABLES
     private bool isPaused;
     private GameObject playerObject;
 
     private bool inStartScene = false;
     private bool inEndScene = false;
-    private static bool isUsingController = true; // Behövs endast 1 + static tar inte bort skiten lol
+    private static bool isUsingController = true;
+
 
     // ENGINE METHODS ====================================== // 
+    public static UIScript Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("Destroying duplicate UIScript");
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
-
-        var playerInput = playerObject.GetComponent<PlayerInput>();
-
-        if (playerInput.currentActionMap.name == "PlayerControlController")
-        {
-            isUsingController = true;
-        }
-        else
-        {
-            isUsingController = false;
-        }
     }
 
     private void Update() // Inefficient but works
@@ -75,6 +91,7 @@ public class UIScript : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "StartScene")
         {
+
             inStartScene = true;
             inEndScene = false;
 
@@ -83,6 +100,12 @@ public class UIScript : MonoBehaviour
             HUD.SetActive(false);
             endMenuObject.SetActive(false);
             pauseMenuObject.SetActive(false);
+
+            if(EventSystem.current.firstSelectedGameObject != mainMenuSelection)
+            {
+                Focus(mainMenuSelection);
+            }
+            
         }
         else if (SceneManager.GetActiveScene().name == "EndScene")
         {
@@ -94,9 +117,16 @@ public class UIScript : MonoBehaviour
             HUD.SetActive(false);
             mainMenuObject.SetActive(false);
             pauseMenuObject.SetActive(false);
+
+            if (EventSystem.current.firstSelectedGameObject != endMenuSelection)
+            {
+                Focus(endMenuSelection);
+            }
+
         }
         else
         {
+
             inStartScene = false;
             inEndScene = false;
 
@@ -104,9 +134,13 @@ public class UIScript : MonoBehaviour
 
             mainMenuObject.SetActive(false);
             endMenuObject.SetActive(false);
+
+            if (EventSystem.current.firstSelectedGameObject != pauseMenuSelection)
+            {
+                Focus(pauseMenuSelection);
+            }
         }
     }
-
 
     private void OnPauseGame(InputValue value) 
     {
@@ -180,7 +214,10 @@ public class UIScript : MonoBehaviour
 
     private IEnumerator FocusNextFrame(GameObject objectToFocus)
     {
-        yield return null; 
+        yield return null;
+
+        while (objectToFocus == null || !objectToFocus.activeInHierarchy)
+            yield return null;
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(objectToFocus);
