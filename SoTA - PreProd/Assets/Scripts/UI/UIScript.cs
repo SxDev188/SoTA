@@ -133,6 +133,8 @@ public class UIScript : MonoBehaviour
 
     public void LoadLevel(string levelName)
     {
+        if (isPaused)
+            UnPauseGame();
         SceneManager.LoadScene(levelName);
     }
 
