@@ -104,7 +104,7 @@ public class BoulderStarPushScript : MonoBehaviour
         //Without this, SnapToFloor() below would trigger a false OnTriggerExit and immediate OnTriggerEnter messing up both SFX and particle effects
 
         boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
-
+        pushController.CheckAllSides();
         yield return new WaitForSeconds(starPushCooldown);
 
         StopStarPush();

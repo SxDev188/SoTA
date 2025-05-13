@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class BoulderPushController : MonoBehaviour
         boulderPlayerPushScript = GetComponent<BoulderPlayerPushScript>();
         boulderController = GetComponent<BoulderController>();
         pushParticles = GetComponentInChildren<ParticleSystem>();
+        
     }
 
     private void Update()
@@ -99,10 +101,48 @@ public class BoulderPushController : MonoBehaviour
         {
             boulderPlayerPushScript.StopPlayerPush();
         }
+        
+
     }
 
+    public void CheckAllSides()
+    {
+        if (!CheckForValidPushDestination(new Vector3(1, 0, 0), 1f))
+        {
+            boulderController.SideXPositiveBlocked = true;
+        }
+        else
+        {
+            boulderController.SideXPositiveBlocked = false;
+        }
+        if (!CheckForValidPushDestination(new Vector3(-1, 0, 0), 1f))
+        {
+            boulderController.SideXNegativeBlocked = true;
+        }
+        else
+        {
+            boulderController.SideXNegativeBlocked = false;
+        }
+        if (!CheckForValidPushDestination(new Vector3(0, 0, 1), 1f))
+        {
+            boulderController.SideZPositiveBlocked = true;
+        }
+        else
+        {
+            boulderController.SideZPositiveBlocked = false;
+        }
+        if (!CheckForValidPushDestination(new Vector3(0, 0, -1), 1f))
+        {
+            boulderController.SideZNegativeBlocked = true;
+        }
+        else
+        {
+            boulderController.SideZNegativeBlocked = false;
+        }
+    }
     void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.gameObject.tag == "Abyss")
         {
             return;

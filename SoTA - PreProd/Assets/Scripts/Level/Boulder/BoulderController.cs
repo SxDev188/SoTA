@@ -25,6 +25,53 @@ public class BoulderController : MonoBehaviour, IInteractable
     private BoulderStarPushScript boulderStarPushScript;
     private BoulderPlayerPushScript boulderPlayerPushScript;
 
+    private GameObject sidePushIndicatorXPositive;
+    private GameObject sidePushIndicatorXNegative;
+    private GameObject sidePushIndicatorZPositive;
+    private GameObject sidePushIndicatorZNegative;
+
+    private bool sideXPositiveBlocked = false;
+    private bool sideXNegativeBlocked = false;
+    private bool sideZPositiveBlocked = false;
+    private bool sideZNegativeBlocked = false;
+
+    public bool SideXPositiveBlocked
+    {
+        get { return sideXPositiveBlocked; } 
+        set 
+        { 
+            sideXPositiveBlocked = value;
+            sidePushIndicatorXPositive.SetActive(!value);
+        }
+    }
+    public bool SideXNegativeBlocked
+    {
+        get { return sideXNegativeBlocked; }
+        set
+        {
+            sideXNegativeBlocked = value;
+            sidePushIndicatorXNegative.SetActive(!value);
+        }
+    }
+    public bool SideZPositiveBlocked
+    {
+        get { return sideZPositiveBlocked; }
+        set
+        {
+            sideZPositiveBlocked = value;
+            sidePushIndicatorZPositive.SetActive(!value);
+        }
+    }
+    public bool SideZNegativeBlocked
+    {
+        get { return sideZNegativeBlocked; }
+        set
+        {
+            sideZNegativeBlocked = value;
+            sidePushIndicatorZNegative.SetActive(!value);
+        }
+    }
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -35,6 +82,10 @@ public class BoulderController : MonoBehaviour, IInteractable
         boulderPlayerPushScript = GetComponent<BoulderPlayerPushScript>();
 
         boulderRigidbody = GetComponent<Rigidbody>();
+        sidePushIndicatorXPositive = transform.GetChild(6).gameObject;
+        sidePushIndicatorXNegative = transform.GetChild(7).gameObject;
+        sidePushIndicatorZPositive = transform.GetChild(8).gameObject;
+        sidePushIndicatorZNegative = transform.GetChild(9).gameObject;
     }
 
     private void Update()
