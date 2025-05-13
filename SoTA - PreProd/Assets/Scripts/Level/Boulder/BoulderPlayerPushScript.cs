@@ -125,7 +125,7 @@ public class BoulderPlayerPushScript : MonoBehaviour
         IsCurrentlyMoving = false;
         boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
         //Debug.Log("JUST SNAPPED TO FLOOR FROM PLAYERPUSHSCRIPT");
-
+        pushController.CheckAllSides();
         if (!playerController.IsGrounded() && boulderController.IsAttached)
         {
             boulderController.Detach();
