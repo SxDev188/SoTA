@@ -122,7 +122,12 @@ public class PlayerController : MonoBehaviour
         isMoving = true;
         SetMovingAnimationTrue();
 
+        
+
         Vector2 input2d = input.Get<Vector2>();
+
+
+
         movementInput = new Vector3(input2d.x, 0, input2d.y);
 
         if (!isMovementLocked)

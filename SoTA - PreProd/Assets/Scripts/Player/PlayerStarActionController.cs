@@ -104,8 +104,12 @@ public class PlayerStarActionController : MonoBehaviour
         {
             Controller = true;
         }
+        else
+        {
+            Controller = false;
+        }
 
-        lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
+            lowHealthWarningSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.LowHealthWarningSFX);
 
         if (recallAllowed)
         {
