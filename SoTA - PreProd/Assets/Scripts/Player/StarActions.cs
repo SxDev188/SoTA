@@ -51,7 +51,7 @@ public class StarActions : MonoBehaviour
     public IEnumerator TravelCoroutine;
     private float fixedYValueWhenThrown;
     private EventInstance starThrowSFX;
-    private bool canBePickedUp = false;
+    private bool canBePickedUp = true;
     private CooldownTimer dropStarCooldown;
 
     private bool inWall = false;
@@ -226,7 +226,7 @@ public class StarActions : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag == "StarPickupTrigger" && !isOnPlayer && !isTraveling)
+        if (other.gameObject.tag == "StarPickupTrigger" && !isOnPlayer && !isTraveling && !playerTransform.GetComponent<PlayerStarActionController>().IsBeingGravityPulled)
         {
             //isOnPlayer = true;
             //starRigidbody.useGravity = false;
