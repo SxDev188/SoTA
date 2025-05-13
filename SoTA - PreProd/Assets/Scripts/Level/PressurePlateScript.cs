@@ -16,13 +16,16 @@ public class PressurePlateScript : MonoBehaviour
 
     private EventInstance pressurePlateSFX;
 
-
+    //flags used for SFX so we only play spike sound effect (for example) once for all spikes being activated by this button
+    private bool isConnectedToSpikes = false; //is set automatically in CheckConnectedPuzzleElements
+    private bool spikesStartAsActive = false; //is set automatically in CheckConnectedPuzzleElements
     private void Start()
     {
         originalPosition = transform.position;
         pressurePlateParticles = GetComponentInChildren<ParticleSystem>();
         FindParticleColor();
         pressurePlateSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.PressurePlateSFX);
+        CheckConnectedPuzzleElements();
     }
 
     void OnTriggerEnter(Collider other)
@@ -51,8 +54,9 @@ public class PressurePlateScript : MonoBehaviour
 
                 pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushDown");
                 pressurePlateSFX.start();
-                Debug.Log("TRIGGER ENTER RUNNING INTERACT() ---> " + other.gameObject.tag);
+                //Debug.Log("TRIGGER ENTER RUNNING INTERACT() ---> " + other.gameObject.tag);
                 Interact();
+                PlayActivationSFX();
             }
         }
     }
@@ -80,8 +84,8 @@ public class PressurePlateScript : MonoBehaviour
             pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushUp");
             pressurePlateSFX.start();
 
-            Debug.Log("TRIGGER EXIT RUNNING INTERACT() ---> " + other.gameObject.tag);
-
+            //Debug.Log("TRIGGER EXIT RUNNING INTERACT() ---> " + other.gameObject.tag);
+            PlayDeactivationSFX();
 
             Interact();
         }
@@ -137,6 +141,56 @@ public class PressurePlateScript : MonoBehaviour
         else
         {
             Debug.LogError("pressurePlate or PressurePlateParticles not found in the hierarchy.");
+        }
+    }
+
+    private void CheckConnectedPuzzleElements() //Only to be used for SFX
+    {
+        isConnectedToSpikes = false;
+
+        foreach (GameObject element in puzzleElements)
+        {
+            if (element.gameObject.CompareTag("Spikes"))
+            {
+                isConnectedToSpikes = true;
+
+                if (element.gameObject.GetComponent<SpikeScript>().StartsAsActive)
+                {
+                    spikesStartAsActive = true;
+                }
+
+                break; //for the purposes of SFX we only care about the first spike, so we break the loop here
+            }
+        }
+    }
+
+    private void PlayActivationSFX()
+    {
+        if (isConnectedToSpikes)
+        {
+            if (spikesStartAsActive)
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesDisappearSFX);
+            }
+            else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesAppearSFX);
+            }
+        }
+    }
+
+    private void PlayDeactivationSFX()
+    {
+        if (isConnectedToSpikes)
+        {
+            if (spikesStartAsActive)
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesAppearSFX);
+            }
+            else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.SpikesDisappearSFX);
+            }
         }
     }
 }
