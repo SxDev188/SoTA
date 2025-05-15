@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
-  m_Name: TL1_Welcome
+  m_Name: TL1_Interact
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: 'Welcome to the Abyss!
+  - dialouge: 'Interact with objects
 
-'
-  - dialouge: 'Move around with WASD or Left Joystick.
+      Keyboard: Press E
+
+      Controller:
+      Press A'
+  - dialouge: 'Try pressing that button over there!
 
 '
