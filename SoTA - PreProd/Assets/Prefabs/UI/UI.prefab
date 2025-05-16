@@ -5047,7 +5047,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: (Press interaction button to fast forward)
+  m_text: '(interaction button) to fast forward)
+
+    (Esq) to exit'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c865595906a169c43ae302cc05dd8265, type: 2}
   m_sharedMaterial: {fileID: -902939998782830617, guid: c865595906a169c43ae302cc05dd8265,
