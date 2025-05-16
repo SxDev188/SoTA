@@ -4,8 +4,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Author: Sixten
+/// Ignore all the stupid comments or names :p
+/// </summary>
+
 public class DialogueManager : MonoBehaviour
 {
+    //IIRC this whole source file is from the tutorial but with minor (if any) changes
+    // Written by myself though
+
     // EXPOSED VARIABLES
     public static DialogueManager Instance { get; private set; }
     public static bool InADialogue { 
@@ -29,7 +37,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private float textDelay = 0.1f;
 
     // ENGINE METHODS ====================================== // 
-    void Awake()
+    void Awake() // Singleton moment
     {
         if (Instance != null && Instance != this)
         {
@@ -42,10 +50,22 @@ public class DialogueManager : MonoBehaviour
         dialogueQueue = new Queue<SO_Dialogue.Info>();
 
         playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+
     }
 
     private void Update()
     {
+
+        if (dialogueText == null)
+        {
+            dialogueText = FinderHelper.FindInactiveByTag("DialogueText")?.GetComponent<TMP_Text>();
+        }
+
+        if (dialogueBox == null)
+        {
+            dialogueBox = FinderHelper.FindInactiveByTag("DialogueBox");
+        }
+
         if (QuitTalking)
         {
             EndDialogue();
@@ -67,11 +87,13 @@ public class DialogueManager : MonoBehaviour
         completedDialogue = info.dialouge;
 
         typingLetters = true;
+        
         for (int i = 0; i < info.dialouge.ToCharArray().Length; i++)
         {
             yield return new WaitForSeconds(textDelay);
             dialogueText.text += info.dialouge.ToCharArray()[i];
         }
+        
         typingLetters = false;
     }
 
@@ -104,10 +126,12 @@ public class DialogueManager : MonoBehaviour
         dialogueBox.SetActive(true);
         inADialogue = true;
         dialogueQueue.Clear();
+        
         foreach (SO_Dialogue.Info line in dialogue.dialogueInfo)
         {
             dialogueQueue.Enqueue(line);
         }
+        
         DeQueue();
     }
 
@@ -120,11 +144,13 @@ public class DialogueManager : MonoBehaviour
             typingLetters = false;
             return;
         }
+        
         if (dialogueQueue.Count == 0)
         {
             EndDialogue();
             return;
         }
+        
         SO_Dialogue.Info info = dialogueQueue.Dequeue();
         completedDialogue = info.dialouge;
         dialogueText.text = "";
