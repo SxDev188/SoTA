@@ -29,6 +29,7 @@ public class DialogueManager : MonoBehaviour
     private static bool inADialogue;
     private string completedDialogue;
     private Queue<SO_Dialogue.Info> dialogueQueue;
+    [SerializeField] private PlayerHealth playerHealth;
 
     // TWEAKABLE VARIABLES
     [SerializeField] private GameObject dialogueBox;
@@ -47,6 +48,8 @@ public class DialogueManager : MonoBehaviour
         Instance = this;
 
         dialogueQueue = new Queue<SO_Dialogue.Info>();
+
+        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     private void Update()
@@ -87,6 +90,9 @@ public class DialogueManager : MonoBehaviour
         GameObject.FindWithTag("Player").GetComponent<PlayerInput>().enabled = true;
         dialogueBox.SetActive(false);
         inADialogue = false;
+
+        //To stop player dying while reading lore tile
+        playerHealth.ResumeHealthDrain();
     }
 
     public void CompleteText()
@@ -100,6 +106,9 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
+
+        //To stop player dying while reading lore tile
+        playerHealth.PauseHealthDrain();
 
         GameObject.FindWithTag("Player").GetComponent<PlayerInput>().enabled = false;
         dialogueBox.SetActive(true);
