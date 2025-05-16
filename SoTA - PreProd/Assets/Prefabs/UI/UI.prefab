@@ -179,7 +179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -400}
+  m_AnchoredPosition: {x: 0, y: -366}
   m_SizeDelta: {x: 480, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5233631449013537995
@@ -6155,9 +6155,6 @@ MonoBehaviour:
   pauseMenuStartObject: {fileID: 9207130661813539064}
   menuList: {fileID: 2887356576611412118}
   HUD: {fileID: 8396399497197798342}
-  mainMenuSelection: {fileID: 1732586574451680376}
-  endMenuSelection: {fileID: 657700046200481170}
-  pauseMenuSelection: {fileID: 5913387587694510924}
 --- !u!1 &3249929884371012838
 GameObject:
   m_ObjectHideFlags: 0
