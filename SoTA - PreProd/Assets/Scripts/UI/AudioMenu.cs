@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 /// <summary>
-/// Author: Sixten
+/// Author: Sixten & Gabbriel
 /// Ignore all the stupid comments or names :p
 /// </summary>
 
