@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 
 
 /// <summary>
-/// Author: Sixten Olsson
+/// Author: Sixten
 /// Ignore all the stupid comments or names :p
 /// </summary>
 
 public class UIScript : MonoBehaviour
 {
-    // TWEAKABLE VARIABLES
+    // TWEAKABLE VARIABLES -- Unity editor
     [Header("Start Menu Items")]
     [SerializeField] private GameObject mainMenuObject;
     [SerializeField] private GameObject mainMenuStartObject;
@@ -50,7 +50,7 @@ public class UIScript : MonoBehaviour
     // ENGINE METHODS ====================================== // 
     public static UIScript Instance { get; private set; }
 
-    private void Awake()
+    private void Awake() // we only want 1 UI object in the scene
     {
         if (Instance != null && Instance != this)
         {
@@ -63,35 +63,38 @@ public class UIScript : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+    private void Start() // Get the player object @ start
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void Update() // Inefficient but works
+    private void Update() // Inefficient but works. 
     {
-        if(playerObject == null) // Try and find the player object again
+        if(playerObject == null) // Try and find the player object again (sometimes we lose him/her)
         {
             playerObject = GameObject.FindGameObjectWithTag("Player");
         }
         else
         {
-            var playerInput = playerObject.GetComponent<PlayerInput>();
+            var playerInput = playerObject.GetComponent<PlayerInput>(); // player input component needs to be stored in it's own variable for some reason
 
-            if (isUsingController && playerInput.currentActionMap.name != "PlayerControlController")
+            if(playerInput != null && playerInput.isActiveAndEnabled) // fix null reference exception
             {
-                playerInput.SwitchCurrentActionMap("PlayerControlController");
-            }
-            else if (!isUsingController && playerInput.currentActionMap.name != "New action map")
-            {
-                playerInput.SwitchCurrentActionMap("New action map");
+                if (isUsingController && playerInput.currentActionMap.name != "PlayerControlController")
+                {
+                    playerInput.SwitchCurrentActionMap("PlayerControlController");
+                }
+                else if (!isUsingController && playerInput.currentActionMap.name != "New action map")
+                {
+                    playerInput.SwitchCurrentActionMap("New action map");
+                }
             }
         }
 
-
+        // This is supid. This would look a lot cleaner with onsceneload events or similar and not checking every frame, but time constraints :/
         if (SceneManager.GetActiveScene().name == "StartScene")
         {
-
+            // Events could've been used, but bools go brr
             inStartScene = true;
             inEndScene = false;
 
@@ -101,7 +104,7 @@ public class UIScript : MonoBehaviour
             endMenuObject.SetActive(false);
             pauseMenuObject.SetActive(false);
 
-            if(EventSystem.current.firstSelectedGameObject != mainMenuSelection)
+            if(EventSystem.current.firstSelectedGameObject != mainMenuSelection) // Sometimes the focus is just not there... bug fix
             {
                 Focus(mainMenuSelection);
             }
@@ -124,9 +127,8 @@ public class UIScript : MonoBehaviour
             }
 
         }
-        else
+        else // In game/levels
         {
-
             inStartScene = false;
             inEndScene = false;
 
@@ -160,15 +162,15 @@ public class UIScript : MonoBehaviour
     }
 
     // METHODS ====================================== //
-    public void QuitGame()
+    public void QuitGame() // I think this is a duplicate of code, but whatever :P
     {
         Application.Quit();
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
-    public void UnPauseGame()
+    public void UnPauseGame() // This method is from a tutorial workshop but with modifications to work with our game
     {
         isPaused = false;
         Time.timeScale = 1;
@@ -177,14 +179,14 @@ public class UIScript : MonoBehaviour
         ResetPauseUI();
     }
 
-    public void LoadLevel(string levelName)
+    public void LoadLevel(string levelName) // This method is from a tutorial workshop but with modifications to work with our game
     {
         if (isPaused)
             UnPauseGame();
         SceneManager.LoadScene(levelName);
     }
 
-    private void PauseGame()
+    private void PauseGame() // This method is from a tutorial workshop but with modifications to work with our game
     {
         isPaused = true;
         Time.timeScale = 0;
@@ -192,7 +194,7 @@ public class UIScript : MonoBehaviour
         pauseMenuObject.SetActive(true);
     }
 
-    private void ResetPauseUI()
+    private void ResetPauseUI() // This method is from a tutorial workshop but with modifications to work with our game
     {
         for (int i = 0; i < menuList.transform.childCount; i++)
         {
@@ -212,18 +214,18 @@ public class UIScript : MonoBehaviour
         StartCoroutine(FocusNextFrame(objectToFocus));
     }
 
-    private IEnumerator FocusNextFrame(GameObject objectToFocus)
+    private IEnumerator FocusNextFrame(GameObject objectToFocus) // Stupid function
     {
-        yield return null;
+        yield return null; // UI moment. We need to wait a frame sometimes to gain focus
 
-        while (objectToFocus == null || !objectToFocus.activeInHierarchy)
+        while (objectToFocus == null || !objectToFocus.activeInHierarchy) // And sometimes even longer (why unity devs?)
             yield return null;
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(objectToFocus);
+        EventSystem.current.SetSelectedGameObject(null); // UI moment again
+        EventSystem.current.SetSelectedGameObject(objectToFocus); // Now we finally focus on the object in the menu
     }
 
-    public void IsOnController()
+    public void IsOnController() // :O what can this code do!
     {
         isUsingController = !isUsingController;
     }

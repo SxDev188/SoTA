@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Author: Sixten
+/// Ignore all the stupid comments or names :p
+/// </summary>
+
 public class HighlighterScript : MonoBehaviour
 {
     [Tooltip("Renderer to highlight. If left empty, the first Renderer in children will be used.")]
@@ -14,22 +19,22 @@ public class HighlighterScript : MonoBehaviour
 
     private void Awake()
     {
-        if (targetRenderer == null)
+        if (targetRenderer == null) // if null, we find renderer in childer object
         {
             targetRenderer = GetComponentInChildren<Renderer>();
         }
 
-        if (targetRenderer != null)
+        if (targetRenderer != null) // if not null, we get the material :O
         {
             originalMaterial = targetRenderer.material;
         }
         else
         {
-            Debug.LogWarning("Highlighter: No Renderer found on " + gameObject.name);
+            Debug.LogWarning("Highlighter: No Renderer found on " + gameObject.name); // WARNING!!!!
         }
     }
 
-    public void EnableHighlight()
+    public void EnableHighlight() // I wonder what this function does...
     {
         if (targetRenderer != null && highlightMaterial != null)
         {
@@ -37,7 +42,7 @@ public class HighlighterScript : MonoBehaviour
         }
     }
 
-    public void DisableHighlight()
+    public void DisableHighlight() // ...
     {
         if (targetRenderer != null && originalMaterial != null)
         {
