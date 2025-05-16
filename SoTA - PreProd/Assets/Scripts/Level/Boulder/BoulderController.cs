@@ -208,7 +208,7 @@ public class BoulderController : MonoBehaviour, IInteractable
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderDetachSFX);
     }
 
-    private void LockPlayerMovement()
+    private void LockPlayerMovement() // very cool function, locks the player movement depending on what direction you approach the boulder :O
     {
         if (playerHitscan == Vector3.forward || playerHitscan == Vector3.back)
         {
