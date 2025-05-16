@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class FinderHelper : MonoBehaviour
 {
-    public static GameObject FindInactiveByTag(string tag)
+    public static GameObject FindInactiveByTag(string tag) // Made because you can't find disabled objects without using this stupid workaround
     {
         var allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         foreach (var go in allObjects)
