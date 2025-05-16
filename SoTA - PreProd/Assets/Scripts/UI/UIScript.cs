@@ -62,11 +62,11 @@ public class UIScript : MonoBehaviour
         {
             var playerInput = playerObject.GetComponent<PlayerInput>();
 
-            if (isUsingController && playerInput.currentActionMap.name != "PlayerControlController")
+            if (isUsingController && playerInput.enabled && playerInput.currentActionMap.name != "PlayerControlController")
             {
                 playerInput.SwitchCurrentActionMap("PlayerControlController");
             }
-            else if (!isUsingController && playerInput.currentActionMap.name != "New action map")
+            else if (!isUsingController && playerInput.enabled && playerInput.currentActionMap.name != "New action map")
             {
                 playerInput.SwitchCurrentActionMap("New action map");
             }
