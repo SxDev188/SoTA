@@ -50,10 +50,22 @@ public class DialogueManager : MonoBehaviour
         dialogueQueue = new Queue<SO_Dialogue.Info>();
 
         playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+
     }
 
     private void Update()
     {
+
+        if (dialogueText == null)
+        {
+            dialogueText = FinderHelper.FindInactiveByTag("DialogueText")?.GetComponent<TMP_Text>();
+        }
+
+        if (dialogueBox == null)
+        {
+            dialogueBox = FinderHelper.FindInactiveByTag("DialogueBox");
+        }
+
         if (QuitTalking)
         {
             EndDialogue();
