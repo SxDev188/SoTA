@@ -5562,7 +5562,7 @@ PrefabInstance:
     - target: {fileID: 2517525866248969489, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_DefaultActionMap
-      value: b2ae7480-def4-4b51-bb03-c84c956357af
+      value: d05cc5d9-25a7-4880-bebb-816f8f6c8940
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
@@ -11654,6 +11654,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 553d00ab7ada3b14ba1db66102d4d62f,
         type: 2}
+    - target: {fileID: 4569252515801262591, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: convoController
+      value: 
+      objectReference: {fileID: 11400000, guid: 247c2f02cec14b24db4c0c4b0ea6e42e,
+        type: 2}
+    - target: {fileID: 4569252515801262591, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: dependsOnInputMethod
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

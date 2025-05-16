@@ -34,6 +34,7 @@ public class UIScript : MonoBehaviour
     private bool inStartScene = false;
     private bool inEndScene = false;
     private static bool isUsingController = true; // Behövs endast 1 + static tar inte bort skiten lol
+    public static bool IsUsingController { get { return isUsingController; } } //is used in lore tiles to check what dialogue to display
 
     // ENGINE METHODS ====================================== // 
     private void Start()
