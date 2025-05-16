@@ -19,13 +19,9 @@ MonoBehaviour:
 '
   - dialouge: 'Push boulder
 
-      Keyboard: Press E to grab onto the boulder. Press
-      E again to release.
+      Press A to grab onto the boulder. Press A again
+      to release.
 
 '
-  - dialouge: 'Push boulder
-
-      Controller Press A to grab onto the boulder. Press
-      A again to release.
-
-'
+  - dialouge: 'Tip: The arrows on top of the boulder indicate which direction it
+      can be moved!'
