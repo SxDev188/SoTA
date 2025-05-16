@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4986623370684328130}
   - component: {fileID: 1181336832297978673}
   - component: {fileID: 7834541368337370736}
-  - component: {fileID: 3608980991203841319}
   m_Layer: 0
   m_Name: SidePushIndicator(-Z)
   m_TagString: Untagged
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3608980991203841319
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239725079856397273}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2545799543686016793
 GameObject:
   m_ObjectHideFlags: 0
@@ -5209,17 +5187,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 311
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.75, z: 0.7}
-  m_Center: {x: -0.5, y: 0, z: 0}
+  m_Size: {x: 0.9, y: 0.75, z: 0.7}
+  m_Center: {x: -0.9, y: 0, z: 0}
 --- !u!114 &4981638270437264332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,17 +5254,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 311
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.75, z: 0.7}
-  m_Center: {x: 0.5, y: 0, z: 0}
+  m_Size: {x: 0.9, y: 0.75, z: 0.7}
+  m_Center: {x: 0.9, y: 0, z: 0}
 --- !u!114 &7385854281867795360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5311,7 +5289,6 @@ GameObject:
   - component: {fileID: 3020834654740195731}
   - component: {fileID: 2079655130479306009}
   - component: {fileID: 6045470847254027882}
-  - component: {fileID: 8212087501234434136}
   m_Layer: 0
   m_Name: SidePushIndicator(+X)
   m_TagString: Untagged
@@ -5384,27 +5361,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8212087501234434136
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5222919031663388623}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6486963810396707316
 GameObject:
   m_ObjectHideFlags: 0
@@ -5416,7 +5372,6 @@ GameObject:
   - component: {fileID: 5027962718906888972}
   - component: {fileID: 8371422443023183379}
   - component: {fileID: 5178854291339834670}
-  - component: {fileID: 1459421035935634078}
   m_Layer: 0
   m_Name: SidePushIndicator(+Z)
   m_TagString: Untagged
@@ -5489,27 +5444,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1459421035935634078
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6486963810396707316}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7622259178924196820
 GameObject:
   m_ObjectHideFlags: 0
@@ -5521,7 +5455,6 @@ GameObject:
   - component: {fileID: 2267398279699316221}
   - component: {fileID: 3854589345852000142}
   - component: {fileID: 5657931585651867188}
-  - component: {fileID: 1261129483625768156}
   m_Layer: 0
   m_Name: SidePushIndicator(-X)
   m_TagString: Untagged
@@ -5594,27 +5527,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1261129483625768156
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7622259178924196820}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8137671051401250572
 GameObject:
   m_ObjectHideFlags: 0
@@ -5658,17 +5570,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 311
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7, y: 0.75, z: 0.2}
-  m_Center: {x: 0, y: 0, z: -0.5}
+  m_Size: {x: 0.7, y: 0.75, z: 0.9}
+  m_Center: {x: 0, y: 0, z: -0.9}
 --- !u!114 &995995639597803601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5725,17 +5637,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 311
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 192
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7, y: 0.75, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0.5}
+  m_Size: {x: 0.7, y: 0.75, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 0.9}
 --- !u!114 &1658662029496624802
 MonoBehaviour:
   m_ObjectHideFlags: 0

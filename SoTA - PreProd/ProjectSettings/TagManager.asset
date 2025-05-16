@@ -19,6 +19,7 @@ TagManager:
   - StarPickupTrigger
   - LoreTile
   - BrokenElement
+  - EndPoint
   layers:
   - Default
   - TransparentFX
