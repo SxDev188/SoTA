@@ -11,13 +11,13 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float deathCooldownDuration = 1f;
     private float currentHealth;
     private float startingHealth = 1.0f;
+    private bool isHealthDrainPaused = false; //Used to stop player from dying when reading lore tiles
     private StarActions starActions;
     private PlayerController playerController;
     private EventInstance deathSFX;
     private EventInstance lowHealthWarningSFX;
     private ParticleSystem respawnParticles;
     public bool IsDead { get; private set; } = false;
-
     public float CurrentHealth { get { return currentHealth; } }
 
     CooldownTimer deathCooldownTimer;
@@ -64,6 +64,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void DrainHealth()
     {
+        if(isHealthDrainPaused) //Used to stop player from dying when reading lore tiles
+        {
+            return;
+        }
+
         currentHealth -= (Time.deltaTime / timeWithoutStar);
         if (currentHealth < 0.0f)
         {
@@ -129,5 +134,15 @@ public class PlayerHealth : MonoBehaviour
         respawnParticles.Play();
         yield return new WaitForSeconds(0.1f); // wait for particles to spawn
         respawnParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    public void PauseHealthDrain() //Used to stop player from dying when reading lore tiles
+    {
+        isHealthDrainPaused = true;
+    }
+    
+    public void ResumeHealthDrain() //Used to stop player from dying when reading lore tiles
+    {
+        isHealthDrainPaused = false;
     }
 }
