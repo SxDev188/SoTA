@@ -12286,21 +12286,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4219875429813423331, guid: e1454e3b6fad5194a9ad1e748d99ed7c,
-        type: 3}
-      propertyPath: isExit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4219875429813423331, guid: e1454e3b6fad5194a9ad1e748d99ed7c,
-        type: 3}
-      propertyPath: nextSpawnPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4219875429813423331, guid: e1454e3b6fad5194a9ad1e748d99ed7c,
-        type: 3}
-      propertyPath: cameraPanDirection.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8890478745169518277, guid: e1454e3b6fad5194a9ad1e748d99ed7c,
         type: 3}
       propertyPath: m_Name
@@ -16212,7 +16197,7 @@ PrefabInstance:
     - target: {fileID: 4522126174399860638, guid: 5582be863abd9fe499452b7e388eea71,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -122.02165
+      value: -96.52165
       objectReference: {fileID: 0}
     - target: {fileID: 4522126174399860638, guid: 5582be863abd9fe499452b7e388eea71,
         type: 3}
@@ -16222,7 +16207,7 @@ PrefabInstance:
     - target: {fileID: 4522126174399860638, guid: 5582be863abd9fe499452b7e388eea71,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -78.562294
+      value: -92.562294
       objectReference: {fileID: 0}
     - target: {fileID: 4522126174399860638, guid: 5582be863abd9fe499452b7e388eea71,
         type: 3}
