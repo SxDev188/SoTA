@@ -62,6 +62,7 @@ public class UIScript : MonoBehaviour
         {
             var playerInput = playerObject.GetComponent<PlayerInput>();
 
+            //In these two if statements, if we don't check playerInput.enabled then we will get null reference exceptions when trying to access currentActionMap.name, playerInput.enabled is set to false in UIScript and Lore Tile Script
             if (isUsingController && playerInput.enabled && playerInput.currentActionMap.name != "PlayerControlController")
             {
                 playerInput.SwitchCurrentActionMap("PlayerControlController");
