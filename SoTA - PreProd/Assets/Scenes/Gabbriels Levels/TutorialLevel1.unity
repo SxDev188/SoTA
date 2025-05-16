@@ -7302,6 +7302,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 766074836486288948, guid: 2902e2be4e47dc84e9ceea725e4caed4,
         type: 3}
+      propertyPath: bgMusicEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 766074836486288948, guid: 2902e2be4e47dc84e9ceea725e4caed4,
+        type: 3}
       propertyPath: segmentPosition.x
       value: 1
       objectReference: {fileID: 0}
@@ -17758,6 +17763,11 @@ PrefabInstance:
     - target: {fileID: 3609466135820124213, guid: dfe965129a7a474448b5c2483ca68a52,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277244889974460119, guid: dfe965129a7a474448b5c2483ca68a52,
+        type: 3}
+      propertyPath: bgMusicEnabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6277244889974460119, guid: dfe965129a7a474448b5c2483ca68a52,
