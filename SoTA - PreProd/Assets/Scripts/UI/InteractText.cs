@@ -33,15 +33,12 @@ public class InteractText : MonoBehaviour
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, playerInteractionRange + interactionRangeOffset);
 
-        Debug.Log("CHECKING IN SPHERE THIS BIG: " + playerInteractionRange);
-
         foreach (Collider collider in hitColliders)
         {
             if(collider.CompareTag("Player"))
                 return collider;
         }
 
-        Debug.Log("FOUND NO PLAYER");
         return null;
     }
 
