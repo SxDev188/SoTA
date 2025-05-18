@@ -11,6 +11,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
     Color color;
     [SerializeField] int EjectStarX;
     [SerializeField] int EjectStarZ;
+    bool playerInZone = false;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         if (other.CompareTag("Player"))
         {
             playerStarActionController.DisallowStarOnPlayer();
+            playerInZone = true;
         }
         if (other.CompareTag("Star"))
         {
@@ -38,11 +40,11 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             {
                 starActions.CarryToggle();
             }
-            if(starActions.TravelCoroutine != null)
+            if (starActions.TravelCoroutine != null)
             {
                 starActions.StopTravelToDestination(true);
             }
-            
+
             //determine where star should be pushed
             Vector3 dir = other.transform.position + (other.transform.position - transform.position);
             if (!starActions.IsTraveling)
@@ -59,6 +61,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         if (other.CompareTag("Player"))
         {
             playerStarActionController.DisallowStarOnPlayer();
+            playerInZone = true;
         }
         if (other.CompareTag("Star"))
         {
@@ -70,7 +73,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
             //traveling out from inside an anti-star zone
             if (!starActions.IsTraveling)
             {
-                starActions.TravelOutOfAntiStarZone(new Vector3(EjectStarX*100, playerStarActionController.transform.position.y, EjectStarZ*100));
+                starActions.TravelOutOfAntiStarZone(new Vector3(EjectStarX * 100, playerStarActionController.transform.position.y, EjectStarZ * 100));
             }
 
         }
@@ -81,6 +84,7 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
         if (other.CompareTag("Player"))
         { 
             playerStarActionController.AllowStarOnPlayer();
+            playerInZone = false;
         
         }
         if (other.CompareTag("Star"))
@@ -95,11 +99,17 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
 
     public void Activate()
     {
+        if (playerInZone)
+        {
+            playerStarActionController.AllowStarOnPlayer();
+            playerInZone = false;
+        }
         gameObject.SetActive(false);
     }
 
     public void Deactivate()
     {
+
         gameObject.SetActive(true);
 
 
