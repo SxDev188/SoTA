@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
-  m_Name: TL2-02_Lamps
+  m_Name: TL2-03_AntiStarZones-01
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: "Your star is not the only source of light in this world...\t"
-  - dialouge: Use the lamps in this puzzle to spot color connections between objects!
+  - dialouge: There are places your star cannot go...
+  - dialouge: These "anti-star zones" will block your star from entering!
