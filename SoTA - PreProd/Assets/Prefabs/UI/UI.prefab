@@ -4228,8 +4228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d3e75852a56bd4d9561779973538d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: {fileID: 5519394541668141579}
-  controller: {fileID: 253083369316883155}
+  keyboard: {fileID: 2498250880916163903}
+  controller: {fileID: 5347651126397197518}
 --- !u!1 &2129912741039714920
 GameObject:
   m_ObjectHideFlags: 0

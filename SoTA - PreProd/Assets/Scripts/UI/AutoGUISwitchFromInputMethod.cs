@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueInstructionText : MonoBehaviour
+public class AutoGUISwitchFromInputMethod : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI keyboard;
-    [SerializeField] TextMeshProUGUI controller;
+    [SerializeField] GameObject keyboard;
+    [SerializeField] GameObject controller;
 
     void Update()
     {
