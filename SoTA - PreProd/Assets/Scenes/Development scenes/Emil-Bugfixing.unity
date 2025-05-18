@@ -1083,6 +1083,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2517525866248969489, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
+        type: 3}
+      propertyPath: m_DefaultActionMap
+      value: d05cc5d9-25a7-4880-bebb-816f8f6c8940
+      objectReference: {fileID: 0}
     - target: {fileID: 6219084333740346544, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_Radius

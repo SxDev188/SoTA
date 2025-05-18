@@ -99,15 +99,17 @@ public class AntiStarZoneScript : MonoBehaviour, IActivatable
 
     public void Activate()
     {
+        if (playerInZone)
+        {
+            playerStarActionController.AllowStarOnPlayer();
+            playerInZone = false;
+        }
         gameObject.SetActive(false);
     }
 
     public void Deactivate()
     {
-        if (playerInZone)
-        {
-            playerStarActionController.AllowStarOnPlayer();
-        }
+
         gameObject.SetActive(true);
 
 
