@@ -9398,7 +9398,7 @@ PrefabInstance:
         type: 3}
       propertyPath: convo
       value: 
-      objectReference: {fileID: 11400000, guid: 59967eefb87efc641811481950aee91b,
+      objectReference: {fileID: 11400000, guid: 50a22913812bad54e83404688270ce8e,
         type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9427,7 +9427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8f0e766276ba54e87306f9ae5f29b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  convo: {fileID: 11400000, guid: 59967eefb87efc641811481950aee91b, type: 2}
+  convo: {fileID: 11400000, guid: 50a22913812bad54e83404688270ce8e, type: 2}
   dependsOnInputMethod: 0
   convoController: {fileID: 0}
 --- !u!1001 &1788905136
