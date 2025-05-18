@@ -5389,7 +5389,7 @@ PrefabInstance:
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9184794
+      value: 0.6399019
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
@@ -5399,7 +5399,7 @@ PrefabInstance:
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.1080656
+      value: -6.699526
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
@@ -12267,6 +12267,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 910485657}
     m_Modifications:
+    - target: {fileID: 843390883484958493, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: interactionRangeOffset
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 843390883484958493, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: playerInteractionRange
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2810546824101259013, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
         type: 3}
       propertyPath: m_Name
@@ -12337,6 +12347,21 @@ PrefabInstance:
     - target: {fileID: 4569252515801262591, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
         type: 3}
       propertyPath: dependsOnInputMethod
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662106956323246237, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6267623001999771469, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963345397422103457, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

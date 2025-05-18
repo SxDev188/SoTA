@@ -10,10 +10,11 @@ public class InteractText : MonoBehaviour
     //IIRC this whole source file is from the tutorial but with minor (if any) changes
     // Written by myself though
 
-    [SerializeField] private float hideDelay = 2f;
+    [SerializeField] private float hideDelay = 0.5f;
     [SerializeField] private GameObject interactObjectText;
 
-    private float playerInteractionRange = 2f;
+    private float playerInteractionRange = 0f;
+    private float interactionRangeOffset = 0.21f; //since the interaction range check happens differently here than in the PlayerInteract script (the highlighting logic), we need an offset to make them feel the same
     private float timeSinceLeftRange;
     private bool isShowingText = false;
 
@@ -30,7 +31,9 @@ public class InteractText : MonoBehaviour
         // Might been a bit more effective to have the player only check for interaction and check if it was the "lore tile" but this system allows
         // us to just drag & drop the script and you have interaction text :)
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, playerInteractionRange);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, playerInteractionRange + interactionRangeOffset);
+
+        Debug.Log("CHECKING IN SPHERE THIS BIG: " + playerInteractionRange);
 
         foreach (Collider collider in hitColliders)
         {
@@ -38,6 +41,7 @@ public class InteractText : MonoBehaviour
                 return collider;
         }
 
+        Debug.Log("FOUND NO PLAYER");
         return null;
     }
 
