@@ -3745,7 +3745,7 @@ PrefabInstance:
     - target: {fileID: 2517525866248969489, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
       propertyPath: m_DefaultActionMap
-      value: b2ae7480-def4-4b51-bb03-c84c956357af
+      value: d05cc5d9-25a7-4880-bebb-816f8f6c8940
       objectReference: {fileID: 0}
     - target: {fileID: 7454719805474036125, guid: 6e9b40bcc8a6f9c45bc480d10d052b71,
         type: 3}
@@ -9246,6 +9246,105 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 658066455}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1784287943
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2810546824101259013, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_Name
+      value: Lore Tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220651865114234345, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569252515801262591, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      propertyPath: convo
+      value: 
+      objectReference: {fileID: 11400000, guid: 59967eefb87efc641811481950aee91b,
+        type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2810546824101259013, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1784287945}
+  m_SourcePrefab: {fileID: 100100000, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2, type: 3}
+--- !u!1 &1784287944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2810546824101259013, guid: c575cf4a65aa2d74dbe68dcc0d3e23f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1784287943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1784287945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784287944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8f0e766276ba54e87306f9ae5f29b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  convo: {fileID: 11400000, guid: 59967eefb87efc641811481950aee91b, type: 2}
+  dependsOnInputMethod: 0
+  convoController: {fileID: 0}
 --- !u!1001 &1788905136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11198,3 +11297,4 @@ SceneRoots:
   - {fileID: 2138032128}
   - {fileID: 2000530714}
   - {fileID: 2015610645}
+  - {fileID: 1784287943}
