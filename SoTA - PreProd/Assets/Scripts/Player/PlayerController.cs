@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private bool isMovementLocked = false;
     private bool isAttachedToBoulder = false;
+    public bool IsAttachedToBoulder { get { return isAttachedToBoulder; } } //used in PlayerBoulderLockSymbolScript.cs
     public bool inputLocked = false; //Used to lock movement during gravity pull
     public bool disableGravityDuringPull = false; //Used to disable downward gravity during gravity pull
 
