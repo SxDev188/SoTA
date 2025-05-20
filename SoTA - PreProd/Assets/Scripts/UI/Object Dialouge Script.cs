@@ -1,6 +1,13 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+/// <summary>
+/// Author: Sixten
+/// 
+/// Modified by: Sixten, Gabbriel
+/// 
+/// </summary>
+
 public class ObjectDialougeScript : MonoBehaviour, IInteractable
 {
     [field: Header("Default convo (assumes player using keyboard)")]

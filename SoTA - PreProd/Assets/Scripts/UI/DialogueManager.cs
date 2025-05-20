@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// Author: Sixten
-/// Ignore all the stupid comments or names :p
+/// 
+/// Modified by: Sixten
+/// 
 /// </summary>
 
 public class DialogueManager : MonoBehaviour

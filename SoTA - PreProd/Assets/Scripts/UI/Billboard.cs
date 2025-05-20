@@ -2,7 +2,9 @@ using UnityEngine;
 
 /// <summary>
 /// Author: Sixten
-/// Ignore any the stupid comments or names :p
+/// 
+/// Modified by: Sixten
+/// 
 /// </summary>
 
 public class Billboard : MonoBehaviour
@@ -12,7 +14,7 @@ public class Billboard : MonoBehaviour
         Camera cam = Camera.main;
         if (cam != null)
         {
-            // Rotera objektet så det alltid vänder sig mot kameran
+            // Rotate the object to always face the camera
             transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward,
                              cam.transform.rotation * Vector3.up);
         }
