@@ -162,6 +162,11 @@ public class BoulderController : MonoBehaviour, IInteractable
             return;
         }
 
+        if(isAttached && (boulderStarPushScript.IsCurrentlyMoving || boulderPlayerPushScript.IsCurrentlyMoving))
+        {
+            return;
+        }
+
         if (isAttached)
         {
             Detach();
