@@ -219,9 +219,8 @@ public class PlayerStarActionController : MonoBehaviour
         float initialDistanceToTarget = Vector3.Distance(transform.position, targetDestination);    //for sfx
         gravityPullSFX.setParameterByName("GravityPullCompletion", gravityPullCompletion);
         gravityPullSFX.start();
+        playerController.StartBeingGravityPulled();//Locks input and movement during gravity pull and Disables gravity
 
-        playerController.inputLocked = true; //Locks input and movement during gravity pull
-        playerController.disableGravityDuringPull = true;         //Disables gravity
         isBeingGravityPulled = true;
 
         Vector3 lastPosition = transform.position; //Position of player when starting gravity pull
@@ -268,9 +267,9 @@ public class PlayerStarActionController : MonoBehaviour
         {
             StopCoroutine(GravityPull_IEnumerator);
             starActions.Recall();
-            playerController.disableGravityDuringPull = false; //Enable gravity again
-            playerController.inputLocked = false;  //Re-enable input after the pull
+            playerController.StopBeingGravityPulled(); //Enable gravity again and Re-enable input after the pull
             isBeingGravityPulled = false;
+
         }
     }
 
@@ -279,9 +278,9 @@ public class PlayerStarActionController : MonoBehaviour
         if (GravityPull_IEnumerator != null)
         {
             StopCoroutine(GravityPull_IEnumerator);
-            playerController.disableGravityDuringPull = false; //Enable gravity again
-            playerController.inputLocked = false;  //Re-enable input after the pull
+            playerController.StopBeingGravityPulled(); //Enable gravity again and Re-enable input after the pull
             isBeingGravityPulled = false;
+
         }
     }
 
