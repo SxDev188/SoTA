@@ -4,9 +4,10 @@ using UnityEngine;
 
 /// <summary>
 /// Author: Sixten
-/// Ignore all the stupid comments or names :p
+/// 
+/// Modified by: Sixten
+/// 
 /// </summary>
-
 public class HighlighterScript : MonoBehaviour
 {
     [Tooltip("Renderer to highlight. If left empty, the first Renderer in children will be used.")]
