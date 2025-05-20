@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
-  m_Name: TL1_PressurePlate
+  m_Name: TL2-01_GravityPull_Controller
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: "You see that glowing orb over your head? That is a star! Drop it on
-      this pressure plate to activate it!\r"
-  - dialouge: 'Drop star
+  - dialouge: 'You have unlocked a new ability: Gravity Pull
 
-      Keyboard: Press Space
+      Throw your star
+      and pull yourself towards it!'
+  - dialouge: 'Gravity pull:
 
-      Controller: Press Y'
+      Press A'
+  - dialouge: 'Tip: Use gravity pull to get over gaps you cannot walk over!'

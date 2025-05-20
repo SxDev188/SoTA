@@ -145,4 +145,9 @@ public class PlayerHealth : MonoBehaviour
     {
         isHealthDrainPaused = false;
     }
+
+    public void SetIsDead(bool isDead)
+    {
+        IsDead = isDead;
+    }
 }

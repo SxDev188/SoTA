@@ -12,6 +12,18 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: 6221671cbf44af347af366d47b2ffa00
   - enabled: 1
+    path: Assets/Scenes/Gabbriels Levels/TutorialLevel1.unity
+    guid: 6b685ba78a2f57a4a86948a6b17d2dbc
+  - enabled: 1
+    path: Assets/Scenes/Emils levels/E - 1stNonTutorial.unity
+    guid: be2cebea875d4fa49bb961dcdbc67f30
+  - enabled: 1
+    path: Assets/Scenes/Gabbriels Levels/TutorialLevel2.unity
+    guid: 56af592a133d0a24293ac1035796ca61
+  - enabled: 1
+    path: Assets/Scenes/Emils levels/E - 2ndNonTutorial.unity
+    guid: 43e2254501bdbcd4eb841457bd603d48
+  - enabled: 1
     path: Assets/Scenes/Karin's Levels/TutorialLevel1.unity
     guid: 4582c59ac717a0046820b648ddf545dc
   - enabled: 1

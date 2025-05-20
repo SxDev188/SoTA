@@ -292,9 +292,6 @@ public class PlayerStarActionController : MonoBehaviour
         lineRenderer.startWidth = 0.03f;
         lineRenderer.endWidth = 0.03f;
         lineRenderer.positionCount = 2;
-        lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended"));
-        lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.red;
     }
 
     //void ManagePlayerHealth()
