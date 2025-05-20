@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-//random comment for git
+
 public class SpikeScript : MonoBehaviour, IActivatable
 {
     [SerializeField] bool startsAsActive = true;
