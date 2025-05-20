@@ -58,7 +58,7 @@ public class InteractText : MonoBehaviour
         }
         else
         {
-            if (isShowingText)
+            if (isShowingText) // A little delay before we hide the text again
             {
                 timeSinceLeftRange += Time.fixedDeltaTime;
                 if (timeSinceLeftRange >= hideDelay)
