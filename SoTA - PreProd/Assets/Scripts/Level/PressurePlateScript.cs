@@ -30,10 +30,11 @@ public class PressurePlateScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
-        {
-            return;
-        }
+        //Debug.Log("Enter!: " + other.tag);
+        //if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
+        //{
+        //    return;
+        //}
 
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
@@ -63,15 +64,17 @@ public class PressurePlateScript : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
-        {
-            return;
-        }
+        //Debug.Log("Exit!: " + other.tag);
+        //if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
+        //{
+        //    return;
+        //}
 
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
             objectsOnPlate.Remove(other.gameObject);
-        } else if (other.CompareTag("Untagged"))
+        } 
+        else if (other.CompareTag("Untagged"))
         {
             return;
         }

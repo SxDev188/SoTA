@@ -73,7 +73,7 @@ public class BoulderStarPushScript : MonoBehaviour
         Vector3 targetDestination = transform.position + direction * distance;
 
         isBeingStarPushed = true;
-        boulderRigidbody.isKinematic = false;
+        //boulderRigidbody.isKinematic = false;
         
         //Waits for two fixed updates here. When isKinematic is changed in the line above, that will cause a TriggerExit and then TriggerEnter
         //in the pressure plate. The IsCurrentlyMoving flag is used to make the pressure plate ignore this false exit/enter. 
@@ -119,6 +119,6 @@ public class BoulderStarPushScript : MonoBehaviour
         }
 
         isBeingStarPushed = false;
-        boulderRigidbody.isKinematic = true;
+        //boulderRigidbody.isKinematic = true;
     }
 }

@@ -263,7 +263,6 @@ public class PlayerStarActionController : MonoBehaviour
 
     private void StopSuccessfulGravityPullToDestination() //this method is for ending SUCCFESSFUL gravity pulls
     {
-        Debug.Log("Succses!");
         if (GravityPull_IEnumerator != null)
         {
             StopCoroutine(GravityPull_IEnumerator);
@@ -276,7 +275,6 @@ public class PlayerStarActionController : MonoBehaviour
 
     public void InteruptGravityPullToDestination() //this method is for interupting UNSUCCESSFUL gravity pulls
     {
-        Debug.Log("Fail!");
         if (GravityPull_IEnumerator != null)
         {
             StopCoroutine(GravityPull_IEnumerator);
