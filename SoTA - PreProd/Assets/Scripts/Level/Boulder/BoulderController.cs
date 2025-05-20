@@ -2,6 +2,12 @@ using FMOD.Studio;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
+/// <summary>
+/// Author: Sixten
+/// 
+/// Modified by: Sixten, Gabbriel
+/// 
+/// </summary>
 public class BoulderController : MonoBehaviour, IInteractable
 {
     //this script handles the the boulder-player interaction
