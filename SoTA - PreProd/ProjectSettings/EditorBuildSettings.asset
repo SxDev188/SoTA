@@ -15,22 +15,22 @@ EditorBuildSettings:
     path: Assets/Scenes/Gabbriels Levels/TutorialLevel1.unity
     guid: 6b685ba78a2f57a4a86948a6b17d2dbc
   - enabled: 1
-    path: Assets/Scenes/Emils levels/E - 1stNonTutorial.unity
+    path: Assets/Scenes/Emils levels/E - 1stLevel.unity
     guid: be2cebea875d4fa49bb961dcdbc67f30
   - enabled: 1
     path: Assets/Scenes/Gabbriels Levels/TutorialLevel2.unity
     guid: 56af592a133d0a24293ac1035796ca61
   - enabled: 1
-    path: Assets/Scenes/Emils levels/E - 2ndNonTutorial.unity
+    path: Assets/Scenes/Emils levels/E - 2ndLevel.unity
     guid: 43e2254501bdbcd4eb841457bd603d48
   - enabled: 1
-    path: Assets/Scenes/Karin's Levels/TutorialLevel1.unity
+    path: Assets/Scenes/Karin's Levels/KarinLevel1.unity
     guid: 4582c59ac717a0046820b648ddf545dc
   - enabled: 1
     path: Assets/Scenes/Emils levels/E - VSlice Suggestion 1.unity
     guid: 1c4ade150ed556f46b122138c1a1b25c
   - enabled: 1
-    path: Assets/Scenes/Karin's Levels/TutorialLevel2.unity
+    path: Assets/Scenes/Karin's Levels/KarinLevel2.unity
     guid: 402b8fd62084aa649850d1c7a5245595
   - enabled: 1
     path: Assets/Scenes/Karin's Levels/TutorialLevel3.unity
