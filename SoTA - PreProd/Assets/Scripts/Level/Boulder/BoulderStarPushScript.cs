@@ -81,13 +81,14 @@ public class BoulderStarPushScript : MonoBehaviour
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
 
+
         IsCurrentlyMoving = true; //While this is true, pressure plate will accept the collision with the boulder
 
         while (Vector3.Distance(transform.position, targetDestination) > pushController.PushDestinationAcceptanceRadius)
         {
             //sets velocity to zero as the starthere could sometimes be a downward force (that was not gravity)
             //still unclear where it came from but setting velocity to 0 seems to fix it!
-            
+
             if (!boulderRigidbody.isKinematic) //to avoid warning that sometimes would appear in editor
             {
                 boulderRigidbody.velocity = new Vector3(0, 0, 0);
@@ -96,6 +97,7 @@ public class BoulderStarPushScript : MonoBehaviour
             Vector3 tempDirection = targetDestination - transform.position;
 
             transform.position += tempDirection * starPushSpeed * Time.deltaTime;
+            //pushController.CheckAllSides({direction});
 
             yield return null;
         }
@@ -104,7 +106,6 @@ public class BoulderStarPushScript : MonoBehaviour
         //Without this, SnapToFloor() below would trigger a false OnTriggerExit and immediate OnTriggerEnter messing up both SFX and particle effects
 
         boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
-        pushController.CheckAllSides();
         yield return new WaitForSeconds(starPushCooldown);
 
         StopStarPush();

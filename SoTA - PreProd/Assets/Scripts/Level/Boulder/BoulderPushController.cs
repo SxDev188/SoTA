@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BoulderPushController : MonoBehaviour
@@ -81,7 +82,7 @@ public class BoulderPushController : MonoBehaviour
             {
                 //add tags here that you want boulder to ignore, but remember to also add them in the OnCollisionEnter check
 
-                Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
+                //Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
 
                 return false;
             }
@@ -105,39 +106,34 @@ public class BoulderPushController : MonoBehaviour
 
     }
 
-    public void CheckAllSides()
+    public void CheckSides(Vector3[] sidesToCheck)
     {
-        if (!CheckForValidPushDestination(new Vector3(1, 0, 0), 1f))
+        bool blocked = false;
+        foreach (Vector3 side in sidesToCheck)
         {
-            boulderController.SideXPositiveBlocked = true;
-        }
-        else
-        {
-            boulderController.SideXPositiveBlocked = false;
-        }
-        if (!CheckForValidPushDestination(new Vector3(-1, 0, 0), 1f))
-        {
-            boulderController.SideXNegativeBlocked = true;
-        }
-        else
-        {
-            boulderController.SideXNegativeBlocked = false;
-        }
-        if (!CheckForValidPushDestination(new Vector3(0, 0, 1), 1f))
-        {
-            boulderController.SideZPositiveBlocked = true;
-        }
-        else
-        {
-            boulderController.SideZPositiveBlocked = false;
-        }
-        if (!CheckForValidPushDestination(new Vector3(0, 0, -1), 1f))
-        {
-            boulderController.SideZNegativeBlocked = true;
-        }
-        else
-        {
-            boulderController.SideZNegativeBlocked = false;
+            blocked = true;
+            if (CheckForValidPushDestination(side, 1f))
+            {
+                if(side != sidesToCheck[0] || boulderPlayerPushScript.CheckValidPlayerDestinationAfterPush(sidesToCheck[0], 1f))
+                    blocked = false;
+            }
+
+            if (side == new Vector3(1, 0, 0))
+            {
+                boulderController.SideXPositiveBlocked = blocked;
+            }
+            else if(side == new Vector3(-1, 0, 0))
+            {
+                boulderController.SideXNegativeBlocked = blocked;
+            }
+            else if (side == new Vector3(0, 0, 1))
+            {
+                boulderController.SideZPositiveBlocked = blocked;
+            }
+            else if (side == new Vector3(0, 0, -1))
+            {
+                boulderController.SideZNegativeBlocked = blocked;
+            }
         }
     }
     void OnCollisionEnter(Collision collision)
