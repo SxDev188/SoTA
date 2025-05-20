@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Emils levels/E - 2ndNonTutorial.unity
     guid: 43e2254501bdbcd4eb841457bd603d48
   - enabled: 1
+    path: Assets/Scenes/Gabbriels Levels/TutorialLevel3.unity
+    guid: a3b51fd56b1975c408a706d0942b8739
+  - enabled: 1
     path: Assets/Scenes/Karin's Levels/KarinLevel1.unity
     guid: 4582c59ac717a0046820b648ddf545dc
   - enabled: 1
