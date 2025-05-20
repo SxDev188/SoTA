@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TL1-02_Interact_Controller
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: 'Interact with objects
+  - dialouge: 'To interact with objects
 
       Press A'
   - dialouge: 'Try pressing that button over there!

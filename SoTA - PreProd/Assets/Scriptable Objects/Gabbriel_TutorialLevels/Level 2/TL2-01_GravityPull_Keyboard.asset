@@ -15,9 +15,7 @@ MonoBehaviour:
   dialogueInfo:
   - dialouge: 'You have unlocked a new ability: Gravity Pull
 
-      Throw your star
-      and pull yourself towards it!'
-  - dialouge: 'Gravity pull:
-
-      Press A'
+      It allows you
+      to pull yourself towards your star!'
+  - dialouge: To use Gravity Pull, throw you star and then press G.
   - dialouge: 'Tip: Use gravity pull to get over gaps you cannot walk over!'

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TL1-02_Interact_Keyboard
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: 'Interact with objects
+  - dialouge: 'To interact with objects
 
       Press E'
   - dialouge: 'Try pressing that button over there!

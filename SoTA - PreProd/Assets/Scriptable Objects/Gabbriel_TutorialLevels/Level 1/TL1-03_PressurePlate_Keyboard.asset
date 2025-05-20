@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TL1-03_PressurePlate_Keyboard
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: "You see that glowing orb over your head? That is a star! Drop it on
-      this pressure plate to activate it!\r"
-  - dialouge: 'Drop star
+  - dialouge: "That glowing orb over your head is a star! Drop it on this pressure
+      plate to activate it.\r"
+  - dialouge: 'To drop the star
 
       Press Space'

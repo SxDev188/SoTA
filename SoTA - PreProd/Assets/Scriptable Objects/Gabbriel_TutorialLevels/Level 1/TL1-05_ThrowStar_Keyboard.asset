@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueInfo:
   - dialouge: "If a button is out of reach, throw your star at it to activate it!\r"
-  - dialouge: "Throw star\r\nHold down left mouse button and drag to aim. Release
-      to throw the star!\r"
+  - dialouge: "Hold down left mouse button and drag to aim. Release to throw the
+      star!\r"

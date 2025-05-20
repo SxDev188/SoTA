@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: TL1-06_Boulder_Keyboard
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: 'This is a boulder. Try pushing it onto the pressure plate. It''s heavy,
-      but you can do it!
+  - dialouge: This is a boulder. Try pushing it onto the pressure plate!
+  - dialouge: 'Press E to grab onto the boulder, then move around to push it! Press
+      E again to release.
 
-'
-  - dialouge: 'Press E to grab onto the boulder. Press E again to release.
 
 '
   - dialouge: 'Tip: The arrows on top of the boulder indicate which direction it

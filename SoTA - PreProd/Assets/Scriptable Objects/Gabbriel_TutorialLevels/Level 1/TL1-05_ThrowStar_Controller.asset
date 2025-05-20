@@ -14,7 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueInfo:
   - dialouge: "If a button is out of reach, throw your star at it to activate it!\r"
-  - dialouge: 'Throw star
-
-      Aim with Right Joystick. Press and release R2 to
-      throw the star!'
+  - dialouge: Aim with Right Joystick, then press and release R2 to throw the star!

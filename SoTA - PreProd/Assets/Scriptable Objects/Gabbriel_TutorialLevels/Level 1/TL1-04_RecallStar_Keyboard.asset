@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: TL1-04_RecallStar_Keyboard
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: "Recall the star to you\r\nPress Space bar\r\r"
-  - dialouge: "If you leave the star behind...\r"
-  - dialouge: "You will die!\r"
+  - dialouge: "To recall the star to you\r\r\r\r\nPress Space bar\r\r"
+  - dialouge: "If you leave the star behind... You will die!\r"
