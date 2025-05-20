@@ -56,7 +56,6 @@ public class BoulderPlayerPushScript : MonoBehaviour
     {
         //I know this is super nested but atm this is what I can do - Goobie
         RaycastHit hit;
-
         Debug.DrawRay(playerController.transform.position, direction, Color.red, 1.0f);
 
         if (Physics.Raycast(playerController.transform.position, direction, out hit, distance))
