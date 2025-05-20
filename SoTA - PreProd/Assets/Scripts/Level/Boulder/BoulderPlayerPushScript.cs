@@ -59,8 +59,14 @@ public class BoulderPlayerPushScript : MonoBehaviour
         RaycastHit[] hits;
         Debug.DrawRay(playerController.transform.position, direction, Color.red, 1.0f);
         hits = Physics.RaycastAll(playerController.transform.position, direction, distance);
+        if (!Physics.Raycast(playerController.transform.position + direction * distance, Vector3.down, 1f))
+        {
+            //checks if there is ground below the target destination to stop player from being pushed into the abyss
+            //Debug.Log(hitInfo.collider.tag);
+            return false;
+        }
 
-        foreach(RaycastHit hit in hits)
+        foreach (RaycastHit hit in hits)
         {
             if (!hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("AntiStarZone") && !hit.collider.gameObject.CompareTag("CameraPan") && !hit.collider.gameObject.CompareTag("Spikes"))
             {
