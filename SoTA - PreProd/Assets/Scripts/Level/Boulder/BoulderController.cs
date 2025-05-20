@@ -196,7 +196,7 @@ public class BoulderController : MonoBehaviour, IInteractable
     {
         currentlyActiveBoulder = this;
         isAttached = true;
-        boulderRigidbody.isKinematic = false; 
+        //boulderRigidbody.isKinematic = false; 
         LockPlayerMovement();
 
         offsetToPlayer = transform.position - player.transform.position;
@@ -209,7 +209,7 @@ public class BoulderController : MonoBehaviour, IInteractable
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
         isAttached = false;
-        boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
+       // boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
         playerController.UnlockMovement();
 
         currentlyActiveBoulder = null;
