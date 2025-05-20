@@ -208,7 +208,7 @@ public class SaveStateManager : MonoBehaviour
         hits = Physics.SphereCastAll(p1, playerController.height / 2, Vector3.forward, 0f);
         foreach(RaycastHit hit in hits)
         {
-            if (hit.collider.tag == "Spikes" )
+            if (hit.collider.tag == "Spikes")
             {
                 return false;
             }
