@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class BoulderController : MonoBehaviour, IInteractable
 {
@@ -187,15 +188,17 @@ public class BoulderController : MonoBehaviour, IInteractable
 
     private void Attach()
     {
+        currentlyActiveBoulder = this;
         isAttached = true;
         boulderRigidbody.isKinematic = false; 
         LockPlayerMovement();
 
         offsetToPlayer = transform.position - player.transform.position;
-        currentlyActiveBoulder = this;
+        
 
         playerController.AttachToBoulder();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderAttachSFX);
+        
     }
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
@@ -206,17 +209,29 @@ public class BoulderController : MonoBehaviour, IInteractable
         currentlyActiveBoulder = null;
         playerController.DetachFromBoulder();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderDetachSFX);
+        TurnOffIndicators();
+    }
+
+    public void TurnOffIndicators()
+    {
+        sidePushIndicatorXPositive.SetActive(false);
+        sidePushIndicatorXNegative.SetActive(false);
+        sidePushIndicatorZPositive.SetActive(false);
+        sidePushIndicatorZNegative.SetActive(false);
     }
 
     private void LockPlayerMovement() // very cool function, locks the player movement depending on what direction you approach the boulder :O
+
     {
         if (playerHitscan == Vector3.forward || playerHitscan == Vector3.back)
         {
             playerController.LockMovement(Vector3.forward);
+            pushController.CheckSides(new Vector3[] { Vector3.forward, -Vector3.forward });
         }
         if (playerHitscan == Vector3.right || playerHitscan == Vector3.left)
         {
             playerController.LockMovement(Vector3.right);
+            pushController.CheckSides(new Vector3[] { Vector3.right, -Vector3.right });
         }
     }
     

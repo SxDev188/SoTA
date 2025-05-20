@@ -114,7 +114,8 @@ public class BoulderPushController : MonoBehaviour
             blocked = true;
             if (CheckForValidPushDestination(side, 1f))
             {
-                blocked = false;
+                if(side != sidesToCheck[0] || boulderPlayerPushScript.CheckValidPlayerDestinationAfterPush(sidesToCheck[0], 1f))
+                    blocked = false;
             }
 
             if (side == new Vector3(1, 0, 0))
