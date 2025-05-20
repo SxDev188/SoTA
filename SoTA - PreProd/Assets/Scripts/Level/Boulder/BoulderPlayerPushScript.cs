@@ -56,7 +56,6 @@ public class BoulderPlayerPushScript : MonoBehaviour
     {
         //I know this is super nested but atm this is what I can do - Goobie
         RaycastHit hit;
-
         Debug.DrawRay(playerController.transform.position, direction, Color.red, 1.0f);
 
         if (Physics.Raycast(playerController.transform.position, direction, out hit, distance))
@@ -65,8 +64,10 @@ public class BoulderPlayerPushScript : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("BoulderSide"))
                 {
+                    
                     if (hit.collider.gameObject.GetComponentInParent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
                     {
+                        Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
                         return false;
                     } else
                     {
@@ -76,16 +77,18 @@ public class BoulderPlayerPushScript : MonoBehaviour
                 
                 if (hit.collider.gameObject.CompareTag("Boulder"))
                 {
+                    
                     if (hit.collider.gameObject.GetComponent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
                     {
+                        Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
                         return false;
                     } else
                     {
                         return true;
                     }
                 }
-
                 Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
+
 
                 return false;
             }
@@ -104,6 +107,7 @@ public class BoulderPlayerPushScript : MonoBehaviour
         IsCurrentlyMoving = true;
         isBeingPlayerPushed = true;
         //boulderRigidbody.isKinematic = false;
+        Vector3[] directionsToCheck = { direction, -direction };
 
         while (Vector3.Distance(transform.position, targetDestination) > pushController.PushDestinationAcceptanceRadius)
         {
@@ -119,13 +123,17 @@ public class BoulderPlayerPushScript : MonoBehaviour
 
             transform.position += tempDirection * playerPushSpeed * Time.deltaTime;
 
+            if (boulderController.IsAttached)
+                pushController.CheckSides(directionsToCheck);
             yield return null;
+            
         }
 
         IsCurrentlyMoving = false;
         boulderController.SnapToFloor(); //looks weird if this snap happens AFTER the cooldown
         //Debug.Log("JUST SNAPPED TO FLOOR FROM PLAYERPUSHSCRIPT");
-        pushController.CheckAllSides();
+        if (boulderController.IsAttached)
+            pushController.CheckSides(directionsToCheck);
         if (!playerController.IsGrounded() && boulderController.IsAttached)
         {
             boulderController.Detach();
