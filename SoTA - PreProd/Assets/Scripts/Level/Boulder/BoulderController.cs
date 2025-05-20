@@ -232,12 +232,18 @@ public class BoulderController : MonoBehaviour, IInteractable
         if (playerHitscan == Vector3.forward || playerHitscan == Vector3.back)
         {
             playerController.LockMovement(Vector3.forward);
-            pushController.CheckSides(new Vector3[] { Vector3.forward, -Vector3.forward });
+            if(playerHitscan == Vector3.forward)
+                pushController.CheckSides(new Vector3[] { -Vector3.forward, Vector3.forward });
+            else
+                pushController.CheckSides(new Vector3[] { Vector3.forward, -Vector3.forward });
         }
         if (playerHitscan == Vector3.right || playerHitscan == Vector3.left)
         {
             playerController.LockMovement(Vector3.right);
-            pushController.CheckSides(new Vector3[] { Vector3.right, -Vector3.right });
+            if(playerHitscan == Vector3.right)
+                pushController.CheckSides(new Vector3[] { -Vector3.right, Vector3.right });
+            else
+                pushController.CheckSides(new Vector3[] { Vector3.right, -Vector3.right });
         }
     }
     
