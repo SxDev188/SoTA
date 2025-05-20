@@ -185,6 +185,13 @@ MonoBehaviour:
       Data3: -428739946
       Data4: 683216428
     Path: event:/SFX/Star/Star Throw/StarThrowAttack
+  <StrongThrowAttackSFX>k__BackingField:
+    Guid:
+      Data1: -998587120
+      Data2: 1163943603
+      Data3: -1407099501
+      Data4: 963992136
+    Path: event:/SFX/Star/Star Throw/StrongThrowAttack
   <StarLandFloorSFX>k__BackingField:
     Guid:
       Data1: -627151226

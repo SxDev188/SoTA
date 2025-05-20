@@ -166,12 +166,8 @@ public class
         TravelCoroutine = TravelToDestination(newTargetDestination);
         StartCoroutine(TravelCoroutine);
 
-        //starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
-        //starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
-        //starThrowSFX.start();
-
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX);
-        
+        //soun deffect was moved to PlayerStarActionController since thats where we can determine whether or not it is normal or strong throw
+        //AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX); 
     }
 
     public void TravelOutOfAntiStarZone(Vector3 targetDestination)

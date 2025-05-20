@@ -346,6 +346,13 @@ public class PlayerStarActionController : MonoBehaviour
             throwTargetDestination = transform.position + throwDirection;
             starActions.Throw(throwTargetDestination, throwDirection.normalized);
 
+            if (strongThrow)
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StrongThrowAttackSFX);
+            } else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX); 
+            }
         }
     }
 
