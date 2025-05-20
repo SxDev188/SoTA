@@ -224,11 +224,11 @@ public class PlayerStarActionController : MonoBehaviour
         isBeingGravityPulled = true;
 
         Vector3 lastPosition = transform.position; //Position of player when starting gravity pull
-
+        Vector3 direction;
         while (true)
         {
             // Calculate direction and movement (no gravity applied, only horizontal movement)
-            Vector3 direction = (targetDestination - transform.position).normalized;
+            direction = (targetDestination - transform.position).normalized;
             Vector3 move = direction * gravityPullSpeed;
 
             playerController.CharacterController.Move(move * Time.deltaTime);
@@ -256,13 +256,14 @@ public class PlayerStarActionController : MonoBehaviour
 
             yield return null;
         }
-
+        playerController.SetPlayerPosition(targetDestination + direction*0.1f);
         gravityPullSFX.stop(STOP_MODE.ALLOWFADEOUT);
         StopSuccessfulGravityPullToDestination();
     }
 
     private void StopSuccessfulGravityPullToDestination() //this method is for ending SUCCFESSFUL gravity pulls
     {
+        Debug.Log("Succses!");
         if (GravityPull_IEnumerator != null)
         {
             StopCoroutine(GravityPull_IEnumerator);
@@ -275,6 +276,7 @@ public class PlayerStarActionController : MonoBehaviour
 
     public void InteruptGravityPullToDestination() //this method is for interupting UNSUCCESSFUL gravity pulls
     {
+        Debug.Log("Fail!");
         if (GravityPull_IEnumerator != null)
         {
             StopCoroutine(GravityPull_IEnumerator);
