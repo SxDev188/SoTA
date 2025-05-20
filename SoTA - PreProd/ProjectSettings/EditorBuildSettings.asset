@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Emils levels/E - VSlice Suggestion 2.unity
     guid: b2dafa534014cbb42b0edd6daa201e85
   - enabled: 1
-    path: Assets/Scenes/Emils levels/E - VSlice Suggestion 3.unity
+    path: Assets/Scenes/Emils levels/E - 3rdLevel.unity
     guid: 574e0a73d6303d048a392d9c3a5f9a86
   - enabled: 1
     path: Assets/Scenes/Emils levels/E - Backtracking puzzle.unity
