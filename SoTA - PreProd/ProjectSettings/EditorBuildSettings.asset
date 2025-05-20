@@ -24,13 +24,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Emils levels/E - 2ndNonTutorial.unity
     guid: 43e2254501bdbcd4eb841457bd603d48
   - enabled: 1
-    path: Assets/Scenes/Karin's Levels/TutorialLevel1.unity
+    path: Assets/Scenes/Karin's Levels/KarinLevel1.unity
     guid: 4582c59ac717a0046820b648ddf545dc
   - enabled: 1
     path: Assets/Scenes/Emils levels/E - VSlice Suggestion 1.unity
     guid: 1c4ade150ed556f46b122138c1a1b25c
   - enabled: 1
-    path: Assets/Scenes/Karin's Levels/TutorialLevel2.unity
+    path: Assets/Scenes/Karin's Levels/KarinLevel2.unity
     guid: 402b8fd62084aa649850d1c7a5245595
   - enabled: 1
     path: Assets/Scenes/Karin's Levels/TutorialLevel3.unity

@@ -55,36 +55,39 @@ public class BoulderPlayerPushScript : MonoBehaviour
     public bool CheckValidPlayerDestinationAfterPush(Vector3 direction, float distance)
     {
         //I know this is super nested but atm this is what I can do - Goobie
-        RaycastHit hit;
+        //RaycastHit hit;
+        RaycastHit[] hits;
         Debug.DrawRay(playerController.transform.position, direction, Color.red, 1.0f);
+        hits = Physics.RaycastAll(playerController.transform.position, direction, distance);
 
-        if (Physics.Raycast(playerController.transform.position, direction, out hit, distance))
+        foreach(RaycastHit hit in hits)
         {
             if (!hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("AntiStarZone") && !hit.collider.gameObject.CompareTag("CameraPan") && !hit.collider.gameObject.CompareTag("Spikes"))
             {
                 if (hit.collider.gameObject.CompareTag("BoulderSide"))
                 {
-                    
+
                     if (hit.collider.gameObject.GetComponentInParent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
                     {
                         Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
                         return false;
-                    } else
+                    }
+                    else
                     {
-                        return true;
+                        continue;
                     }
                 }
-                
+
                 if (hit.collider.gameObject.CompareTag("Boulder"))
                 {
-                    
                     if (hit.collider.gameObject.GetComponent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
                     {
                         Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
                         return false;
-                    } else
+                    }
+                    else
                     {
-                        return true;
+                        continue;
                     }
                 }
                 Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
@@ -93,6 +96,41 @@ public class BoulderPlayerPushScript : MonoBehaviour
                 return false;
             }
         }
+        //if (Physics.Raycast(playerController.transform.position, direction, out hit, distance))
+        //{
+        //    if (!hit.collider.gameObject.CompareTag("PressurePlate") && !hit.collider.gameObject.CompareTag("AntiStarZone") && !hit.collider.gameObject.CompareTag("CameraPan") && !hit.collider.gameObject.CompareTag("Spikes"))
+        //    {
+        //        if (hit.collider.gameObject.CompareTag("BoulderSide"))
+        //        {
+                    
+        //            if (hit.collider.gameObject.GetComponentInParent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
+        //            {
+        //                Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
+        //                return false;
+        //            } else
+        //            {
+        //                return true;
+        //            }
+        //        }
+                
+        //        if (hit.collider.gameObject.CompareTag("Boulder"))
+        //        {
+                    
+        //            if (hit.collider.gameObject.GetComponent<BoulderController>() != BoulderController.GetCurrentlyActiveBoulder())
+        //            {
+        //                Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
+        //                return false;
+        //            } else
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //        Debug.Log("RAYCAST HIT SOMETHING WITH TAG: " + hit.collider.gameObject.tag);
+
+
+        //        return false;
+        //    }
+        //}
 
         return true;
     }

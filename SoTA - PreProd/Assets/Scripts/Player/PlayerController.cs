@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private bool isMovementLocked = false;
     private bool isAttachedToBoulder = false;
+    private bool isBeingGravityPulled = false;
+
     public bool IsAttachedToBoulder { get { return isAttachedToBoulder; } } //used in PlayerBoulderLockSymbolScript.cs
     public bool inputLocked = false; //Used to lock movement during gravity pull
     public bool disableGravityDuringPull = false; //Used to disable downward gravity during gravity pull
@@ -94,6 +96,10 @@ public class PlayerController : MonoBehaviour
         if (isAttachedToBoulder) //don't move if attached to a boulder
         {
             return;
+        }
+        if(isBeingGravityPulled) 
+        {  
+            return; 
         }
 
         if (isMovementLocked && isMoving) //aka is pushing/pulling boulder
@@ -279,7 +285,19 @@ public class PlayerController : MonoBehaviour
     {
         isAttachedToBoulder = false;
     }
+    public void StartBeingGravityPulled()
+    {
+        isBeingGravityPulled = true;
+        inputLocked = true;
+        disableGravityDuringPull = true;
+    }
 
+    public void StopBeingGravityPulled()
+    {
+        isBeingGravityPulled = false;
+        inputLocked = false;
+        disableGravityDuringPull = false;
+    }
     public void SetDeathAnimationTrue()
     {
         animator.SetBool("isDead", true);
