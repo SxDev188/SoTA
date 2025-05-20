@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +6,7 @@ using UnityEngine;
 /// Modified by: Sixten
 /// 
 /// </summary>
+
 public class HighlighterScript : MonoBehaviour
 {
     [Tooltip("Renderer to highlight. If left empty, the first Renderer in children will be used.")]

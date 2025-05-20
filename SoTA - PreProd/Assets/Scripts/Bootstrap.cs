@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 /// Not used as extensively as I would've wanted, but it was implemented a bit late in development
 /// 
 /// </summary>
+
 public class Bootstrap : MonoBehaviour
 {
 
