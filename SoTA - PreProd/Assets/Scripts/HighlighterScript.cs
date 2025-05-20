@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Author: Sixten
-/// Ignore all the stupid comments or names :p
+/// 
+/// Modified by: Sixten
+/// 
 /// </summary>
 
 public class HighlighterScript : MonoBehaviour

@@ -2,7 +2,9 @@ using UnityEngine;
 
 /// <summary>
 /// Author: Sixten
-/// Ignore all the stupid comments or names :p
+/// 
+/// Modified by: Sixten, Gabbriel
+/// 
 /// </summary>
 
 public class InteractText : MonoBehaviour
@@ -56,7 +58,7 @@ public class InteractText : MonoBehaviour
         }
         else
         {
-            if (isShowingText)
+            if (isShowingText) // A little delay before we hide the text again
             {
                 timeSinceLeftRange += Time.fixedDeltaTime;
                 if (timeSinceLeftRange >= hideDelay)

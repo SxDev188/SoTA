@@ -4,7 +4,8 @@ using System.Runtime.CompilerServices;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class StarActions : MonoBehaviour
+public class 
+    StarActions : MonoBehaviour
 {
     // PUBLIC
     private bool isTraveling = false; //should be made private, where is it used? - goobie // is checked in AntiStarZoneScript in the logic for pushing out the star, but separating isTraveling and IsTraveling into two different bools works aswell :) -Emil
@@ -54,7 +55,7 @@ public class StarActions : MonoBehaviour
     private bool canBePickedUp = true;
     private CooldownTimer dropStarCooldown;
 
-    private bool inWall = false;
+
 
 
     // For SFX
@@ -142,36 +143,34 @@ public class StarActions : MonoBehaviour
 
     public void Throw(Vector3 targetDestination, Vector3 direction)
     {
-        if (!inWall)
+        
+        //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
+        if (SaveStateManager.Instance != null)
         {
-            //null check here to make star throwable even if savestatemanager is not in scene - Gabbriel
-            if (SaveStateManager.Instance != null)
-            {
-                //Added save here by Linus
-                SaveStateManager.Instance.Save();
-            }
-
-            isOnPlayer = false;
-            Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
-
-            // Make sure our star is going the right direction?
-            fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
-            throwStartPosition.y = fixedYValueWhenThrown;
-
-            transform.position = throwStartPosition; // why we do this?
-
-            Vector3 newTargetDestination = targetDestination;
-            newTargetDestination.y = fixedYValueWhenThrown;
-
-            TravelCoroutine = TravelToDestination(newTargetDestination);
-            StartCoroutine(TravelCoroutine);
-
-            //starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
-            //starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
-            //starThrowSFX.start();
-
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX);
+            //Added save here by Linus
+            SaveStateManager.Instance.Save();
         }
+
+        isOnPlayer = false;
+        Vector3 throwStartPosition = playerTransform.position + frontOfPlayerOffset * direction;
+
+        // Make sure our star is going the right direction?
+        fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
+        throwStartPosition.y = fixedYValueWhenThrown;
+
+        transform.position = throwStartPosition; // why we do this?
+
+        Vector3 newTargetDestination = targetDestination;
+        newTargetDestination.y = fixedYValueWhenThrown;
+
+        TravelCoroutine = TravelToDestination(newTargetDestination);
+        StartCoroutine(TravelCoroutine);
+
+        //starThrowSFX.stop(STOP_MODE.ALLOWFADEOUT);
+        //starThrowSFX.setParameterByNameWithLabel("StarThrowState", "Traveling");
+        //starThrowSFX.start();
+
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX);
         
     }
 
@@ -234,25 +233,10 @@ public class StarActions : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (isOnPlayer)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("StopStar"))
-            {
-                inWall = false;
-            }
-        }
-    }
+
     void OnCollisionEnter(Collision collision)
     {
-        if (isOnPlayer)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("StopStar"))
-            {
-                inWall = true;
-            }
-        }
+
         if (collision.gameObject.tag == "Player")
         {
             //if (isTraveling)

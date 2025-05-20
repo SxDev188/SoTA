@@ -4,7 +4,9 @@ using UnityEngine.Audio;
 
 /// <summary>
 /// Author: Sixten
-/// Ignore all the stupid comments or names :p
+/// 
+/// Modified by: Sixten, Gabbriel
+/// 
 /// </summary>
 
 public class AudioMenu : MonoBehaviour
