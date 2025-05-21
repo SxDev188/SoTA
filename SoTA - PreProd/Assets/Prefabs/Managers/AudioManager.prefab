@@ -207,6 +207,13 @@ MonoBehaviour:
       Data3: -626013563
       Data4: -1553630635
     Path: event:/Ambience/abyssAmbience
+  <DeepAmbience>k__BackingField:
+    Guid:
+      Data1: 1320256307
+      Data2: 1091742929
+      Data3: -1842340709
+      Data4: 122698732
+    Path: event:/Ambience/DeepAmbience
   <StarThrowSFX>k__BackingField:
     Guid:
       Data1: 273182264

@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
 
     public static EventInstance ambienceEventInstance;
+    public static EventInstance deepAmbienceEventInstance;
 
     [SerializeField] int backgroundMusicIndex = 0;
     EventInstance backgroundMusic;
@@ -31,6 +32,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] bool disableBgMusic = false;
     [SerializeField] bool disableAmbience = false;
+    [SerializeField] bool disableDeepAmbience = false;
 
     void Awake()
     {
@@ -62,7 +64,11 @@ public class AudioManager : MonoBehaviour
         if (!disableAmbience)
         {
             InitializeAmbience(FMODEvents.Instance.Ambience);
-
+        }
+        
+        if (!disableDeepAmbience) //want to have this in main menu without the more "wind like" ambience above
+        {
+            InitializeDeepAmbience(FMODEvents.Instance.DeepAmbience);
         }
 
         if (!disableBgMusic)
@@ -99,6 +105,11 @@ public class AudioManager : MonoBehaviour
     {
         ambienceEventInstance = CreateInstance(ambienceEventReference);
         ambienceEventInstance.start();
+    }
+    public void InitializeDeepAmbience(EventReference ambienceEventReference)
+    {
+        deepAmbienceEventInstance = CreateInstance(ambienceEventReference);
+        deepAmbienceEventInstance.start();
     }
 
     private void CleanUp()

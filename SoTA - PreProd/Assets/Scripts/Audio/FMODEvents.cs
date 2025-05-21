@@ -36,6 +36,7 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference Ambience { get; private set; }
+    [field: SerializeField] public EventReference DeepAmbience { get; private set; }
     
     [field: Header("Star")]
     [field: SerializeField] public EventReference StarThrowSFX  { get; private set; }
