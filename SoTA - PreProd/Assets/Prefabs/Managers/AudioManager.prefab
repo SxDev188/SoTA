@@ -48,6 +48,7 @@ MonoBehaviour:
   masterVolume: 1
   musicVolume: 1
   SFXVolume: 1
+  backgroundMusicIndex: 0
   disableBgMusic: 0
   disableAmbience: 0
 --- !u!1 &5652984145735463639
@@ -164,6 +165,41 @@ MonoBehaviour:
       Data3: -1417496921
       Data4: -1637747067
     Path: event:/Music/BackgroundMusic
+  <AmbientTrack01a>k__BackingField:
+    Guid:
+      Data1: 2053991976
+      Data2: 1170332377
+      Data3: 1074133667
+      Data4: -841379321
+    Path: event:/Music/AmbientTrack01a
+  <AmbientTrack01b>k__BackingField:
+    Guid:
+      Data1: -24501548
+      Data2: 1263935403
+      Data3: 1642434724
+      Data4: -1646022121
+    Path: event:/Music/AmbientTrack01b
+  <AmbientTrack02>k__BackingField:
+    Guid:
+      Data1: -1640935694
+      Data2: 1220505371
+      Data3: -1490239597
+      Data4: -2043592981
+    Path: event:/Music/AmbientTrack02
+  <AmbientTrack03>k__BackingField:
+    Guid:
+      Data1: -1443167609
+      Data2: 1240792352
+      Data3: -441413716
+      Data4: -190988893
+    Path: event:/Music/AmbientTrack03
+  <AmbientTrack04>k__BackingField:
+    Guid:
+      Data1: -357055563
+      Data2: 1162199632
+      Data3: 1035913100
+      Data4: 122739735
+    Path: event:/Music/AmbientTrack04
   <Ambience>k__BackingField:
     Guid:
       Data1: 811198417

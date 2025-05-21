@@ -28,6 +28,11 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Background Music")]
     [field: SerializeField] public EventReference BackgroundMusic { get; private set; }
+    [field: SerializeField] public EventReference AmbientTrack01a { get; private set; }
+    [field: SerializeField] public EventReference AmbientTrack01b { get; private set; }
+    [field: SerializeField] public EventReference AmbientTrack02 { get; private set; }
+    [field: SerializeField] public EventReference AmbientTrack03 { get; private set; }
+    [field: SerializeField] public EventReference AmbientTrack04 { get; private set; }
     
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference Ambience { get; private set; }

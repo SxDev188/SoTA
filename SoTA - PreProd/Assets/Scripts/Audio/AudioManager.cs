@@ -24,7 +24,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
 
     public static EventInstance ambienceEventInstance;
+
+    [SerializeField] int backgroundMusicIndex = 0;
     EventInstance backgroundMusic;
+    List<EventReference> backgroundMusicList;
 
     [SerializeField] bool disableBgMusic = false;
     [SerializeField] bool disableAmbience = false;
@@ -43,6 +46,15 @@ public class AudioManager : MonoBehaviour
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
+
+
+        backgroundMusicList = new List<EventReference>();
+        backgroundMusicList.Add(FMODEvents.Instance.BackgroundMusic);   //0
+        backgroundMusicList.Add(FMODEvents.Instance.AmbientTrack01a);   //1
+        backgroundMusicList.Add(FMODEvents.Instance.AmbientTrack01b);   //2
+        backgroundMusicList.Add(FMODEvents.Instance.AmbientTrack02);    //3
+        backgroundMusicList.Add(FMODEvents.Instance.AmbientTrack03);    //4
+        backgroundMusicList.Add(FMODEvents.Instance.AmbientTrack04);    //5
     }
 
     void Start()
@@ -105,7 +117,7 @@ public class AudioManager : MonoBehaviour
 
     private void StartBgMusic()
     {
-        backgroundMusic = Instance.CreateInstance(FMODEvents.Instance.BackgroundMusic);
+        backgroundMusic = Instance.CreateInstance(backgroundMusicList[backgroundMusicIndex]);
         backgroundMusic.start();
     }
 
