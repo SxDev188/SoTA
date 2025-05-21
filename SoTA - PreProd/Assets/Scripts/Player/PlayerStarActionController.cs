@@ -257,7 +257,6 @@ public class PlayerStarActionController : MonoBehaviour
             yield return null;
         }
         playerController.SetPlayerPosition(targetDestination + direction*0.1f);
-        gravityPullSFX.stop(STOP_MODE.ALLOWFADEOUT);
         StopSuccessfulGravityPullToDestination();
     }
 
@@ -269,7 +268,7 @@ public class PlayerStarActionController : MonoBehaviour
             starActions.Recall();
             playerController.StopBeingGravityPulled(); //Enable gravity again and Re-enable input after the pull
             isBeingGravityPulled = false;
-
+            gravityPullSFX.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
 
@@ -280,7 +279,7 @@ public class PlayerStarActionController : MonoBehaviour
             StopCoroutine(GravityPull_IEnumerator);
             playerController.StopBeingGravityPulled(); //Enable gravity again and Re-enable input after the pull
             isBeingGravityPulled = false;
-
+            gravityPullSFX.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
 
@@ -480,7 +479,7 @@ public class PlayerStarActionController : MonoBehaviour
     {
         if (playerHealth.IsDead) return; //so player cannot do do this action when dead
 
-        if (!gravityPullAllowed ||starActions.IsOnPlayer || starActions.IsTraveling)
+        if (!gravityPullAllowed ||starActions.IsOnPlayer || starActions.IsTraveling || isBeingGravityPulled)
         {
             return;
         }
