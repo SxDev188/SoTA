@@ -15727,6 +15727,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7249826583681419485, guid: dc104681fcf3deb4ebc317f89f3e14a0,
         type: 3}
+      propertyPath: bgMusicEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249826583681419485, guid: dc104681fcf3deb4ebc317f89f3e14a0,
+        type: 3}
       propertyPath: segmentPosition.x
       value: 2
       objectReference: {fileID: 0}
