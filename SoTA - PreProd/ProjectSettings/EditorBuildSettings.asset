@@ -17,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Emils levels/E - 1stLevel.unity
     guid: b6eb664b854dc57479c4f551cf845616
-  - enabled: 0
-    path: Assets/Scenes/Emils levels/E - 1stNonTutorial.unity
-    guid: be2cebea875d4fa49bb961dcdbc67f30
   - enabled: 1
     path: Assets/Scenes/Gabbriels Levels/TutorialLevel2.unity
     guid: 56af592a133d0a24293ac1035796ca61
@@ -29,9 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Emils levels/E - 2ndLevel.unity
     guid: 0d47595ee7fac80409ea35a942ebb6bf
-  - enabled: 0
-    path: Assets/Scenes/Emils levels/E - 2ndNonTutorial.unity
-    guid: 43e2254501bdbcd4eb841457bd603d48
   - enabled: 1
     path: Assets/Scenes/Gabbriels Levels/TutorialLevel3.unity
     guid: a3b51fd56b1975c408a706d0942b8739

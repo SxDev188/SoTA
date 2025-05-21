@@ -14839,12 +14839,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318432d8dc9ef194f9d4897e31510639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOnPlayer: 0
+  isOnPlayer: 1
   throwSpeed: 10
   yOffsetWhenThrown: 0.4
   targetDestinationAcceptanceRadius: 0.1
   frontOfPlayerOffset: 0
   onPlayerOffset: {x: 0, y: 0.6, z: 0}
+  dropStarCooldownDuration: 0.5
 --- !u!114 &8059952587586095367
 MonoBehaviour:
   m_ObjectHideFlags: 0
