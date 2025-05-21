@@ -151,4 +151,51 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void SetAllAmbienceState(bool shouldPlay)
+    {
+        SetAmbienceState(shouldPlay);
+        SetDeepAmbienceState(shouldPlay);
+    }
+
+
+    public void SetAmbienceState(bool shouldPlay)
+    { 
+        PLAYBACK_STATE playbackState;
+        ambienceEventInstance.getPlaybackState(out playbackState);
+
+        if (shouldPlay)
+        {
+            if (playbackState == PLAYBACK_STATE.STOPPED || playbackState == PLAYBACK_STATE.STOPPING)
+            {
+                ambienceEventInstance.start();
+            }
+        } else
+        {
+            if (playbackState == PLAYBACK_STATE.PLAYING)
+            {
+                ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
+        }
+    }
+    
+    public void SetDeepAmbienceState(bool shouldPlay)
+    { 
+        PLAYBACK_STATE playbackState;
+        deepAmbienceEventInstance.getPlaybackState(out playbackState);
+
+        if (shouldPlay)
+        {
+            if (playbackState == PLAYBACK_STATE.STOPPED || playbackState == PLAYBACK_STATE.STOPPING)
+            {
+                deepAmbienceEventInstance.start();
+            }
+        } else
+        {
+            if (playbackState == PLAYBACK_STATE.PLAYING)
+            {
+                deepAmbienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
+        }
+    }
 }

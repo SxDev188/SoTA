@@ -57,6 +57,7 @@ public class EndPointScript : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().SetIsDead(true); //placeholder just so player cannot move
             AudioManager.Instance.SetBgMusicState(false); //if music is playing, turn it off (let fade out)
+            AudioManager.Instance.SetAllAmbienceState(false); //if music is playing, turn it off (let fade out)
 
             cooldownTimer.Start(exitWaitTimeInSeconds, ExitBehavior); //ExitBehavior() method will run when timer is finished
             fadeToblackCoroutine = FadeToBlack();
