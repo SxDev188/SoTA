@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Author: Gabbriel
+/// 
+/// Modified by: Gabbriel
+/// 
+/// </summary>
 public class AutoGUISwitchFromInputMethod : MonoBehaviour
 {
     [SerializeField] GameObject keyboard;
