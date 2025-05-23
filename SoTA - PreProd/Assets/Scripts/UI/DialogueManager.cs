@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten
+/// Modified by:
 /// 
 /// </summary>
 

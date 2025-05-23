@@ -3,7 +3,12 @@ using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class SceneRestarter : MonoBehaviour
 {
     public void RestartCurrentSceneInEditor()

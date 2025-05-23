@@ -2,7 +2,12 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using System.Linq;
 using System.Collections.Generic;
-
+/// <summary>
+/// Author:Karin
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class LightTracker : MonoBehaviour
 {
     // COMPONENTS

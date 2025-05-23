@@ -1,6 +1,11 @@
 using System;
 using UnityEngine;
-
+/// <summary>
+/// Author:Emil
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class AntiStarZoneScript : MonoBehaviour, IActivatable
 {
     public StarActions starActions;

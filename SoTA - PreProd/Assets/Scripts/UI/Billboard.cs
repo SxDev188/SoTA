@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten
+/// Modified by:
 /// 
 /// </summary>
 

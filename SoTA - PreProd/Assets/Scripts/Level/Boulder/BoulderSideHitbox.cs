@@ -1,7 +1,13 @@
 using UnityEngine;
-
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by: Sixten, Linus
+/// 
+/// </summary>
 public class BoulderSideHitbox : MonoBehaviour
 {
+
     [SerializeField] private Vector3 pushDirection;
 
     public bool WasHitByStar { get; private set; }

@@ -1,7 +1,12 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// Author:Linus
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }

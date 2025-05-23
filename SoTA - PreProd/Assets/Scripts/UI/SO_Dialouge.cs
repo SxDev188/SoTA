@@ -3,7 +3,7 @@
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten, Gabbriel
+/// Modified by:
 /// 
 /// </summary>
 

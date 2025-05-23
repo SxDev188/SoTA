@@ -1,7 +1,12 @@
 using System;
 using System.Collections;
 using UnityEngine;
-
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class CooldownTimer
 {
     public bool IsRunning { get; private set; }
@@ -33,28 +38,5 @@ public class CooldownTimer
         onCooldownFinished?.Invoke();
     }
 
-    //--- I commented out these methods but kept them since they might be useful if we need cooldown timers in other contexts than player death (goobie) ---
-
-    //public void Restart()
-    //{
-    //    if (coroutineRunner != null)
-    //    {
-    //        // Stop any existing coroutine before starting a new one
-    //        if (IsRunning)
-    //        {
-    //            coroutineRunner.StopCoroutine(CooldownCoroutine());
-    //        }
-    //        IsRunning = true;
-    //        coroutineRunner.StartCoroutine(CooldownCoroutine());
-    //    }
-    //}
-
-    //public void Stop()
-    //{
-    //    if (IsRunning && coroutineRunner != null)
-    //    {
-    //        coroutineRunner.StopCoroutine(CooldownCoroutine());
-    //        IsRunning = false;
-    //    }
-    //}
+    
 }

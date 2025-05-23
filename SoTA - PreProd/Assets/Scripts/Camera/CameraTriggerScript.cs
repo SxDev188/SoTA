@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Author:Karin, Linus
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class CameraTriggerScript : MonoBehaviour
 {
     public Vector2 panDirection;

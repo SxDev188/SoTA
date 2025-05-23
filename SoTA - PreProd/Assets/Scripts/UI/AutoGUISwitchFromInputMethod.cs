@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class AutoGUISwitchFromInputMethod : MonoBehaviour
 {
     [SerializeField] GameObject keyboard;

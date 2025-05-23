@@ -1,6 +1,11 @@
 using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Author:Karin
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class LampScript : MonoBehaviour, IActivatable
 
 {

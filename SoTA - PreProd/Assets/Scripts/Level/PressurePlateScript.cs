@@ -2,7 +2,12 @@ using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Author:Gabbriel, Karin
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class PressurePlateScript : MonoBehaviour
 {
     [SerializeField] private List<GameObject> puzzleElements = new List<GameObject>();
@@ -30,11 +35,6 @@ public class PressurePlateScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Enter!: " + other.tag);
-        //if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
-        //{
-        //    return;
-        //}
 
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
@@ -43,10 +43,6 @@ public class PressurePlateScript : MonoBehaviour
 
         if (objectsOnPlate.Count > 0)
         {
-            //if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderController>().IsAboutToSnapToFloor)
-            //{
-            //    return;
-            //}
 
             if (!isPushedDown)
             {
@@ -55,7 +51,6 @@ public class PressurePlateScript : MonoBehaviour
 
                 pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushDown");
                 pressurePlateSFX.start();
-                //Debug.Log("TRIGGER ENTER RUNNING INTERACT() ---> " + other.gameObject.tag);
                 Interact();
                 PlayActivationSFX();
             }
@@ -64,12 +59,6 @@ public class PressurePlateScript : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        //Debug.Log("Exit!: " + other.tag);
-        //if (other.CompareTag("Boulder") && !other.gameObject.GetComponent<BoulderPlayerPushScript>().IsCurrentlyMoving && !other.gameObject.GetComponent<BoulderStarPushScript>().IsCurrentlyMoving)
-        //{
-        //    return;
-        //}
-
         if (other.CompareTag("Player") || other.CompareTag("Star") || other.CompareTag("Boulder"))
         {
             objectsOnPlate.Remove(other.gameObject);
@@ -87,7 +76,7 @@ public class PressurePlateScript : MonoBehaviour
             pressurePlateSFX.setParameterByNameWithLabel("PressurePlateState", "PushUp");
             pressurePlateSFX.start();
 
-            //Debug.Log("TRIGGER EXIT RUNNING INTERACT() ---> " + other.gameObject.tag);
+
             PlayDeactivationSFX();
 
             Interact();

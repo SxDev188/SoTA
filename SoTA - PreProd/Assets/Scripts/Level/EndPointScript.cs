@@ -2,7 +2,12 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
-
+/// <summary>
+/// Author: Emil, Linus
+/// 
+/// Modified by: Gabbriel
+/// 
+/// </summary>
 public class EndPointScript : MonoBehaviour
 {
     [SerializeField] Transform nextSpawnPoint;

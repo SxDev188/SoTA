@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten, Gabbriel
+/// Modified by: Gabbriel
 /// 
 /// </summary>
 
@@ -70,7 +70,7 @@ public class UIScript : MonoBehaviour
 
     private void Update() // Inefficient but works. 
     {
-        if (playerObject == null) // Try and find the player object again (sometimes we lose him/her)
+        if (playerObject == null) // Try and find the player object again
         {
             playerObject = GameObject.FindGameObjectWithTag("Player");
         }
@@ -91,10 +91,8 @@ public class UIScript : MonoBehaviour
             }
         }
 
-        // This is supid. This would look a lot cleaner with onsceneload events or similar and not checking every frame, but time constraints :/
         if (SceneManager.GetActiveScene().name == "StartScene")
         {
-            // Events could've been used, but bools go brr
             inStartScene = true;
             inEndScene = false;
 
@@ -104,7 +102,7 @@ public class UIScript : MonoBehaviour
             endMenuObject.SetActive(false);
             pauseMenuObject.SetActive(false);
 
-            if (EventSystem.current.firstSelectedGameObject != mainMenuSelection) // Sometimes the focus is just not there... bug fix
+            if (EventSystem.current.firstSelectedGameObject != mainMenuSelection)
             {
                 Focus(mainMenuSelection);
             }
@@ -148,7 +146,7 @@ public class UIScript : MonoBehaviour
     {
         if ((!inStartScene && !inEndScene))
         {
-            if (DialogueManager.InADialogue) // maybe do events here?
+            if (DialogueManager.InADialogue)
             {
                 DialogueManager.QuitTalking = true;
                 UnPauseGame();
@@ -162,7 +160,7 @@ public class UIScript : MonoBehaviour
     }
 
     // METHODS ====================================== //
-    public void QuitGame() // I think this is a duplicate of code, but whatever :P
+    public void QuitGame()
     {
         Application.Quit();
 #if UNITY_EDITOR
@@ -218,14 +216,14 @@ public class UIScript : MonoBehaviour
     {
         yield return null; // UI moment. We need to wait a frame sometimes to gain focus
 
-        while (objectToFocus == null || !objectToFocus.activeInHierarchy) // And sometimes even longer (why unity devs?)
+        while (objectToFocus == null || !objectToFocus.activeInHierarchy)
             yield return null;
 
         EventSystem.current.SetSelectedGameObject(null); // UI moment again
         EventSystem.current.SetSelectedGameObject(objectToFocus); // Now we finally focus on the object in the menu
     }
 
-    public void IsOnController() // :O what can this code do!
+    public void IsOnController()
     {
         isUsingController = !isUsingController;
     }

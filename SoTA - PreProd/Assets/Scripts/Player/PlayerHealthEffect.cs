@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-
+/// <summary>
+/// Author: Karin
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class PlayerHealthEffect : MonoBehaviour
 {
     // Assigning this through script was complicated due to Unity protection of the render features...

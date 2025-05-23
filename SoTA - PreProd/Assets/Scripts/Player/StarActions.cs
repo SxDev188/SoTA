@@ -2,12 +2,17 @@ using FMOD.Studio;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by: Emil, Linus, Sixten
+/// 
+/// </summary>
 public class 
     StarActions : MonoBehaviour
 {
     // PUBLIC
-    private bool isTraveling = false; //should be made private, where is it used? - goobie // is checked in AntiStarZoneScript in the logic for pushing out the star, but separating isTraveling and IsTraveling into two different bools works aswell :) -Emil
+    private bool isTraveling = false; 
     public bool IsTraveling { get { return isTraveling; } }
 
     public bool IsOnPlayer 
@@ -36,7 +41,7 @@ public class
     private Transform playerTransform;
 
     // TWEAKABLE VARIABLES
-    [SerializeField] private bool isOnPlayer = false; // Why is this SerializedField? 
+    [SerializeField] private bool isOnPlayer = false;
 
     [SerializeField] private float throwSpeed = 10f;
     [SerializeField] private float yOffsetWhenThrown = 0.5f;
@@ -105,7 +110,6 @@ public class
             return;
         }
 
-        //pick up star sfx here
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarPickupSFX);
         isOnPlayer = true;
         starRigidbody.useGravity = false;
@@ -113,8 +117,6 @@ public class
 
     private void Drop()
     {
-        //drop star sfx here
-
         isOnPlayer = false;
         starRigidbody.useGravity = true;
 
@@ -128,7 +130,6 @@ public class
     {
         if (!isOnPlayer)
         {
-            //recall sound effect here
 
             if(isTraveling)
             {
@@ -157,7 +158,7 @@ public class
         fixedYValueWhenThrown = playerTransform.position.y + yOffsetWhenThrown;
         throwStartPosition.y = fixedYValueWhenThrown;
 
-        transform.position = throwStartPosition; // why we do this?
+        transform.position = throwStartPosition;
 
         Vector3 newTargetDestination = targetDestination;
         newTargetDestination.y = fixedYValueWhenThrown;
@@ -165,8 +166,7 @@ public class
         TravelCoroutine = TravelToDestination(newTargetDestination);
         StartCoroutine(TravelCoroutine);
 
-        //soun deffect was moved to PlayerStarActionController since thats where we can determine whether or not it is normal or strong throw
-        //AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarThrowAttackSFX); 
+ 
     }
 
     public void TravelOutOfAntiStarZone(Vector3 targetDestination)
@@ -215,15 +215,12 @@ public class
         {
             if (!isOnPlayer) //if isOnPlayer is true, then player will also collide with abyss, which leads to death --> load save state
             {
-                Recall(); //I put recall here instead of load so - Goobie
-                //SaveStateManager.Instance.Load();
+                Recall();
             }
         }
 
         if (other.gameObject.tag == "StarPickupTrigger" && !isOnPlayer && !isTraveling && !playerTransform.GetComponent<PlayerStarActionController>().IsBeingGravityPulled)
         {
-            //isOnPlayer = true;
-            //starRigidbody.useGravity = false;
             Pickup();
         }
     }
@@ -234,10 +231,6 @@ public class
 
         if (collision.gameObject.tag == "Player")
         {
-            //if (isTraveling)
-            //{
-            //    return;
-            //}
             return;
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten, Gabbriel
+/// Modified by: Gabbriel
 /// 
 /// </summary>
 
@@ -22,7 +22,6 @@ public class InteractText : MonoBehaviour
 
     public void Start()
     {
-        // Love unity's way of fetching components, true art
         playerInteractionRange = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteract>().InteractionRange;
     }
 

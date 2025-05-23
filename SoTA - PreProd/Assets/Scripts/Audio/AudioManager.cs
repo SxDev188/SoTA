@@ -4,7 +4,12 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using Unity.VisualScripting;
-
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
     [Header("Volume")]
