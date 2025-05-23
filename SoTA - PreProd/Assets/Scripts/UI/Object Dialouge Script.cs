@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten, Gabbriel
+/// Modified by:Gabbriel
 /// 
 /// </summary>
 

@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten
+/// Modified by:
 /// 
 /// </summary>
 
@@ -34,7 +34,7 @@ public class HighlighterScript : MonoBehaviour
         }
     }
 
-    public void EnableHighlight() // I wonder what this function does...
+    public void EnableHighlight() 
     {
         if (targetRenderer != null && highlightMaterial != null)
         {
@@ -42,7 +42,7 @@ public class HighlighterScript : MonoBehaviour
         }
     }
 
-    public void DisableHighlight() // ...
+    public void DisableHighlight() 
     {
         if (targetRenderer != null && originalMaterial != null)
         {

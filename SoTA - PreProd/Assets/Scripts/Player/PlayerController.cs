@@ -3,12 +3,14 @@ using UnityEngine.InputSystem;
 using FMOD.Studio;
 using System.Collections.Generic;
 using System.Collections;
-
+/// <summary>
+/// Author: Gabbriel, Karin, Linus
+/// 
+/// Modified by: Sixten, Emil
+/// 
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    //public int currentHealth;
-
-    //[SerializeField] public int maxHealth = 10;
     bool justRespawned;
 
     [SerializeField] private float moveSpeed = 7.0f;
@@ -49,12 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         playerSlither = AudioManager.Instance.CreateInstance(FMODEvents.Instance.SlitherSound);
         playerHealth = GetComponent<PlayerHealth>();
-        //currentHealth = maxHealth;
-    }
 
-    void Update()
-    {
-        //UpdateSound(); no more sound :(
     }
 
     private void FixedUpdate()
@@ -108,8 +105,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (isMoving)
         {
-            //this ONLY MOVES FORWARD, direction is determined by where character is looking
-            //characterController.Move(transform.forward * movementInput.magnitude * moveSpeed * Time.deltaTime + Vector3.up * VerticalVelocity);
             Vector3 move = movementInput * moveSpeed * Time.deltaTime;
             move.y = VerticalVelocity;  // Apply vertical velocity here
             characterController.Move(move); // Move the character with gravity
@@ -171,7 +166,6 @@ public class PlayerController : MonoBehaviour
             transform.rotation = rotation;
         }
 
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation);         //this line might be needed for controller
     }
 
     public void LockMovement(Vector3 axis) //For boulder movement
@@ -198,8 +192,7 @@ public class PlayerController : MonoBehaviour
         Vector3[] directions = { Vector3.forward, Vector3.back, Vector3.right, Vector3.left };
 
         for (int i = 0; i < directions.Length; i++)
-        {
-            //here I removed the transform.TransformDirection() so that the raycast ignores the player characters orientation/rotation - goobie
+        {  
             if (Physics.Raycast(transform.position, directions[i], out hit, interactionRange))
             {
                 Debug.DrawRay(transform.position, directions[i] * hit.distance, Color.red);
@@ -219,9 +212,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Spikes") || other.CompareTag("Abyss"))
         {
-            //currentHealth = 0;
             VerticalVelocity = 0;
-            //justRespawned = true;
             playerHealth.Death();
         }
     }

@@ -1,9 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using FMOD.Studio;
-
+/// <summary>
+/// Author:Gabbriel, Sixten, Linus
+/// 
+/// Modified by: 
+/// 
+/// </summary>
 public class BoulderStarPushScript : MonoBehaviour
 {
+
     //this script handles moving the boulder when the star is thrown at it
 
     [field: Header("Star Push Parameters")]
@@ -30,7 +36,6 @@ public class BoulderStarPushScript : MonoBehaviour
         boulderController = GetComponent<BoulderController>();
         pushController = GetComponent<BoulderPushController>();
 
-        //boulderPushSFX = AudioManager.Instance.CreateInstance(FMODEvents.Instance.BoulderSFX);
     }
 
     public void CheckSideHitboxes()
@@ -67,13 +72,11 @@ public class BoulderStarPushScript : MonoBehaviour
 
     IEnumerator StarPushInDirection_IEnumerator(Vector3 direction, float distance)
     {
-        //boulderPushSFX.start();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.BoulderSFX);
 
         Vector3 targetDestination = transform.position + direction * distance;
 
         isBeingStarPushed = true;
-        //boulderRigidbody.isKinematic = false;
         
         //Waits for two fixed updates here. When isKinematic is changed in the line above, that will cause a TriggerExit and then TriggerEnter
         //in the pressure plate. The IsCurrentlyMoving flag is used to make the pressure plate ignore this false exit/enter. 
@@ -97,7 +100,6 @@ public class BoulderStarPushScript : MonoBehaviour
             Vector3 tempDirection = targetDestination - transform.position;
 
             transform.position += tempDirection * starPushSpeed * Time.deltaTime;
-            //pushController.CheckAllSides({direction});
 
             yield return null;
         }
@@ -119,6 +121,5 @@ public class BoulderStarPushScript : MonoBehaviour
         }
 
         isBeingStarPushed = false;
-        //boulderRigidbody.isKinematic = true;
     }
 }

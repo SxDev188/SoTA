@@ -3,9 +3,9 @@ using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
-/// Author: Sixten
+/// Author: Sixten, Gabbriel
 /// 
-/// Modified by: Sixten, Gabbriel
+/// Modified by: Karin, Linus
 /// 
 /// </summary>
 public class BoulderController : MonoBehaviour, IInteractable
@@ -99,9 +99,6 @@ public class BoulderController : MonoBehaviour, IInteractable
     {
         if (isAttached && !pushController.IsBeingPushed)
         {
-            //if (playerController.IsGrounded())
-            //    Debug.Log("PLAYER GROUNDED");
-
             if (playerController.GetBoulderPushDirection() != Vector3.zero)
             {
                 boulderPlayerPushScript.PlayerPushInDirection(playerController.GetBoulderPushDirection());
@@ -201,7 +198,6 @@ public class BoulderController : MonoBehaviour, IInteractable
     {
         currentlyActiveBoulder = this;
         isAttached = true;
-        //boulderRigidbody.isKinematic = false; 
         LockPlayerMovement();
 
         offsetToPlayer = transform.position - player.transform.position;
@@ -214,7 +210,6 @@ public class BoulderController : MonoBehaviour, IInteractable
     public void Detach() //Added so when Load can detach the boulder from the player by Linus
     {
         isAttached = false;
-       // boulderRigidbody.isKinematic = true; //solves jank with boulder pushing away player when walked into
         playerController.UnlockMovement();
 
         currentlyActiveBoulder = null;

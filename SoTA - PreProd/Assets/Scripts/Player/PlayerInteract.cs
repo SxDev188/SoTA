@@ -1,7 +1,12 @@
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-
+/// <summary>
+/// Author: Karin, Sixten
+/// 
+/// Modified by: Gabbriel
+/// 
+/// </summary>
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private float interactionRange = 0.5f;

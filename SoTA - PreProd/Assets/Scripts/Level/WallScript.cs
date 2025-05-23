@@ -1,6 +1,11 @@
 using TMPro;
 using UnityEngine;
-
+/// <summary>
+/// Author:Gabbriel, Karin
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class WallScript : MonoBehaviour, IActivatable
 {
     Vector3 defaultPosition;    //position when NOT activated

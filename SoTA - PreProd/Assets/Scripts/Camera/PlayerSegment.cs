@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+/// <summary>
+/// Author:Linus
+/// 
+/// Modified by:
+/// 
+/// </summary>
 
 public class PlayerSegment : MonoBehaviour
 {
+
     List<LevelSegment> segments = new List<LevelSegment>();
     public event Action SegmentChanged;
     public void AddSegment(LevelSegment segment)

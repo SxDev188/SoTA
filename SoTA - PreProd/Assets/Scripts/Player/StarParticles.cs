@@ -2,7 +2,12 @@ using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Author:Karin
+/// 
+/// Modified by: Gabbriel
+/// 
+/// </summary>
 public class StarParticles : MonoBehaviour
 {
     //COMPONENTS ============================================ //

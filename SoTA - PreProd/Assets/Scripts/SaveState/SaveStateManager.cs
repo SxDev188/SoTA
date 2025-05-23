@@ -1,7 +1,12 @@
 using FMOD.Studio;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Author:Linus
+/// 
+/// Modified by:
+/// 
+/// </summary>
 //A Singelton since it is a Manager
 public class SaveStateManager : MonoBehaviour
 {

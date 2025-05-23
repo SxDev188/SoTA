@@ -1,6 +1,11 @@
 using UnityEngine;
 using FMODUnity;
-
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class FMODEvents : MonoBehaviour
 {
     [field: Header("Button SFX")]

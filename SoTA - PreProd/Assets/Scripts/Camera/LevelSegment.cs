@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Author:Linus
+/// 
+/// Modified by: Gabbriel
+/// 
+/// </summary>
 public class LevelSegment : MonoBehaviour
 {
     [SerializeField] Vector2 segmentPosition;

@@ -3,10 +3,16 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+/// <summary>
+/// Author:Gabbriel
+/// 
+/// Modified by:Karin, Linus, Emil
+/// 
+/// </summary>
+/// 
 
 public class PlayerStarActionController : MonoBehaviour
 {
-
     // COMPONENTS
     private Transform starTransform;
     private StarActions starActions;
@@ -60,9 +66,6 @@ public class PlayerStarActionController : MonoBehaviour
         get => isBeingGravityPulled;
         private set => isBeingGravityPulled = value;
     }
-
-
-    //private float healthChangeTimer = 0.0f;
 
     private Vector3 mouseDownPosition;
     private Vector3 mouseReleasePosition;
@@ -170,11 +173,6 @@ public class PlayerStarActionController : MonoBehaviour
         {
             HideAimLine();
         }
-
-        //healthChangeTimer += Time.deltaTime;
-        //ManagePlayerHealth();
-
-        //PlayLowHealthWarningSound();
     }
 
     // METHODS ====================================== //
@@ -206,10 +204,6 @@ public class PlayerStarActionController : MonoBehaviour
         {
             throwDirection = throwDirection.normalized * Vector3.Distance(transform.position, hitInfo.point);
         }
-        //else if (Physics.SphereCast(aimRay, 0.3f, out hitInfo, distance, LayerMask.GetMask("StopStar", "StarLayer")))
-        //{
-        //    throwDirection = throwDirection.normalized * Vector3.Distance(transform.position, hitInfo.point);
-        //}
 
     }
 
@@ -292,48 +286,7 @@ public class PlayerStarActionController : MonoBehaviour
         lineRenderer.positionCount = 2;
     }
 
-    //void ManagePlayerHealth()
-    //{
-    //    float changeHealthAtTime = 1.0f;
-
-    //    if (playerController.currentHealth > 0 && starActions.IsOnPlayer == false && healthChangeTimer >= changeHealthAtTime)
-    //    {
-    //        playerController.currentHealth--;
-    //        healthChangeTimer = 0.0f;
-    //    }
-    //    if (playerController.currentHealth < playerController.maxHealth && starActions.IsOnPlayer && healthChangeTimer >= changeHealthAtTime)
-    //    {
-    //        playerController.currentHealth++;
-    //        healthChangeTimer = 0.0f;
-    //    }
-    //    if (healthChangeTimer >= changeHealthAtTime)
-    //    {
-    //        healthChangeTimer = 0.0f;
-    //    }
-    //}
-
-    //void PlayLowHealthWarningSound()
-    //{
-    //    if (playerController.currentHealth < 5 && playerController.currentHealth > 0 && !starActions.IsOnPlayer)
-    //    {
-    //        PLAYBACK_STATE playbackState;
-    //        lowHealthWarningSFX.getPlaybackState(out playbackState);
-
-    //        if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-    //        {
-    //            lowHealthWarningSFX.start();
-    //        }
-    //    } else
-    //    {
-    //        PLAYBACK_STATE playbackState;
-    //        lowHealthWarningSFX.getPlaybackState(out playbackState);
-
-    //        if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
-    //        {
-    //            lowHealthWarningSFX.stop(STOP_MODE.ALLOWFADEOUT);
-    //        }
-    //    }
-    //}
+    
 
     void ThrowStar()
     {
@@ -374,11 +327,6 @@ public class PlayerStarActionController : MonoBehaviour
     {
         if (playerHealth.IsDead) return; //so player cannot do do this action when dead
 
-        //if (Vector3.Distance(transform.position, starTransform.position) <= starPickupRange && pickUpAllowed)
-        //{
-        //    starActions.CarryToggle();
-        //}
-
         if (isBeingGravityPulled)
         {
             return;
@@ -407,22 +355,6 @@ public class PlayerStarActionController : MonoBehaviour
             //SFX for recall attempt but is too far away
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.StarRecallFailSFX);
         }
-    }
-
-
-    void OnRecallStar(InputValue input)
-    {
-        //was moved to OnCarrStarToggle input method above.
-
-        //if (!recallAllowed)
-        //{
-        //    return;
-        //}
-
-        //if (Vector3.Distance(transform.position, starTransform.position) <= recallRange)
-        //{
-        //    starActions.Recall();
-        //}
     }
 
     void OnLeftMouseDown(InputValue input)
@@ -567,16 +499,5 @@ public class PlayerStarActionController : MonoBehaviour
     void OnStrongThrowRelease()
     {
         strongThrow = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //moved this to the Death() method in PlayerHealth
-
-        //if(other.gameObject.CompareTag("Spikes"))
-        //{
-        //    InteruptGravityPullToDestination();
-        //}
-
     }
 }

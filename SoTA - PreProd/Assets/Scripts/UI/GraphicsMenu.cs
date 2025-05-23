@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten
+/// Modified by:
 /// 
 /// </summary>
 
@@ -31,7 +31,7 @@ public class GraphicsMenu : MonoBehaviour
         Screen.SetResolution(Screen.resolutions[resIndex].width, Screen.resolutions[resIndex].height, Screen.fullScreen);
     }
 
-    public void PopulateResDropDown() // unity UI bs. Why don't they just have a completed component for this smh...
+    public void PopulateResDropDown()
     {
         int currentResIndex = 0;
         List<string> options = new List<string>();

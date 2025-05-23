@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
 /// <summary>
-/// Author: Gabbriel
+/// Author:Gabbriel
 /// 
-/// Modified by: Gabbriel
-/// 
+/// Modified by:
 /// </summary>
 public class AutoGUISwitchFromInputMethod : MonoBehaviour
 {

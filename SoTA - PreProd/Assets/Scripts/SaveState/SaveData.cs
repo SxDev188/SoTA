@@ -1,5 +1,10 @@
 using UnityEngine;
-
+/// <summary>
+/// Author:Linus
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class SaveData 
 {
     public bool[] ButtonsActive { get { return buttonsActive; } }

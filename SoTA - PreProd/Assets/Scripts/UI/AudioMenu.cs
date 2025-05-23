@@ -5,14 +5,12 @@ using UnityEngine.Audio;
 /// <summary>
 /// Author: Sixten
 /// 
-/// Modified by: Sixten, Gabbriel
+/// Modified by: Gabbriel
 /// 
 /// </summary>
 
 public class AudioMenu : MonoBehaviour
 {
-    // We should not keep a bunch of legacy code in the src file since it only bloats. 
-    // Also, stop commenting out variables that are not in use anymore. Delete them.
     public void SetMasterVolume(float volume)
     {
         AudioManager.Instance.masterVolume = volume;

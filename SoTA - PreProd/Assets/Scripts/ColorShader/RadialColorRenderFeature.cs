@@ -3,7 +3,12 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-
+/// <summary>
+/// Author:Karin
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class RadialColorRenderFeature : ScriptableRendererFeature
 {
     class RadialColorRenderPass : ScriptableRenderPass

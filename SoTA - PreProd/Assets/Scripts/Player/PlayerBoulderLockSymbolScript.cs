@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+/// <summary>
+/// Author: Gabbriel
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class PlayerBoulderLockSymbolScript : MonoBehaviour
 {
     PlayerController playerController;

@@ -3,7 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-
+/// <summary>
+/// Author:Karin, Gabbriel, Linus
+/// 
+/// Modified by:
+/// 
+/// </summary>
 public class ButtonScript : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<GameObject> puzzleElements = new List<GameObject>();

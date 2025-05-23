@@ -1,5 +1,11 @@
 Shader "Unlit/RadialColorMaskURP"
 {
+    /// <summary>
+    /// Author:Karin
+    /// 
+    /// Modified by:
+    /// 
+    /// </summary>
     Properties
     {
         _Color ("Color", Color) = (1, 1, 1, 1) // The _ is needed for shaders, I'm not braking our coding conventions :'D

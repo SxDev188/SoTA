@@ -1,6 +1,11 @@
 using System.Collections;
 using UnityEngine;
-
+/// <summary>
+/// Author:Karin
+/// 
+/// Modified by: Linus
+/// 
+/// </summary>
 public class CameraPanScript : MonoBehaviour
 {
     public static CameraPanScript Instance;

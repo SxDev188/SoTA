@@ -3,7 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Author: Linus, Emil
+/// 
+/// Modified by:Gabbriel, Karin
+/// 
+/// </summary>
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float timeWithoutStar = 10.0f;
@@ -98,7 +103,6 @@ public class PlayerHealth : MonoBehaviour
         SaveStateManager.Instance.Load();
         currentHealth = startingHealth;
 
-        //play respawn sfx here
         playerController.SetDeathAnimationFalse();
         StartCoroutine(PlayAndStopParticleBurst());
 
