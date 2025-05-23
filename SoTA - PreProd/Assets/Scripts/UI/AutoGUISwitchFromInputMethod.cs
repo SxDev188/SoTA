@@ -6,7 +6,6 @@ using UnityEngine;
 /// Author:Gabbriel
 /// 
 /// Modified by:
-/// 
 /// </summary>
 public class AutoGUISwitchFromInputMethod : MonoBehaviour
 {
