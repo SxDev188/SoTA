@@ -90,12 +90,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
-        IsDead = true;
-        deathSFX.start();
-        starActions.IsOnPlayer = false;
-        playerController.SetDeathAnimationTrue();
+        if (!IsDead) //to avoid triggering the sound effect and animation multiple times if player is gravity pulling through more than 1 set of spikes
+        {
+            IsDead = true;
+            deathSFX.start();
+            starActions.IsOnPlayer = false;
+            playerController.SetDeathAnimationTrue();
 
-        deathCooldownTimer.Start(deathCooldownDuration, Respawn); //automatically runs the Respawn() method when timer is finished
+            deathCooldownTimer.Start(deathCooldownDuration, Respawn); //automatically runs the Respawn() method when timer is finished
+        }
     }
 
     public void Respawn()
