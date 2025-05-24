@@ -20,12 +20,11 @@ public class SaveStateManager : MonoBehaviour
     private CameraPanObserver cameraScript;
     private GameObject[] buttons;
     private GameObject[] boulders;
-
     
-
     //Temporary fix I hope or more data added here and removed from other places
     private StarActions starActions;
     private PlayerStarActionController playerStarActionController;
+    private PlayerHealth playerHealth;
 
     private bool referencesSet = false;
     //private bool saved = false;
@@ -47,7 +46,7 @@ public class SaveStateManager : MonoBehaviour
         SetSaveableObjectReferences();
         starActions = GameObject.FindGameObjectWithTag("Star").GetComponent<StarActions>();
         playerStarActionController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStarActionController>();
-
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     //For Debug Purposes  <<-- If it works, then we should remove?
@@ -90,10 +89,16 @@ public class SaveStateManager : MonoBehaviour
     
     public void Save()
     {
+
         if (referencesSet == false)
             SetSaveableObjectReferences();
         if (player.GetComponent<PlayerController>().IsGrounded()|| player.GetComponent<CharacterController>().isGrounded || saves.Count < 1)
         {
+            if (playerHealth.IsDead)
+            {
+                return;
+            }
+
             saves.Add(CreateSaveData());
         }
     }
