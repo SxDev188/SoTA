@@ -13,10 +13,5 @@ MonoBehaviour:
   m_Name: Lore3
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: When The stars unleashed their wrath upon the snakes, all of them would
-      be turned to stone
-  - dialouge: The stars would send their own servant, a serpent gifted with their
-      light
-  - dialouge: Now, this servant shall eliminate the terrain snakes for their insubordination
-  - dialouge: When each snake has fallen to darkness, a new light will emerge
-  - dialouge: Yet the servant will not be there to witness it
+  - dialouge: When The Terrain Snakes came to the abyss, they would prove to be fools
+  - dialouge: Filled with a desire for superiority, they turned against their kin

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18e21e458e1c56a448a414f87b4ccc94, type: 3}
-  m_Name: Lore1
+  m_Name: Lore8
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: In ages long past, this land was verdant and filled with life
-  - dialouge: Under the watchful gaze of the stars, this realm prospered
-  - dialouge: Until everything was swallowed by the abyss
+  - dialouge: Go now, servant of the stars, and complete your mission
+  - dialouge: Though you will not be there to witness it, your actions shall herald
+      a new golden age
+  - dialouge: Trust in us, and eliminate the final traitor

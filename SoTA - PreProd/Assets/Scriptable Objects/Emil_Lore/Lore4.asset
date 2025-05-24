@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lore4
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: Go now, servant of the stars, and complete your mission
-  - dialouge: Though you will not be there to witness it, your actions shall herald
-      a new golden age
-  - dialouge: Trust in us, and eliminate the final traitor
+  - dialouge: As each of the terrain snakes fought for dominance, the abyss grew
+      darker, and they lost sight of their greater goal
+  - dialouge: The stars would not accept this infighting. In the snakes' attempt
+      to prove their worth, they would bring about their own doom
