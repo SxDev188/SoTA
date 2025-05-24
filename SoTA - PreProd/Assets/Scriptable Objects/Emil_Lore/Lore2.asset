@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Lore2
   m_EditorClassIdentifier: 
   dialogueInfo:
-  - dialouge: When The Terrain Snakes came to the abyss, they would prove to be fools
-  - dialouge: Filled with a desire for superiority, they turned against their kin
-  - dialouge: As each of them fought for dominance, the abyss grew darker, and they
-      lost sight of their greater goal
-  - dialouge: The stars would not accept this infighting. In the snakes' attempt
-      to prove their worth, they would bring about their own doom
+  - dialouge: In retaliation against the abyss, the stars sent out The terrain Snakes
+  - dialouge: 'Hulking creatures that were supposed to bring back what had been lost
+
+'
