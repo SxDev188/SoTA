@@ -201,7 +201,8 @@ public class UIScript : MonoBehaviour
         pauseMenuStartObject.SetActive(true);
     }
 
-    public void Focus(GameObject objectToFocus) // Pass in button element to focus on!
+    // Disabled/not used due to it being buggy...
+    public void Focus(GameObject objectToFocus) // Pass in button element to focus on
     {
         if (objectToFocus == null)
         {
@@ -212,14 +213,14 @@ public class UIScript : MonoBehaviour
         StartCoroutine(FocusNextFrame(objectToFocus));
     }
 
-    private IEnumerator FocusNextFrame(GameObject objectToFocus) // Stupid function
+    private IEnumerator FocusNextFrame(GameObject objectToFocus) 
     {
-        yield return null; // UI moment. We need to wait a frame sometimes to gain focus
+        yield return null; 
 
         while (objectToFocus == null || !objectToFocus.activeInHierarchy)
             yield return null;
 
-        EventSystem.current.SetSelectedGameObject(null); // UI moment again
+        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(objectToFocus); // Now we finally focus on the object in the menu
     }
 
