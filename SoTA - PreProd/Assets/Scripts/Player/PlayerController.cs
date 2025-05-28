@@ -248,14 +248,19 @@ public class PlayerController : MonoBehaviour
     {
         return lastMoveDirection;
     }
-    
+
+    float boulderMoveThreshhold = 0.5f;
     public Vector3 GetBoulderPushDirection() //Used for boulder push/pull
     {
         if (isAttachedToBoulder && isMovementLocked && movementLockAxis != Vector3.zero)
         {
             Vector3 boulderPushDirection = Vector3.Scale(movementInput, movementLockAxis);
-            boulderPushDirection = boulderPushDirection.normalized;
-            return boulderPushDirection;
+
+            if (boulderPushDirection.sqrMagnitude > Mathf.Pow(boulderMoveThreshhold, 2))  //here using boulderMoveThreshhold means that small amounts of stick drift on gamepad won't be enough to push the boulder in any direction
+            {
+                boulderPushDirection = boulderPushDirection.normalized;
+                return boulderPushDirection;
+            }
         }
 
         return Vector3.zero;
